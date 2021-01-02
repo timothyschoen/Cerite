@@ -1,0 +1,165 @@
+#pragma once
+#include <cmath>
+#include <boost/algorithm/string.hpp>
+#include "../Interface/Document.h"
+#include "../Interface/Library.h"
+#include "../Compiler/Preprocessor.h"
+namespace NADL {
+
+
+struct Exporter
+{
+    
+    static std::unordered_map<std::string, std::string> replacements;
+    
+    static std::string toCPP(Document doc) {
+        
+        std::string result = "#include <cmath>\n";
+        //result += "#include <vector>\n\n";
+        
+        result += "struct " + doc.name + " {\n\n";
+        addUpdateFunc(doc);
+        
+        Variable srvar("sr", true, 44100);
+        doc.addVariable(srvar);
+        
+        Variable dtvar("dt", true, 1./44100.);
+        doc.addVariable(dtvar);
+        
+        Variable gmvar("gMin", true, 1e-12);
+        doc.addVariable(gmvar);
+        
+        Variable donevar("done", true, 1);
+        doc.addVariable(donevar);
+        
+        result += writeVariables(doc) + "\n\n";
+        
+        //Variable sizevar("size", true, doc.size);
+        //doc.addVariable(sizevar);
+        
+        Preprocessor::preprocess(doc);
+
+        result += writeFunctions(doc);
+        
+        result += "};";
+        
+        std::string code = result;
+        
+        writeToFile(code, "../../../CppExporter/" + doc.name + ".cpp");
+
+        std::cout << code << std::endl;
+        
+        return code;
+    }
+    
+    static void writeToFile(std::string code, std::string location) {
+        std::ofstream ostr(location);
+        ostr << code;
+        ostr.close();
+    }
+    
+    static std::string writeVariables(Document& doc) {
+        
+        std::string result;
+        
+        for(auto& var : doc.variables) {
+            result += "\tdouble " + var.name;
+            
+            if(var.predefined) {
+                
+                std::ostringstream stream;
+                stream << var.init; // formats it to scientific notation if necessary
+
+                result += " = " + stream.str();
+            }
+            
+            result += ";\n";
+        }
+        
+        Function* initfunc = nullptr;
+        
+        for(auto& func : doc.functions) {
+            if(func.name == "init")
+                initfunc = &func;
+        }
+        if(initfunc == nullptr) {
+            doc.functions.push_back(Function("init", false));
+            initfunc = &doc.functions.back();
+        }
+        
+        for(auto& vec : doc.vectors) {
+            if(vec.dims == 1) {
+                result += "std::vector<double> " + vec.name + ";\n\t";
+                (*initfunc).body.insert(Token(vec.name + ".resize(" + std::to_string(vec.size) + ", 0);", tConst), 0);
+            }
+            else {
+                result += "\tstd::vector<double> " + vec.name + ";\n\t";
+                
+                (*initfunc).body.insert(Token(vec.name + ".resize(" + std::to_string(vec.size) + ", std::vector<double>(" + std::to_string(pow(vec.size, 2)) + ", 0));", tConst), 0);
+            }
+        }
+        
+        return result;
+    }
+    
+    
+    static std::string writeFunctions(Document& doc) {
+        std::string result;
+            
+        for(auto& func : doc.functions) {
+            
+            for(auto& repl : replacements)
+                func.body.replaceSymbol(repl.first, repl.second);
+
+            
+            if(func.empty()) return "";
+                  
+            std::string funcstr;
+            
+            funcstr += func.body.toCPP(doc) + "\n";
+            
+            // fix indentation
+            boost::replace_all(funcstr, ";", ";\n\t\t");
+
+            funcstr += "\n\t}\n\n\n";
+            result += "\tvoid " + func.name + "() {\n\t\t" + funcstr;
+            
+        }
+        
+        return result;
+    }
+    
+    static void addUpdateFunc(Document& doc) {
+        std::string fullExpr;
+        
+        for(auto& vec : doc.vectors) {
+            
+            if(vec.local || !vec.update) continue;
+
+            for(int i = 0; i < vec.definition.size(); i++) {
+                //vec.definition[i].removeSemicolons();
+                if(vec.definition[i].empty())
+                    vec.definition[i] = TokenString("0", vec.definition[i].chars);
+                
+                std::string name;
+                
+               
+                name = vec.name + "[" + std::to_string(i + 1) + "]";
+
+                fullExpr += "\t\t" + name + " = " + vec.definition[i].toCPP(doc) + ";\n";
+                
+            }
+        }
+        
+        Function update(TokenString(fullExpr, doc.vtable), false);
+        update.name = "update";
+        doc.functions.push_back(update);
+    }
+    
+};
+
+
+
+std::unordered_map<std::string, std::string> Exporter::replacements = {{":=", "="}, {"print(dt, ", "printf(\"%G\", "}, {"max(", "fmax("}};
+
+}

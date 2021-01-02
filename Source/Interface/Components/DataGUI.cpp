@@ -1,0 +1,420 @@
+#include "DataGUI.h"
+
+HSliderContainer::~HSliderContainer()
+{
+    slider.setLookAndFeel(nullptr);
+    removeChildComponent(&slider);
+}
+
+HSliderContainer::HSliderContainer(ValueTree tree, Box* box) : boxTree(tree)
+{
+    addAndMakeVisible(slider);
+    slider.setLookAndFeel(&clook);
+    slider.setRange(0., 1., 0.001);
+    slider.setTextBoxStyle(Slider::NoTextBox, 0, 0, 0);
+    
+    slider.onDragStart = [this]() {
+        //startEdition();
+    };
+    
+    slider.onValueChange = [this]()
+    {
+        
+        const float val = slider.getValue();
+        /*
+        if(gui.isLogScale())
+        {
+            setValueOriginal(exp(val * log(max / min)) * min);
+        }
+        else
+        {
+            setValueScaled(val);
+        }*/
+        
+    };
+    
+    slider.onDragEnd = [this]() {
+        //stopEdition();
+    };
+}
+
+void HSliderContainer::resized()
+{
+    slider.setBounds(0, 0, 130, 30);
+}
+
+Point<int> HSliderContainer::getBestSize()
+{
+    return Point<int>(130, 30);
+}
+
+void HSliderContainer::update()  {
+    //slider.setValue(getValueScaled(), dontSendNotification);
+}
+
+
+
+
+VSliderContainer::~VSliderContainer()
+{
+    
+    slider.setLookAndFeel(nullptr);
+    removeChildComponent(&slider);
+}
+
+VSliderContainer::VSliderContainer(ValueTree tree, Box* box) : boxTree(tree)
+{
+    addAndMakeVisible(slider);
+    slider.setLookAndFeel(&clook);
+    slider.setSliderStyle(Slider::LinearVertical);
+    slider.setRange(0., 1., 0.001);
+    slider.setTextBoxStyle(Slider::NoTextBox, 0, 0, 0);
+    
+    slider.onDragStart = [this]() {
+        //startEdition();
+    };
+    
+    slider.onValueChange = [this]()
+    {
+        
+        const float val = slider.getValue();
+        /*
+        if(gui.isLogScale())
+        {
+            setValueOriginal(exp(val * log(max / min)) * min);
+        }
+        else
+        {
+            setValueScaled(val);
+        } */
+    };
+    
+    slider.onDragEnd = [this]() {
+        //stopEdition();
+    };
+}
+
+void VSliderContainer::resized()
+{
+    slider.setBounds(10, 0, 30, 130);
+}
+
+Point<int> VSliderContainer::getBestSize()
+{
+    return Point<int>(50, 130);
+}
+
+void VSliderContainer::update()  {
+    //slider.setValue(getValueScaled(), dontSendNotification);
+}
+
+
+
+void BangButton::mouseDown (const MouseEvent &)  {
+    onMouseDown();
+}
+
+
+
+BangContainer::~BangContainer()
+{
+    
+    setLookAndFeel(nullptr);
+    removeChildComponent(&bangbutton);
+}
+
+BangContainer::BangContainer(ValueTree tree, Box* box) : boxTree(tree)
+{
+    
+    addAndMakeVisible(bangbutton);
+    setLookAndFeel(&dlook);
+    
+    
+    bangbutton.setColour (TextButton::buttonOnColourId, Colour(25, 25, 25));
+    bangbutton.setColour (TextButton::buttonColourId, Colour(41, 41, 41));
+    
+    bangbutton.onMouseDown = [this]()
+    {
+        processor->target({tBang, 0, "bang", 0, 0});
+        //startEdition();
+        //setValueOriginal(1);
+        //stopEdition();
+    };
+    
+    
+}
+
+void BangContainer::resized()
+{
+    bangbutton.setBounds(10, 10, 20, 20);
+}
+
+Point<int> BangContainer::getBestSize()
+{
+    return Point<int>(40, 40);
+}
+
+void BangContainer::update()  {
+    
+    //if(getValueOriginal() > std::numeric_limits<float>::epsilon()) {
+    //    bangbutton.triggerClick();
+    //}
+}
+
+
+void TglButton::mouseDown (const MouseEvent &)  {
+    onMouseDown();
+}
+
+
+ToggleContainer::~ToggleContainer()
+{
+    
+    setLookAndFeel(nullptr);
+    removeChildComponent(&togglebutton);
+}
+
+ToggleContainer::ToggleContainer(ValueTree tree, Box* box) : boxTree(tree)
+{
+    addAndMakeVisible(togglebutton);
+    setLookAndFeel(&dlook);
+    
+    togglebutton.setColour (TextButton::buttonOnColourId, Colour(25, 25, 25));
+    togglebutton.setColour (TextButton::buttonColourId, Colour(41, 41, 41));
+    togglebutton.onMouseDown = [this]()
+    {
+        //startEdition();
+        //setValueOriginal(1.f - getValueOriginal());
+        //stopEdition();
+    };
+}
+
+void ToggleContainer::resized()
+{
+    togglebutton.setBounds(10, 10, 20, 20);
+}
+
+Point<int> ToggleContainer::getBestSize()
+{
+    return Point<int>(40, 40);
+}
+
+void ToggleContainer::update()  {
+    //togglebutton.setToggleState((getValueOriginal() > std::numeric_limits<float>::epsilon()), dontSendNotification);
+}
+
+
+
+void NumComponent::mouseDown(const MouseEvent & e)  {
+    oldval = getText().getFloatValue();
+}
+
+void NumComponent::focusGained(FocusChangeType type)  {
+    onFocusGained();
+}
+
+void NumComponent::mouseDrag(const MouseEvent & e)  {
+    
+    int dist = -e.getDistanceFromDragStartY();
+    if(abs(dist) > 2) {
+        float newval = oldval + ((float)dist / 100.);
+        setText(String(newval));
+    }
+    onMouseDrag();
+}
+
+
+NumboxContainer::~NumboxContainer()
+{
+    
+    input.setLookAndFeel(nullptr);
+    removeChildComponent(&input);
+}
+
+NumboxContainer::NumboxContainer(ValueTree tree, Box* box) : boxTree(tree)
+{
+    addAndMakeVisible(input);
+    input.setLookAndFeel(&clook);
+    input.setInputRestrictions(0, ".-0123456789");
+    
+    input.setText("0.");
+    //bangbutton.setSliderStyle(SliderStyle::Vertical)
+    input.onFocusGained = [this]()
+    {
+        //startEdition();
+    };
+    
+    
+    input.onMouseDrag = [this]()
+    {
+        //setValueOriginal(input.getText().getFloatValue());
+    };
+    
+    input.onFocusLost = [this]()
+    {
+        //setValueOriginal(input.getText().getFloatValue());
+        //stopEdition();
+    };
+}
+
+
+void NumboxContainer::resized()
+{
+    input.setBounds(0, -1, 60, 23);
+}
+
+Point<int> NumboxContainer::getBestSize()
+{
+    return Point<int>(60, 22);
+}
+
+void NumboxContainer::update()  {
+    //input.setText(String(getValueOriginal()), dontSendNotification);
+}
+
+MessageContainer::~MessageContainer()
+{
+    
+    input.setLookAndFeel(nullptr);
+    removeChildComponent(&input);
+}
+
+MessageContainer::MessageContainer(ValueTree tree, Box* box) : boxTree(tree)
+{
+    addAndMakeVisible(bangbutton);
+    addAndMakeVisible(input);
+    
+    bangbutton.setConnectedEdges(12); // No rounded corners
+    
+    input.setLookAndFeel(&clook);
+    bangbutton.setLookAndFeel(&clook);
+    
+    //bangbutton.setSliderStyle(SliderStyle::Vertical)
+    bangbutton.onMouseDown = [this]()
+    {
+        //startEdition();
+        //gui.setSymbol(input.getText().toStdString());
+        //stopEdition();
+    };
+}
+
+
+void MessageContainer::resized()
+{
+    input.setBounds(0, -1, 100, 23);
+    bangbutton.setBounds(99, -1, 23, 23);
+}
+
+Point<int> MessageContainer::getBestSize()
+{
+    return Point<int>(122, 22);
+}
+
+void MessageContainer::update()  {
+    //input.setText(String(gui.getSymbol()), NotificationType::dontSendNotification);
+}
+
+void MessageContainer::updateValue()
+{
+    /*
+    if(edited == false)
+    {
+        
+        std::string const v = ""; //gui.getSymbol();
+        if(v != last)
+        {
+            last = v;
+            update();
+        }
+    } */
+}
+
+
+HRadioGroup::~HRadioGroup()
+{
+    
+    for(int i = 0; i < 8; i++) {
+        radiobuttons[i]->setLookAndFeel(nullptr);
+        removeChildComponent(radiobuttons[i]);
+    }
+    
+}
+
+HRadioGroup::HRadioGroup(ValueTree tree, Box* box) : boxTree(tree)
+{
+    
+    for(int i = 0; i < 8; i++) {
+        TextButton* rbut = radiobuttons.add(new TextButton());
+        rbut->onClick = [this, i]() mutable {
+            //setValueOriginal(i);
+        };
+        rbut->setConnectedEdges(12); // No rounded corners
+        rbut->setRadioGroupId(1001);
+        rbut->setClickingTogglesState(true);
+        addAndMakeVisible(rbut);
+        rbut->setLookAndFeel(&clook);
+        
+    }
+    
+}
+
+void HRadioGroup::resized()
+{
+    for(int i = 0; i < 8; i++) {
+        radiobuttons[i]->setBounds(i*20, -1, 21, 21);
+    }
+    
+}
+
+Point<int> HRadioGroup::getBestSize()
+{
+    return Point<int>(161, 20);
+}
+
+void HRadioGroup::update()  {
+   // radiobuttons[int(getValueOriginal())]->setToggleState(true, dontSendNotification);
+}
+
+
+VRadioGroup::~VRadioGroup()
+{
+    
+    for(int i = 0; i < 5; i++) {
+        radiobuttons[i]->setLookAndFeel(nullptr);
+        removeChildComponent(radiobuttons[i]);
+    }
+    
+}
+
+VRadioGroup::VRadioGroup(ValueTree tree, Box* box) : boxTree(tree)
+{
+    
+    for(int i = 0; i < 8; i++) {
+        TextButton* rbut = radiobuttons.add(new TextButton());
+        rbut->onClick = [this, i]() mutable {
+           // setValueOriginal(i);
+        };
+        rbut->setConnectedEdges(12);
+        rbut->setRadioGroupId(1001);
+        rbut->setClickingTogglesState(true);
+        addAndMakeVisible(rbut);
+        rbut->setLookAndFeel(&clook);
+    }
+}
+
+void VRadioGroup::resized()
+{
+    for(int i = 0; i < 8; i++) {
+        radiobuttons[i]->setBounds(20, i*20, 20, 20);
+    }
+}
+
+Point<int> VRadioGroup::getBestSize()
+{
+    return Point<int>(60, 160);
+}
+
+void VRadioGroup::update()
+{
+   // radiobuttons[int(getValueOriginal())]->setToggleState(true, dontSendNotification);
+}
