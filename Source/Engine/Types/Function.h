@@ -24,7 +24,7 @@ struct Function
 
     Function(const TokenString& body, bool loc) : body(body), local(loc) {};
     
-    void fixIndices(const std::vector<std::pair<int, int>> indices, const std::string& name);
+    void fixIndices(const std::vector<std::pair<int, int>> indices, const std::string& name, int type);
     
     void replaceVariable(const std::string& oldname, const std::string& newname) {
         body.replaceSymbol(oldname, newname, true);

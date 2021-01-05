@@ -15,9 +15,9 @@ AudioSettings::AudioSettings()
 
 void AudioSettings::init(MainComponent* main)
 {
-	audioSetupComp.reset (new AudioDeviceSelectorComponent (main->deviceManager, 0, 256, 0, 256, true, true, true, false));
-	addAndMakeVisible(audioSetupComp.get());
-	resized();
+	//audioSetupComp.reset (new AudioDeviceSelectorComponent (main->deviceManager, 0, 256, 0, 256, true, true, true, false));
+	//addAndMakeVisible(audioSetupComp.get());
+	//resized();
 }
 
 void AudioSettings::resized()

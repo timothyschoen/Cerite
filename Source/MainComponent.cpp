@@ -6,6 +6,8 @@
 #include "Interface/Sidebar/Console.h"
 #include "Utility/FSManager.h"
 #include "Interface/SaveDialog.h"
+#include "Interface/Components/AudioPlayerContainer.h"
+#include "Engine/Worker/Source/Message.h"
 
 
 //==============================================================================
@@ -15,7 +17,6 @@ MainComponent::MainComponent() : canvas(this), sidebar(this), topmenu(&canvas, t
     setSize (1200, 720);
     setLookAndFeel(&clook);
     addAndMakeVisible(statusbar);
-    updateMidiInputs();
     viewport.setViewedComponent(&canvas, false);
     addAndMakeVisible(viewport);
     addAndMakeVisible(toolbar);
@@ -24,143 +25,82 @@ MainComponent::MainComponent() : canvas(this), sidebar(this), topmenu(&canvas, t
     
     resized();
     ((Console*)sidebar.content[2])->clear();
-    registerAllCommandsForTarget(&appcmds);
-    setFirstCommandTarget(&appcmds);
+    commandManager.registerAllCommandsForTarget(&appcmds);
+    commandManager.setFirstCommandTarget(&appcmds);
     
+    launchSlaveProcess(FSManager::exec.getChildFile("CeriteWorker"), "CeritePort", 0);
     
     //pd.reset(new CeriteAudioProcessor);
-    setAudioChannels (2, 2);
+    //setAudioChannels (2, 2);
 }
 
 MainComponent::~MainComponent()
 {
     // This shuts down the audio device and clears the audio source.
-    shutdownAudio();
+    //shutdownAudio();
     /*
-    toolbar.setLookAndFeel(nullptr);
-    sidebar.setLookAndFeel(nullptr);
-    canvas.setLookAndFeel(nullptr); */
+     toolbar.setLookAndFeel(nullptr);
+     sidebar.setLookAndFeel(nullptr);
+     canvas.setLookAndFeel(nullptr); */
     setLookAndFeel(nullptr);
     /*
-    viewport.removeChildComponent(&canvas);
-    removeChildComponent(&statusbar);
-    removeChildComponent(&sidebar);
-    removeChildComponent(&canvas);
-    removeChildComponent(&viewport);
-    removeChildComponent(&toolbar); */
+     viewport.removeChildComponent(&canvas);
+     removeChildComponent(&statusbar);
+     removeChildComponent(&sidebar);
+     removeChildComponent(&canvas);
+     removeChildComponent(&viewport);
+     removeChildComponent(&toolbar); */
+    
+    killSlaveProcess();
 }
 
 
 void MainComponent::updateSystem()
 {
-    if(bool(canvas.programState.getProperty("Power"))/*msystem != nullptr*/)
+    if(bool(canvas.programState.getProperty("Power")))
     {
         
-        Cerite::Patch* patch = canvas.createPatch().compile<Cerite::Patch>([](const char* str) {
+       /* Cerite::Patch* patch = canvas.createPatch().compile<Cerite::Patch>([](const char* str) {
             logMessage(str);
-        });
-        processor.reset(patch);
-        processor->init(1./44100.);
+        }); */
         
-        for(auto& ext : external)
-            ext->init(processor.get());
-        
-        output = processor->getVariablePtr("out");
-        
-        audioLock->exit();
-        //startbutton.setColour(TextButton::textColourOnId, Colours::green);
     }
 }
 //==============================================================================
+
+void MainComponent::setVolume(float level) {
+    
+    MemoryOutputStream memstream;
+    memstream.writeInt(MessageID::Volume);
+    memstream.writeFloat(level);
+    
+    sendMessageToSlave(memstream.getMemoryBlock());
+}
+
 void MainComponent::startAudio (double sampleRate, std::vector<double> settings)
 {
-    audioLock->enter();
-    updateMidiInputs();
-
-    oversample = settings[5];
-    osfactor = pow(2, oversample);
+   
+    setVolume(Decibels::decibelsToGain ((float) statusbar.volumeSlider.getValue()));
     
-    //pd->prepareToPlay(sampleRate, samplesPerBlock, oversample);
+    MemoryOutputStream memstream;
+    memstream.writeInt(MessageID::Start);
+    memstream.writeString(Compiler::exportCode(canvas.createPatch()));
+    sendMessageToSlave(memstream.getMemoryBlock());
     
-    oversampler.reset(new dsp::Oversampling<float>(2, oversample, dsp::Oversampling<float>::filterHalfBandFIREquiripple));
     
-    oversampler->initProcessing(samplesPerBlock);
-    
-    bypass = false;
-    Cerite::Patch* patch = canvas.createPatch().compile<Cerite::Patch>([](const char* str) {
-        logMessage(str);
-    });
-    processor.reset(patch);
-    processor->init(1./44100.);
-    
-    for(auto& ext : external)
-        ext->init(processor.get());
-    
-    output = processor->getVariablePtr("out");
-    
-    audioLock->exit();
     canvas.programState.setProperty("Power", true, nullptr);
+    
 }
 
 void MainComponent::stopAudio()
 {
-    audioLock->enter();
+    MemoryOutputStream memstream;
+    memstream.writeInt(MessageID::Stop);
+    sendMessageToSlave(memstream.getMemoryBlock());
+    
+    statusbar.lvlmeter->setLevel(0);
+    
     canvas.programState.setProperty("Power", false, nullptr);
-    processor = nullptr;
-    bypass = true;
-    //if(pd.get()) pd->setBypass(true);
-    audioLock->exit();
-}
-
-void MainComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill)
-{
-    
-    MidiBuffer mbuf;
-    if(!processor)  {
-        bufferToFill.clearActiveBufferRegion();
-        return;
-    }
-    
-    
-
-    for(int i = 0; i < bufferToFill.numSamples; i++)
-    {
-        //*vinp = bufferToFill.buffer->getSample(0, i);
-        for(auto& ext : external)
-            ext->tick();
-        
-        processor->tick();
-        
-        //double output = processor->getVariable<double>("out");
-        //processor->setVariable<double>("out", 0);
-        
-        //std::cout << processor->getVariable<double>("phase_sin1") << std::endl;
-        bufferToFill.buffer->setSample(0, i, *output * volume);
-        bufferToFill.buffer->setSample(1, i, *output * volume);
-        *output = 0;
-
-    }
-    
-    
-    //pd->processBlock(buf, mbuf);
-    //buf.applyGain(volume);
-    
-    //oversampler->processSamplesDown(block);
-}
-
-
-void MainComponent::releaseResources()
-{
-    audioLock->enter();
-    
-    //if(net != nullptr)
-    //{
-    //    msystem = nullptr;
-    //    net = nullptr;
-        
-   // }
-    //processor->clear();
-    audioLock->exit();
 }
 
 //==============================================================================
@@ -187,29 +127,16 @@ void MainComponent::resized()
 #else
     toolbar.setBounds(0, 0, sidebar.getX(), 40);
 #endif
-
+    
 }
 
 bool MainComponent::saveAudioFile()
 {
-    ExportDialog exporter(this);
+    //ExportDialog exporter(this);
     
     return true;
 };
 
-
-void MainComponent::updateMidiInputs()
-{
-    auto midiInputs = juce::MidiInput::getAvailableDevices();
-    
-    for (auto input : midiInputs)
-    {
-        if (deviceManager.isMidiInputDeviceEnabled (input.identifier))
-            deviceManager.addMidiInputDeviceCallback (input.identifier, this);
-        else
-            deviceManager.removeMidiInputDeviceCallback(input.identifier, this);
-    }
-}
 
 void MainComponent::setTitle(std::string newTitle)
 {
@@ -281,8 +208,8 @@ void MainComponent::saveCode() {
     
     //saveChooser.reset(new FileChooser("Export Audio", FSManager::home.getChildFile("Saves"), extensions[formatidx]));
     
-   // if (saveChooser->browseForFileToSave(true))
-   //     destination = saveChooser->getResult();
+    // if (saveChooser->browseForFileToSave(true))
+    //     destination = saveChooser->getResult();
     //else return;
     
     std::unique_ptr<Cerite::Patch> patch;
@@ -291,7 +218,120 @@ void MainComponent::saveCode() {
 }
 
 void MainComponent::logMessage(const char* str) {
-    // this is baadddd
-    Canvas::mainCanvas->main->sidebar.console->logMessage(str);
+
+    MainComponent::getInstance()->sidebar.console->logMessage(str);
+}
+
+void MainComponent::handleConnectionLost () {
+    
+    
+    crashed = true;
+    //jassertfalse;
+    
+    startTimer(100);
+    //launchSlaveProcess(FSManager::exec.getChildFile("CeriteWorker"), "CeritePort", 0);
+}
+
+
+void MainComponent::timerCallback() {
+    launchSlaveProcess(FSManager::exec.getChildFile("CeriteWorker"), "CeritePort", 0);
+    stopTimer();
+}
+
+void MainComponent::handleMessageFromSlave (const MemoryBlock& m) {
+    MemoryInputStream memstream(m, false);
+    
+    MessageID type = (MessageID)memstream.readInt();
+    
+    switch (type) {
+        case Stop: {
+            MessageManager::callAsync(
+                     [=] () {
+                statusbar.powerButton.setToggleState(false, sendNotification);
+            });
+            break;
+        }
+        case Ready:
+            attachParameters();
+            break;
+        case Volume:
+            statusbar.lvlmeter->setLevel(memstream.readFloat());
+            break;
+        case Log:
+            logMessage(memstream.readString().toRawUTF8());
+            break;
+        case SetParam: {
+            int idx = memstream.readInt();
+            Data d = DataStream::readFromStream(memstream);
+            if(idx < guiComponents.size())
+            {
+                guiComponents[idx]->receive(d);
+            }
+            break;
+        }
+        case SendProcessor: {
+            int idx = memstream.readInt();
+            if(memstream.readInt() == ProcessorType::AudioPlayerType) {
+                int messageType = memstream.readInt();
+                if(messageType == 2) {
+                    static_cast<AudioPlayerContainer*>(guiComponents[idx])->setPosition(memstream.readInt());
+                }
+            }
+            break;
+        }
+            
+    }
+}
+
+void MainComponent::attachParameters() {
+    
+    Array<String> used;
+    guiComponents.clear();
+    
+    int total = 0;
+    int processorcount = 0;
+    
+    for(auto& box : canvas.boxmanager->objects) {
+        if(box->GraphicalComponent) {
+            
+            guiComponents.add(box->GraphicalComponent.get());
+            int count = 1;
+            
+            String paramname = box->type.substring(0, 3) + String(count);
+            while(used.contains(paramname)) {
+                paramname = box->type.substring(0, 3) + String(++count);
+            }
+            used.add(paramname);
+            
+            if(box->GraphicalComponent->type != ProcessorType::None) {
+               
+                MemoryOutputStream memstream;
+                memstream.writeInt(MessageID::AddProcessor);
+                memstream.writeInt(box->GraphicalComponent->type);
+                memstream.writeInt(processorcount);
+                memstream.writeInt(total);
+                memstream.writeString(paramname);
+                sendMessageToSlave(memstream.getMemoryBlock());
+                box->GraphicalComponent->setID(processorcount);
+                processorcount++;
+                total++;
+                continue;
+            }
+
+            // Send registration message for parameter
+            MemoryOutputStream memstream;
+            memstream.writeInt(MessageID::LoadParam);
+            memstream.writeString(paramname);
+            memstream.writeInt(total);
+            sendMessageToSlave(memstream.getMemoryBlock());
+            
+            // Register ID with component
+            box->GraphicalComponent->setID(total);
+            
+            total++;
+        }
+    }
     
 }
+
+JUCE_IMPLEMENT_SINGLETON(MainComponent);

@@ -2,42 +2,41 @@
 #include "../MainComponent.h"
 
 
-ToolbarWrapper::ToolbarWrapper(AudioAppComponent* main)
+ToolbarWrapper::ToolbarWrapper(MainComponent* main)
 {
 	setStyle(Toolbar::ToolbarItemStyle::textOnly);
 	setVertical(false);
 	setAlwaysOnTop(true);
-	MainComponent* m = static_cast<MainComponent*>(main);
-	cnv = &(m->canvas);
+	cnv = &(main->canvas);
     
     functions.resize(8);
 	// Functions when the buttons are clicked
-	functions[0] = [this, m]()->void
+	functions[0] = [this, main]()->void
 	{
-		m->appcmds.invokeDirectly(AppCommands::keyCmd::New, true);
+        main->appcmds.invokeDirectly(AppCommands::keyCmd::New, true);
 	};
     
-    functions[1] = [this, m]()->void
+    functions[1] = [this, main]()->void
 	{
-		m->appcmds.invokeDirectly(AppCommands::keyCmd::Open, true);
+        main->appcmds.invokeDirectly(AppCommands::keyCmd::Open, true);
 	};
     
-    functions[2] = [this, m]()->void
+    functions[2] = [this, main]()->void
 	{
-		m->appcmds.invokeDirectly(AppCommands::keyCmd::Save, true);
+        main->appcmds.invokeDirectly(AppCommands::keyCmd::Save, true);
 	};
-    functions[3] = [this, m]()->void
+    functions[3] = [this, main]()->void
 	{
-		m->appcmds.invokeDirectly(AppCommands::keyCmd::Undo, true);
-	};
-    
-    functions[4] = [this, m]()->void
-	{
-		m->appcmds.invokeDirectly(AppCommands::keyCmd::Redo, true);
+        main->appcmds.invokeDirectly(AppCommands::keyCmd::Undo, true);
 	};
     
+    functions[4] = [this, main]()->void
+	{
+		main->appcmds.invokeDirectly(AppCommands::keyCmd::Redo, true);
+	};
     
-    functions[5] = [this, m]()->void
+    
+    functions[5] = [this, main]()->void
     {
 
         
@@ -60,39 +59,39 @@ ToolbarWrapper::ToolbarWrapper(AudioAppComponent* main)
         const int result = mainMenu.showAt(getItemComponent(5)->getScreenBounds());
         
         if(result == 1) {
-            m->appcmds.invokeDirectly(AppCommands::keyCmd::NewBox, true);
+            main->appcmds.invokeDirectly(AppCommands::keyCmd::NewBox, true);
         }
         else if(result == 2) {
-            m->appcmds.invokeDirectly(AppCommands::keyCmd::newEdge, true);
+            main->appcmds.invokeDirectly(AppCommands::keyCmd::newEdge, true);
         }
         else if(result == 4) {
-            m->appcmds.invokeDirectly(AppCommands::keyCmd::NewNBX, true);
+            main->appcmds.invokeDirectly(AppCommands::keyCmd::NewNBX, true);
         }
         else if(result == 5) {
-            m->appcmds.invokeDirectly(AppCommands::keyCmd::NewMSG, true);
+            main->appcmds.invokeDirectly(AppCommands::keyCmd::NewMSG, true);
         }
         else if(result == 6) {
-            m->appcmds.invokeDirectly(AppCommands::keyCmd::NewBNG, true);
+            main->appcmds.invokeDirectly(AppCommands::keyCmd::NewBNG, true);
         }
         else if(result == 7) {
-            m->appcmds.invokeDirectly(AppCommands::keyCmd::NewTGL, true);
+            main->appcmds.invokeDirectly(AppCommands::keyCmd::NewTGL, true);
         }
         else if(result == 8) {
-            m->appcmds.invokeDirectly(AppCommands::keyCmd::NewHSL, true);
+            main->appcmds.invokeDirectly(AppCommands::keyCmd::NewHSL, true);
         }
         else if(result == 9) {
-            m->appcmds.invokeDirectly(AppCommands::keyCmd::NewVSL, true);
+            main->appcmds.invokeDirectly(AppCommands::keyCmd::NewVSL, true);
         }
         else if(result == 10) {
-            m->appcmds.invokeDirectly(AppCommands::keyCmd::NewHRAD, true);
+            main->appcmds.invokeDirectly(AppCommands::keyCmd::NewHRAD, true);
         }
         else if(result == 11) {
-            m->appcmds.invokeDirectly(AppCommands::keyCmd::NewVRAD, true);
+            main->appcmds.invokeDirectly(AppCommands::keyCmd::NewVRAD, true);
         }
 
     };
     
-    functions[6] = [this, m]()->void
+    functions[6] = [this, main]()->void
     {
         PopupMenu menu;
         menu.addItem (1, "Export Audio");
@@ -100,7 +99,7 @@ ToolbarWrapper::ToolbarWrapper(AudioAppComponent* main)
     
         const int result = menu.showAt(getItemComponent(6)->getScreenBounds());
         if(result == 1) {
-            m->saveAudioFile();
+            main->saveAudioFile();
         }
         else if (result == 2){
             

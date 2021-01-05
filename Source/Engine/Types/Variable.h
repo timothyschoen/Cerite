@@ -27,7 +27,9 @@ struct Variable
     double* value;
     bool vecstart = false;
     
-    
+    bool isFuncptr() {
+        return ctype.find("(*)") != std::string::npos;
+    }
     
     void getOrigin() {
         size_t pos = name.find("_");

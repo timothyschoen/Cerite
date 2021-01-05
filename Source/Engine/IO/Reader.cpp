@@ -80,7 +80,7 @@ void Reader::getImports(Document& doc, VarTable& table, std::string importstr) {
     boost::split(split, definition,boost::is_any_of(","));
     
     for(auto& import : split) {
-        if(Library::currentLibrary->contexts.count(import) > 0) {
+        if(Library::isContext(import)) {
             Document& imported = Library::currentLibrary->contexts[import];
             table.spectypes.insert(table.spectypes.begin(), import + "_size");
             table.spectypes.insert(table.spectypes.begin(), import + "_ports");
@@ -90,7 +90,16 @@ void Reader::getImports(Document& doc, VarTable& table, std::string importstr) {
             doc.contexts.push_back(imported.name);
             doc.vectors.insert(doc.vectors.begin(), imported.vectors.begin(), imported.vectors.end());
             doc.variables.insert(doc.variables.begin(), imported.variables.begin(), imported.variables.end());
-            doc.functions.insert(doc.functions.begin(), imported.functions.begin(), imported.functions.end());
+            
+            for(auto& func : imported.functions) {
+                Function* funcptr = doc.getFunctionPtr(func.name);
+                if(funcptr == nullptr) {
+                    doc.functions.push_back(func);
+                }
+                else if(!func.body.empty()) {
+                    funcptr->body.append(func.body.tokens);
+                }
+            }
         }
         else
             std::cerr << "Could not find import " << import << std::endl;
@@ -185,19 +194,26 @@ void Reader::parseVariables(Document& doc, VarTable& table, std::string varstrin
             // Add vector to document
             doc.vectors.push_back(newvec);
             
+            
+            
             // Add vector to table to allow predefinition
-            table.vectypes.push_back({newvec.name, doc.local});
+            table.vectypes.push_back({newvec.name, doc.name});
         }
         else if(isFunction) {
             idx = func;
+            
+
             
             Function newfunc("", doc.local);
             newfunc.args = var.substr(idx + 2, var.rfind(")") - (idx + 2));
             newfunc.name = var.substr(0, idx + 1);
             
+            
+ 
+            
             doc.functions.push_back(newfunc);
             // Add function to the table to allow definition
-            table.functypes.push_back({var.substr(0, idx + 1), doc.local});
+            table.functypes.push_back({var.substr(0, idx + 1), doc.name});
             
         }
         else if(isDefined) {
@@ -212,7 +228,7 @@ void Reader::parseVariables(Document& doc, VarTable& table, std::string varstrin
             v.ctype = ctype;
 
             
-            table.vartypes.push_back({var.substr(0, idx), doc.local});
+            table.vartypes.push_back({var.substr(0, idx), doc.name});
             doc.variables.insert(doc.variables.begin(), v);
             
 
@@ -225,7 +241,7 @@ void Reader::parseVariables(Document& doc, VarTable& table, std::string varstrin
             v.argpos = argpos;
             v.ctype = ctype;
             
-            table.vartypes.push_back({var, doc.local});
+            table.vartypes.push_back({var, doc.name});
             doc.variables.insert(doc.variables.begin(), v);
             
             
@@ -241,7 +257,7 @@ void Reader::handleSection(Document& doc, const std::string& selector, const std
     {
         // Get vector from document
         Vector* vec = doc.getVectorPtr(selector);
-        bool local = table.isLocal(selector);
+        std::string origin = table.getOrigin(selector);
         
         // Get the definition
         std::vector<std::string> definition;
@@ -257,7 +273,7 @@ void Reader::handleSection(Document& doc, const std::string& selector, const std
         for(auto& cell : definition)
             vec->definition.push_back(TokenString(cell, table));
 
-        vec->local = local;
+        vec->local = origin == doc.name;
         
         return;
     }
@@ -266,7 +282,7 @@ void Reader::handleSection(Document& doc, const std::string& selector, const std
     {
         // Get function from document
         Function* func = doc.getFunctionPtr(selector);
-        bool isLocal = table.isLocal(selector);
+        std::string origin = table.getOrigin(selector);
                 
         TokenString tokenized(content, table);
         
@@ -277,7 +293,7 @@ void Reader::handleSection(Document& doc, const std::string& selector, const std
         }
         // Otherwise add a new function
         else {
-            Function newfunc(tokenized, isLocal);
+            Function newfunc(tokenized, false);
             newfunc.name = selector;
             newfunc.origin = doc.name;
             doc.functions.push_back(newfunc);

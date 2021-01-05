@@ -10,6 +10,7 @@ struct FSManager
 	static File home;
     static File work;
 	static File media;
+    static File exec;
 	static File metaData;
 
 	static std::unique_ptr<XmlElement> meta;

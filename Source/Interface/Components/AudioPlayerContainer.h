@@ -3,6 +3,7 @@
 #include <JuceHeader.h>
 #include "GUIContainer.h"
 #include "../Canvas/ProgramState.h"
+#include "../../Engine/Worker/Source/Message.h"
 
 enum TransportState
 {
@@ -12,7 +13,7 @@ enum TransportState
     LoopOn,
     LoopOff
 };
-
+/*
 struct PlayerBase : public ExternalProcessor, public ValueTree::Listener
 {
 	bool playing = false;
@@ -170,7 +171,7 @@ struct PlayerBase : public ExternalProcessor, public ValueTree::Listener
                setPosition(treeWhosePropertyHasChanged.getProperty("Value"));
           }
      }
-};
+}; */
 
 class AudioFileList : public FileListComponent
 {
@@ -204,19 +205,16 @@ public:
 
     TransportState state = Stopping;
 
-    ValueTree transportTree;
-    ValueTree loopTree;
-    ValueTree parameters;
-    ValueTree boxTree;
-    ValueTree programState;
 
     Box* parent;
 
     audioSliderLook alook;
     
+    AudioFormatManager formatManager;
 
-    int currentsamp = 0;
+    std::atomic<int> currentsamp = 0;
     int totalsamps = 0;
+    int nextSample = 0;
 
     ~AudioPlayerContainer();
 
@@ -230,6 +228,11 @@ public:
 
     void timerCallback() override;
 
+    void setPosition(int positionInSamples) {
+        currentsamp = positionInSamples;
+    }
+    
+    void setID(int newID) override;
 
     void fileClicked (const File &file, const MouseEvent &e) override;
 
@@ -239,11 +242,9 @@ public:
 
     void changeState (TransportState newState);
     
-    ExternalProcessor* createProcessor(std::string paramname) override {
-        return new PlayerBase(paramname, boxTree);
-    }
-
     Point<int> getBestSize() override;
+    
+    void sendMessage(MemoryOutputStream& m);
 };
 
 

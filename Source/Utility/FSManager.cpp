@@ -5,6 +5,7 @@ File FSManager::documents = File(File::getSpecialLocation(File::userDocumentsDir
 File FSManager::home = documents.getChildFile("Cerite");
 File FSManager::media = home.getChildFile("Media");
 File FSManager::work = home.getChildFile(".work"); // hidden working directory
+File FSManager::exec = home.getChildFile(".exec"); // hidden executable directory
 File FSManager::metaData = home.getChildFile("metadata.xml");
 
 std::unique_ptr<XmlElement> FSManager::meta = parseXML(metaData.loadFileAsString());

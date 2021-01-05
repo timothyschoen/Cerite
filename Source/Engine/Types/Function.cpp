@@ -2,18 +2,30 @@
 namespace Cerite {
 
 
-void Function::fixIndices(const std::vector<std::pair<int, int>> indices, const std::string& name) {
+void Function::fixIndices(const std::vector<std::pair<int, int>> indices, const std::string& name, int type) {
     
-    if(indices.size()) {
+    std::vector<int> nodes;
+    
+    for(auto& idx : indices) {
+        if(idx.second == type)
+            nodes.push_back(idx.first);
+    }
+    
+    if(nodes.size()) {
         for(auto token : body[name]) {
             for(auto& arg : token->args) {
-                if(token->rvalue && indices[std::stoi(arg.symbol)].first == 0 && token->args.size() == 1) {
+                if(token->rvalue && nodes[std::stoi(arg.symbol)] == 0 && token->args.size() == 1 ) {
                     token->args.clear();
-                    token->symbol = "0";
+                    if(type < 2) {
+                        token->symbol = "0";
+                    }
+                    else {
+                        token->symbol = "do_nothing";
+                    }
                 }
                     
                 else {
-                    arg.symbol = std::to_string(indices[std::stoi(arg.symbol)].first);
+                    arg.symbol = std::to_string(nodes[std::stoi(arg.symbol)]);
                 }
                 
                     

@@ -7,14 +7,14 @@ class StatusBar : public Component, public Timer
 {
 	Component* parent;
 
-	std::unique_ptr<LevelMeter> lvlmeter;
-
 	volumeSliderLook vlook;
 
 public:
 	StatusBar(Component* maincomponent);
 	~StatusBar();
 
+    std::unique_ptr<LevelMeter> lvlmeter;
+    
 	Slider volumeSlider;
     
     roundButton rlook;

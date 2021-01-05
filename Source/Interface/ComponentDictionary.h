@@ -6,8 +6,8 @@
 #include "../Utility/FSManager.h"
 #include "componentInformation.h"
 #include "DomainInformation.h"
-#include "../Engine/Cerite/src/Interface/Document.h"
-#include "../Engine/Cerite/src/Interface/Library.h"
+#include "../Engine/Interface/Document.h"
+#include "../Engine/Interface/Library.h"
 
 #include <utility>
 #include <JuceHeader.h>

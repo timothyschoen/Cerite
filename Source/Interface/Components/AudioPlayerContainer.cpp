@@ -1,4 +1,7 @@
 #include "AudioPlayerContainer.h"
+#include "../Canvas/Canvas.h"
+#include "../../MainComponent.h"
+#include "../../Engine/Worker/Source/AudioPlayer.h"
 
 AudioPlayerContainer::~AudioPlayerContainer()
 {
@@ -9,13 +12,8 @@ AudioPlayerContainer::~AudioPlayerContainer()
 
 AudioPlayerContainer::AudioPlayerContainer(ValueTree boxtree, Box* box) : thread("DirectoryReader")
 {
+    type = AudioPlayerType;
 	parent = box;
-	boxTree = boxtree;
-    
-	programState = boxTree.getParent().getParent();
-	parameters = boxTree.getChildWithName("Parameters");
-	transportTree = parameters.getOrCreateChildWithName("Playing", nullptr);
-	loopTree = parameters.getOrCreateChildWithName("Looping", nullptr);
     
 	directorylist = std::unique_ptr<DirectoryContentsList>(new DirectoryContentsList(nullptr, thread));
 	directorylist->addChangeListener(this);
@@ -44,12 +42,20 @@ AudioPlayerContainer::AudioPlayerContainer(ValueTree boxtree, Box* box) : thread
 	addAndMakeVisible(loopbutton);
 	addAndMakeVisible(filelist.get());
     
+    formatManager.registerBasicFormats();
+    
 	audioslider.onDragStart = [this]
 	{
         stopTimer();
 		if(playbutton.getToggleState())
 		{
-			transportTree.setProperty("Value", false, nullptr);
+            MemoryOutputStream mem;
+            mem.writeInt(MessageID::SendProcessor);
+            mem.writeInt(ID);
+            mem.writeInt(PlayerMessage::Playing);
+            mem.writeBool(false);
+            MainComponent::getInstance()->sendMessageToSlave(mem.getMemoryBlock());
+			
 		}
 	};
 	audioslider.onDragEnd = [this]
@@ -57,19 +63,28 @@ AudioPlayerContainer::AudioPlayerContainer(ValueTree boxtree, Box* box) : thread
 		float position = audioslider.getValue();
 		int newsample = int(position * totalsamps);
 		currentsamp = newsample;
-
-		parameters.getOrCreateChildWithName("SetSample", nullptr).setProperty("Value", newsample, nullptr);
-
-		if(playbutton.getToggleState())
-		{
-			transportTree.setProperty("Value", true, nullptr);
-			startTimerHz(5);
-		}
+        
+        MemoryOutputStream mem;
+        mem.writeInt(MessageID::SendProcessor);
+        mem.writeInt(ID);
+        mem.writeInt(PlayerMessage::Move);
+        mem.writeInt(currentsamp);
+        MainComponent::getInstance()->sendMessageToSlave(mem.getMemoryBlock());
+        
+        if(playbutton.getToggleState()) {
+            mem.reset();
+            mem.writeInt(MessageID::SendProcessor);
+            mem.writeInt(ID);
+            mem.writeInt(PlayerMessage::Playing);
+            mem.writeBool(true);
+            MainComponent::getInstance()->sendMessageToSlave(mem.getMemoryBlock());
+        }
+        startTimerHz(5);
 	};
 	playbutton.onClick = [this]()
 	{
-        bool isready = parameters.getChildWithName("Path").getProperty("Value").toString().containsNonWhitespaceChars() && bool(programState.getProperty("Power"));
-		bool newstate = playbutton.getToggleState() && isready;
+        bool isready = true; //bool(programState.getProperty("Power"));
+        bool newstate = playbutton.getToggleState();
 		changeState(newstate ? Starting : Stopping);
 
 		if(newstate != playbutton.getToggleState()) playbutton.setToggleState(newstate, dontSendNotification);
@@ -78,7 +93,7 @@ AudioPlayerContainer::AudioPlayerContainer(ValueTree boxtree, Box* box) : thread
 	};
 	loopbutton.onClick = [this]()
 	{
-		bool newstate = loopbutton.getToggleState() && bool(programState.getProperty("Power"));
+        bool newstate = loopbutton.getToggleState(); // && bool(programState.getProperty("Power"));
 		changeState(newstate ? LoopOn : LoopOff);
 
 		if(newstate != loopbutton.getToggleState()) loopbutton.setToggleState(newstate, dontSendNotification);
@@ -103,9 +118,21 @@ void AudioPlayerContainer::resized()
 	resizableCorner->setBounds(getWidth() - 10, getHeight() - 10, 10, 10);
 }
 
+void AudioPlayerContainer::setID(int newID) {
+    
+    MemoryOutputStream mem;
+    mem.writeInt(MessageID::SendProcessor);
+    mem.writeInt(ID);
+    mem.writeInt(PlayerMessage::Load);
+    mem.writeString(filelist->getSelectedFile().getFullPathName());
+    MainComponent::getInstance()->sendMessageToSlave(mem.getMemoryBlock());
+    
+    ID = newID;
+}
+
 void AudioPlayerContainer::changeListenerCallback (ChangeBroadcaster *source)
 {
-	if(!parameters.isValid()) parameters = boxTree.getChildWithName("Parameters");
+//	if(!parameters.isValid()) parameters = boxTree.getChildWithName("Parameters");
 
 	thread.startThread(3);
 
@@ -121,28 +148,22 @@ void AudioPlayerContainer::changeListenerCallback (ChangeBroadcaster *source)
 	filelist->setColour(ListBox::backgroundColourId, Colour(25, 25, 25));
 	filelist->setColour(DirectoryContentsDisplayComponent::ColourIds::highlightColourId, findColour(ScrollBar::ColourIds::thumbColourId));
 	filelist->setRowHeight(17);
+    
 	addAndMakeVisible(filelist.get());
 	resized();
 }
 
 void AudioPlayerContainer::timerCallback()
 {
-    bool power = bool(programState.getProperty("Power"));
-	if (!power || state == Stopping)
-	{
-        playbutton.setToggleState(false, dontSendNotification);
-        playbutton.setButtonText("g");
-		changeState(power ? Stopping : Reset);
-		return;
-	}
+    bool power =true; // bool(programState.getProperty("Power"));
 
-	if(parameters.isValid() && audioslider.getThumbBeingDragged() == -1)
+	if(audioslider.getThumbBeingDragged() == -1)
 	{
         
         int lastsample = currentsamp;
-		totalsamps = int(parameters.getChildWithName("NumSamples").getProperty("Value"));
-        currentsamp = int(parameters.getChildWithName("CurrentSample").getProperty("Value"));
-
+		//totalsamps = int(parameters.getChildWithName("NumSamples").getProperty("Value"));
+        //currentsamp = int(parameters.getChildWithName("CurrentSample").getProperty("Value"));
+        
 		if(!std::isfinite(totalsamps))
 		{
 			totalsamps = 1;
@@ -167,8 +188,9 @@ void AudioPlayerContainer::timerCallback()
 				changeState(Starting);
 			}
 		}
-
-		currentsamp *= (currentsamp < totalsamps);
+        
+        if(currentsamp >= totalsamps)
+            currentsamp = 0;
         
         position = std::clamp<double>(position, 0, 1);
         if(!std::isfinite(position)) position = 0;
@@ -179,13 +201,22 @@ void AudioPlayerContainer::timerCallback()
 
 void AudioPlayerContainer::fileClicked (const File &file, const MouseEvent &e)
 {
-	if(parameters.isValid())
-	{
-		parameters.getOrCreateChildWithName("Path", nullptr).setProperty("Value", file.getFullPathName(), nullptr);
 		playbutton.setToggleState(false, dontSendNotification);
 		playbutton.setButtonText("g");
+        
+        MemoryOutputStream mem;
+        mem.writeInt(MessageID::SendProcessor);
+        mem.writeInt(ID);
+        mem.writeInt(PlayerMessage::Load);
+        mem.writeString(file.getFullPathName());
+        MainComponent::getInstance()->sendMessageToSlave(mem.getMemoryBlock());
+        
+        
+        auto* reader = formatManager.createReaderFor (file);
+        totalsamps = reader->lengthInSamples;
+        
+    
 		changeState(Reset);
-	}
 };
 
 Point<int> AudioPlayerContainer::getBestSize()
@@ -200,17 +231,26 @@ void AudioPlayerContainer::changeState (TransportState newState)
 		state = Stopping;
 		currentsamp = 0;
 		audioslider.setValue(0.0, dontSendNotification);
-		transportTree.setProperty("Value", false, nullptr);
+        
 	}
 	else if (newState == LoopOn || newState == LoopOff)
 	{
-		loopTree.setProperty("Value", newState == LoopOn, nullptr);
+        MemoryOutputStream mem;
+        mem.writeInt(MessageID::SendProcessor);
+        mem.writeInt(ID);
+        mem.writeInt(PlayerMessage::Loop);
+        mem.writeBool(newState == LoopOn);
+        MainComponent::getInstance()->sendMessageToSlave(mem.getMemoryBlock());
 	}
 	else if ((newState == Starting || newState == Stopping) && state != newState)
 	{
-		state = newState;
-		//state == Starting ? startTimerHz(5) : state == Stopping ? stopTimer() : void();
-		transportTree.setProperty("Value", state == Starting, nullptr);
+        state = newState;
+        MemoryOutputStream mem;
+        mem.writeInt(MessageID::SendProcessor);
+        mem.writeInt(ID);
+        mem.writeInt(PlayerMessage::Playing);
+        mem.writeBool(newState == Starting);
+        MainComponent::getInstance()->sendMessageToSlave(mem.getMemoryBlock());
 	}
 }
 

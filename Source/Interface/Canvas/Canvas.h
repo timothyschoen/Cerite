@@ -38,7 +38,6 @@ public:
     std::unique_ptr<CodeEditorWindow> codeEditor;
     
 	File projectFile;
-    MainComponent* main;
 
 	cnvCompListener mouseListener = cnvCompListener(this);
 	nameSuggestions namesbox;
@@ -53,8 +52,6 @@ public:
 	{
 		setLookAndFeel(nullptr);
 	};
-    
-    static Canvas* mainCanvas;
 
 	void mouseMove(const MouseEvent& e) override;
 	void moveAll(int moveX, int moveY) override;

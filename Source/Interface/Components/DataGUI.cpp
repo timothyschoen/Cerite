@@ -38,6 +38,10 @@ HSliderContainer::HSliderContainer(ValueTree tree, Box* box) : boxTree(tree)
     };
 }
 
+void HSliderContainer::receive(Data d) {
+    
+}
+
 void HSliderContainer::resized()
 {
     slider.setBounds(0, 0, 130, 30);
@@ -47,12 +51,6 @@ Point<int> HSliderContainer::getBestSize()
 {
     return Point<int>(130, 30);
 }
-
-void HSliderContainer::update()  {
-    //slider.setValue(getValueScaled(), dontSendNotification);
-}
-
-
 
 
 VSliderContainer::~VSliderContainer()
@@ -104,10 +102,9 @@ Point<int> VSliderContainer::getBestSize()
     return Point<int>(50, 130);
 }
 
-void VSliderContainer::update()  {
-    //slider.setValue(getValueScaled(), dontSendNotification);
+void VSliderContainer::receive(Data d) {
+    
 }
-
 
 
 void BangButton::mouseDown (const MouseEvent &)  {
@@ -135,12 +132,24 @@ BangContainer::BangContainer(ValueTree tree, Box* box) : boxTree(tree)
     
     bangbutton.onMouseDown = [this]()
     {
-        processor->target({tBang, 0, "bang", 0, 0});
+        send({tBang, 0, "bang", 0, 0});
         //startEdition();
         //setValueOriginal(1);
         //stopEdition();
     };
     
+    
+}
+
+void BangContainer::timerCallback() {
+    if(bangbutton.getToggleState()) {
+        bangbutton.setToggleState(false, dontSendNotification);
+        stopTimer();
+    }
+    else {
+        bangbutton.setToggleState(true, dontSendNotification);
+    }
+
     
 }
 
@@ -154,13 +163,9 @@ Point<int> BangContainer::getBestSize()
     return Point<int>(40, 40);
 }
 
-void BangContainer::update()  {
-    
-    //if(getValueOriginal() > std::numeric_limits<float>::epsilon()) {
-    //    bangbutton.triggerClick();
-    //}
+void BangContainer::receive(Data d) {
+    startTimer(100);
 }
-
 
 void TglButton::mouseDown (const MouseEvent &)  {
     onMouseDown();
@@ -199,18 +204,23 @@ Point<int> ToggleContainer::getBestSize()
     return Point<int>(40, 40);
 }
 
-void ToggleContainer::update()  {
-    //togglebutton.setToggleState((getValueOriginal() > std::numeric_limits<float>::epsilon()), dontSendNotification);
+void ToggleContainer::receive(Data d) {
+    
 }
-
 
 
 void NumComponent::mouseDown(const MouseEvent & e)  {
     oldval = getText().getFloatValue();
+    onDragStart();
 }
 
+void NumComponent::mouseUp(const MouseEvent & e)  {
+    onDragEnd();
+}
+
+
 void NumComponent::focusGained(FocusChangeType type)  {
-    onFocusGained();
+    //onDragEnd();
 }
 
 void NumComponent::mouseDrag(const MouseEvent & e)  {
@@ -220,7 +230,7 @@ void NumComponent::mouseDrag(const MouseEvent & e)  {
         float newval = oldval + ((float)dist / 100.);
         setText(String(newval));
     }
-    onMouseDrag();
+    //onMouseDrag();
 }
 
 
@@ -238,25 +248,41 @@ NumboxContainer::NumboxContainer(ValueTree tree, Box* box) : boxTree(tree)
     input.setInputRestrictions(0, ".-0123456789");
     
     input.setText("0.");
-    //bangbutton.setSliderStyle(SliderStyle::Vertical)
-    input.onFocusGained = [this]()
+    
+    input.onDragStart = [this]()
     {
-        //startEdition();
+        dragging = true;
+        startTimerHz(10);
     };
     
-    
-    input.onMouseDrag = [this]()
+    input.onDragEnd = [this]()
     {
-        //setValueOriginal(input.getText().getFloatValue());
+        stopTimer();
+        dragging = false;
     };
+    
     
     input.onFocusLost = [this]()
     {
-        //setValueOriginal(input.getText().getFloatValue());
-        //stopEdition();
+        send({tNumber, input.getText().getDoubleValue()});
     };
 }
 
+void NumboxContainer::timerCallback() {
+    
+    if(dragging) {
+        double newval = input.getText().getDoubleValue();
+        if(newval != value) {
+            send({tNumber, newval});
+            value = newval;
+        }
+    }
+    else {
+        input.setText(String(value));
+        stopTimer();
+    }
+
+}
 
 void NumboxContainer::resized()
 {
@@ -268,8 +294,11 @@ Point<int> NumboxContainer::getBestSize()
     return Point<int>(60, 22);
 }
 
-void NumboxContainer::update()  {
-    //input.setText(String(getValueOriginal()), dontSendNotification);
+void NumboxContainer::receive(Data d) {
+    if(d.number != value) {
+        value = d.number;
+        startTimer(0);
+    }
 }
 
 MessageContainer::~MessageContainer()
@@ -310,10 +339,6 @@ Point<int> MessageContainer::getBestSize()
     return Point<int>(122, 22);
 }
 
-void MessageContainer::update()  {
-    //input.setText(String(gui.getSymbol()), NotificationType::dontSendNotification);
-}
-
 void MessageContainer::updateValue()
 {
     /*
@@ -327,6 +352,10 @@ void MessageContainer::updateValue()
             update();
         }
     } */
+}
+
+void MessageContainer::receive(Data d) {
+    
 }
 
 
@@ -371,10 +400,9 @@ Point<int> HRadioGroup::getBestSize()
     return Point<int>(161, 20);
 }
 
-void HRadioGroup::update()  {
-   // radiobuttons[int(getValueOriginal())]->setToggleState(true, dontSendNotification);
+void HRadioGroup::receive(Data d) {
+    
 }
-
 
 VRadioGroup::~VRadioGroup()
 {
@@ -414,7 +442,6 @@ Point<int> VRadioGroup::getBestSize()
     return Point<int>(60, 160);
 }
 
-void VRadioGroup::update()
-{
-   // radiobuttons[int(getValueOriginal())]->setToggleState(true, dontSendNotification);
+void VRadioGroup::receive(Data d) {
+    
 }

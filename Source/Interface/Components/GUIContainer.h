@@ -2,48 +2,20 @@
 
 
 #include "../Looks.h"
-#include "../../Engine/Cerite/src/Interface/Patch.h"
+#include "../../Engine/Interface/Patch.h"
+#include "../../Engine/Types/Data.h"
+#include "../../Engine/Worker/Source/ExternalProcessor.h"
+#include "../../Engine/Worker/Source/Message.h"
 #include <JuceHeader.h>
 
-
-struct ExternalProcessor
-{
-    std::string param;
-    std::string name;
-    ValueTree boxTree;
-    ValueTree paramTree;
-    
-    ExternalProcessor(std::string paramname, ValueTree tree) {
-        param = "attach_" + paramname;
-        name = paramname;
-        boxTree = tree;
-        paramTree = tree.getChildWithName("Parameters");
-    }
-    
-    virtual void tick(int channel = 0) {};
-    virtual void init(Cerite::Object* obj) {};
-    
-    
-    void setParameter(String name, String value)
-    {
-        ValueTree newparam = paramTree.getOrCreateChildWithName(name, nullptr);
-        newparam.setProperty("Value", value, nullptr);
-    };
-    
-    void setParameter(String name, double value)
-    {
-        ValueTree newparam = paramTree.getOrCreateChildWithName(name, nullptr);
-        newparam.setProperty("Value", value, nullptr);
-    };
-    
-};
 class GUIContainer : public virtual Component
 {
     
 public:
     
-    
-    
+    ProcessorType type = ProcessorType::None;
+    int ID;
+
     CeriteLookAndFeel clook;
     
     GUIContainer()
@@ -54,6 +26,10 @@ public:
     ~GUIContainer()
     {
         setLookAndFeel(nullptr);
+    }
+    
+    virtual void setID(int newID) {
+        ID = newID;
     }
     
     void paint (Graphics & g) override
@@ -68,7 +44,9 @@ public:
         return Point<int>(70, 150);
     }
     
-    virtual ExternalProcessor* createProcessor(std::string paramname) = 0;
+    virtual void receive(Data d) {};
+    
+    virtual void send(Data d);
     
 };
 

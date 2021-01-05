@@ -67,6 +67,7 @@ void Document::setArgument(int idx, std::string val, bool removeVariable) {
             break;
         }
     }
+    if(pos == -1) return;
     
     applyArgument(pos, val, removeVariable);
 }
@@ -184,13 +185,16 @@ Document Document::concat(std::string name, std::vector<Document> documents, Nod
     for(int n = 0; n < documents.size(); n++) {
         Document doc = documents[n];
         
+        std::vector<std::string> domains = {"mna", "dsp", "data"};
+        
+        
         for(auto& func : doc.functions) {
             if(func.body.empty()) continue;
             for(auto& vec : doc.vectors)
                 if(!vec.local)
-                    func.fixIndices(nodes[n], vec.name);
+                    func.fixIndices(nodes[n], vec.name, std::find(domains.begin(), domains.end(), vec.origin) - domains.begin());
             
-            if(functable.count(func.name) == 0)
+            if(Library::isContext(func.origin) || functable.count(func.name) == 0)
                 functable[func.name] = func;
             else
                 functable[func.name].body.append(func.body.tokens);
@@ -291,7 +295,7 @@ void Document::combineMatrices(Document& result, std::vector<Document>& document
                 // Calculate final node position
                 if(type == nodes[n][ports[j]].second)
                     node[j - stepOver] = nodes[n][ports[j]].first;
-                else
+                else if(size + stepOver < ports.size())
                     stepOver++;
             }
             
@@ -398,8 +402,7 @@ Function* Document::getFunctionPtr(std::string name) {
     auto pos = std::find_if(functions.begin(), functions.end(), [&name](Function &f) -> bool {
         return f.name == name;
     });
-    assert(pos != functions.end());
-    return &functions[pos - functions.begin()];
+    return  pos != functions.end() ? &functions[pos - functions.begin()] : nullptr;
 }
 
 Variable* Document::getVariablePtr(int idx) {

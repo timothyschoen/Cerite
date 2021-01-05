@@ -24,9 +24,9 @@ StatusBar::StatusBar(Component* maincomponent)
 	volumeSlider.setRange(-60, 6);
 	volumeSlider.setValue(-6);
 	volumeSlider.setAlwaysOnTop(true);
-	volumeSlider.onValueChange = [this, main] { main->volume = Decibels::decibelsToGain ((float) volumeSlider.getValue()); };
+	volumeSlider.onValueChange = [this, main] { main->setVolume( Decibels::decibelsToGain ((float) volumeSlider.getValue())); };
     
-	lvlmeter = std::make_unique<LevelMeter>(*main->getAudioManager());
+	lvlmeter = std::make_unique<LevelMeter>();
 	addAndMakeVisible(lvlmeter.get());
 
     powerButton.setLookAndFeel(&rlook);
@@ -75,7 +75,7 @@ String roundToString(double number)
 void StatusBar::paint(Graphics & g)
 {
 	MainComponent* main = static_cast<MainComponent*>(parent);
-	String cpuUsage = roundToString(main->deviceManager.getCpuUsage());
+    String cpuUsage = "0"; //roundToString(main->deviceManager.getCpuUsage());
 	float alpha = 0.8;
 	g.setColour(Colour(41, 41, 41).withAlpha(alpha));
 	g.fillRect(getLocalBounds());

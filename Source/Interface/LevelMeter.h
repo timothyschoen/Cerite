@@ -2,32 +2,34 @@
 
 struct LevelMeter  : public Component, public Timer
 {
-	LevelMeter (AudioDeviceManager& m)  : manager (m)
+	LevelMeter ()
 	{
 		startTimerHz (20);
-		inputLevelGetter = manager.getOutputLevelGetter();
 	}
 
 	~LevelMeter() override
 	{
 	}
+    
+    void setLevel(float lvl) {
+        level = lvl;
+    }
 
 	void timerCallback() override
 	{
 		if (isShowing())
 		{
-			auto newLevel = (float) inputLevelGetter->getCurrentLevel();
-            
-            if(!std::isfinite(newLevel))  {
+            if(!std::isfinite(level.load()))  {
                 level = 0;
                 return;
             }
             
-			if (std::abs (level - newLevel) > 0.005f)
+			if (std::abs (level - oldLevel) > 0.005f)
 			{
-				level = newLevel;
 				repaint();
 			}
+            
+            oldLevel = level.load();
 		}
 		else
 		{
@@ -70,10 +72,8 @@ struct LevelMeter  : public Component, public Timer
 		}
 	}
 
-	AudioDeviceManager& manager;
-	AudioDeviceManager::LevelMeter::Ptr inputLevelGetter;
-	AudioDeviceManager::LevelMeter::Ptr outputLevelGetter;
-	float level = 0;
+    std::atomic<float> oldLevel = 0;
+	std::atomic<float> level = 0;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (LevelMeter)
 };

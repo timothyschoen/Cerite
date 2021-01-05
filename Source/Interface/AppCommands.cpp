@@ -8,7 +8,7 @@
 
 
 
-AppCommands::AppCommands (Canvas* toBeModified, AudioAppComponent* maincomponent)
+AppCommands::AppCommands (Canvas* toBeModified, MainComponent* maincomponent)
 {
 	cnv = toBeModified;
 	main = maincomponent;
@@ -213,7 +213,6 @@ ApplicationCommandTarget* AppCommands::getNextCommandTarget()
 
 bool AppCommands::perform (const InvocationInfo& info)
 {
-	MainComponent* m = static_cast<MainComponent*>(main);
 
     // let the code editor handle its own key commands
     if(cnv->codeEditor) {
@@ -229,26 +228,26 @@ bool AppCommands::perform (const InvocationInfo& info)
 	{
 		std::vector<int> positions = {100, 260, 360};
 
-		if(m->askToSave())
+		if(main->askToSave())
 		{
-            m->sidebar.inspector->deselect();
+            main->sidebar.inspector->deselect();
 			cnv->clearState();
 			cnv->projectFile = File();
-			static_cast<MainComponent*>(main)->setTitle("Untitled | Cerite");
+			main->setTitle("Untitled | Cerite");
 			return true;
 		}
 	}
 
 	if (info.commandID == keyCmd::Open)
 	{
-		if (m->askToSave() && m->openChooser.browseForFileToOpen())
+		if (main->askToSave() && main->openChooser.browseForFileToOpen())
 		{
-            m->sidebar.inspector->deselect();
-            File openedfile = m->openChooser.getResult();
+            main->sidebar.inspector->deselect();
+            File openedfile = main->openChooser.getResult();
             if(openedfile.exists()) {
                 cnv->projectFile = openedfile;
                 
-                m->setTitle(cnv->projectFile.getFileName().toStdString() + " | Cerite");
+                main->setTitle(cnv->projectFile.getFileName().toStdString() + " | Cerite");
                 cnv->clearState();
 
                 try
@@ -273,10 +272,10 @@ bool AppCommands::perform (const InvocationInfo& info)
 		{
 			cnv->changedSinceSave = false;
 		}
-		else if (m->saveChooser.browseForFileToSave(true))
+		else if (main->saveChooser.browseForFileToSave(true))
 		{
-			cnv->projectFile = m->saveChooser.getResult();
-			m->setTitle(cnv->projectFile.getFileName().toStdString() + " | Cerite");
+			cnv->projectFile = main->saveChooser.getResult();
+			main->setTitle(cnv->projectFile.getFileName().toStdString() + " | Cerite");
 			cnv->changedSinceSave = false;
 		}
 		else
@@ -290,7 +289,7 @@ bool AppCommands::perform (const InvocationInfo& info)
 
 	if (info.commandID == keyCmd::Cut)
 	{
-        m->sidebar.inspector->deselect();
+        main->sidebar.inspector->deselect();
 		Array<Box*> boxarray = cnv->getSelectedBoxes();
 		Array<LooseEdge*> letarray = cnv->getSelectedEdges();
 
@@ -402,10 +401,10 @@ bool AppCommands::perform (const InvocationInfo& info)
 
 	if (info.commandID == keyCmd::SnapToGrid)
 	{
-		MainComponent* m = static_cast<MainComponent*>(main);
+		
 		cnv->snapToGrid = !cnv->snapToGrid;
-		m->commandStatusChanged();
-		m->topmenu.menuItemsChanged();
+		main->commandManager.commandStatusChanged();
+		main->topmenu.menuItemsChanged();
 		return true;
 	}
 

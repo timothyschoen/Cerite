@@ -4,11 +4,12 @@
 #include "Looks.h"
 #include "Canvas/Canvas.h"
 
+class MainComponent;
 class ToolbarWrapper :  private ToolbarItemFactory, public Toolbar
 {
 public:
 
-	ToolbarWrapper(AudioAppComponent* main);
+	ToolbarWrapper(MainComponent* main);
 
 	~ToolbarWrapper()
 	{

@@ -3,6 +3,7 @@
 #include "Looks.h"
 #include "Canvas/Canvas.h"
 
+class MainComponent;
 class TopMenu : public Component,
 	public MenuBarModel,
 	public ChangeBroadcaster,
@@ -11,11 +12,11 @@ class TopMenu : public Component,
 public:
 
 	Canvas* canvas;
-	Component* parent;
+    MainComponent* parent;
 
 	std::vector<std::string> paths = std::vector<std::string>(10);
 
-	TopMenu(Canvas* cnv, Component* main);
+	TopMenu(Canvas* cnv, MainComponent* main);
 
 	~TopMenu();
 

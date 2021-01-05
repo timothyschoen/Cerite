@@ -180,8 +180,6 @@ CodeEditorWindow::CodeEditorWindow(Canvas* cnv, Box* b) : DocumentWindow("test",
 
 void CodeEditorWindow::closeButtonPressed()
 {
-    MainComponent* main = static_cast<MainComponent*>(canvas->main);
-    
     if(editor->editor->changedSinceSave()) {
         if(editor->askToSave())
             canvas->closeCode();

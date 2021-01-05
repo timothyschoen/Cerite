@@ -3,11 +3,8 @@
 #include "../Sidebar/Inspector/Inspector.h"
 
 
-Canvas* Canvas::mainCanvas = nullptr;
-
-Canvas::Canvas(MainComponent* parent) : ProgramState(this), tipWindow(this, 200), main(parent)
+Canvas::Canvas(MainComponent* parent) : ProgramState(this), tipWindow(this, 200)
 {
-    mainCanvas = this;
 	setBounds (0, 40, getParentWidth(), getParentHeight());
 	setWantsKeyboardFocus (true);
 	addAndMakeVisible(lasso);
@@ -36,7 +33,7 @@ void Canvas::mouseDown(const MouseEvent& e)
 
     if(!ModifierKeys::getCurrentModifiers().isAnyModifierKeyDown()) {
 		deselectAll();
-        static_cast<MainComponent*>(main)->sidebar.inspector->deselect();
+        MainComponent::getInstance()->sidebar.inspector->deselect();
     }
 
 	lasso.beginLasso(e, this);
@@ -81,7 +78,7 @@ void Canvas::mouseMove(const MouseEvent& e)
 
 bool Canvas::keyPressed(const KeyPress& key)
 {
-	KeyPressMappingSet* keycommands = static_cast<MainComponent*>(main)->getKeyMappings();
+	KeyPressMappingSet* keycommands = MainComponent::getInstance()->commandManager.getKeyMappings();
     
     
 	if(keycommands->keyPressed(key, this)) return true;
@@ -91,7 +88,7 @@ bool Canvas::keyPressed(const KeyPress& key)
 
 void Canvas::updateSelection()
 {
-	MainComponent* m = static_cast<MainComponent*>(main);
+	MainComponent* m = MainComponent::getInstance();
 	Array<Box*> boxarray = getSelectedBoxes();
 
 	//if(boxarray.size() == 1)
@@ -202,7 +199,7 @@ int Canvas::assignNodes()
 		}
 	}
 
-    int numDigiInputs = newnodes.size() + 2;
+    int numDigiInputs = 2;
     for(auto& box : boxmanager->objects) {
         
         for(auto& input : box->edgeManager->objects) {
@@ -257,18 +254,18 @@ void Canvas::stopConnecting()
 
 void Canvas::updateUndoState()
 {
-	static_cast<MainComponent*>(main)->updateUndoState();
+	MainComponent::getInstance()->updateUndoState();
 }
 
 void Canvas::setUndoState(bool setUndo, bool canUndo, bool setRedo, bool canRedo) {
     
-    static_cast<MainComponent*>(main)->setUndoState(setUndo, canUndo, setRedo, canRedo);
+    MainComponent::getInstance()->setUndoState(setUndo, canUndo, setRedo, canRedo);
     
 }
 
 void Canvas::updateSystemState()
 {
-	static_cast<MainComponent*>(main)->updateSystem();
+	MainComponent::getInstance()->updateSystem();
 }
 
 
@@ -279,7 +276,7 @@ void Canvas::reset()
 	undoManager.clearUndoHistory();
 	updateUndoState();
 	changedSinceSave = false;
-	MainComponent* m = static_cast<MainComponent*>(main);
+	MainComponent* m = MainComponent::getInstance();
 	m->stopAudio();
 }
 
@@ -305,18 +302,18 @@ void Canvas::addToHistory(File openedfile)
 	}
 
 	FSManager::meta->writeTo(FSManager::metaData);
-	static_cast<MainComponent*>(main)->topmenu.menuItemsChanged();
+	MainComponent::getInstance()->topmenu.menuItemsChanged();
 };
 
 void Canvas::openCode(Box* caller) {
     
     codeEditor.reset(new CodeEditorWindow(this, caller));
     
-    MainComponent* m = static_cast<MainComponent*>(main);
+    MainComponent* m = MainComponent::getInstance();
     
     // Unregister app commands to get proper key commands on the text editor
-    m->clearCommands();
-    m->setFirstCommandTarget(nullptr);
+    m->commandManager.clearCommands();
+    m->commandManager.setFirstCommandTarget(nullptr);
     m->topmenu.menuItemsChanged();
     
 }
@@ -325,11 +322,11 @@ void Canvas::closeCode() {
     
     codeEditor.reset(nullptr);
     
-    MainComponent* m = static_cast<MainComponent*>(main);
+    MainComponent* m = MainComponent::getInstance();
     
     // reregister app commands
-    m->registerAllCommandsForTarget(&m->appcmds);
-    m->setFirstCommandTarget(&m->appcmds);
+    m->commandManager.registerAllCommandsForTarget(&m->appcmds);
+    m->commandManager.setFirstCommandTarget(&m->appcmds);
     m->topmenu.menuItemsChanged();
     
 }

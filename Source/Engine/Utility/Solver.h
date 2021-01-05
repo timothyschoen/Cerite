@@ -12,8 +12,12 @@ struct Solver
 {
 
     ~Solver() {
-        klu_free_symbolic(&Symbolic, &Common);
-        klu_free_numeric(&Numeric, &Common);
+        if(Symbolic != nullptr) {
+            klu_free_symbolic(&Symbolic, &Common);
+        }
+        if(Numeric != nullptr) {
+            klu_free_numeric(&Numeric, &Common);
+        }
     }
 
     void createCSR(double* A, int dim);

@@ -50,7 +50,6 @@ void ExportComponent::paint(Graphics & g) {
 }
 
 void ExportComponent::exportAudio() {
-    MainComponent* m = static_cast<MainComponent*>(main);
     
     settings = exportSettings.settings;
     samplerate = samplerates[samplerateSel.getSelectedItemIndex()].getIntValue();
@@ -67,7 +66,7 @@ void ExportComponent::exportAudio() {
     int sampsPerBlock = 2048 * pow(2, oversample);
     int numSamples =  int(lengthEditor.getText().getFloatValue() * samplerate);
     
-    m->shutdownAudio();
+    //main->shutdownAudio();
     
     //Cerite::Patch* circuit = m->canvas.compile();
     /*

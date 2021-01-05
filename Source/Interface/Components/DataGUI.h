@@ -4,57 +4,14 @@
 #include <libtcc.h>
 #include "GUIContainer.h"
 #include "../Canvas/Box.h"
-#include "../../Engine/Cerite/src/Types/Data.h"
+#include "../../Engine/Types/Data.h"
 
-struct DataProcessor : public ExternalProcessor
-{
-    
-    Cerite::Object* destination;
-    void(*target)(Data);
-    
-    
-    std::atomic<bool> changed;
-    double value;
-    
-    DataProcessor(std::string paramname, ValueTree tree) : ExternalProcessor(paramname, tree) {
-        changed = false;
-    };
-    
-    void init(Cerite::Object* obj) override {
-        destination = obj;
-        
-        std::string functarget;
-        
-        
-        //target = destination->getVariablePtr(param);
-        target = (void(*)(Data))destination->getFunctionPtr(name + "_attach");
-        
-        //tcc_add_symbol(obj->state,  callback.c_str(), (void*)(void(*)(Data))[](Data d) {
-        //    std::cout << "hey" << std::endl;
-        //});
-        
-        target({tBang, 0, "bang", 0, 0});
-        
-    }
-    
-    void tick(int channel = 0) override {
-        if(changed) {
-            //*target
-        }
-    }
-    // TODO: make it work with strings by making value a class of data!
-    void setValue(double newval) {
-        value = newval;
-    }
-    
-};
 
 class HSliderContainer : public GUIContainer
 {
     
 public:
     
-    DataProcessor* processor;
     ValueTree boxTree;
     
     Slider slider;
@@ -67,12 +24,8 @@ public:
     
     Point<int> getBestSize() override;
     
-    void update();
+    void receive(Data d) override;
     
-    ExternalProcessor* createProcessor(std::string paramname) override {
-        processor = new DataProcessor(paramname, boxTree);
-        return processor;
-    }
     
     
 };
@@ -83,7 +36,7 @@ class VSliderContainer : public GUIContainer
     
 public:
     
-    DataProcessor* processor;
+    
     ValueTree boxTree;
     
     Slider slider;
@@ -96,12 +49,8 @@ public:
     
     Point<int> getBestSize() override;
     
-    void update();
-    
-    ExternalProcessor* createProcessor(std::string paramname) override {
-        processor = new DataProcessor(paramname, boxTree);
-        return processor;
-    }
+    void receive(Data d) override;
+   
 };
 
 
@@ -113,15 +62,15 @@ struct BangButton : public TextButton
     
     void mouseDown (const MouseEvent &) override;
     
-    
+
 };
 
-class BangContainer : public GUIContainer
+class BangContainer : public GUIContainer, private Timer
 {
     
 public:
     
-    DataProcessor* processor;
+    
     ValueTree boxTree;
     
     LookAndFeel_V4 dlook;
@@ -136,13 +85,11 @@ public:
     
     Point<int> getBestSize() override;
     
-    void update();
     
-    ExternalProcessor* createProcessor(std::string paramname) override {
-        processor = new DataProcessor(paramname, boxTree);
-        return processor;
-    }
+    void timerCallback() override;
     
+    void receive(Data d) override;
+
 };
 
 
@@ -165,7 +112,7 @@ class ToggleContainer : public GUIContainer
     LookAndFeel_V4 dlook;
     
 public:
-    DataProcessor* processor;
+    
     ValueTree boxTree;
     
     TglButton togglebutton;
@@ -178,12 +125,7 @@ public:
     
     Point<int> getBestSize() override;
     
-    void update();
-    
-    ExternalProcessor* createProcessor(std::string paramname) override {
-        processor = new DataProcessor(paramname, boxTree);
-        return processor;
-    }
+    void receive(Data d) override;
     
 };
 
@@ -194,10 +136,15 @@ public:
     std::function<void()> onFocusGained;
     std::function<void()> onMouseDrag;
     
+    std::function<void()> onDragStart;
+    std::function<void()> onDragEnd;
+    
 private:
     float oldval;
     
     void mouseDown(const MouseEvent & e) override;
+    
+    void mouseUp(const MouseEvent & e) override;
     
     void focusGained(FocusChangeType type) override;
     
@@ -205,11 +152,14 @@ private:
     
 };
 
-class NumboxContainer : public GUIContainer
+class NumboxContainer : public GUIContainer, private Timer
 {
     
 public:
-    DataProcessor* processor;
+    
+    std::atomic<bool> dragging;
+    std::atomic<double> value;
+    
     ValueTree boxTree;
     
     NumComponent input;
@@ -223,12 +173,10 @@ public:
     
     Point<int> getBestSize() override;
     
-    void update();
     
-    ExternalProcessor* createProcessor(std::string paramname) override {
-        processor = new DataProcessor(paramname, boxTree);
-        return processor;
-    }
+    void timerCallback() override;
+    
+    void receive(Data d) override;
     
 };
 
@@ -237,7 +185,7 @@ class MessageContainer : public GUIContainer
 {
     
 public:
-    DataProcessor* processor;
+    
     ValueTree boxTree;
     
     TextEditor input;
@@ -254,14 +202,11 @@ public:
     
     Point<int> getBestSize() override;
     
-    void update();
     
     void updateValue();
     
-    ExternalProcessor* createProcessor(std::string paramname) override {
-        processor = new DataProcessor(paramname, boxTree);
-        return processor;
-    }
+    void receive(Data d) override;
+
 };
 
 
@@ -271,7 +216,7 @@ class HRadioGroup : public GUIContainer
     
 public:
     
-    DataProcessor* processor;
+    
     ValueTree boxTree;
     
     OwnedArray<TextButton> radiobuttons;
@@ -284,12 +229,8 @@ public:
     
     Point<int> getBestSize() override;
     
-    void update();
-    
-    ExternalProcessor* createProcessor(std::string paramname) override {
-        processor = new DataProcessor(paramname, boxTree);
-        return processor;
-    }
+    void receive(Data d) override;
+
 };
 
 
@@ -298,7 +239,7 @@ class VRadioGroup : public GUIContainer
     
 public:
     
-    DataProcessor* processor;
+    
     ValueTree boxTree;
     
     OwnedArray<TextButton> radiobuttons;
@@ -311,11 +252,6 @@ public:
     
     Point<int> getBestSize() override;
     
-    void update();
-    
-    ExternalProcessor* createProcessor(std::string paramname) override {
-        processor = new DataProcessor(paramname, boxTree);
-        return processor;
-    }
+    void receive(Data d) override;
     
 };

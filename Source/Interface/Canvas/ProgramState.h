@@ -10,7 +10,7 @@
 #include "EdgeManager.h"
 #include "../ComponentDictionary.h"
 #include "ConnectionManager.h"
-#include "../../Engine/Cerite/src/Interface/Patch.h"
+#include "../../Engine/Interface/Patch.h"
 
 class Canvas;
 class ProgramState

@@ -26,9 +26,9 @@ struct VarTable
     int defaultSize = 0;
     
     std::vector<std::string> initializers = {"const", "var"};
-    std::vector<std::pair<std::string, bool>> functypes = {};
-    std::vector<std::pair<std::string, bool>> vectypes = {};
-    std::vector<std::pair<std::string, bool>> vartypes = {};
+    std::vector<std::pair<std::string, std::string>> functypes = {};
+    std::vector<std::pair<std::string, std::string>> vectypes = {};
+    std::vector<std::pair<std::string, std::string>> vartypes = {};
     std::vector<std::string> spectypes = {"name", "update"};
     
     static inline const std::string operators = "+-=*:!/%|&^";
@@ -73,23 +73,22 @@ struct VarTable
     }
     
     bool isFunction(const std::string& selector) const {
-        return std::find_if(functypes.begin(), functypes.end(), [&selector] (const std::pair<std::string, bool>& s) { return s.first == selector; }) != functypes.end();
+        return std::find_if(functypes.begin(), functypes.end(), [&selector] (const std::pair<std::string, std::string>& s) { return s.first == selector; }) != functypes.end();
     }
     
     bool isVector(const std::string& selector) const {
-        return std::find_if(vectypes.begin(), vectypes.end(), [&selector] (const std::pair<std::string, bool>& s) { return s.first == selector; }) != vectypes.end();
+        return std::find_if(vectypes.begin(), vectypes.end(), [&selector] (const std::pair<std::string, std::string>& s) { return s.first == selector; }) != vectypes.end();
     }
     
     bool isVariable(const std::string& selector) const {
-        return std::find_if(vartypes.begin(), vartypes.end(), [&selector] (const std::pair<std::string, bool>& s) { return s.first == selector; }) != vartypes.end();
+        return std::find_if(vartypes.begin(), vartypes.end(), [&selector] (const std::pair<std::string, std::string>& s) { return s.first == selector; }) != vartypes.end();
     }
     
     bool isSpecial(const std::string& selector) const {
         return selector.find("_size") != std::string::npos || std::find(spectypes.begin(), spectypes.end(), std::string(selector)) != spectypes.end();
     }
     
-    bool isLocal(const std::string& selector) const {
-
+    std::string getOrigin(const std::string& selector) const {
         
         for(auto& func : functypes)
             if(func.first == selector) return func.second;
@@ -100,7 +99,7 @@ struct VarTable
         for(auto& var : vartypes)
             if(var.first == selector) return var.second;
     
-        return false;
+        return "";
     }
     
     void combineWith(const VarTable& table) {

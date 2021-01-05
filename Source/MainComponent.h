@@ -26,7 +26,7 @@
 #include "Interface/Canvas/Box.h"
 #include "Utility/FSManager.h"
 
-#include "Engine/Cerite/src/Interface/Patch.h"
+#include "Engine/Interface/Patch.h"
 
 /*
     This component lives inside our window, and this is where you should put all
@@ -36,26 +36,20 @@
 
 
 
-class MainComponent final : public AudioAppComponent, public MidiInputCallback, public ApplicationCommandManager, public FileDragAndDropTarget
+class MainComponent final : public Component, public FileDragAndDropTarget, public ChildProcessMaster, public Timer
 {
 public:
-
+    
+    ApplicationCommandManager commandManager;
+    
 	MainComponent();
 	~MainComponent();
+    
+    Array<GUIContainer*> guiComponents;
     
     int oversample = 0;
     int osfactor = pow(2, oversample);
     
-    OwnedArray<ExternalProcessor> external;
-    
-    std::unique_ptr<dsp::Oversampling<float>> oversampler;
-    
-    //std::unique_ptr<CeriteAudioProcessor> pd;
-
-	juce::MidiMessageCollector midiCollector;
-
-	CriticalSection* audioLock;
-
     Canvas canvas;
     AppCommands appcmds;
 
@@ -72,26 +66,14 @@ public:
 
 	Box* selection;
 
-    std::unique_ptr<Cerite::Patch> processor = nullptr;
-    
-    double* input;
-    double* output;
-	//IProcessor* net = nullptr;
-	//IProcessor* newnet = nullptr;
 
-	//MNASystem* msystem = nullptr;
-
-	std::vector<int> lastMidiSelection;
-    
 	int totalNodes = 0;
 
-	bool playing = false;
-
+	std::atomic<bool> playing = false;
+    std::atomic<bool> crashed = false;
+    
     bool bypass = true;
 	int fadecounter = 0;
-	double volume = 0.5;
-    
-    int samplesPerBlock = 512;
 
 	FileChooser saveChooser =  FileChooser("Select a save file", FSManager::home.getChildFile("Saves"), "*.clab");
 	FileChooser openChooser = FileChooser("Choose save location", FSManager::home.getChildFile("Saves"), "*.clab");
@@ -99,6 +81,7 @@ public:
 	//MNASystem* getMNASystem();
 
 	//==============================================================================
+    /*
 	void prepareToPlay (int samplesPerBlockExpected, double sampleRate) override
 	{
         samplesPerBlock = samplesPerBlockExpected;
@@ -115,7 +98,7 @@ public:
 	void getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill) override;
 
 	void releaseResources() override;
-
+     */
 	//==============================================================================
 	void paint (Graphics& g) override;
 	void resized() override;
@@ -124,12 +107,15 @@ public:
 
 	//==============================================================================
 
+    void setVolume(float level);
+    
 	void startAudio(double sampleRate, std::vector<double> settings);
+    
+    void attachParameters();
+    
 	void stopAudio();
 
 	void updateSystem();
-
-	//void ExportWavFile(IProcessor* proc, double sampleRate);
 
 	bool saveAudioFile();
     
@@ -139,24 +125,12 @@ public:
 
 	void loadLibrary(std::string path);
 
-	File chosenFile;
+    void handleMessageFromSlave (const MemoryBlock &) override;
 
-	AudioDeviceManager* getAudioManager()
-	{
-		return &deviceManager;
-	};
-
-	void updateMidiInputs();
-
-	void handleIncomingMidiMessage (MidiInput *source, const MidiMessage &message) override
-	{
-        midiCollector.addMessageToQueue(message);
-		std::vector<int> midiMessage(3, 0);
-		midiMessage[0] = message.isNoteOn() ? 144 : message.isNoteOff() ? 128     : message.isController() ? 176 : 0;
-		midiMessage[1] = message.isController()   ? message.getControllerNumber() : message.getNoteNumber();
-		midiMessage[2] = message.isController()   ? message.getControllerValue () : message.getVelocity();
-
-	}
+    void handleConnectionLost () override;
+    
+    void timerCallback() override;
+    
 
     void setUndoState(bool setUndo, bool canUndo, bool setRedo, bool canRedo)
     {
@@ -166,11 +140,13 @@ public:
 	void updateUndoState()
 	{
 		toolbar.checkUndoState();
-		commandStatusChanged();
+		commandManager.commandStatusChanged();
 		topmenu.menuItemsChanged();
 	}
 
 	bool askToSave();
+    
+    JUCE_DECLARE_SINGLETON (MainComponent, true)
 
 private:
 
@@ -189,5 +165,5 @@ private:
 	void fileDragExit (const StringArray& /*files*/) override;
 	void filesDropped (const StringArray& files, int x, int y) override;
 
-	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
+    
 };

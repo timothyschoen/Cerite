@@ -20,6 +20,7 @@ std::string Compiler::exportCode(Document doc) {
     
     std::string externs;
     
+    /*
     // Add regular C imports, since this won't be compiled with TCC
     externs += "#include <stdio.h>\n";
     externs += "#include <stdlib.h>\n";
@@ -28,6 +29,7 @@ std::string Compiler::exportCode(Document doc) {
     externs += "void print(const char* txt) { printf(txt); }\n";
     externs += datatype;
     
+     */
     std::string ccode = externs + "\n" + writeC(doc);
     
     return ccode;
@@ -74,8 +76,15 @@ void Compiler::prepare(Document& doc) {
     Variable donevar("done", true, 1);
     doc.addVariable(donevar);
     
+    if(doc.size.count("mna")) {
+        Variable mnasize("mna_size", true, doc.size["mna"]);
+        doc.addVariable(mnasize);
+    }
+    
     Variable outvar("out", true, 0);
     doc.addVariable(outvar);
+    
+    
 
 }
 
@@ -96,7 +105,6 @@ Object* Compiler::perform(Document& doc, Compiler& compiler, Object* object) {
         compiler.print("Can’t create a TCC context\n");
         return nullptr;
     }
-    
     
     // Will link some C standard library functions from the current runtime
     // This improves portability because we're not dependent of TCC finding the libraries
@@ -148,10 +156,6 @@ std::string Compiler::addStdLibrary(Object* obj) {
     std::string externs;
 
     // math.h definitions
-    externs += includeFunction<double, double>(obj->state, "sin", (void*)(double(*)(double))&sin);
-    externs += includeFunction<double, double>(obj->state, "cos", (void*)(double(*)(double))&cos);
-    externs += includeFunction<double, double>(obj->state, "tan", (void*)(double(*)(double))&tan);
-    
     externs +=  includeFunction<double, double>         (obj->state, "sin",  (void*)(double(*)(double))&sin);
     externs +=  includeFunction<double, double>         (obj->state, "cos",  (void*)(double(*)(double))&cos);
     externs +=  includeFunction<double, double>         (obj->state, "tan",  (void*)(double(*)(double))&tan);
@@ -220,17 +224,26 @@ std::string Compiler::writeVariables(Document& doc) {
     std::string result;
     
     for(auto& var : doc.variables) {
-        result += var.ctype + " " + var.name;
         
-        if(var.predefined) {
-            std::ostringstream stream;
-            stream << var.init; // formats it to scientific notation if necessary
-            result += " = " + stream.str();
+        size_t funcptr = var.ctype.find("(*)");
+        if(funcptr != std::string::npos) {
+            std::string definition = var.ctype;
+            definition.insert(funcptr + 2, var.name);
+            result += definition + ";\n";
         }
         else {
-            result += " = 0";
+            result += var.ctype + " " + var.name;
+                
+            if(var.predefined) {
+                std::ostringstream stream;
+                stream << var.init; // formats it to scientific notation if necessary
+                result += " = " + stream.str();
+            }
+            else {
+                result += " = 0";
+            }
+            result += ";\n";
         }
-        result += ";\n";
     }
     
     
@@ -265,8 +278,8 @@ std::string Compiler::writeFunctions(Document& doc) {
         result += vec.ctype + "* " + vec.name + "_ptr() {\n";
         
         // TODO: add more number types!
-        if(vec.ctype == "double" || vec.ctype == "int")
-            result += "memset(" + vec.name + ", 0, " + arrsize + ");\n";
+        //if(vec.ctype == "double" || vec.ctype == "int")
+        // result += "memset(" + vec.name + ", 0, " + arrsize + ");\n";
         
         
         result += "return " + vec.name + "; }\n";

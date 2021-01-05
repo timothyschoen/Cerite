@@ -3,12 +3,13 @@
 #include <JuceHeader.h>
 #include "Canvas/Canvas.h"
 
+class MainComponent;
 class AppCommands : public SystemClipboard, public ApplicationCommandTarget
 {
 public:
 
 	Canvas* cnv;
-	Component* main;
+    MainComponent* main;
 
 	AffineTransform zoom = AffineTransform();
 
@@ -16,7 +17,7 @@ public:
     
     Array<String> names = {"Numbox", "Vertical Slider", "Horizontal Slider", "Message", "Toggle", "Bang", "Horizontal Radio", "Vertical Radio" };
     
-	AppCommands(Canvas* toBeModified, AudioAppComponent* main);
+	AppCommands(Canvas* toBeModified, MainComponent* main);
 
 	bool perform (const InvocationInfo& info) override;
 
