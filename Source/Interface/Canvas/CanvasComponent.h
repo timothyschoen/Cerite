@@ -47,6 +47,9 @@ struct CanvasComponent : ValueTree::Listener
 
 		stateChanged(treeWhosePropertyHasChanged, property, treeWhosePropertyHasChanged.getProperty(property));
 	}
+    
+    virtual void addToCanvas() = 0;
+    virtual void removeFromCanvas() = 0;
 
 protected:
 	Component* object;

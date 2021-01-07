@@ -19,7 +19,7 @@ void ParameterComponent::openAdvancedSettings() {
     
     Slider* s = dynamic_cast<Slider*>(editor.get());
     //if(s && action)
-        //s->setNormalisableRange({double(parameter.getProperty("Minimum")), double(parameter.getProperty("Maximum")), type == IComponent::TYPE_INT ? 1 : 1e-12, double(parameter.getProperty("Skew"))});
+        //s->setNormalisableRange({double(parameter.getProperty("Minimum")), double(parameter.getProperty("Maximum")), type == ParameterType::tInt ? 1 : 1e-12, double(parameter.getProperty("Skew"))});
 }
 
 
@@ -28,13 +28,13 @@ void ParameterComponent::treeSetup() {
     
     dynamic = bool(parameter.getProperty("Dynamic"));
     type = int(parameter.getProperty("Type"));
-    /*
-    if(type == IComponent::TYPE_STRING) {
+    
+    if(type == ParameterType::tStr) {
         TextEditor* texteditor = new TextEditor();
         editor.reset(texteditor);
         texteditor->setText(parameter.getProperty("Value").toString());
     }
-    else if(type == IComponent::TYPE_INT) {
+    else if(type == ParameterType::tInt) {
         Slider* slider = createSlider();
         
         slider->onValueChange = [this, slider]() {
@@ -49,7 +49,7 @@ void ParameterComponent::treeSetup() {
 
         editor.reset(slider);
     }
-    else if(type == IComponent::TYPE_DOUBLE) {
+    else if(type == ParameterType::tDouble) {
         Slider* slider = createSlider();
         
         slider->onValueChange = [this, slider]() {
@@ -64,7 +64,7 @@ void ParameterComponent::treeSetup() {
 
         editor.reset(slider);
     }
-    else if(type == IComponent::TYPE_BOOL) {
+    else if(type == ParameterType::tBool) {
         ToggleButton* toggle = new ToggleButton();
         editor.reset(toggle);
         toggle->setToggleState(bool(parameter.getProperty("Value")), sendNotification);
@@ -81,7 +81,7 @@ void ParameterComponent::treeSetup() {
         editor->setEnabled(true);
     
     addAndMakeVisible(editor.get());
-     */
+     
 }
 
 void ParameterComponent::paint(Graphics & g) {
@@ -107,17 +107,17 @@ void ParameterComponent::update(ValueTree param) {
         dynamic = param.getProperty("Dynamic");
     }
     
-    /*
-    if(type == IComponent::TYPE_STRING)
+    
+    if(type == ParameterType::tStr)
         static_cast<TextEditor*>(editor.get())->setText(parameter.getProperty("Value").toString());
-    else if(type == IComponent::TYPE_INT)
+    else if(type == ParameterType::tInt)
         static_cast<Slider*>(editor.get())->setValue(int(parameter.getProperty("Value")));
-    else if(type == IComponent::TYPE_DOUBLE)
+    else if(type == ParameterType::tDouble)
         static_cast<Slider*>(editor.get())->setValue(double(parameter.getProperty("Value")));
-    else if(type == IComponent::TYPE_BOOL)
+    else if(type == ParameterType::tBool)
         static_cast<ToggleButton*>(editor.get())->setToggleState(bool(parameter.getProperty("Value")), sendNotification);
     
-    */
+    
     if(!dynamic)
         editor->setEnabled(!bool(parameter.getRoot().getProperty("Power")));
     else
@@ -146,7 +146,7 @@ Slider* ParameterComponent::createSlider() {
     
     slider->setTextBoxStyle(Slider::TextBoxRight, false, 60, 18);
 
-    if(type == IComponent::TYPE_DOUBLE) {
+    if(type == ParameterType::tDouble) {
         if(parameter.hasProperty("Skew")) slider->setNormalisableRange({double(parameter.getProperty("Minimum")), double(parameter.getProperty("Maximum")), 1e-12, double(parameter.getProperty("Skew"))});
         slider->textFromValueFunction = [this](double d) -> String {
             std::stringstream ss;
@@ -164,7 +164,7 @@ Slider* ParameterComponent::createSlider() {
             return outval;
         };
     }
-    else if (type == IComponent::TYPE_INT) {
+    else if (type == ParameterType::tInt) {
         if(parameter.hasProperty("Skew")) slider->setNormalisableRange({double(parameter.getProperty("Minimum")), double(parameter.getProperty("Maximum")), 1, double(parameter.getProperty("Skew"))});
         slider->textFromValueFunction = [this](double d) -> String {
             return String(int(d));
@@ -199,27 +199,27 @@ SimpleParameterComponent::SimpleParameterComponent(String n, ValueTree param, in
 
 void SimpleParameterComponent::treeSetup() {
     parameter.addListener(this);
-    /*
-    if(type == IComponent::TYPE_STRING) {
+    
+    if(type == ParameterType::tStr) {
         TextEditor* texteditor = new TextEditor();
         editor.reset(texteditor);
         texteditor->setText(parameter.getProperty(name).toString());
     }
-    else if(type == IComponent::TYPE_INT) {
+    else if(type == ParameterType::tInt) {
         Slider* slider = createSlider();
         slider->onValueChange = [this, slider]() {
             parameter.setProperty(name, slider->getValue(), nullptr);
         };
         editor.reset(slider);
     }
-    else if(type == IComponent::TYPE_DOUBLE) {
+    else if(type == ParameterType::tDouble) {
         Slider* slider = createSlider();
         slider->onValueChange = [this, slider]() {
             parameter.setProperty(name, slider->getValue(), nullptr);
         };
         editor.reset(slider);
     }
-    else if(type == IComponent::TYPE_BOOL) {
+    else if(type == ParameterType::tBool) {
         ToggleButton* toggle = new ToggleButton();
         editor.reset(toggle);
         toggle->setToggleState(bool(parameter.getProperty(name)), sendNotification);
@@ -229,7 +229,6 @@ void SimpleParameterComponent::treeSetup() {
     }
     
     addAndMakeVisible(editor.get());
-     */
 }
 
 void SimpleParameterComponent::update(ValueTree param) {
@@ -238,16 +237,15 @@ void SimpleParameterComponent::update(ValueTree param) {
         parameter = param;
         parameter.addListener(this);
     }
-    /*
-    if(type == IComponent::TYPE_STRING)
+    
+    if(type == ParameterType::tStr)
         static_cast<TextEditor*>(editor.get())->setText(parameter.getProperty(name).toString(), dontSendNotification);
-    else if(type == IComponent::TYPE_INT)
+    else if(type == ParameterType::tInt)
         static_cast<Slider*>(editor.get())->setValue(int(parameter.getProperty(name)), dontSendNotification);
-    else if(type == IComponent::TYPE_DOUBLE)
+    else if(type == ParameterType::tDouble)
         static_cast<Slider*>(editor.get())->setValue(double(parameter.getProperty(name)), dontSendNotification);
-    else if(type == IComponent::TYPE_BOOL)
+    else if(type == ParameterType::tBool)
         static_cast<ToggleButton*>(editor.get())->setToggleState(bool(parameter.getProperty(name)), dontSendNotification);
-*/
 }
 
 void SimpleParameterComponent::valueTreePropertyChanged (ValueTree &treeWhosePropertyHasChanged, const Identifier &property)

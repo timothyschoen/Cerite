@@ -2,13 +2,14 @@
 
 #include <JuceHeader.h>
 #include "Processor.h"
+#include "concurrentqueue.h"
 
 //==============================================================================
 /*
     This component lives inside our window, and this is where you should put all
     your controls and content.
 */
-class MainComponent  : public AudioSource, public ChildProcessSlave
+class MainComponent  : public AudioSource, public ChildProcessSlave, public Timer
 {
 public:
     //==============================================================================
@@ -19,14 +20,26 @@ public:
     
     SpinLock audioLock;
     
+    moodycamel::ConcurrentQueue<MemoryBlock> inQueue;
+    moodycamel::ConcurrentQueue<MemoryBlock> outQueue;
+    
+    ReferenceCountedObjectPtr<AudioDeviceManager::LevelMeter> outputLevelMeter;
+    
     std::atomic<bool> poweredOn;
     std::atomic<float> volume;
     float lastvolume;
-    std::mutex m_mutex;
+    float lastlevel;
+    
     
     double phase = 0;
     double sampleRate;
     int sampsPerBlock;
+    
+    void sendMessage(MemoryBlock msg) {
+        outQueue.enqueue(msg);
+    }
+    
+    void timerCallback() override;
     
     static inline MainComponent* main = nullptr;
     
@@ -46,14 +59,13 @@ public:
     
 private:
     
+    void handleMessage(const MemoryBlock& m);
+    
     void handleMessageFromMaster (const MemoryBlock &) override;
     void handleConnectionMade() override;
     void handleConnectionLost() override;
     
     AudioDeviceManager deviceManager;
     AudioSourcePlayer audioSourcePlayer;
-    
-    SpinLock lock;
-    
     
 };

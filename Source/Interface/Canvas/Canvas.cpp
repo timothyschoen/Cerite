@@ -91,8 +91,8 @@ void Canvas::updateSelection()
 	MainComponent* m = MainComponent::getInstance();
 	Array<Box*> boxarray = getSelectedBoxes();
 
-	//if(boxarray.size() == 1)
-	//	m->sidebar.inspector->select(boxarray[0]->state);
+	if(boxarray.size() == 1)
+		m->sidebar.inspector->select(boxarray[0]->state);
 };
 
 void Canvas::update()

@@ -232,7 +232,7 @@ public:
         currentsamp = positionInSamples;
     }
     
-    void setID(int newID) override;
+    void setID(int newID, int procID = -1) override;
 
     void fileClicked (const File &file, const MouseEvent &e) override;
 

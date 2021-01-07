@@ -122,8 +122,6 @@ void nameSuggestions::createCalloutBox(Box* caller)
     oldInput = txt;
     updateData(ComponentDictionary::finishName(txt));
 	nameInput.selectAll();
-    
-    int x = caller->getX();
 
 	for (int i = 0; i < buttons.size(); i++)
 	{

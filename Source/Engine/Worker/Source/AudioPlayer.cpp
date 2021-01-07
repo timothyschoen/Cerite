@@ -104,12 +104,12 @@ void AudioPlayer::receiveMessage(MemoryInputStream& m) {
 }
 
 
-void AudioPlayer::hiResTimerCallback() {
+void AudioPlayer::timerCallback() {
     MemoryOutputStream update;
     update.writeInt(MessageID::SendProcessor);
     update.writeInt(ID);
     update.writeInt(ProcessorType::AudioPlayerType);
     update.writeInt(PlayerMessage::Move);
     update.writeInt(currentSample);
-    MainComponent::getInstance()->sendMessageToMaster(update.getMemoryBlock());
+    MainComponent::getInstance()->sendMessage(update.getMemoryBlock());
 }

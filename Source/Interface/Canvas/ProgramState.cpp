@@ -373,16 +373,12 @@ Cerite::Document ProgramState::createPatch()
                             [](const Edge* x) { return x->type.position == 2;}) == edgesK.end())
             continue;
             
-            if(boxes[i]->getX() < boxes[k]->getX()) {
+            if(boxes[i]->getX() <= boxes[k]->getX()) {
+                //boxmanager->objects.swap(i, k);
                 std::swap(allnodes[i], allnodes[k]);
                 std::swap(boxes[i], boxes[k]);
                 std::swap(documents[i], documents[k]);
             }
-            
-            {
-                
-            }
-            
         }
     }
     // pre-apply rtl ordering on splits
@@ -393,12 +389,17 @@ Cerite::Document ProgramState::createPatch()
             if(edge->position == 1) continue;
         for(int c = 0; c < edge->connections.size(); c++) {
             
-            std::sort( edge->connections.begin(), edge->connections.end(), [ ]( const Connection* lhs, const Connection* rhs )
+            std::sort( edge->connections.begin(), edge->connections.end(), [&edge]( const Connection* lhs, const Connection* rhs )
             {
-                Edge* inletToCompare = lhs->start->position ? lhs->start : rhs->start;
-                Edge* outletToCompare = lhs->end->position ? lhs->end : rhs->end;
+                Edge* inletToCompare = lhs->start == edge ? lhs->end : lhs->start;
+                Edge* outletToCompare =  rhs->start == edge ? rhs->end : rhs->start;
+                
+                if(inletToCompare->box == nullptr || outletToCompare->box == nullptr) {
+                    return false;
+                }
+                
                 // TODO: This is not finished yet
-                return 0;
+                return inletToCompare->box->getX() > outletToCompare->box->getX();
             });
             
         }
@@ -415,8 +416,6 @@ Cerite::Document ProgramState::createPatch()
                 
                 std::vector<std::pair<int, int>> splitout = {{nNodes, edge->type.position}};
                 Document splitobject = ComponentDictionary::library.get(std::string("split") + (edge->type.position == 1 ? "~" : ""));
-                
-                
                 
                 
                 for(int c = 0; c < edge->connections.size(); c++) {
@@ -445,6 +444,40 @@ Cerite::Document ProgramState::createPatch()
     // Incorrect ordering will introduce unwanted delay between objects
     constructGraph(allnodes, documents);
     
+    MainComponent* main = MainComponent::getInstance();
+    
+    Array<String> used;
+    main->guiComponents.clear();
+    
+    int total = 0;
+    int processorcount = 0;
+    
+    for(auto& box : boxes) {
+        if(box->GraphicalComponent) {
+            
+            main->guiComponents.add(box->GraphicalComponent.get());
+            int count = 1;
+            
+            String paramname = box->type.substring(0, 3) + String(count);
+            while(used.contains(paramname)) {
+                paramname = box->type.substring(0, 3) + String(++count);
+            }
+            used.add(paramname);
+            box->GraphicalComponent->parameterName = paramname;
+            
+            if(box->GraphicalComponent->type != ProcessorType::None) {
+                box->GraphicalComponent->setID(total, processorcount);
+                processorcount++;
+            }
+            else {
+                box->GraphicalComponent->setID(total);
+            }
+            total++;
+            
+            
+        }
+    }
+    
     
     return Document::concat("project", documents, allnodes);
 }
@@ -460,7 +493,16 @@ void ProgramState::constructGraph(NodeList& nodes, std::vector<Document>& docs) 
     for (int j = i + 1; j < nodes.size(); j++) {
         std::vector<int> digiNodes;
         
-        if(checkOrder(nodes[i], nodes[j], docs[i].outstart["dsp"], docs[j].outstart["dsp"])) {
+        int istart = 0;
+        for(auto& num : docs[i].outstart)
+            istart += num.second;
+        
+        int jstart = 0;
+        for(auto& num : docs[j].outstart)
+            jstart += num.second;
+        
+        if(checkOrder(nodes[i], nodes[j], istart, jstart)) {
+            //boxmanager->objects.swap(j, i);
             std::swap(nodes[j], nodes[i]);
             std::swap(docs[j], docs[i]);
         }
@@ -469,21 +511,16 @@ void ProgramState::constructGraph(NodeList& nodes, std::vector<Document>& docs) 
 
 bool ProgramState::checkOrder(std::vector<std::pair<int, int>> lnodes, std::vector<std::pair<int, int>> rnodes, int lstart, int rstart) {
     
-    
-    int roffset = 0;
-    for(int k = rstart; k < rnodes.size() + roffset; k++) {
+    for(int k = rstart; k < rnodes.size(); k++) {
         if(rnodes[k].second != 1)  {
-            roffset++;
             continue;
         }
-        int loffset = 0;
-        for(int j = 0; j < lstart + loffset; j++) {
+        for(int j = 0; j < lstart; j++) {
             if(lnodes[j].second != 1)  {
-                loffset++;
                 continue;
             }
             
-            if(lnodes[j] == rnodes[k]) {
+            if(lnodes[j].first == rnodes[k].first) {
                 return true;
             }
         }

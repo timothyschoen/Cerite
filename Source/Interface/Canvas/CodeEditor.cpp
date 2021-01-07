@@ -1,6 +1,7 @@
 #include "CodeEditor.h"
 #include "Canvas.h"
 #include "../ComponentDictionary.h"
+#include "../../Engine/Compiler/CodeWriter.h"
 
 CodeEditor::CodeEditor()
 {
@@ -120,8 +121,7 @@ void CodeEditor::compile() {
     
     Reader reader;
     Document doc = reader.parse(currentFile.getFullPathName().toStdString());
-    Cerite::Object obj(doc);
-    Compiler::compile(doc, &obj, [](const char* str){
+    Compiler::compile(CodeWriter::exportCode(doc), [](const char* str){
         consolePtr->logMessage(str);
     });
     

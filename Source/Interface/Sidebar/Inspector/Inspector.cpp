@@ -85,7 +85,7 @@ void Inspector::select(ValueTree boxTree)
     panels[2]->addValueTree(parameters);
     
     panels[0]->clear();
-    //panels[0]->addItem(currentBox, "Orientation", IComponent::TYPE_BOOL);
+    panels[0]->addItem(currentBox, "Orientation", ParameterType::tBool);
     
     if(sbar->selectedTab == 3)
         sbar->title.setText("Inspector:   " + boxTree.getProperty("Name").toString(), sendNotification);

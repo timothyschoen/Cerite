@@ -2,7 +2,6 @@
 
 
 #include "../Looks.h"
-#include "../../Engine/Interface/Patch.h"
 #include "../../Engine/Types/Data.h"
 #include "../../Engine/Worker/Source/ExternalProcessor.h"
 #include "../../Engine/Worker/Source/Message.h"
@@ -15,6 +14,8 @@ public:
     
     ProcessorType type = ProcessorType::None;
     int ID;
+    int processorID = -1;
+    String parameterName;
 
     CeriteLookAndFeel clook;
     
@@ -28,7 +29,7 @@ public:
         setLookAndFeel(nullptr);
     }
     
-    virtual void setID(int newID) {
+    virtual void setID(int newID, int procID = -1) {
         ID = newID;
     }
     

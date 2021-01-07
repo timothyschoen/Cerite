@@ -66,7 +66,8 @@ void Solver::solve(double* A, double* b, double* x)
     std::vector<double> xread(x, x + nets);
     std::vector<double> bread(b, b + nets);
     
-    
+    auto g = xread.begin();
+    auto d = bread.begin();
     
 }
 

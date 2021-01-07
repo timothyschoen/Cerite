@@ -8,6 +8,7 @@
 #include "Interface/SaveDialog.h"
 #include "Interface/Components/AudioPlayerContainer.h"
 #include "Engine/Worker/Source/Message.h"
+#include "Engine/Compiler/CodeWriter.h"
 
 
 //==============================================================================
@@ -59,11 +60,15 @@ void MainComponent::updateSystem()
 {
     if(bool(canvas.programState.getProperty("Power")))
     {
-        
-       /* Cerite::Patch* patch = canvas.createPatch().compile<Cerite::Patch>([](const char* str) {
-            logMessage(str);
-        }); */
-        
+        /*
+        setVolume(Decibels::decibelsToGain ((float) statusbar.volumeSlider.getValue()));
+        MemoryOutputStream memstream;
+        memstream.reset();
+        memstream.writeInt(MessageID::Start);
+        memstream.writeString(CodeWriter::exportCode(canvas.createPatch()));
+        sendMessageToSlave(memstream.getMemoryBlock());
+         */
+         
     }
 }
 //==============================================================================
@@ -84,7 +89,7 @@ void MainComponent::startAudio (double sampleRate, std::vector<double> settings)
     
     MemoryOutputStream memstream;
     memstream.writeInt(MessageID::Start);
-    memstream.writeString(Compiler::exportCode(canvas.createPatch()));
+    memstream.writeString(CodeWriter::exportCode(canvas.createPatch()));
     sendMessageToSlave(memstream.getMemoryBlock());
     
     
@@ -212,8 +217,7 @@ void MainComponent::saveCode() {
     //     destination = saveChooser->getResult();
     //else return;
     
-    std::unique_ptr<Cerite::Patch> patch;
-    std::string ccode = Compiler::exportCode(canvas.createPatch());
+    std::string ccode = CodeWriter::exportCode(canvas.createPatch());
     //return ccode;
 }
 
@@ -224,8 +228,13 @@ void MainComponent::logMessage(const char* str) {
 
 void MainComponent::handleConnectionLost () {
     
+    MessageManager::callAsync(
+             [=] () {
+        statusbar.powerButton.setToggleState(false, sendNotification);
+    });
     
-    crashed = true;
+    logMessage("Crash! Restarting backend...");
+    
     //jassertfalse;
     
     startTimer(100);
@@ -285,50 +294,27 @@ void MainComponent::handleMessageFromSlave (const MemoryBlock& m) {
 
 void MainComponent::attachParameters() {
     
-    Array<String> used;
-    guiComponents.clear();
-    
-    int total = 0;
-    int processorcount = 0;
-    
     for(auto& box : canvas.boxmanager->objects) {
         if(box->GraphicalComponent) {
-            
-            guiComponents.add(box->GraphicalComponent.get());
-            int count = 1;
-            
-            String paramname = box->type.substring(0, 3) + String(count);
-            while(used.contains(paramname)) {
-                paramname = box->type.substring(0, 3) + String(++count);
-            }
-            used.add(paramname);
-            
+            GUIContainer* gui = box->GraphicalComponent.get();
             if(box->GraphicalComponent->type != ProcessorType::None) {
                
                 MemoryOutputStream memstream;
                 memstream.writeInt(MessageID::AddProcessor);
                 memstream.writeInt(box->GraphicalComponent->type);
-                memstream.writeInt(processorcount);
-                memstream.writeInt(total);
-                memstream.writeString(paramname);
+                memstream.writeInt(gui->processorID);
+                memstream.writeInt(gui->ID);
+                memstream.writeString(gui->parameterName);
                 sendMessageToSlave(memstream.getMemoryBlock());
-                box->GraphicalComponent->setID(processorcount);
-                processorcount++;
-                total++;
                 continue;
             }
 
             // Send registration message for parameter
             MemoryOutputStream memstream;
             memstream.writeInt(MessageID::LoadParam);
-            memstream.writeString(paramname);
-            memstream.writeInt(total);
+            memstream.writeString(gui->parameterName);
+            memstream.writeInt(gui->ID);
             sendMessageToSlave(memstream.getMemoryBlock());
-            
-            // Register ID with component
-            box->GraphicalComponent->setID(total);
-            
-            total++;
         }
     }
     

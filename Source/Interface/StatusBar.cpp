@@ -74,7 +74,6 @@ String roundToString(double number)
 
 void StatusBar::paint(Graphics & g)
 {
-	MainComponent* main = static_cast<MainComponent*>(parent);
     String cpuUsage = "0"; //roundToString(main->deviceManager.getCpuUsage());
 	float alpha = 0.8;
 	g.setColour(Colour(41, 41, 41).withAlpha(alpha));

@@ -6,7 +6,8 @@
 #include "../IO/Writer.h"
 
 #include "../Interface/Library.h"
-#include "../Compiler/Compiler.h"
+#include "../Compiler/CodeWriter.h"
+
 
 namespace Cerite {
 
@@ -295,7 +296,7 @@ void Document::combineMatrices(Document& result, std::vector<Document>& document
                 // Calculate final node position
                 if(type == nodes[n][ports[j]].second)
                     node[j - stepOver] = nodes[n][ports[j]].first;
-                else if(size + stepOver < ports.size())
+                else
                     stepOver++;
             }
             

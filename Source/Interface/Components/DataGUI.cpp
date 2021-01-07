@@ -148,6 +148,7 @@ void BangContainer::timerCallback() {
     }
     else {
         bangbutton.setToggleState(true, dontSendNotification);
+        startTimer(100);
     }
 
     
@@ -164,7 +165,7 @@ Point<int> BangContainer::getBestSize()
 }
 
 void BangContainer::receive(Data d) {
-    startTimer(100);
+    startTimer(0);
 }
 
 void TglButton::mouseDown (const MouseEvent &)  {
@@ -212,10 +213,12 @@ void ToggleContainer::receive(Data d) {
 void NumComponent::mouseDown(const MouseEvent & e)  {
     oldval = getText().getFloatValue();
     onDragStart();
+    TextEditor::mouseDown(e);
 }
 
 void NumComponent::mouseUp(const MouseEvent & e)  {
     onDragEnd();
+    TextEditor::mouseUp(e);
 }
 
 
@@ -224,7 +227,7 @@ void NumComponent::focusGained(FocusChangeType type)  {
 }
 
 void NumComponent::mouseDrag(const MouseEvent & e)  {
-    
+    TextEditor::mouseDrag(e);
     int dist = -e.getDistanceFromDragStartY();
     if(abs(dist) > 2) {
         float newval = oldval + ((float)dist / 100.);

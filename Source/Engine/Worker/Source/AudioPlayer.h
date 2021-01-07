@@ -11,7 +11,7 @@ enum PlayerMessage {
     Load
 };
 
-struct AudioPlayer : public ExternalProcessor, public HighResolutionTimer
+struct AudioPlayer : public ExternalProcessor, public Timer
 {
     bool playing = false;
     bool looping = false;
@@ -45,5 +45,5 @@ struct AudioPlayer : public ExternalProcessor, public HighResolutionTimer
 
     void receiveMessage(MemoryInputStream& m) override;
     
-    void hiResTimerCallback() override;
+    void timerCallback() override;
 };

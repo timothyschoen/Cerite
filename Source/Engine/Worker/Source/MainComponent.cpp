@@ -5,7 +5,6 @@ MainComponent::MainComponent()
 {
     main = this;
     poweredOn = false;
-    m_mutex.lock();
     
     // Some platforms require permissions to open input channels so request that here
     if (RuntimePermissions::isRequired (RuntimePermissions::recordAudio)
@@ -19,6 +18,8 @@ MainComponent::MainComponent()
         // Specify the number of input and output channels that we want to open
         setAudioChannels (2, 2);
     }
+    
+    startTimerHz(30);
 }
 
 MainComponent::~MainComponent()
@@ -53,16 +54,40 @@ void MainComponent::prepareToPlay (int samplesPerBlockExpected, double sr)
 {
     sampleRate = sr;
     sampsPerBlock = samplesPerBlockExpected;
+    
+    outputLevelMeter = deviceManager.getOutputLevelGetter();
+    
 }
 
 void MainComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill)
 {
-    
     if(!processor) poweredOn = false;
     
-    if(poweredOn && lock.tryEnter()) {
-        processor->processBlock(*bufferToFill.buffer);
+    // Dequeue to make sure we catch the start message
+    MemoryBlock memblock;
+    while(inQueue.try_dequeue(memblock)) {
+        handleMessage(memblock);
+        memblock.reset();
+    }
+    
+    if(poweredOn) {
         
+        float** writeptr = bufferToFill.buffer->getArrayOfWritePointers();
+        const float** readptr = bufferToFill.buffer->getArrayOfReadPointers();
+        
+        for(int s = 0; s < bufferToFill.buffer->getNumSamples(); s++) {
+
+            while(inQueue.try_dequeue(memblock)) {
+                handleMessage(memblock);
+                memblock.reset();
+            }
+            
+            double output = processor->process(readptr[0][s]);
+            for(int c = 0; c < bufferToFill.buffer->getNumChannels(); c++) {
+                writeptr[c][s] = output;
+            }
+            
+        }
         // Apply and smooth volume changes
         if (volume == lastvolume)
         {
@@ -74,15 +99,22 @@ void MainComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFil
             lastvolume = volume;
         }
 
-        float lvl = bufferToFill.buffer->getRMSLevel(0, 0, bufferToFill.buffer->getNumSamples()) / 4.;
         
-        MemoryOutputStream memstream;
-        memstream.writeInt(MessageID::Volume);
-        memstream.writeFloat(lvl);
-        sendMessageToMaster(memstream.getMemoryBlock());
-        lock.exit();
+        float lvl = outputLevelMeter->getCurrentLevel();
+        
+        if(lvl != lastlevel) {
+            MemoryOutputStream memstream;
+            memstream.writeInt(MessageID::Volume);
+            memstream.writeFloat(lvl);
+            sendMessage(memstream.getMemoryBlock());
+            
+        }
+        
+        lastlevel = lvl;
     }
     else {
+        if(processor) processor.reset(nullptr);
+        
         bufferToFill.clearActiveBufferRegion();
     }
     
@@ -97,16 +129,17 @@ void MainComponent::log(String message) {
     MemoryOutputStream memstream;
     memstream.writeInt(MessageID::Log);
     memstream.writeString(message);
-    main->sendMessageToMaster(memstream.getMemoryBlock());
+    main->sendMessage(memstream.getMemoryBlock());
     
 }
 
-void MainComponent::handleMessageFromMaster (const MemoryBlock & m) {
+void MainComponent::handleMessageFromMaster(const MemoryBlock & m) {
+    inQueue.enqueue(m);
+}
     
+void MainComponent::handleMessage(const MemoryBlock& m) {
     MemoryInputStream memstream(m, false);
-    
     MessageID id = (MessageID)memstream.readInt();
-    lock.enter();
     
     switch (id) {
         case Start: {
@@ -119,18 +152,17 @@ void MainComponent::handleMessageFromMaster (const MemoryBlock & m) {
             if(poweredOn) {
                 MemoryOutputStream response;
                 response.writeInt(MessageID::Ready);
-                sendMessageToMaster(response.getMemoryBlock());
+                sendMessage(response.getMemoryBlock());
             }
             else {
                 MemoryOutputStream response;
                 response.writeInt(MessageID::Stop);
-                sendMessageToMaster(response.getMemoryBlock());
+                sendMessage(response.getMemoryBlock());
             }
             break;
         }
         case Stop: {
             poweredOn = false;
-            processor.reset(nullptr);
             break;
         }
         case Volume: {
@@ -168,6 +200,7 @@ void MainComponent::handleMessageFromMaster (const MemoryBlock & m) {
             }
         }
         case SendProcessor: {
+            if(!poweredOn) break;
             int idx = memstream.readInt();
             processor->external[idx]->receiveMessage(memstream);
             break;
@@ -177,14 +210,30 @@ void MainComponent::handleMessageFromMaster (const MemoryBlock & m) {
             
    
     }
-    lock.exit();
 };
 
 void MainComponent::handleConnectionMade() {
 };
 
 void MainComponent::handleConnectionLost() {
-    exit(0);
+    MessageManager::callAsync([this]() {
+        shutdownAudio();
+        exit(0);
+    });
+    
 };
+
+void MainComponent::timerCallback() {
+    MemoryBlock memblock;
+    while(outQueue.try_dequeue(memblock)) {
+        sendMessageToMaster(memblock);
+        memblock.reset();
+    }
+    
+    if(!deviceManager.getCurrentAudioDevice()->isPlaying()) {
+        setAudioChannels (2, 2);
+    }
+    
+}
 
 JUCE_IMPLEMENT_SINGLETON(MainComponent);

@@ -1,20 +1,16 @@
 #pragma once
 
 #include <boost/algorithm/string.hpp>
-#include "../Interface/Object.h"
-#include "Preprocessor.h"
 #include <libtcc.h>
 
 namespace Cerite {
 
 class Document;
-class Object;
 struct Compiler
 {
     
     typedef void (*TCCErrorFunc)(void *opaque, const char *msg);
 
-    std::vector<Variable> variables;
     static inline void(*print)(const char*) = nullptr;
     
     TCCErrorFunc errfunc = [](void *opaque, const char *msg){
@@ -24,25 +20,13 @@ struct Compiler
     
     Compiler();
     
-    static Object* compile(Document doc, Object* obj, void(*print)(const char* text) = nullptr);
+    static TCCState* compile(std::string code, void(*print)(const char* text) = nullptr);
     
-    static Object* perform(Document& doc, Compiler& compiler, Object* obj);
-    
-    static void prepare(Document& doc);
-    
-    static std::string exportCode(Document doc);
+    static TCCState* perform(std::string code, Compiler& compiler);
     
 private:
     
-    static std::string writeC(Document& doc);
-    
-    static std::string writeVariables(Document& doc);
-    
-    static std::string writeFunctions(Document& doc);
-    
-    static void addUpdateFunc(Document& doc);
-    
-    static std::string addStdLibrary(Object* obj);
+    static std::string addStdLibrary(TCCState* obj);
     
     struct END {};
     
@@ -101,7 +85,7 @@ private:
         std::ostringstream stream;
         stream << value;
         
-        return  rettype + " " + name + " = " + stream.str() + ";\n";
+        return  "static " + rettype + " " + name + " = " + stream.str() + ";\n";
     };
 
     
@@ -144,6 +128,18 @@ private:
     "Type get_type(Data data) {\n"
     "  return data.type;\n"
     "}\n"
+    "#define isString() is_string(data)\n"
+    "int is_string(Data data) {\n"
+    "return data.type == tString;\n"
+    "}\n"
+    "#define isNumber() is_number(data)\n"
+    "int is_number(Data data) {\n"
+    "return data.type == tNumber;\n"
+    "}\n"
+    "#define isBang() is_bang(data)\n"
+    "int is_bang(Data data) {\n"
+    "return data.type == tBang;\n"
+    "}\n"
     "#define getString() get_string(data)\n"
     "const char* get_string(Data data) {\n"
     "  if(data.type == tString) {\n"
@@ -172,7 +168,12 @@ private:
     " return 0;\n"
     "}\n"
     "void do_nothing(Data data) {\n"
-    "}\n";
+    "}\n"
+    "void do_nothing2(int num, Data data) {\n"
+    "}\n"
+    "void(*sendGui)(int, Data) = do_nothing2;\n"
+    "void registerGui(void(*func)(int, Data)) {"
+    " sendGui = func;"
+    "}";
 };
-
 }

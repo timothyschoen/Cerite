@@ -30,7 +30,7 @@ Sidebar::Sidebar(Component* main) : tabs(TabbedButtonBar::Orientation::TabsAtLef
 	tabs.addTab("T", findColour(SidePanel::backgroundColour), 0);
 	tabs.addTab("z", findColour(SidePanel::backgroundColour), 0);
 	tabs.addTab("8", findColour(SidePanel::backgroundColour), 0);
-	//tabs.addTab("m", findColour(SidePanel::backgroundColour), 0);
+	tabs.addTab("m", findColour(SidePanel::backgroundColour), 0);
 	hidebar.addTab("b", findColour(SidePanel::backgroundColour), 0);
 	hidebar.getTabButton(0)->setClickingTogglesState(true);
 	tabs.setTabBackgroundColour(0, Colour::fromString("#FF333333"));

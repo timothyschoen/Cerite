@@ -38,6 +38,7 @@ public:
 		// This method is where you should put your application's initialisation code..
 		FSManager::createFilesystem();
 		mainWindow.reset (new MainWindow (getApplicationName()));
+        mainWindow->setSize(1100, 900);
 		mainWindow->setResizeLimits(800, 600, 5000, 5000);
 		// Create a new project!
 		MainComponent* mainPtr = static_cast<MainComponent*>(mainWindow->getChildComponent(0));

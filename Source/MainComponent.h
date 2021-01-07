@@ -26,8 +26,6 @@
 #include "Interface/Canvas/Box.h"
 #include "Utility/FSManager.h"
 
-#include "Engine/Interface/Patch.h"
-
 /*
     This component lives inside our window, and this is where you should put all
     your controls and content.

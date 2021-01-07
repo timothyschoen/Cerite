@@ -4,6 +4,13 @@
 #include "ParameterComponent.h"
 #include "PresetComponent.h"
 
+enum ParameterType {
+    tDouble,
+    tInt,
+    tBool,
+    tStr
+};
+
 class Inspector : public Component, public ValueTree::Listener
 {
 public:

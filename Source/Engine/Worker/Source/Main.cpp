@@ -28,19 +28,25 @@ String getCommandLineParameters(int argc, char* argv[])
 }
 
 int main(int argc, char* argv[]) {
-    
-    freopen("output.txt","w",stdout);
-    
-    printf("test");
-    
+    ScopedJuceInitialiser_GUI libraryInitialiser;
     MainComponent* main = MainComponent::getInstance();
-
     main->initialiseFromCommandLine(getCommandLineParameters(argc, argv), "CeritePort");
 
+    while(true) {
+    JUCE_TRY
+    {
+        // loop until a quit message is received..
+        MessageManager::getInstance()->runDispatchLoopUntil(1000);
+    }
+    JUCE_CATCH_EXCEPTION
+    }
+    
+    /*
     std::condition_variable cv;
     std::mutex m;
     std::unique_lock<std::mutex> lock(m);
     cv.wait(lock, []{return false;});
+     */
     
     return 0;
 }

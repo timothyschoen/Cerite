@@ -10,7 +10,6 @@
 #include "EdgeManager.h"
 #include "../ComponentDictionary.h"
 #include "ConnectionManager.h"
-#include "../../Engine/Interface/Patch.h"
 
 class Canvas;
 class ProgramState
@@ -120,11 +119,17 @@ public:
        {
        public:
            FileListener() {};
+           // Since all other calls to the library class are made from the message thread,
+           // this should secure it from data races
            void folderChanged (const File folder) override {
+               MessageManager::callAsync([](){
                ComponentDictionary::refresh();
+               });
            }
            void fileChanged (const File file, gin::FileSystemWatcher::FileSystemEvent fsEvent) override {
+               MessageManager::callAsync([](){
                ComponentDictionary::refresh();
+               });
            }
        };
 

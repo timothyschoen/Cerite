@@ -40,9 +40,8 @@ public:
 
 	void clearConnections();
 
-	virtual void addToCanvas();
-
-	virtual void removeFromCanvas();
+    void addToCanvas() override;
+    void removeFromCanvas() override;
 
 	void stateChanged(ValueTree &treeWhosePropertyHasChanged, const Identifier &property, const var &value) override;
 

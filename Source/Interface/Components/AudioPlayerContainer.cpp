@@ -118,7 +118,9 @@ void AudioPlayerContainer::resized()
 	resizableCorner->setBounds(getWidth() - 10, getHeight() - 10, 10, 10);
 }
 
-void AudioPlayerContainer::setID(int newID) {
+void AudioPlayerContainer::setID(int newID, int procID) {
+    processorID = procID;
+    ID = newID;
     
     MemoryOutputStream mem;
     mem.writeInt(MessageID::SendProcessor);
@@ -127,7 +129,7 @@ void AudioPlayerContainer::setID(int newID) {
     mem.writeString(filelist->getSelectedFile().getFullPathName());
     MainComponent::getInstance()->sendMessageToSlave(mem.getMemoryBlock());
     
-    ID = newID;
+   
 }
 
 void AudioPlayerContainer::changeListenerCallback (ChangeBroadcaster *source)
