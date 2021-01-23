@@ -28,7 +28,7 @@ using namespace Cerite;
 struct ComponentDictionary
 {
     
-	static Component* cnv;
+	static juce::Component* cnv;
     
     inline static Library library = Library("/Users/timothy/Documents/Cerite/Objects");
 
@@ -44,14 +44,14 @@ struct ComponentDictionary
 
 	// Functions to get info about a component
 	static GUIContainer* getComponent(ValueTree boxTree, Box* box);
-	static Document getObject (ValueTree boxTree, String name, std::vector<String> arguments);
+	static Object getObject (ValueTree boxTree, String name, std::vector<String> arguments);
 	static componentInformation getInfo (String name);
 	static void getParameters (String name, ValueTree params, std::vector<String> args);
 
 
 	// Functions to fill the static dictionary objects
 	static std::unordered_map<String, GUIContainer* (*)(ValueTree, Box*)> createGraphicsMap();
-	static std::unordered_map<String, componentInformation> createInfoMap();
+    
 	static std::unordered_map<String, void (*)(ValueTree, std::vector<String>)> createParameterMap();
     static std::unordered_map<String, DomainInformation> createDomainMap();
 

@@ -227,6 +227,9 @@ public:
     void selectionChanged() override  {};
 
     void timerCallback() override;
+    
+    void init() override;
+    void close() override;
 
     void setPosition(int positionInSamples) {
         currentsamp = positionInSamples;

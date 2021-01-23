@@ -1,5 +1,7 @@
 #include "Reader.h"
 #include "../Interface/Document.h"
+#include "../Interface/Object.h"
+#include "../Interface/Context.h"
 #include "../Interface/Library.h"
 #include <functional>
 #include <boost/algorithm/string.hpp>
@@ -8,17 +10,27 @@
 namespace Cerite {
 
 
-Document Reader::parse(std::string path) {
+Document& Reader::parse(std::string path) {
     
     std::string stringToParse = Library::currentLibrary->readFile(path);
     VarTable vtable;
-    Document document;
+    
+    Document* doc;
+    
+    if(path.substr(path.rfind(".")) != ".ctx") {
+        doc = new Object;
+    }
+    else {
+        doc = new Context;
+    }
+    
+    Document& document = *doc;
     document.path = path;
     
     document.name = fs::path(path).stem();
-    
+    document.internalName = encode(document.name);
     // check if we're reading a context
-    document.local = path.substr(path.rfind(".")) != ".ctx";
+    //document.local = path.substr(path.rfind(".")) != ".ctx";
     
     getImports(document, vtable, stringToParse);
     
@@ -27,15 +39,19 @@ Document Reader::parse(std::string path) {
     
     document.vtable = vtable;
     
-    std::vector<std::string> segments;
+    std::map<std::string, std::string> segments;
     std::vector<size_t> sectionIndices = {stringToParse.length()};
     std::vector<std::string> sections = vtable.getAll();
 
+    std::unordered_map<std::string, std::pair<int, int>> sectionMap;
+    
     // Find definitions of those variables
     for(auto& str : sections) {
         size_t position = stringToParse.find(str + ":", 0);
-        if (position != npos)
+        
+        if (position != npos) {
             sectionIndices.push_back(position);
+        }
     }
     
     // Sort them: definitions end where the next definition starts
@@ -44,22 +60,36 @@ Document Reader::parse(std::string path) {
     for(int i = 1; i < sectionIndices.size(); i++) {
         size_t start = sectionIndices[i - 1];
         size_t end = sectionIndices[i];
-        segments.push_back(stringToParse.substr(start, end - start));
+        if(start == end) continue;
+        
+        std::string content = stringToParse.substr(start, end - start);
+        std::string selector = content.substr(0, content.find(":", 0));
+        content = content.substr(selector.size() + 1);
+        
+        segments[selector] = content;
     }
     
-    for(int i = 0; i < segments.size(); i++) {
-        size_t start = segments[i].find(":", 0);
-        
-        std::string selector = segments[i].substr(0, start);
-        std::string content(segments[i].substr(start + 1));
-        
-        boost::replace_all(content, "\n\n", "\n");
-        handleSection(document, selector, content, vtable);
-    }
+
     
-    for(auto& vec : document.vectors) {
-        vec.ports = document.ports[vec.origin];
+    for(auto& segment : segments) {
+        boost::replace_all(segment.second, "\n\n", "\n");
+        handleSection(document, segment.first, segment.second, vtable);
     }
+    Object* obj = dynamic_cast<Object*>(&document);
+    if(obj) {
+        for(auto& [key, ctx] : obj->imports) {
+            if(ctx.size == -1) {
+                auto ports = ctx.getPorts(obj);
+                ctx.setSize(ports.first + ports.second);
+            }
+            
+            for(auto& vec : ctx.vectors) {
+                vec.ports = ctx.getNodes(obj);
+            }
+        }
+    }
+
+
     
     return document;
 }
@@ -68,6 +98,9 @@ void Reader::getImports(Document& doc, VarTable& table, std::string importstr) {
     std::string stringToParse = importstr;
     size_t pos = stringToParse.find("import:", 0);
     if(pos == npos) return;
+    
+    Object* cmp = dynamic_cast<Object*>(&doc);
+    if(!cmp) return;
 
     
     size_t start = stringToParse.find(":", pos) + 1;
@@ -76,30 +109,29 @@ void Reader::getImports(Document& doc, VarTable& table, std::string importstr) {
     
     definition.erase(std::remove_if(definition.begin(), definition.end(), ::isspace), definition.end());
     
+    
+    
     std::vector<std::string> split;
     boost::split(split, definition,boost::is_any_of(","));
     
     for(auto& import : split) {
         if(Library::isContext(import)) {
-            Document& imported = Library::currentLibrary->contexts[import];
+            Context imported =  Library::currentLibrary->contexts[import];
             table.spectypes.insert(table.spectypes.begin(), import + "_size");
             table.spectypes.insert(table.spectypes.begin(), import + "_ports");
             
-            table.combineWith(imported.vtable);
-            
-            doc.contexts.push_back(imported.name);
-            doc.vectors.insert(doc.vectors.begin(), imported.vectors.begin(), imported.vectors.end());
-            doc.variables.insert(doc.variables.begin(), imported.variables.begin(), imported.variables.end());
+            imported.defaultFunctions = imported.functions;
             
             for(auto& func : imported.functions) {
-                Function* funcptr = doc.getFunctionPtr(func.name);
-                if(funcptr == nullptr) {
-                    doc.functions.push_back(func);
-                }
-                else if(!func.body.empty()) {
-                    funcptr->body.append(func.body.tokens);
-                }
+                func.body = TokenString("");
             }
+            
+            table.combineWith(imported.vtable);
+            imported.vtable.combineWith(table);
+            
+            
+            cmp->imports[import] = imported;
+            cmp->contexts.push_back(imported.name);
         }
         else
             std::cerr << "Could not find import " << import << std::endl;
@@ -114,7 +146,8 @@ void Reader::addToVarTable(VarTable& table, Document& doc, std::string stringToP
     
     std::vector<std::pair<std::string, bool>> initializers = {{"var", true}, {"const", false}};
     
-    if(doc.contexts.size() < 2 && doc.local){
+    Object* cmp = dynamic_cast<Object*>(&doc);
+    if(cmp && cmp->contexts.size() <= 1){
         table.spectypes.push_back("ports");
         table.spectypes.push_back("size");
     }
@@ -184,8 +217,7 @@ void Reader::parseVariables(Document& doc, VarTable& table, std::string varstrin
             if(var.find("[]") == npos)
                 newvec.size = std::stoi(var.substr(vector + 1, vectorend - vector - 1)); // Get vector size from string
             
-            newvec.origin = Document::encode(doc.name);
-            newvec.local = doc.local;
+            newvec.origin = doc.internalName;
             newvec.dims = (int)std::count(var.begin(), var.end(), '[');
             //newvec.definition.resize(pow(newvec.size, newvec.dims));
             // Get name
@@ -202,15 +234,10 @@ void Reader::parseVariables(Document& doc, VarTable& table, std::string varstrin
         else if(isFunction) {
             idx = func;
             
-
-            
-            Function newfunc("", doc.local);
+            Function newfunc("");
             newfunc.args = var.substr(idx + 2, var.rfind(")") - (idx + 2));
             newfunc.name = var.substr(0, idx + 1);
-            
-            
- 
-            
+
             doc.functions.push_back(newfunc);
             // Add function to the table to allow definition
             table.functypes.push_back({var.substr(0, idx + 1), doc.name});
@@ -223,7 +250,7 @@ void Reader::parseVariables(Document& doc, VarTable& table, std::string varstrin
             double init = std::stod(var.substr(idx + 1));
             Variable v(var.substr(0, idx), !dynamic, init);
             v.predefined = true;
-            v.local = doc.local;
+            //v.local = doc.local;
             v.argpos = argpos;
             v.ctype = ctype;
 
@@ -237,7 +264,7 @@ void Reader::parseVariables(Document& doc, VarTable& table, std::string varstrin
         else {
             Variable v(var, !dynamic, 0);
             v.predefined = false;
-            v.local = doc.local;
+            //v.local = doc.local;
             v.argpos = argpos;
             v.ctype = ctype;
             
@@ -293,7 +320,7 @@ void Reader::handleSection(Document& doc, const std::string& selector, const std
         }
         // Otherwise add a new function
         else {
-            Function newfunc(tokenized, false);
+            Function newfunc(tokenized);
             newfunc.name = selector;
             newfunc.origin = doc.name;
             doc.functions.push_back(newfunc);
@@ -309,34 +336,51 @@ void Reader::handleSection(Document& doc, const std::string& selector, const std
     
     if(table.isSpecial(selector))
     {
-        for(auto& domain : doc.contexts) {
+        
+        if(selector == "alias") {
+            std::string cleaned;
+            for(auto& chr : content) {
+                if(!::isspace(chr)) {
+                    cleaned += chr;
+                }
+            }
+            
+            doc.aliases.push_back(cleaned);
+            return;
+        }
+        
+        Object* cmp = dynamic_cast<Object*>(&doc);
+        if(!cmp) return;
+        
+        for(auto& domain : cmp->contexts) {
             
             if(selector == domain + "_size") {
-                doc.size[domain] = std::stoi(content);
+                cmp->imports[domain].setSize(std::stoi(content));
                 return;
             }
         }
 
-        if(selector == "size" && doc.local) {
-            
-            doc.size[doc.contexts[0]] = std::stoi(content);
+        if(selector == "size") {
+            cmp->imports.begin()->second.setSize(std::stoi(content));
             return;
         }
         
-        for(auto& domain : doc.contexts) {
+        for(auto& domain : cmp->contexts) {
             if(selector == (domain + "_ports")) {
-                doc.ports[domain] = parsePorts(doc, doc.outstart[domain], content);
+                cmp->imports[domain].portstring = TokenString(content, table);
                 return;
             }
         }
         
+
+        
         if(selector == "ports") {
-            if(doc.contexts.size() > 1) {
+            if(cmp->contexts.size() != 1) {
                 std::cerr << "Ambiguous definition of ports" << std::endl;
                 return;
             }
+            cmp->imports.begin()->second.portstring = TokenString(content, table);
             
-            doc.ports[doc.contexts[0]] = parsePorts(doc, doc.outstart[doc.contexts[0]], content);
             return;
         }
     }
@@ -346,27 +390,24 @@ void Reader::handleSection(Document& doc, const std::string& selector, const std
     std::cerr << "Unknown identifier " << selector << std::endl;
 }
 
-std::vector<int> Reader::parsePorts(Document& doc, int& outstart, std::string content) {
-    std::vector<int> ports;
-    std::vector<std::string> split;
-    boost::split(split, content, boost::is_any_of("|"));
+
+// Function for encoding special characters to a C-friendly variable name
+std::string Reader::encode(const std::string &input) {
     
-    for(int i = 0; i < split.size(); i++) {
-        std::vector<std::string> cells;
-        boost::split(cells, split[i], boost::is_any_of(", "));
-        
-        for(auto& cell : cells) {
-            if(cell.find_first_not_of(" \t\n\v\f\r") != npos)
-                ports.push_back(std::stoi(cell));
-        }
-        
-        if(i == 0) outstart = ports.size();
-        
+    std::string result;
+    for(auto& chr : input) {
+        if(chr == '*') result += "mul";
+        else if(chr == '/') result += "div";
+        else if(chr == '+') result += "add";
+        else if(chr == '-') result += "sub";
+        else if(chr == '%') result += "mod";
+        else if(chr == '&') result += "and";
+        else if(chr == '=') result += "eq";
+        else if(chr == '~') result += "sig";
+        else result += chr;
     }
-    
-    
-    return ports;
-    
+    return result;
 }
+
 
 }

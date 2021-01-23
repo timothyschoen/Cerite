@@ -11,7 +11,7 @@ namespace Cerite {
 class Document;
 struct Reader
 {
-    Document parse(std::string path);
+    Document& parse(std::string path);
     
 private:
     
@@ -23,7 +23,8 @@ private:
     
     void getImports(Document& doc, VarTable& table, std::string stringToParse);
     
-    std::vector<int> parsePorts(Document& doc, int& outstart, std::string content);
+    static std::string encode(const std::string &input);
+    
 };
 
 }

@@ -167,21 +167,33 @@ void Connection::addToCanvas()
     start = canvas->getEdgeByID(state.getProperty("Inlet").toString());
     end = canvas->getEdgeByID(state.getProperty("Outlet").toString());
     
-    if(state.hasProperty("StartBox")) {
+    if((start == nullptr || end == nullptr) && state.hasProperty("StartBox")) {
         
         Box* startbox = canvas->getBox(int(state.getProperty("StartBox")));
         Box* endbox = canvas->getBox(int(state.getProperty("EndBox")));
+        
         int startidx = int(state.getProperty("StartIdx"));
         int endidx = int(state.getProperty("EndIdx"));
-        if(startidx < startbox->getEdges().size())
-            start = startbox->getEdges()[startidx];
         
-        if(endidx < endbox->getEdges().size())
+        if(startidx >= 0 && startidx < startbox->getEdges().size())
+            start = startbox->getEdges()[startidx];
+        else if(startidx < -1) {
+            start = canvas->getEdge(int(state.getProperty("StartBox")));
+        }
+        
+        if(endidx >= 0 && endidx < endbox->getEdges().size())
             end = endbox->getEdges()[endidx];
+        else if(endidx < -1) {
+            end = canvas->getEdge(int(state.getProperty("EndBox")));
+        }
         
         if(start != nullptr && end != nullptr) {
             state.setProperty("Inlet", start->state.getProperty("ID"), nullptr);
             state.setProperty("Outlet", end->state.getProperty("ID"), nullptr);
+        }
+        else {
+            canvas->removeConnection(this);
+            std::cout << "Err!" << std::endl;
         }
     }
     

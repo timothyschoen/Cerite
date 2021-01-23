@@ -43,7 +43,7 @@ public:
 	MainComponent();
 	~MainComponent();
     
-    Array<GUIContainer*> guiComponents;
+    Array<SafePointer<GUIContainer>> guiComponents;
     
     int oversample = 0;
     int osfactor = pow(2, oversample);
@@ -72,9 +72,6 @@ public:
     
     bool bypass = true;
 	int fadecounter = 0;
-
-	FileChooser saveChooser =  FileChooser("Select a save file", FSManager::home.getChildFile("Saves"), "*.clab");
-	FileChooser openChooser = FileChooser("Choose save location", FSManager::home.getChildFile("Saves"), "*.clab");
 
 	//MNASystem* getMNASystem();
 

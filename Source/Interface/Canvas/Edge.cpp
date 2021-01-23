@@ -11,13 +11,15 @@ Edge::Edge(Canvas* parent, Box* attached, ValueTree node, std::string domain) : 
     
     setLookAndFeel(&rlook);
 
-	if(!state.hasProperty("ID"))
-		state.setProperty("ID", Uuid().toString(), &canvas->undoManager);
+    if(!state.hasProperty("ID")) {
+		state.setProperty("ID", Uuid().toString(), canvas->isPerformingUndo() ? nullptr : &canvas->undoManager);
+    }
 
 	box = attached;
 
-	if(box != nullptr)
+    if(box != nullptr) {
 		isGround = static_cast<Box*>(box)->isGround;
+    }
 
 	setSize(8, 8);
 	onClick = [this]()

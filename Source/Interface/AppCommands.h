@@ -8,6 +8,10 @@ class AppCommands : public SystemClipboard, public ApplicationCommandTarget
 {
 public:
 
+    
+    FileChooser saveChooser =  FileChooser("Select a save file", FSManager::home.getChildFile("Saves"), "*.clab");
+    FileChooser openChooser = FileChooser("Choose file to open", FSManager::home.getChildFile("Saves"), "*.clab");
+    
 	Canvas* cnv;
     MainComponent* main;
 

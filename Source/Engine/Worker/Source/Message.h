@@ -10,6 +10,7 @@
 
 enum MessageID {
     Start,
+    Code,
     Stop,
     Log,
     Volume,

@@ -46,8 +46,17 @@ void Solver::createCSR(double* A, int dim)
     // Full numeric factorization: Only needed once!
     Numeric = klu_factor (&AI[0], &AJ[0], &AVal[0], Symbolic, &Common);
     
+    currentSolver = this;
+    
 }
 
+void Solver::callSolve(double* A, double* b, double* x)
+{
+    if(currentSolver) {
+        currentSolver->solve(A, b, x);
+    }
+    
+}
 void Solver::solve(double* A, double* b, double* x)
 {
     

@@ -59,6 +59,8 @@ public:
     
 private:
     
+    String receivedCode;
+    
     void handleMessage(const MemoryBlock& m);
     
     void handleMessageFromMaster (const MemoryBlock &) override;

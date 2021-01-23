@@ -4,9 +4,9 @@
 
 namespace Cerite {
 
-Document Library::get(std::string name, std::vector<double> args) {
+Document Library::get(const std::string& name, std::vector<double> args) {
 
-    Document result = components[name];
+    Object result = components[name];
 
     for(int i = 0; i < args.size(); i++) {
         result.setArgument(i, args[i], true);

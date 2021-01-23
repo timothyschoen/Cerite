@@ -74,10 +74,6 @@ public:
 	// These connections will be part of a single node
 	Array<Array<SafePointer<Connection>>> nodes;
 
-	int assignNodes() override; // Assigns a node number to connections
-    
-	void followNode(Connection* connection, Array<SafePointer<Connection>>& node, Array<SafePointer<Connection>>& connections);
-
 	void startConnecting(Edge* init); // Functions to initiate, finish or abort connecting
 	Connection* finishConnecting(Edge* init);
 
@@ -87,6 +83,11 @@ public:
     
     void openCode(Box* caller);
     void closeCode();
+    
+    bool isPerformingUndo() {
+        return undoManager.isPerformingUndoRedo();
+    }
+    
 private:
 
 	LassoComponent<TextButton*> lasso;

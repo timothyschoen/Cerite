@@ -40,13 +40,17 @@ struct Processor
     
     std::string c_code;
     
-    fptr initfunc;
-    fptr preparefunc;
-    fptr calcfunc;
-    fptr trfunc;
-    fptr newtonfunc;
-    fptr solvefunc;
-    fptr updatefunc;
+
+    
+    fptr dsp_prepare;
+    fptr dsp_calc;
+    fptr mna_prepare;
+    fptr mna_calc;
+    fptr data_prepare;
+    fptr data_calc;
+    
+    fptr all_prepare;
+    fptr all_update;
     
     int mna_size = 0;
     double* output;
@@ -54,6 +58,8 @@ struct Processor
     double* A;
     double* b;
     double* x;
+    
+    double* done;
     
     std::vector<datafunc> datafunctions;
     
@@ -87,10 +93,10 @@ struct Processor
     }
     
     double* getVectorPtr(std::string name) {
-        vecptr initfunc = (vecptr)tcc_get_symbol(state, (name + "_ptr").c_str());
+        double* vector = (double*)tcc_get_symbol(state, name.c_str());
         
-        if(initfunc != NULL)
-            return initfunc();
+        if(vector != NULL)
+            return vector;
         else
             return nullptr;
     }

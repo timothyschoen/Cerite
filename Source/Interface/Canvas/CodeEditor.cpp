@@ -121,9 +121,10 @@ void CodeEditor::compile() {
     
     Reader reader;
     Document doc = reader.parse(currentFile.getFullPathName().toStdString());
+    /*
     Compiler::compile(CodeWriter::exportCode(doc), [](const char* str){
         consolePtr->logMessage(str);
-    });
+    }); */
     
 }
 

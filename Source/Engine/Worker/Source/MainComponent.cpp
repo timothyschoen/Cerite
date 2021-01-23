@@ -142,8 +142,14 @@ void MainComponent::handleMessage(const MemoryBlock& m) {
     MessageID id = (MessageID)memstream.readInt();
     
     switch (id) {
+        case Code: {
+            receivedCode += memstream.readString();
+            break;
+        }
         case Start: {
-            processor.reset(new Processor(memstream.readString().toStdString()));
+            processor.reset(new Processor(receivedCode.toStdString()));
+            receivedCode.clear();
+            
             processor->log = [](void *opaque, const char *msg) {
                 log(String(msg));
             };
@@ -195,7 +201,7 @@ void MainComponent::handleMessage(const MemoryBlock& m) {
                 AudioPlayer* player = new AudioPlayer;
                 player->ID = IDB;
                 processor->external.add(player);
-                player->init(processor->getVariablePtr("attach_" + memstream.readString().toStdString()));
+                player->init(processor->getVariablePtr(memstream.readString().toStdString() + "_attach"));
                 
             }
         }

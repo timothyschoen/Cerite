@@ -12,17 +12,23 @@ struct Solver
 {
 
     ~Solver() {
+        currentSolver = nullptr;
+        /* this causes crashes, but right now it might leak...
         if(Symbolic != nullptr) {
             klu_free_symbolic(&Symbolic, &Common);
         }
         if(Numeric != nullptr) {
             klu_free_numeric(&Numeric, &Common);
         }
+          */
     }
-
+    
+    
     void createCSR(double* A, int dim);
     
     void solve(double* A, double* b, double* x);
+    
+    static void callSolve(double* A, double* b, double* x);
     
     double* getAValues();
     
@@ -31,6 +37,7 @@ struct Solver
         createCSR(A, nets);
     }
 
+    inline static Solver* currentSolver = nullptr;
   
 private:
     

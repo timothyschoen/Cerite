@@ -13,7 +13,7 @@ public:
 
 	~AudioSettings()
 	{
-		audioSetupComp->setLookAndFeel(nullptr);
+		//audioSetupComp->setLookAndFeel(nullptr);
 	};
 
 

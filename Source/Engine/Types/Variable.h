@@ -39,6 +39,31 @@ struct Variable
             
         }
     }
+    
+    std::string writeInitialiser() const
+    {
+        std::string result;
+        size_t funcptr = ctype.find("(*)");
+        if(funcptr != std::string::npos) {
+            std::string definition = ctype;
+            definition.insert(funcptr + 2, name);
+            result += definition + ";\n";
+        }
+        else {
+            result += ctype + " " + name;
+            
+            if(predefined) {
+                std::ostringstream stream;
+                stream << init; // formats it to scientific notation if necessary
+                result += " = " + stream.str();
+            }
+            else {
+                result += " = 0";
+            }
+            result += ";\n";
+        }
+        return result;
+    }
 };
 
 }

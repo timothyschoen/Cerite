@@ -9,6 +9,7 @@
 #include "Interface/Components/AudioPlayerContainer.h"
 #include "Engine/Worker/Source/Message.h"
 #include "Engine/Compiler/CodeWriter.h"
+#include "Interface/Canvas/StateConverter.h"
 
 
 //==============================================================================
@@ -65,10 +66,9 @@ void MainComponent::updateSystem()
         MemoryOutputStream memstream;
         memstream.reset();
         memstream.writeInt(MessageID::Start);
-        memstream.writeString(CodeWriter::exportCode(canvas.createPatch()));
+        memstream.writeString(CodeWriter::exportCode(StateConverter::createPatch(&canvas)));
         sendMessageToSlave(memstream.getMemoryBlock());
          */
-         
     }
 }
 //==============================================================================
@@ -87,11 +87,29 @@ void MainComponent::startAudio (double sampleRate, std::vector<double> settings)
    
     setVolume(Decibels::decibelsToGain ((float) statusbar.volumeSlider.getValue()));
     
-    MemoryOutputStream memstream;
-    memstream.writeInt(MessageID::Start);
-    memstream.writeString(CodeWriter::exportCode(canvas.createPatch()));
-    sendMessageToSlave(memstream.getMemoryBlock());
     
+    String code = CodeWriter::exportCode(StateConverter::createPatch(&canvas));
+    
+    File output = File::getSpecialLocation(File::userHomeDirectory).getChildFile("scodec.c");
+    
+    output.replaceWithText(code);
+    
+    
+    MemoryOutputStream memstream;
+    
+    // We need to chop up the code because of a message length limit
+    while(code.length()) {
+        int numToSend = std::min(1024, code.length());
+        memstream.writeInt(MessageID::Code);
+        memstream.writeString(code.substring(0, numToSend));
+        code = code.substring(numToSend);
+        sendMessageToSlave(memstream.getMemoryBlock());
+        memstream.reset();
+    }
+    
+    
+    memstream.writeInt(MessageID::Start);
+    sendMessageToSlave(memstream.getMemoryBlock());
     
     canvas.programState.setProperty("Power", true, nullptr);
     
@@ -99,11 +117,18 @@ void MainComponent::startAudio (double sampleRate, std::vector<double> settings)
 
 void MainComponent::stopAudio()
 {
+    for(auto& gui : guiComponents) {
+        if(gui) {
+            gui->close();
+        }
+    }
+    
     MemoryOutputStream memstream;
     memstream.writeInt(MessageID::Stop);
     sendMessageToSlave(memstream.getMemoryBlock());
     
     statusbar.lvlmeter->setLevel(0);
+
     
     canvas.programState.setProperty("Power", false, nullptr);
 }
@@ -217,7 +242,7 @@ void MainComponent::saveCode() {
     //     destination = saveChooser->getResult();
     //else return;
     
-    std::string ccode = CodeWriter::exportCode(canvas.createPatch());
+    std::string ccode = CodeWriter::exportCode(StateConverter::createPatch(&canvas));
     //return ccode;
 }
 
@@ -274,7 +299,9 @@ void MainComponent::handleMessageFromSlave (const MemoryBlock& m) {
             Data d = DataStream::readFromStream(memstream);
             if(idx < guiComponents.size())
             {
-                guiComponents[idx]->receive(d);
+                if(guiComponents[idx]) {
+                    guiComponents[idx]->receive(d);
+                }
             }
             break;
         }
@@ -283,7 +310,9 @@ void MainComponent::handleMessageFromSlave (const MemoryBlock& m) {
             if(memstream.readInt() == ProcessorType::AudioPlayerType) {
                 int messageType = memstream.readInt();
                 if(messageType == 2) {
-                    static_cast<AudioPlayerContainer*>(guiComponents[idx])->setPosition(memstream.readInt());
+                    if(guiComponents[idx]) {
+                        static_cast<AudioPlayerContainer*>(guiComponents[idx].getComponent())->setPosition(memstream.readInt());
+                    }
                 }
             }
             break;
@@ -297,6 +326,7 @@ void MainComponent::attachParameters() {
     for(auto& box : canvas.boxmanager->objects) {
         if(box->GraphicalComponent) {
             GUIContainer* gui = box->GraphicalComponent.get();
+            
             if(box->GraphicalComponent->type != ProcessorType::None) {
                
                 MemoryOutputStream memstream;
@@ -306,6 +336,8 @@ void MainComponent::attachParameters() {
                 memstream.writeInt(gui->ID);
                 memstream.writeString(gui->parameterName);
                 sendMessageToSlave(memstream.getMemoryBlock());
+                
+                gui->init();
                 continue;
             }
 
@@ -315,6 +347,8 @@ void MainComponent::attachParameters() {
             memstream.writeString(gui->parameterName);
             memstream.writeInt(gui->ID);
             sendMessageToSlave(memstream.getMemoryBlock());
+            
+           
         }
     }
     

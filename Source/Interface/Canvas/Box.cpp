@@ -155,7 +155,8 @@ void Box::changeType()
     if(arguments.size() >= info.numArguments )
 		ComponentDictionary::getParameters(tokens[0], parameterNode, arguments);
 
-    info.fillEdgeTree(edgeNode, &canvas->undoManager);
+    
+    info.fillEdgeTree(edgeNode, canvas->isPerformingUndo() ? nullptr : &canvas->undoManager);
 
     GraphicalComponent.reset(ComponentDictionary::getComponent(state, this));
 
@@ -168,13 +169,14 @@ void Box::changeType()
 	}
     
 	changeWidthToFitText();
+    setSize(std::max(getWidth(), 40), getHeight());
 	resized();
 }
 
 void Box::clearEdges()
 {
 	
-	edgeNode.removeAllChildren(&canvas->undoManager);
+	edgeNode.removeAllChildren(canvas->isPerformingUndo() ? nullptr : &canvas->undoManager);
 };
 
 Array<Edge*> Box::getEdges()
@@ -273,8 +275,10 @@ void Box::stateChanged(ValueTree &treeWhosePropertyHasChanged, const Identifier 
 			setSize(getWidth(), 23);
 		}
 
-		if(GraphicalComponent == nullptr)
+        if(GraphicalComponent == nullptr) {
 			changeWidthToFitText();
+            setSize(std::max(getWidth(), 40), getHeight());
+        }
 
 		resized();
 

@@ -7,10 +7,13 @@
 #include "../../Engine/Types/Data.h"
 
 
-class HSliderContainer : public GUIContainer
+class HSliderContainer : public GUIContainer, public Timer
 {
     
 public:
+    
+    double value;
+    bool dragging = false;
     
     ValueTree boxTree;
     
@@ -26,16 +29,18 @@ public:
     
     void receive(Data d) override;
     
-    
+    void timerCallback() override;
     
 };
 
 
-class VSliderContainer : public GUIContainer
+class VSliderContainer : public GUIContainer, public Timer
 {
     
 public:
     
+    double value;
+    bool dragging = false;
     
     ValueTree boxTree;
     
@@ -50,6 +55,8 @@ public:
     Point<int> getBestSize() override;
     
     void receive(Data d) override;
+    
+    void timerCallback() override;
    
 };
 

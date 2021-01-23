@@ -27,9 +27,9 @@ struct VarTable
     
     std::vector<std::string> initializers = {"const", "var"};
     std::vector<std::pair<std::string, std::string>> functypes = {};
-    std::vector<std::pair<std::string, std::string>> vectypes = {};
-    std::vector<std::pair<std::string, std::string>> vartypes = {};
-    std::vector<std::string> spectypes = {"name", "update"};
+    std::vector<std::pair<std::string, std::string>> vectypes = {{"argv", "glob"}};
+    std::vector<std::pair<std::string, std::string>> vartypes = {{"argc", "glob"}};
+    std::vector<std::string> spectypes = {"name", "alias", "update"};
     
     static inline const std::string operators = "+-=*:!/%|&^";
     static inline const std::string space = "\f\n\r\t\v  ";
@@ -103,9 +103,15 @@ struct VarTable
     }
     
     void combineWith(const VarTable& table) {
-        for(auto& func : table.functypes) functypes.push_back(func);
-        for(auto& vec : table.vectypes) vectypes.push_back(vec);
-        for(auto& var : table.vartypes) vartypes.push_back(var);
+        for(auto& func : table.functypes) {
+            if(!isFunction(func.first)) functypes.push_back(func);
+        }
+        for(auto& vec : table.vectypes) {
+            if(!isVector(vec.first)) vectypes.push_back(vec);
+        }
+        for(auto& var : table.vartypes) {
+           if(!isVariable(var.first)) vartypes.push_back(var);
+        }
     }
     
     

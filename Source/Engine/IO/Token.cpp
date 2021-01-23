@@ -94,10 +94,17 @@ void TokenString::tokenize(std::vector<Token>& result, VarTable chars, std::stri
                 e++;
             
             type = chars.getType(str.substr(s, e - s));
-            
-            // these cases will be handled oddly upon bad input...
+
             if(type == tVector) {
                 
+                int brackpos = e;
+                while(::isspace(str[brackpos])) {
+                    brackpos++;
+                }
+                
+                bool hasSubscript = str[brackpos] == '[';
+                
+                if(hasSubscript) {
                 size_t lbrack = str.find("[", e) + 1;
                 size_t split = str.find("][", lbrack);
                 size_t rbrack = matchNests(str.substr(lbrack), {"[", "]"}) + lbrack;
@@ -122,10 +129,7 @@ void TokenString::tokenize(std::vector<Token>& result, VarTable chars, std::stri
                 }
                 jump = (rbrack + 1) - e;
             }
-            
-            if(type == tFunction) {
-                //e = (str.find(")", e) + 1);
-            }
+          }
         }
         
         else if(chars.operators.find(str[e]) != npos) {
@@ -219,7 +223,7 @@ void TokenString::replaceSymbol(const std::string& oldname, const std::string& n
 std::string TokenString::printVector(const Token& vector, const Document& doc) const {
     std::string result = vector.symbol;
     
-    Vector vec = doc.getVector(result);
+    const Vector& vec = *doc.getVectorPtr(result);
 
     if(vector.args.size() == 1 && vector.args[0].type == tConst) {
         result += vector.args[0].symbol;
@@ -251,6 +255,7 @@ std::string TokenString::printVector(const Token& vector, const Document& doc) c
 std::string TokenString::toString() const {
     std::string result;
     if(!tokens.size()) return "";
+    
     for(auto& token : tokens) {
         if(token.type == tVector) {
             if(token.args.size() == 2)
@@ -286,7 +291,7 @@ std::string TokenString::toC(const Document& doc) const {
     std::string result;
     for(auto& token : tokens) {
         if(token.type == tVector && token.args.size() > 0) {
-            Vector vec = doc.getVector(token.symbol);
+            const Vector& vec = *doc.getVectorPtr(token.symbol);
             if(token.args.size() == 2) {
                 if(token.args[0].type == tConst && token.args[1].type == tConst) {
                     result += token.symbol + "[" + std::to_string(std::stoi(token.args[0].symbol) * vec.size +  std::stoi(token.args[1].symbol)) + "]";

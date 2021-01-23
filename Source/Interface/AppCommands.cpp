@@ -240,29 +240,31 @@ bool AppCommands::perform (const InvocationInfo& info)
 
 	if (info.commandID == keyCmd::Open)
 	{
-		if (main->askToSave() && main->openChooser.browseForFileToOpen())
+        
+		if (main->askToSave())
 		{
-            main->sidebar.inspector->deselect();
-            File openedfile = main->openChooser.getResult();
-            if(openedfile.exists()) {
-                cnv->projectFile = openedfile;
-                
-                main->setTitle(cnv->projectFile.getFileName().toStdString() + " | Cerite");
-                cnv->clearState();
-
-                try
-                {
-                    cnv->setState(cnv->projectFile.loadFileAsString());
-                    cnv->addToHistory(cnv->projectFile);
-                }
-                catch (...)
-                {
-                    cnv->clearState();
-                    std::cout << "Failed to open project" << std::endl;
-                }
+            
+            openChooser.launchAsync(FileBrowserComponent::openMode | FileBrowserComponent::canSelectFiles, [this](const FileChooser& f) {
+                 main->sidebar.inspector->deselect();
+                  File openedfile = f.getResult();
+                  if(openedfile.exists()) {
+                      cnv->projectFile = openedfile;
+                      main->setTitle(cnv->projectFile.getFileName().toStdString() + " | Cerite");
+                      cnv->clearState();
+                      
+                      
+                      try
+                      {
+                          cnv->setState(cnv->projectFile.loadFileAsString());
+                          cnv->addToHistory(cnv->projectFile);
+                      }
+                      catch (...)
+                      {
+                          cnv->clearState();
+                          std::cout << "Failed to open project" << std::endl;
+                      }
+                  }});
             }
-		}
-
 		return true;
 	}
 
@@ -272,18 +274,18 @@ bool AppCommands::perform (const InvocationInfo& info)
 		{
 			cnv->changedSinceSave = false;
 		}
-		else if (main->saveChooser.browseForFileToSave(true))
-		{
-			cnv->projectFile = main->saveChooser.getResult();
-			main->setTitle(cnv->projectFile.getFileName().toStdString() + " | Cerite");
-			cnv->changedSinceSave = false;
-		}
-		else
-			cnv->changedSinceSave = true;
-
-		if (!cnv->changedSinceSave)
-			cnv->projectFile.replaceWithText(Base64::toBase64(cnv->programState.toXmlString()));
-
+        
+        cnv->changedSinceSave = true;
+        
+        saveChooser.launchAsync(FileBrowserComponent::saveMode | FileBrowserComponent::warnAboutOverwriting, [this](const FileChooser &f) {
+            File result = f.getResult();
+            if(!result.existsAsFile()) return;
+            cnv->projectFile = result;
+            main->setTitle(cnv->projectFile.getFileName().toStdString() + " | Cerite");
+            cnv->changedSinceSave = false;
+            cnv->projectFile.replaceWithText(Base64::toBase64(cnv->programState.toXmlString()));
+        });
+        
 		return true;
 	}
 

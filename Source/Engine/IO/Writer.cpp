@@ -1,13 +1,10 @@
 #include <iomanip>
 #include "Writer.h"
-#include "../Compiler/Preprocessor.h"
 
 namespace Cerite {
 
 std::string Writer::format(Document doc) {
     std::string result;
-    
-    Preprocessor::preprocess(doc);
     
     result += "\n\nname: " + doc.name;
    
@@ -15,11 +12,14 @@ std::string Writer::format(Document doc) {
     result += writeVariables(doc, VARIABLE);
     result += writeVariables(doc, STATIC);
     
+    /*
     for(auto domain : doc.size) {
         result += "\n\n " + domain.first + "_size: " + std::to_string(domain.second);
-    }
+    } */
     
-    if(doc.ports.size() > 0) {
+    /*
+    std::vector<int> nodes = getNodes()
+    if(doc.getNodes().size() > 0) {
         for(auto domain : doc.ports) {
             result += "\n\n" + domain.first + "_ports: ";
             for(auto port : domain.second) {
@@ -30,7 +30,7 @@ std::string Writer::format(Document doc) {
                 
             
         result.erase(result.length()-2, 2);
-    }
+    } */
 
     for(auto& vec : doc.vectors)
         if(!vec.local)
@@ -61,6 +61,7 @@ std::string Writer::writeFunction(Function func) {
 
 std::string Writer::writeVector(Vector vec) {
     
+    /*
     if(!vec.update) return "";
     
     std::string result;
@@ -113,11 +114,14 @@ std::string Writer::writeVector(Vector vec) {
         result.insert(0, "\n\n " + vec.name + ":\n");
     }
     
-    return result;
+    return result; */
+    
+    return "";
 }
 
 
 std::string Writer::writeVariables(Document& doc, vartype type) {
+    
     std::string result;
     std::vector<Variable> variables = doc.variables;
     for(auto& var : variables) {
@@ -143,5 +147,6 @@ std::string Writer::writeVariables(Document& doc, vartype type) {
     
     return result;
 }
+     
 
 }

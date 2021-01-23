@@ -42,23 +42,8 @@ struct Vector
     
     void overlap(Vector& target, int newSize, std::vector<int> ports);
     
-    std::vector<std::string> toString() const {
-        std::vector<std::string> result;
-        
-        
-        for(auto& cell : definition) {
-            if(cell.empty()) {
-                result.push_back("0");
-            }
-            else {
-                result.push_back(cell.toString());
-            }
-            
-            
-        }
-        
-        return result;
-    }
+    std::string writeInitialiser() const;
+    std::string toString(const Document& d) const;
     
     std::string combineCells(std::string expr1, std::string expr2) {
         formatCell(expr1);

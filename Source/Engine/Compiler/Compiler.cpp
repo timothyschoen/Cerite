@@ -1,5 +1,8 @@
 
 #include "Compiler.h"
+#include "../Utility/Solver.h"
+#include "../IO/Token.h"
+#include "../Interface/Document.h"
 #include <fstream>
 #include <cmath>
 #include <JuceHeader.h>
@@ -51,7 +54,7 @@ TCCState* Compiler::perform(std::string code, Compiler& compiler) {
 
     std::string ccode = externs + code;
     
-    File output = File::getSpecialLocation(File::userHomeDirectory).getChildFile("ctestserver.c");
+    File output = File::getSpecialLocation(File::userHomeDirectory).getChildFile("Cerite_latest.c");
     output.create();
     output.replaceWithText(String(ccode));
     
@@ -61,7 +64,7 @@ TCCState* Compiler::perform(std::string code, Compiler& compiler) {
         return nullptr;
     }
     else {
-        compiler.print("Compilation succesful!\n");
+        //compiler.print("Compilation succesful!\n");
     }
 
     tcc_relocate(state, TCC_RELOCATE_AUTO);
@@ -98,6 +101,12 @@ std::string Compiler::addStdLibrary(TCCState* state) {
     externs +=  includeFunction<double, double, int*>   (state, "frexp",(void*) (double(*)(double, int*))&frexp);
     //externs +=  includeFunction<double, double  double*>(state, "modf", (void*)(double(*)(double, double*))&modf);
     externs +=  includeFunction<double, double, double> (state, "fmod", (void*)(double(*)(double, double))&fmod);
+
+    externs +=  includeFunction<double, double, double>         (state, "fmin",  (void*)(double(*)(double, double))&std::fmin);
+    externs +=  includeFunction<double, double, double>         (state, "fmax",  (void*)(double(*)(double, double))&std::fmax);
+    
+    externs += Cerite::Compiler::includeFunction<void, double*, double*, double*>(state, "solve",  (void*)(void(*)(double*, double*, double*))&Cerite::Solver::callSolve);
+    
     
     externs += includeVariable<double>(state, "M_LOG2E", M_LOG2E);
     externs += includeVariable<double>(state, "M_LOG10E", M_LOG10E);
@@ -112,6 +121,7 @@ std::string Compiler::addStdLibrary(TCCState* state) {
     externs += includeVariable<double>(state, "M_SQRT2", M_SQRT2);
     externs += includeVariable<double>(state, "M_SQRT1_2", M_SQRT1_2);
     
+
     externs +=  "#include <tcclib.h>\n";
     
     // Add data processing library

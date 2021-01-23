@@ -108,7 +108,6 @@ void TopMenu::menuItemSelected (int menuItemID, int /*topLevelMenuIndex*/)
 	{
 		canvas->projectFile = File(); // unload the current file
         parent->appcmds.invokeDirectly(AppCommands::keyCmd::Save, false); // Save in a new location
-		canvas->addToHistory(canvas->projectFile);
 	}
 
 	if (menuItemID == 999)

@@ -104,7 +104,7 @@ void AudioPlayer::receiveMessage(MemoryInputStream& m) {
 }
 
 
-void AudioPlayer::timerCallback() {
+void AudioPlayer::hiResTimerCallback() {
     MemoryOutputStream update;
     update.writeInt(MessageID::SendProcessor);
     update.writeInt(ID);

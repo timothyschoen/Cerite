@@ -14,7 +14,8 @@ HSliderContainer::HSliderContainer(ValueTree tree, Box* box) : boxTree(tree)
     slider.setTextBoxStyle(Slider::NoTextBox, 0, 0, 0);
     
     slider.onDragStart = [this]() {
-        //startEdition();
+        dragging = true;
+        startTimerHz(30);
     };
     
     slider.onValueChange = [this]()
@@ -34,12 +35,33 @@ HSliderContainer::HSliderContainer(ValueTree tree, Box* box) : boxTree(tree)
     };
     
     slider.onDragEnd = [this]() {
-        //stopEdition();
+        stopTimer();
+        dragging = false;
     };
 }
 
-void HSliderContainer::receive(Data d) {
+void HSliderContainer::timerCallback() {
+    if(dragging) {
+        double newval = slider.getValue();
+        if(newval != value) {
+            send({tNumber, newval});
+            value = newval;
+        }
+    }
+    else {
+        slider.setValue(value);
+        stopTimer();
+    }
+
     
+    
+}
+
+void HSliderContainer::receive(Data d) {
+    if(d.number != value) {
+        value = d.number;
+        startTimer(0);
+    }
 }
 
 void HSliderContainer::resized()
@@ -69,7 +91,8 @@ VSliderContainer::VSliderContainer(ValueTree tree, Box* box) : boxTree(tree)
     slider.setTextBoxStyle(Slider::NoTextBox, 0, 0, 0);
     
     slider.onDragStart = [this]() {
-        //startEdition();
+        dragging = true;
+        startTimerHz(30);
     };
     
     slider.onValueChange = [this]()
@@ -84,11 +107,13 @@ VSliderContainer::VSliderContainer(ValueTree tree, Box* box) : boxTree(tree)
         else
         {
             setValueScaled(val);
-        } */
+        }*/
+        
     };
     
     slider.onDragEnd = [this]() {
-        //stopEdition();
+        stopTimer();
+        dragging = false;
     };
 }
 
@@ -102,10 +127,30 @@ Point<int> VSliderContainer::getBestSize()
     return Point<int>(50, 130);
 }
 
-void VSliderContainer::receive(Data d) {
+
+void VSliderContainer::timerCallback() {
+    if(dragging) {
+        double newval = slider.getValue();
+        if(newval != value) {
+            send({tNumber, newval});
+            value = newval;
+        }
+    }
+    else {
+        slider.setValue(value);
+        stopTimer();
+    }
+
+    
     
 }
 
+void VSliderContainer::receive(Data d) {
+    if(d.number != value) {
+        value = d.number;
+        startTimer(0);
+    }
+}
 
 void BangButton::mouseDown (const MouseEvent &)  {
     onMouseDown();
@@ -185,10 +230,12 @@ ToggleContainer::ToggleContainer(ValueTree tree, Box* box) : boxTree(tree)
     addAndMakeVisible(togglebutton);
     setLookAndFeel(&dlook);
     
+    togglebutton.setClickingTogglesState(true);
     togglebutton.setColour (TextButton::buttonOnColourId, Colour(25, 25, 25));
     togglebutton.setColour (TextButton::buttonColourId, Colour(41, 41, 41));
     togglebutton.onMouseDown = [this]()
     {
+        send({tNumber, (double)togglebutton.getToggleState(), "", 0, 0});
         //startEdition();
         //setValueOriginal(1.f - getValueOriginal());
         //stopEdition();
@@ -206,7 +253,17 @@ Point<int> ToggleContainer::getBestSize()
 }
 
 void ToggleContainer::receive(Data d) {
-    
+    if(d.type == tNumber)
+    {
+        MessageManager::callAsync([this, d]() mutable {
+            togglebutton.setToggleState(d.number != 0, dontSendNotification);
+        });
+    }
+    else if(d.type == tBang) {
+        MessageManager::callAsync([this](){
+            togglebutton.setToggleState(!togglebutton.getToggleState(), dontSendNotification);
+        });
+    }
 }
 
 

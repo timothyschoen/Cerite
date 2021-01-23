@@ -24,6 +24,29 @@ struct Compiler
     
     static TCCState* perform(std::string code, Compiler& compiler);
     
+    template<typename R, typename ...Args>
+    static std::string includeFunction(TCCState* state, std::string name, void* function) {
+        
+        std::string args;
+        printArgs<Args...>(args);
+        std::string rettype;
+        printArgs<R, END>(rettype);
+        
+        tcc_add_symbol(state, name.c_str(), function);
+        return "extern " + rettype + " " + name + "(" + args + ");\n";
+    };
+    
+    template<typename T>
+    static std::string includeVariable(TCCState* state, std::string name, T value) {
+        std::string rettype;
+        printArgs<T, END>(rettype);
+        
+        std::ostringstream stream;
+        stream << value;
+        
+        return  "static " + rettype + " " + name + " = " + stream.str() + ";\n";
+    };
+    
 private:
     
     static std::string addStdLibrary(TCCState* obj);
@@ -64,29 +87,6 @@ private:
          printArgs<Args..., END>(arguments);
         
     }
-
-    template<typename R, typename ...Args>
-    static std::string includeFunction(TCCState* state, std::string name, void* function) {
-        
-        std::string args;
-        printArgs<Args...>(args);
-        std::string rettype;
-        printArgs<R, END>(rettype);
-        
-        tcc_add_symbol(state, name.c_str(), function);
-        return "extern " + rettype + " " + name + "(" + args + ");\n";
-    };
-    
-    template<typename T>
-    static std::string includeVariable(TCCState* state, std::string name, T value) {
-        std::string rettype;
-        printArgs<T, END>(rettype);
-        
-        std::ostringstream stream;
-        stream << value;
-        
-        return  "static " + rettype + " " + name + " = " + stream.str() + ";\n";
-    };
 
     
     // string that contains the Data type for C code

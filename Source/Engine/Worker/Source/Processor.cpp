@@ -21,11 +21,16 @@ bool Processor::prepareToPlay(int samplesPerBlockExpected, double sr) {
     //setVariable("dt", 1. / sr);
     //setVariable("sr", sr);
     
-    preparefunc();
-    initfunc();
-    updatefunc();
+    all_prepare();
+    mna_prepare();
+    dsp_prepare();
+    data_prepare();
+    all_update();
     
     solver.init(A, mna_size);
+    
+
+    
     
     return true;
 }
@@ -35,21 +40,11 @@ double Processor::process(const double& input) {
     for(auto& ext : external)
         ext->tick();
 
-    calcfunc();
-    trfunc();
-    updatefunc();
-    
-    for(int i = 0; i < 1; i++) {
-        
-        solver.solve(A, b, x);
-        
-        //data[2] = 1;
-        newtonfunc();
-        //updatefunc();
-        
-        // check if done
-        //if(data[2]) break;
-    }
+   
+    mna_calc();
+    dsp_calc();
+    data_calc();
+
     double returnvalue = output[0];
     output[0] = 0;
     return returnvalue;
@@ -61,6 +56,9 @@ void Processor::initializeVariables() {
     b = getVectorPtr("mna_b");
     x = getVectorPtr("mna_x");
     
+    
+    done = getVariablePtr("done");
+    
     double* sizeptr = getVariablePtr("mna_size");
     
     if(sizeptr != NULL)
@@ -68,13 +66,21 @@ void Processor::initializeVariables() {
     else
         mna_size = 0;
     
-    calcfunc = getFunctionPtr("calc");
-    preparefunc = getFunctionPtr("prepare");
-    initfunc = getFunctionPtr("init");
-    newtonfunc = getFunctionPtr("newton");
-    solvefunc = getFunctionPtr("solve");
-    updatefunc = getFunctionPtr("update");
-    trfunc = getFunctionPtr("tr");
+    dsp_prepare = getFunctionPtr("dsp_prepare");
+    dsp_calc = getFunctionPtr("dsp_calc");
+    
+    
+    mna_prepare = getFunctionPtr("mna_prepare");
+    mna_calc = getFunctionPtr("mna_calc");
+    
+    data_prepare = getFunctionPtr("data_prepare");
+    data_calc = getFunctionPtr("data_calc");
+    
+    all_update = getFunctionPtr("update");
+    all_prepare = getFunctionPtr("prepare");
+    //solvefunc = getFunctionPtr("solve");
+    //updatefunc = getFunctionPtr("update");
+    //trfunc = getFunctionPtr("tr");
     
     output = getVariablePtr("out");
     
@@ -86,7 +92,7 @@ void Processor::loadData(String name, int idx) {
     
     datafunctions[idx] = (datafunc)tcc_get_symbol(state, (name + "_attach").toRawUTF8());
     
-    int* guiindex = (int*)tcc_get_symbol(state, ("guiIdx_" + name).toRawUTF8());
+    int* guiindex = (int*)tcc_get_symbol(state, (name + "_guiIdx").toRawUTF8());
     
     *guiindex = idx;
     

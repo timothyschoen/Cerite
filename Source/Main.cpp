@@ -55,8 +55,8 @@ public:
 			try
 			{
 				mainPtr->setTitle(lastproj.getFileName().toStdString() + " | Cerite");
-				mainPtr->canvas.setState(lastproj.loadFileAsString());
-				mainPtr->canvas.projectFile = lastproj;
+				//mainPtr->canvas.setState(lastproj.loadFileAsString());
+				//mainPtr->canvas.projectFile = lastproj;
 			}
 			catch(...)
 			{

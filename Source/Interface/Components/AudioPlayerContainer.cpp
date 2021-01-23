@@ -121,7 +121,10 @@ void AudioPlayerContainer::resized()
 void AudioPlayerContainer::setID(int newID, int procID) {
     processorID = procID;
     ID = newID;
-    
+}
+
+void AudioPlayerContainer::init() {
+    // Load selected audio file
     MemoryOutputStream mem;
     mem.writeInt(MessageID::SendProcessor);
     mem.writeInt(ID);
@@ -129,7 +132,25 @@ void AudioPlayerContainer::setID(int newID, int procID) {
     mem.writeString(filelist->getSelectedFile().getFullPathName());
     MainComponent::getInstance()->sendMessageToSlave(mem.getMemoryBlock());
     
-   
+    
+    // Move to current sample position
+    float position = audioslider.getValue();
+    int newsample = int(position * totalsamps);
+    currentsamp = newsample;
+    
+    mem.reset();
+    mem.writeInt(MessageID::SendProcessor);
+    mem.writeInt(ID);
+    mem.writeInt(PlayerMessage::Move);
+    mem.writeInt(currentsamp);
+    MainComponent::getInstance()->sendMessageToSlave(mem.getMemoryBlock());
+}
+
+void AudioPlayerContainer::close() {
+    changeState(Stopping);
+    playbutton.setToggleState(false, dontSendNotification);
+    playbutton.setButtonText("g");
+    
 }
 
 void AudioPlayerContainer::changeListenerCallback (ChangeBroadcaster *source)

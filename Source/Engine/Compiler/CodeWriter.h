@@ -1,12 +1,10 @@
 #pragma once
-
 #include <boost/algorithm/string.hpp>
-#include "Preprocessor.h"
 #include <libtcc.h>
 
 namespace Cerite {
 
-class Document;
+class Object;
 struct CodeWriter
 {
 
@@ -14,19 +12,21 @@ struct CodeWriter
     
     CodeWriter();
     
-    static void prepare(Document& doc);
+    static void prepare(Object& doc);
     
-    static std::string exportCode(Document doc);
+    static std::string exportCode(Object doc);
     
 private:
     
-    static std::string writeC(Document& doc);
+    static std::string writeC(Object& doc);
     
-    static std::string writeVariables(Document& doc);
+    static std::string writeVariables(Object& doc);
     
-    static std::string writeFunctions(Document& doc);
+    static std::string writeFunctions(Object& doc);
     
-    static void addUpdateFunc(Document& doc);
+    static void addUpdateFunc(Object& doc);
+    
+    static void linearizeConstants(Object& obj, std::vector<Variable>& variables);
 
 };
 }

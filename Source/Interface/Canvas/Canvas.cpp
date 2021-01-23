@@ -112,124 +112,6 @@ void Canvas::update()
 	repaint();
 }
 
-// Recursive function to assign node numbers to connections
-void Canvas::followNode(Connection* connection, Array<SafePointer<Connection>>& node, Array<SafePointer<Connection>>& connections)
-{
-	node.addIfNotAlreadyThere(connection);
-	connections.removeAllInstancesOf(connection);
-
-	for(int i = 0; i < connection->start->connections.size(); i++)
-	{
-		Connection* evalconnection = connection->start->connections[i];
-
-		if(!node.contains(evalconnection))
-		{
-			followNode(evalconnection, node, connections);
-		}
-	}
-
-	for(int i = 0; i < connection->end->connections.size(); i++)
-	{
-		Connection* evalconnection = connection->end->connections[i];
-
-		if(!node.contains(evalconnection))
-		{
-			followNode(evalconnection, node, connections);
-		}
-	}
-}
-
-
-int Canvas::assignNodes()
-{
-	Array<Array<SafePointer<Connection>>> newnodes;
-	Array<SafePointer<Connection>> connectionList;
-	Array<SafePointer<Connection>> digiconns;
-
-	// Seperate analog and digital
-	for(auto conNode : connectionNode)
-	{
-		Connection* con = conmanager->getObject(conNode);
-
-		if(con != nullptr && int(conNode.getProperty("Type")) > 0)
-		{
-			digiconns.add(con);
-			//con->start->digiNodes.clear();
-			//con->end->digiNodes.clear();
-		}
-		else if(con != nullptr)
-			connectionList.add(con);
-	}
-
-	// Assign analog nodes
-	while (connectionList.size() > 0)
-	{
-		Array<SafePointer<Connection>> node;
-		followNode(connectionList.getFirst(), node, connectionList);
-		newnodes.add(node);
-	}
-
-	// Find ground node, move it to position 0
-	bool done = false;
-
-	for(int i = 0; i < newnodes.size(); i++)
-	{
-		for(int j = 0; j < newnodes[i].size(); j++)
-		{
-			if(bool(newnodes[i][j]->start->isGround) || bool(newnodes[i][j]->end->isGround))
-			{
-				newnodes.move(i, 0);
-				done = true;
-				break;
-			}
-		}
-
-		if(done) break;
-	}
-
-	// Assign numbers
-	for(int i = 0; i < newnodes.size(); i++)
-	{
-		for(int j = 0; j < newnodes[i].size(); j++)
-		{
-			newnodes[i][j]->node = i;
-			newnodes[i][j]->state.setProperty("Node", i, &undoManager);
-			newnodes[i][j]->start->node = i;
-			newnodes[i][j]->end->node = i;
-		}
-	}
-
-    int numDigiInputs = 2;
-    for(auto& box : boxmanager->objects) {
-        
-        for(auto& input : box->edgeManager->objects) {
-            bool sigin = input->side == 1 && input->type.position != 0;
-            if(sigin && input->connections.size() > 0) {
-                input->node = numDigiInputs;
-                
-                for(auto& conn : input->connections) {
-                    if(conn->start == input)
-                        conn->end->node = numDigiInputs;
-                    else
-                        conn->start->node = numDigiInputs;
-                }
-                numDigiInputs++;
-            }
-            
-            else if (sigin){
-                input->node = 0;
-            }
-        }
-    }
-
-
-	programState.setProperty("nNodes", newnodes.size(), &undoManager);
-	programState.setProperty("nDigiNodes", digiconns.size() + 1, &undoManager);
-	nodes = newnodes;
-    return numDigiInputs;
-}
-
-
 void Canvas::startConnecting(Edge* init)
 {
 	connectingEdge = init;
@@ -274,9 +156,10 @@ void Canvas::reset()
 	nodes.clear();
 	update();
 	undoManager.clearUndoHistory();
-	updateUndoState();
+	
 	changedSinceSave = false;
 	MainComponent* m = MainComponent::getInstance();
+    updateUndoState();
 	m->stopAudio();
 }
 

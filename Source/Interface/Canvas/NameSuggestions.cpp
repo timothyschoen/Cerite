@@ -143,7 +143,7 @@ void nameSuggestions::deleteCalloutBox(Component* parent)
 	nameInput.setVisible(false);
 	Canvas* cnv = static_cast<Canvas*>(parent);
 
-	if(isVisible() && openedEditor != nullptr)
+	if(isVisible() && openedEditor != nullptr && openedEditor->state.isValid())
 	{
 		if(openedEditor->state.getProperty("Name").toString().compare(nameInput.getText())) cnv->startNewAction();
 

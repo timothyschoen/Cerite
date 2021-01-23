@@ -59,8 +59,8 @@ public:
 	void changeType();
 	Array<Edge*> getEdges();
 
-	void addToCanvas();
-	void removeFromCanvas();
+	void addToCanvas() override;
+	void removeFromCanvas() override;
 
 private:
 

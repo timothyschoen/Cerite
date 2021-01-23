@@ -33,6 +33,9 @@ public:
         ID = newID;
     }
     
+    virtual void init() {};
+    virtual void close() {};
+    
     void paint (Graphics & g) override
     {
         g.fillAll(Colour(41, 41, 41));
@@ -46,7 +49,6 @@ public:
     }
     
     virtual void receive(Data d) {};
-    
     virtual void send(Data d);
     
 };

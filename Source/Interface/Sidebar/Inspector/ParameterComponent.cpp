@@ -139,7 +139,7 @@ void ParameterComponent::valueTreePropertyChanged (ValueTree &treeWhosePropertyH
 }
 
 Slider* ParameterComponent::createSlider() {
-    /*
+    
     Slider* slider = new Slider();
     
     type = int(parameter.getProperty("Type"));
@@ -187,8 +187,6 @@ Slider* ParameterComponent::createSlider() {
     slider->setColour(Slider::trackColourId, Colour(20, 20,20));
     slider->setColour(Slider::backgroundColourId, Colour(30, 30, 30));
      return slider;
-     */
-    return nullptr;
 }
 
 

@@ -97,16 +97,12 @@ public:
 	void clearState();
 
 	void startNewAction(bool shouldRebuildSystem = true);
-    
-    void constructGraph(NodeList& nodes, std::vector<Document>& docs);
-    bool checkOrder(std::vector<std::pair<int, int>> lnodes, std::vector<std::pair<int, int>> rnodes, int lstart, int rstart);
         
     virtual void setUndoState(bool setUndo, bool canUndo, bool setRedo, bool canRedo) = 0;
 	virtual void updateUndoState() = 0;
 	virtual void update() = 0;
 	virtual void updateSystemState() = 0;
 	virtual void reset() = 0;
-	virtual int assignNodes() = 0;
 
 	String getState(Array<Box*> boxlist, Array<LooseEdge*> edgelist);
 
@@ -135,9 +131,6 @@ public:
 
        gin::FileSystemWatcher fileWatcher;
        FileListener fileListener;
-    
-
-	Cerite::Document createPatch();
 
     static void logMessage(const char* msg);
 };
