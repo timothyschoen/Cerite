@@ -13,7 +13,7 @@ void Vector::overlap(Vector& target, int newSize, std::vector<int> ports) {
     
     if(dims == 1) {
         for(int n = 0; n < size; n++) {
-            if(n >= ports.size() || ports[n] < 0) continue;
+            if(n >= ports.size() || ports[n] < 0 || n >= target.definition.size()) continue;
             else {
                 target.definition[ports[n]] = TokenString(combineCells(target.definition[ports[n]].toString(), definition[n].toString()), target.definition[n].chars);
                 

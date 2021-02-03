@@ -57,7 +57,7 @@ struct Variable
                 stream << init; // formats it to scientific notation if necessary
                 result += " = " + stream.str();
             }
-            else {
+            else if(ctype == "int" || ctype == "double" || ctype == "long" || ctype == "float"){
                 result += " = 0";
             }
             result += ";\n";

@@ -86,15 +86,15 @@ componentInformation ComponentDictionary::getInfo(String name)
     int numIn = 0;
     int numOut = 0;
 
-    for(auto& [key, ctx] : doc.imports) {
-        for(int i = 0; i < ctx.getPorts(&doc).first; i++) {
+    for(auto& key : doc.contexts) {
+        for(int i = 0; i < doc.imports[key].getPorts(&doc).first; i++) {
             edges.push_back({domainInformation[key].position, 0, numIn, ""});
             numIn++;
         }
     }
     
-    for(auto& [key, ctx] : doc.imports) {
-        for(int i = 0; i < ctx.getPorts(&doc).second; i++) {
+    for(auto& key : doc.contexts) {
+        for(int i = 0; i < doc.imports[key].getPorts(&doc).second; i++) {
             edges.push_back({domainInformation[key].position, 1,  numIn + numOut, ""});
             numOut++;
         }

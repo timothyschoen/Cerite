@@ -144,6 +144,11 @@ void Connection::mouseMove(const MouseEvent& e)
         
         repaint();
     }
+    
+    if(canvas->connectingEdge) {
+        canvas->lastMousePosition = e.getPosition().toFloat() + getPosition().toFloat();
+        canvas->repaint();
+    }
 }
 
 void Connection::mouseEnter(const MouseEvent& e)
@@ -190,6 +195,7 @@ void Connection::addToCanvas()
         if(start != nullptr && end != nullptr) {
             state.setProperty("Inlet", start->state.getProperty("ID"), nullptr);
             state.setProperty("Outlet", end->state.getProperty("ID"), nullptr);
+            //state.removeProperty("StartBox", nullptr);
         }
         else {
             canvas->removeConnection(this);

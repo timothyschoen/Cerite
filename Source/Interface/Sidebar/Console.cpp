@@ -209,7 +209,7 @@ void Console::resized()
 		totalHeight += height;
 	}
     logContainer.totalheight = totalHeight;
-	logContainer.setBounds(0, 0, getWidth(), std::max(totalHeight, getHeight()));
+	logContainer.setBounds(0, 0, getWidth(), std::max(totalHeight, getHeight()-30));
     
     viewport.setBounds(0, 0, getWidth(), getHeight()-30);
     clearButton.setBounds(getWidth() - 30, getHeight()-25, 20, 18);
@@ -225,8 +225,6 @@ void Console::paint(Graphics &g)
     
     g.setColour(findColour(Toolbar::backgroundColourId));
     g.fillRect(0, getHeight()-35, getWidth(), 35);
-    
-
 }
 
 bool Console::createAndAssignPipe (int *pipeIDs, FILE *stream)

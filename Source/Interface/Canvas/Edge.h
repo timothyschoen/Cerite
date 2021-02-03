@@ -42,6 +42,8 @@ public:
 
     void addToCanvas() override;
     void removeFromCanvas() override;
+    
+    void mouseMove(const MouseEvent& e) override;
 
 	void stateChanged(ValueTree &treeWhosePropertyHasChanged, const Identifier &property, const var &value) override;
 

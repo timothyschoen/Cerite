@@ -235,7 +235,7 @@ ToggleContainer::ToggleContainer(ValueTree tree, Box* box) : boxTree(tree)
     togglebutton.setColour (TextButton::buttonColourId, Colour(41, 41, 41));
     togglebutton.onMouseDown = [this]()
     {
-        send({tNumber, (double)togglebutton.getToggleState(), "", 0, 0});
+        send({tNumber, 1 - (double)togglebutton.getToggleState(), "", 0, 0});
         //startEdition();
         //setValueOriginal(1.f - getValueOriginal());
         //stopEdition();
@@ -255,21 +255,17 @@ Point<int> ToggleContainer::getBestSize()
 void ToggleContainer::receive(Data d) {
     if(d.type == tNumber)
     {
-        MessageManager::callAsync([this, d]() mutable {
-            togglebutton.setToggleState(d.number != 0, dontSendNotification);
-        });
+        togglebutton.setToggleState(d.number != 1, dontSendNotification);
     }
     else if(d.type == tBang) {
-        MessageManager::callAsync([this](){
-            togglebutton.setToggleState(!togglebutton.getToggleState(), dontSendNotification);
-        });
+        togglebutton.setToggleState(!togglebutton.getToggleState(), dontSendNotification);
     }
 }
 
 
 void NumComponent::mouseDown(const MouseEvent & e)  {
     oldval = getText().getFloatValue();
-    onDragStart();
+    //onDragStart();
     TextEditor::mouseDown(e);
 }
 
@@ -309,15 +305,18 @@ NumboxContainer::NumboxContainer(ValueTree tree, Box* box) : boxTree(tree)
     
     input.setText("0.");
     
-    input.onDragStart = [this]()
+    input.onTextChange = [this]()
     {
-        dragging = true;
-        startTimerHz(10);
+        double newval = input.getText().getDoubleValue();
+        if(newval != value) {
+            send({tNumber, newval});
+            value = newval;
+        }
     };
     
     input.onDragEnd = [this]()
     {
-        stopTimer();
+        //stopTimer();
         dragging = false;
     };
     

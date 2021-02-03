@@ -6,5 +6,5 @@ void GUIContainer::send(Data d) {
     memstream.writeInt(MessageID::SetParam);
     memstream.writeInt(ID);
     DataStream::writeToStream(d, memstream);
-    MainComponent::getInstance()->sendMessageToSlave(memstream.getMemoryBlock());
+    MainComponent::getInstance()->sendMessage(memstream.getMemoryBlock());
 }

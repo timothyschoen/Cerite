@@ -54,7 +54,10 @@ std::pair<int, int> Context::getPorts(Object* obj) const {
             split.push_back(token.symbol);
         }
     }
-    assert(split.size() == 2);
+    
+    if(split.size() != 2) {
+        return {0, 0};
+    }
     
     if(obj != nullptr) {
         ports = {obj->parseExpression(split[0]), obj->parseExpression(split[1])};

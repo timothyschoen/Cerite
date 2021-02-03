@@ -32,6 +32,8 @@ struct ComponentDictionary
     
     inline static Library library = Library("/Users/timothy/Documents/Cerite/Objects");
 
+    
+    
 	// Dictionaries
     static std::unordered_map<String, componentInformation> infoDictionary;
     inline static std::unordered_map<String, DomainInformation> domainInformation = {};

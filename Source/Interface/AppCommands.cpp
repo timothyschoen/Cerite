@@ -247,7 +247,7 @@ bool AppCommands::perform (const InvocationInfo& info)
             openChooser.launchAsync(FileBrowserComponent::openMode | FileBrowserComponent::canSelectFiles, [this](const FileChooser& f) {
                  main->sidebar.inspector->deselect();
                   File openedfile = f.getResult();
-                  if(openedfile.exists()) {
+                  if(openedfile.exists() && openedfile.getFileExtension().equalsIgnoreCase(".clab")) {
                       cnv->projectFile = openedfile;
                       main->setTitle(cnv->projectFile.getFileName().toStdString() + " | Cerite");
                       cnv->clearState();
@@ -263,7 +263,15 @@ bool AppCommands::perform (const InvocationInfo& info)
                           cnv->clearState();
                           std::cout << "Failed to open project" << std::endl;
                       }
-                  }});
+                  }
+                if(openedfile.exists() && openedfile.getFileExtension().equalsIgnoreCase(".pd"))
+                {
+                    cnv->loadPdPatch(openedfile.loadFileAsString());
+                }
+
+            }
+                                    
+                                    );
             }
 		return true;
 	}
@@ -279,7 +287,6 @@ bool AppCommands::perform (const InvocationInfo& info)
         
         saveChooser.launchAsync(FileBrowserComponent::saveMode | FileBrowserComponent::warnAboutOverwriting, [this](const FileChooser &f) {
             File result = f.getResult();
-            if(!result.existsAsFile()) return;
             cnv->projectFile = result;
             main->setTitle(cnv->projectFile.getFileName().toStdString() + " | Cerite");
             cnv->changedSinceSave = false;

@@ -8,15 +8,16 @@ enum Type {
     tList
 };
 
-struct Data{
+struct Data {
     
     Type type;
     double number;
     const char* string;
-    double* list;
-    unsigned int listlen;
+    Data* list;
+    unsigned int listlen = 0;
     
 };
+
 
 struct DataStream {
 

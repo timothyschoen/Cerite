@@ -126,3 +126,11 @@ String Edge::getTooltip()
 {
 	return state.getProperty("Description").toString();
 }
+
+void Edge::mouseMove (const MouseEvent& e)
+{
+    if(canvas->connectingEdge) {
+        canvas->lastMousePosition = e.getPosition().toFloat() + getPosition().toFloat();
+        canvas->repaint();
+    }
+}

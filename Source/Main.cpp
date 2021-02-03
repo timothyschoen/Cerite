@@ -170,6 +170,11 @@ public:
 				mainPtr->canvas.addToHistory(pFile); // maybe do this in the toolbar when redesigning FSManager
 				return;
 			}
+            if(pFile.exists() && pFile.getFileExtension().equalsIgnoreCase(".pd"))
+            {
+                mainPtr->canvas.loadPdPatch(pFile.loadFileAsString());
+            }
+           
 		}
 
 		std::cout << "Could not open project" << std::endl;

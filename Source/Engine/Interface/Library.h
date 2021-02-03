@@ -6,6 +6,7 @@
 
 #include <unordered_map>
 #include <iostream>
+#include <functional>
 #include <filesystem>
 #include <fstream>
 
@@ -18,16 +19,23 @@ class Library
 
     std::string path;
     
+    inline static std::function<void(const char* str)> log = [](const char* str){
+        std::cout << str << std::endl;
+    };
+    
 public:
     
     inline static Library* currentLibrary = nullptr;
     
-    static std::unordered_map<std::string, Document*> traverseFolder(std::string path, std::string extension) {
-        
-        Reader reader;
-        std::unordered_map<std::string, Document*> result;
-        std::vector<Document> docs;
+    
+    
+    static void searchRecursively(const std::string& path, const std::string& extension, Reader& reader, std::unordered_map<std::string, Document*>& result, std::vector<Document>& docs)
+    {
         for (const auto & entry : fs::directory_iterator(path)) {
+            if(is_directory(entry))
+            {
+                searchRecursively(entry.path(), extension, reader, result, docs);
+            }
             if(extension.empty() || entry.path().extension() != extension || entry.path().string().empty())
                 continue;
             // this is a cursed system
@@ -40,12 +48,23 @@ public:
                 result.insert({alias, copy});
             }
         }
+        
+    }
+    
+    static std::unordered_map<std::string, Document*> traverseFolder(std::string path, std::string extension) {
+        
+        Reader reader;
+        std::unordered_map<std::string, Document*> result;
+        std::vector<Document> docs;
+        searchRecursively(path, extension, reader, result, docs);
 
         return result;
         
     }
     
     static void refresh() {
+        
+        log("updated library...");
         
         currentLibrary->components.clear();
         currentLibrary->contexts.clear();
@@ -91,6 +110,10 @@ public:
         currentLibrary = this;
         refresh();
         
+    }
+    
+    void setLogFunc(std::function<void(const char* str)> logFunc){
+        log = logFunc;
     }
     
     static Document get(const std::string& name, std::vector<double> args = {});

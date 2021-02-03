@@ -205,9 +205,11 @@ void Object::combine(Object& result)
     
     for(int i = 0; i < objects.size(); i++)
     {
+        CodeWriter::handleVariableInput(objects[i]);
         
-        for(auto& [key, ctx] : objects[i].imports)
+        for(auto& key : objects[i].contexts)
         {
+            auto& ctx = objects[i].imports[key];
             int d = ctxnames[key];
             int internal = ctx.size - ctx.getNodes(&objects[i]).size();
             

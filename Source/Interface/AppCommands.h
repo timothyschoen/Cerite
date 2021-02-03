@@ -10,7 +10,7 @@ public:
 
     
     FileChooser saveChooser =  FileChooser("Select a save file", FSManager::home.getChildFile("Saves"), "*.clab");
-    FileChooser openChooser = FileChooser("Choose file to open", FSManager::home.getChildFile("Saves"), "*.clab");
+    FileChooser openChooser = FileChooser("Choose file to open", FSManager::home.getChildFile("Saves"), "*.clab, *.pd");
     
 	Canvas* cnv;
     MainComponent* main;

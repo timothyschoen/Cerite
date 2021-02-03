@@ -6,6 +6,9 @@ MainComponent::MainComponent()
     main = this;
     poweredOn = false;
     
+    
+    receivedData = malloc(msg_size);
+    
     // Some platforms require permissions to open input channels so request that here
     if (RuntimePermissions::isRequired (RuntimePermissions::recordAudio)
         && ! RuntimePermissions::isGranted (RuntimePermissions::recordAudio))
@@ -19,11 +22,11 @@ MainComponent::MainComponent()
         setAudioChannels (2, 2);
     }
     
-    startTimerHz(30);
 }
 
 MainComponent::~MainComponent()
 {
+    free(receivedData);
     shutdownAudio();
 }
 
@@ -65,10 +68,27 @@ void MainComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFil
     
     // Dequeue to make sure we catch the start message
     MemoryBlock memblock;
-    while(inQueue.try_dequeue(memblock)) {
+    while(receiveMessage(memblock)) {
         handleMessage(memblock);
         memblock.reset();
     }
+    
+    /*
+    // The host get 500 blocks (5 seconds) to return ping
+    if(blockCount > 800) {
+        if(!pingReturned) {
+            //exit(0);
+        }
+        pingReturned = false;
+        MemoryOutputStream pingStream;
+        pingStream.writeInt(MessageID::Ping);
+        sendMessage(pingStream.getMemoryBlock());
+        blockCount = 0;
+    }
+    
+    blockCount++;
+    */
+
     
     if(poweredOn) {
         
@@ -76,11 +96,6 @@ void MainComponent::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFil
         const float** readptr = bufferToFill.buffer->getArrayOfReadPointers();
         
         for(int s = 0; s < bufferToFill.buffer->getNumSamples(); s++) {
-
-            while(inQueue.try_dequeue(memblock)) {
-                handleMessage(memblock);
-                memblock.reset();
-            }
             
             double output = processor->process(readptr[0][s]);
             for(int c = 0; c < bufferToFill.buffer->getNumChannels(); c++) {
@@ -132,16 +147,16 @@ void MainComponent::log(String message) {
     main->sendMessage(memstream.getMemoryBlock());
     
 }
-
-void MainComponent::handleMessageFromMaster(const MemoryBlock & m) {
-    inQueue.enqueue(m);
-}
     
 void MainComponent::handleMessage(const MemoryBlock& m) {
     MemoryInputStream memstream(m, false);
     MessageID id = (MessageID)memstream.readInt();
     
     switch (id) {
+        case Ping: {
+            pingReturned = true;
+            break;
+        }
         case Code: {
             receivedCode += memstream.readString();
             break;
@@ -208,7 +223,9 @@ void MainComponent::handleMessage(const MemoryBlock& m) {
         case SendProcessor: {
             if(!poweredOn) break;
             int idx = memstream.readInt();
-            processor->external[idx]->receiveMessage(memstream);
+            if(idx >= 0 && idx < processor->external.size()) {
+                processor->external[idx]->receiveMessage(memstream);
+            }
             break;
         }
         default:
@@ -218,28 +235,5 @@ void MainComponent::handleMessage(const MemoryBlock& m) {
     }
 };
 
-void MainComponent::handleConnectionMade() {
-};
-
-void MainComponent::handleConnectionLost() {
-    MessageManager::callAsync([this]() {
-        shutdownAudio();
-        exit(0);
-    });
-    
-};
-
-void MainComponent::timerCallback() {
-    MemoryBlock memblock;
-    while(outQueue.try_dequeue(memblock)) {
-        sendMessageToMaster(memblock);
-        memblock.reset();
-    }
-    
-    if(!deviceManager.getCurrentAudioDevice()->isPlaying()) {
-        setAudioChannels (2, 2);
-    }
-    
-}
 
 JUCE_IMPLEMENT_SINGLETON(MainComponent);

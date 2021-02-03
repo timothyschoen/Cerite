@@ -47,6 +47,13 @@ void Box::resized()
     
 }
 
+void Box::mouseMove (const MouseEvent& e)
+{
+    if(canvas->connectingEdge) {
+        canvas->lastMousePosition = e.getPosition().toFloat() + getPosition().toFloat();
+        canvas->repaint();
+    }
+}
 void  Box::mouseDown (const MouseEvent& e)
 {
 	int clicks = e.getNumberOfClicks();

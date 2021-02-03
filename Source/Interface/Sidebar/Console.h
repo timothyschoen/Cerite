@@ -64,13 +64,14 @@ struct LogContainer : public Component
         
     }
     
+    
     void paint(Graphics & g) override {
         
-        for(int i = totalheight; i < getHeight(); i += 20)
+        for(int i = totalheight; i < getHeight(); i += 24)
         {
             colourCount = !colourCount;
             g.setColour(colours[colourCount]);
-            g.fillRect(0, i, getWidth(), 20);
+            g.fillRect(0, i, getWidth(), 24);
         }
     };
     
@@ -153,7 +154,7 @@ private:
 	Colour backgroundColour = Colours::white;
 
 	// this is where the text is stored
-	int numLinesToStore = 200;
+	int numLinesToStore = 90;
 	int numLinesToRemoveWhenFull = 20;
 	int numLinesStored = 0;
 	int numNewLinesSinceUpdate = 0;

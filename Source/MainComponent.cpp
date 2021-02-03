@@ -11,11 +11,14 @@
 #include "Engine/Compiler/CodeWriter.h"
 #include "Interface/Canvas/StateConverter.h"
 
+#include <boost/interprocess/ipc/message_queue.hpp>
+#include <unistd.h>
 
 //==============================================================================
 
 MainComponent::MainComponent() : canvas(this), sidebar(this), topmenu(&canvas, this), statusbar(this), appcmds(&canvas, this), toolbar(this)
 {
+    
     setSize (1200, 720);
     setLookAndFeel(&clook);
     addAndMakeVisible(statusbar);
@@ -25,25 +28,58 @@ MainComponent::MainComponent() : canvas(this), sidebar(this), topmenu(&canvas, t
     addAndMakeVisible(sidebar);
     addAndMakeVisible(topmenu);
     
+    receivedData = malloc(msg_size);
+    
+    message_queue::remove("cerite_send");
+    message_queue::remove("cerite_receive");
+    
+    sendQueue.reset(new message_queue(create_only ,"cerite_send", 100, msg_size));
+    receiveQueue.reset(new message_queue(create_only, "cerite_receive",  100, msg_size));
+    
+    
     resized();
     ((Console*)sidebar.content[2])->clear();
     commandManager.registerAllCommandsForTarget(&appcmds);
     commandManager.setFirstCommandTarget(&appcmds);
     
-    launchSlaveProcess(FSManager::exec.getChildFile("CeriteWorker"), "CeritePort", 0);
     
+    Thread::launch([this]() {
+        while(true) {
+            Time::waitForMillisecondCounter(Time::getMillisecondCounter() + 1500);
+            worker.start(FSManager::exec.getChildFile("CeriteWorker").getFullPathName().toRawUTF8());
+            worker.waitForProcessToFinish(-1);
+            MessageManager::callAsync([this]() {
+                statusbar.powerButton.setToggleState(false, sendNotification);
+                Sidebar::console->logMessage("Crash! Restarting backend.");
+                updateCount = 0;
+            });
+        }
+    });
+    
+    Library::currentLibrary->setLogFunc([this](const char* str) {
+        sidebar.console->logMessage(String(str));
+    });
+    
+    
+    
+    startTimerHz(50);
+    
+    resized();
+
     //pd.reset(new CeriteAudioProcessor);
     //setAudioChannels (2, 2);
 }
 
 MainComponent::~MainComponent()
 {
+    boost::interprocess::shared_memory_object::remove("MySharedMemory");
     // This shuts down the audio device and clears the audio source.
     //shutdownAudio();
     /*
      toolbar.setLookAndFeel(nullptr);
      sidebar.setLookAndFeel(nullptr);
      canvas.setLookAndFeel(nullptr); */
+    free(receivedData);
     setLookAndFeel(nullptr);
     /*
      viewport.removeChildComponent(&canvas);
@@ -53,7 +89,8 @@ MainComponent::~MainComponent()
      removeChildComponent(&viewport);
      removeChildComponent(&toolbar); */
     
-    killSlaveProcess();
+    worker.kill();
+    
 }
 
 
@@ -67,7 +104,7 @@ void MainComponent::updateSystem()
         memstream.reset();
         memstream.writeInt(MessageID::Start);
         memstream.writeString(CodeWriter::exportCode(StateConverter::createPatch(&canvas)));
-        sendMessageToSlave(memstream.getMemoryBlock());
+        sendMessage(memstream.getMemoryBlock());
          */
     }
 }
@@ -79,7 +116,7 @@ void MainComponent::setVolume(float level) {
     memstream.writeInt(MessageID::Volume);
     memstream.writeFloat(level);
     
-    sendMessageToSlave(memstream.getMemoryBlock());
+    sendMessage(memstream.getMemoryBlock());
 }
 
 void MainComponent::startAudio (double sampleRate, std::vector<double> settings)
@@ -98,18 +135,23 @@ void MainComponent::startAudio (double sampleRate, std::vector<double> settings)
     MemoryOutputStream memstream;
     
     // We need to chop up the code because of a message length limit
+    // Use this for priority to ensure the code will arrive in correct order
+    int messageSize = 1024 - 64;
+    int totalBlocks = code.length() / messageSize;
+    
     while(code.length()) {
-        int numToSend = std::min(1024, code.length());
+        int numToSend = std::min(messageSize, code.length());
         memstream.writeInt(MessageID::Code);
         memstream.writeString(code.substring(0, numToSend));
         code = code.substring(numToSend);
-        sendMessageToSlave(memstream.getMemoryBlock());
+        sendMessage(memstream.getMemoryBlock(), totalBlocks);
         memstream.reset();
+        totalBlocks--;
     }
     
     
     memstream.writeInt(MessageID::Start);
-    sendMessageToSlave(memstream.getMemoryBlock());
+    sendMessage(memstream.getMemoryBlock());
     
     canvas.programState.setProperty("Power", true, nullptr);
     
@@ -125,7 +167,7 @@ void MainComponent::stopAudio()
     
     MemoryOutputStream memstream;
     memstream.writeInt(MessageID::Stop);
-    sendMessageToSlave(memstream.getMemoryBlock());
+    sendMessage(memstream.getMemoryBlock());
     
     statusbar.lvlmeter->setLevel(0);
 
@@ -251,38 +293,23 @@ void MainComponent::logMessage(const char* str) {
     MainComponent::getInstance()->sidebar.console->logMessage(str);
 }
 
-void MainComponent::handleConnectionLost () {
-    
-    MessageManager::callAsync(
-             [=] () {
-        statusbar.powerButton.setToggleState(false, sendNotification);
-    });
-    
-    logMessage("Crash! Restarting backend...");
-    
-    //jassertfalse;
-    
-    startTimer(100);
-    //launchSlaveProcess(FSManager::exec.getChildFile("CeriteWorker"), "CeritePort", 0);
-}
 
 
-void MainComponent::timerCallback() {
-    launchSlaveProcess(FSManager::exec.getChildFile("CeriteWorker"), "CeritePort", 0);
-    stopTimer();
-}
-
-void MainComponent::handleMessageFromSlave (const MemoryBlock& m) {
+void MainComponent::handleMessage (const MemoryBlock& m) {
     MemoryInputStream memstream(m, false);
     
     MessageID type = (MessageID)memstream.readInt();
     
     switch (type) {
+        case Ping: {
+            pingReceived = true;
+            MemoryOutputStream response;
+            response.writeInt(MessageID::Ping);
+            sendMessage(response.getMemoryBlock());
+            break;
+        }
         case Stop: {
-            MessageManager::callAsync(
-                     [=] () {
-                statusbar.powerButton.setToggleState(false, sendNotification);
-            });
+            statusbar.powerButton.setToggleState(false, sendNotification);
             break;
         }
         case Ready:
@@ -335,7 +362,7 @@ void MainComponent::attachParameters() {
                 memstream.writeInt(gui->processorID);
                 memstream.writeInt(gui->ID);
                 memstream.writeString(gui->parameterName);
-                sendMessageToSlave(memstream.getMemoryBlock());
+                sendMessage(memstream.getMemoryBlock());
                 
                 gui->init();
                 continue;
@@ -346,7 +373,7 @@ void MainComponent::attachParameters() {
             memstream.writeInt(MessageID::LoadParam);
             memstream.writeString(gui->parameterName);
             memstream.writeInt(gui->ID);
-            sendMessageToSlave(memstream.getMemoryBlock());
+            sendMessage(memstream.getMemoryBlock());
             
            
         }

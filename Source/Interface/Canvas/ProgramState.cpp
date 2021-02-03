@@ -85,6 +85,14 @@ ValueTree ProgramState::addConnection(Edge* start, Edge* end)
     
     // Check if the connection is legit
     for(int i = 0; i < 2; i++) {
+        for(int j = 0; j < edges[i]->connections.size(); j++)
+        {
+            if(edges[i]->connections[j]->start == edges[1-i] || edges[i]->connections[j]->end == edges[1-i]) {
+                std::cout << "Connection already exists" << std::endl;
+                return ValueTree();
+            }
+        }
+        
         if(edges[i]->type.position == 0 && edges[1-i]->type.position > 0)
         {
             std::cout << "Can't connect analog and digital inlets" << std::endl;
@@ -311,4 +319,98 @@ void ProgramState::UndoTimer::timerCallback()
 
 void ProgramState::logMessage(const char* msg) {
     MainComponent::getInstance()->logMessage(msg);
+}
+
+void ProgramState::loadPdPatch(String pdPatch)
+{
+    StringArray tokens;
+    tokens.addTokens (pdPatch, ";\n", "");
+    
+    clearState();
+    
+    for(auto& line : tokens)
+    {
+        if(line.startsWith("#X"))
+        {
+            StringArray lineTokens;
+            lineTokens.addTokens (line.substring(3), " ", "");
+            if(lineTokens[0] == "obj")
+            {
+               
+                Point<int> position(lineTokens[1].getIntValue(), lineTokens[2].getIntValue());
+                lineTokens.removeRange(0, 3);
+                
+                if(lineTokens[0] == "bng")
+                {
+                    lineTokens.removeRange(1, lineTokens.size()-1);
+                }
+                addBox(lineTokens.joinIntoString(" "), position);
+            }
+            if(lineTokens[0] == "text")
+            {
+                Point<int> position(lineTokens[1].getIntValue(), lineTokens[2].getIntValue());
+                lineTokens.removeRange(0, 3);
+                addBox(lineTokens.joinIntoString(" "), position);
+            }
+            if(lineTokens[0] == "graph")
+            {
+                Point<int> position(lineTokens[1].getIntValue(), lineTokens[2].getIntValue());
+                lineTokens.removeRange(0, 2);
+                addBox("graph", position);
+            }
+            if(lineTokens[0] == "array")
+            {
+                Point<int> position(lineTokens[1].getIntValue(), lineTokens[2].getIntValue());
+                lineTokens.removeRange(0, 2);
+                addBox("array", position);
+            }
+            if(lineTokens[0] == "msg")
+            {
+                Point<int> position(lineTokens[1].getIntValue(), lineTokens[2].getIntValue());
+                lineTokens.removeRange(0, 2);
+                addBox("msg", position);
+            }
+            
+            if(lineTokens[0] == "floatatom")
+            {
+                Point<int> position(lineTokens[1].getIntValue(), lineTokens[2].getIntValue());
+                lineTokens.removeRange(0, 2);
+                addBox("floatatom", position);
+            }
+            
+            else if (lineTokens[0] == "connect"){
+                
+                int startIdx = lineTokens[1].getIntValue();
+                int endIdx = lineTokens[3].getIntValue();
+                
+                Box* startBox = getBox(startIdx);
+                Box* endBox = getBox(endIdx);
+                
+                int edgeStartIdx = startBox->info.getNumInputs() + lineTokens[2].getIntValue();
+                int edgeEndIdx = lineTokens[4].getIntValue();
+
+                Edge* start = nullptr;
+                Edge* end = nullptr;
+                
+                if(startBox != nullptr && edgeStartIdx < startBox->info.edges.size()) {
+                    start = startBox->getEdges()[edgeStartIdx];
+                }
+                if(endBox != nullptr && edgeEndIdx < endBox->info.edges.size()) {
+                    end = endBox->getEdges()[edgeEndIdx];
+                }
+                    
+                if(start && end) {
+                    addConnection(start, end);
+                }
+            }
+            
+            
+        }
+        else if(line.startsWith("#N"))
+        {
+            
+        }
+        
+    }
+    
 }

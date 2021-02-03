@@ -19,5 +19,6 @@ enum MessageID {
     GetParam,
     Ready,
     AddProcessor,
-    SendProcessor
+    SendProcessor,
+    Ping
 };

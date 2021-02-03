@@ -10,6 +10,8 @@
 #include "MainComponent.h"
 
 
+
+
 String getCommandLineParameters(int argc, char* argv[])
 {
     String argString;
@@ -23,6 +25,7 @@ String getCommandLineParameters(int argc, char* argv[])
 
         argString << arg << ' ';
     }
+    
 
     return argString.trim();
 }
@@ -30,7 +33,6 @@ String getCommandLineParameters(int argc, char* argv[])
 int main(int argc, char* argv[]) {
     ScopedJuceInitialiser_GUI libraryInitialiser;
     MainComponent* main = MainComponent::getInstance();
-    main->initialiseFromCommandLine(getCommandLineParameters(argc, argv), "CeritePort");
 
     while(true) {
     JUCE_TRY

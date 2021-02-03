@@ -54,7 +54,7 @@ AudioPlayerContainer::AudioPlayerContainer(ValueTree boxtree, Box* box) : thread
             mem.writeInt(ID);
             mem.writeInt(PlayerMessage::Playing);
             mem.writeBool(false);
-            MainComponent::getInstance()->sendMessageToSlave(mem.getMemoryBlock());
+            MainComponent::getInstance()->sendMessage(mem.getMemoryBlock());
 			
 		}
 	};
@@ -69,7 +69,7 @@ AudioPlayerContainer::AudioPlayerContainer(ValueTree boxtree, Box* box) : thread
         mem.writeInt(ID);
         mem.writeInt(PlayerMessage::Move);
         mem.writeInt(currentsamp);
-        MainComponent::getInstance()->sendMessageToSlave(mem.getMemoryBlock());
+        MainComponent::getInstance()->sendMessage(mem.getMemoryBlock());
         
         if(playbutton.getToggleState()) {
             mem.reset();
@@ -77,7 +77,7 @@ AudioPlayerContainer::AudioPlayerContainer(ValueTree boxtree, Box* box) : thread
             mem.writeInt(ID);
             mem.writeInt(PlayerMessage::Playing);
             mem.writeBool(true);
-            MainComponent::getInstance()->sendMessageToSlave(mem.getMemoryBlock());
+            MainComponent::getInstance()->sendMessage(mem.getMemoryBlock());
         }
         startTimerHz(5);
 	};
@@ -130,7 +130,7 @@ void AudioPlayerContainer::init() {
     mem.writeInt(ID);
     mem.writeInt(PlayerMessage::Load);
     mem.writeString(filelist->getSelectedFile().getFullPathName());
-    MainComponent::getInstance()->sendMessageToSlave(mem.getMemoryBlock());
+    MainComponent::getInstance()->sendMessage(mem.getMemoryBlock());
     
     
     // Move to current sample position
@@ -143,7 +143,7 @@ void AudioPlayerContainer::init() {
     mem.writeInt(ID);
     mem.writeInt(PlayerMessage::Move);
     mem.writeInt(currentsamp);
-    MainComponent::getInstance()->sendMessageToSlave(mem.getMemoryBlock());
+    MainComponent::getInstance()->sendMessage(mem.getMemoryBlock());
 }
 
 void AudioPlayerContainer::close() {
@@ -232,7 +232,7 @@ void AudioPlayerContainer::fileClicked (const File &file, const MouseEvent &e)
         mem.writeInt(ID);
         mem.writeInt(PlayerMessage::Load);
         mem.writeString(file.getFullPathName());
-        MainComponent::getInstance()->sendMessageToSlave(mem.getMemoryBlock());
+        MainComponent::getInstance()->sendMessage(mem.getMemoryBlock());
         
         
         auto* reader = formatManager.createReaderFor (file);
@@ -263,7 +263,7 @@ void AudioPlayerContainer::changeState (TransportState newState)
         mem.writeInt(ID);
         mem.writeInt(PlayerMessage::Loop);
         mem.writeBool(newState == LoopOn);
-        MainComponent::getInstance()->sendMessageToSlave(mem.getMemoryBlock());
+        MainComponent::getInstance()->sendMessage(mem.getMemoryBlock());
 	}
 	else if ((newState == Starting || newState == Stopping) && state != newState)
 	{
@@ -273,7 +273,7 @@ void AudioPlayerContainer::changeState (TransportState newState)
         mem.writeInt(ID);
         mem.writeInt(PlayerMessage::Playing);
         mem.writeBool(newState == Starting);
-        MainComponent::getInstance()->sendMessageToSlave(mem.getMemoryBlock());
+        MainComponent::getInstance()->sendMessage(mem.getMemoryBlock());
 	}
 }
 

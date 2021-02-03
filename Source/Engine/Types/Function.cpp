@@ -1,4 +1,5 @@
 #include "Function.h"
+
 namespace Cerite {
 
 
@@ -6,28 +7,23 @@ std::string Function::toString(const Document& d) const {
     std::string funcstr;
     
     funcstr += body.toC(d) + "\n";
-    
     // fix indentation
     boost::replace_all(funcstr, ";", ";\n\t");
-
-    // TODO: what happens with multiple args?
-    std::string argstr;
-    if(!args.empty()) {
-        argstr += args + " data";
-    }
-     
     return writeInitialiser() + " {\n\t" + funcstr + "\n}";
 }
 
 std::string Function::writeInitialiser() const {
-    // TODO: what happens with multiple args?
-    std::string argstr;
-    if(!args.empty()) {
-        argstr += args + " data";
+    
+    std::vector<std::string> arg_list;
+    boost::split(arg_list, args, boost::is_any_of(":"));
+    
+    for(int i = 0; i < arg_list.size(); i++) {
+        if(arg_list[i].empty()) continue;
+        arg_list[i] += " f_arg" + std::to_string(i);
     }
      
-    return "void " + name + "( " + argstr + ")";
     
+    return "void " + name + "( " + boost::join(arg_list, ",") + ")";
 }
     
 

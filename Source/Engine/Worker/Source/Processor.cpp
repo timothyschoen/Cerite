@@ -39,10 +39,9 @@ double Processor::process(const double& input) {
     
     for(auto& ext : external)
         ext->tick();
-
-   
-    mna_calc();
+    
     dsp_calc();
+    mna_calc();
     data_calc();
 
     double returnvalue = output[0];

@@ -143,22 +143,22 @@ void ToolbarWrapper::setUndoState(bool setUndo, bool canUndo, bool setRedo, bool
 {
     
     if(setUndo)
-        getItemComponent(5)->setEnabled(canUndo);
+        getItemComponent(4)->setEnabled(canUndo);
     
     if(setRedo)
-        getItemComponent(6)->setEnabled(canRedo);
+        getItemComponent(5)->setEnabled(canRedo);
 }
 
 void ToolbarWrapper::checkUndoState()
 {
 	if(cnv->connectingEdge == nullptr)
 	{
-		getItemComponent(5)->setEnabled(cnv->undoManager.canUndo());
-		getItemComponent(6)->setEnabled(cnv->undoManager.canRedo());
+		getItemComponent(4)->setEnabled(cnv->undoManager.canUndo());
+		getItemComponent(5)->setEnabled(cnv->undoManager.canRedo());
 	}
 	else
 	{
+		getItemComponent(4)->setEnabled(false);
 		getItemComponent(5)->setEnabled(false);
-		getItemComponent(6)->setEnabled(false);
 	}
 }

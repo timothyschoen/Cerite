@@ -41,6 +41,8 @@ public:
 
 	cnvCompListener mouseListener = cnvCompListener(this);
 	nameSuggestions namesbox;
+    
+    Point<float> lastMousePosition;
 
 	Edge* connectingEdge = nullptr;
 
@@ -103,6 +105,6 @@ private:
 	void mouseDown(const MouseEvent& e) override;
 	void mouseDrag(const MouseEvent& e) override;
 	void mouseUp(const MouseEvent& e) override;
-
+    
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Canvas)
 };

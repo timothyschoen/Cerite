@@ -20,8 +20,9 @@ void Canvas::paint (Graphics& g)
 
 	if(connectingEdge != nullptr)
 	{
+        
 		g.setColour(Colours::lightgrey);
-		g.drawLine(Line<float>(getMousePosition().toFloat(), connectingEdge->getBounds().getCentre().toFloat() ), 2.0f);
+		g.drawLine(Line<float>(lastMousePosition, connectingEdge->getBounds().getCentre().toFloat() ), 2.0f);
 	}
 }
 
@@ -72,8 +73,10 @@ void Canvas::moveAll(int moveX, int moveY)
 
 void Canvas::mouseMove(const MouseEvent& e)
 {
-	// Draw unfinished connection if we're connecting
-	if(connectingEdge != nullptr) repaint();
+    if(connectingEdge) {
+        lastMousePosition = e.getPosition().toFloat();
+        repaint();
+    }
 }
 
 bool Canvas::keyPressed(const KeyPress& key)

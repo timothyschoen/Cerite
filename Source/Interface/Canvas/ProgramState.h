@@ -38,9 +38,6 @@ public:
 	};
 
     Canvas* cnv;
-    
-    std::unordered_map<String, Document> classDictionary;
-    std::unordered_map<String, componentInformation> infoDictionary;
 
 	UndoTimer undoTimer = UndoTimer(this);
 
@@ -97,6 +94,8 @@ public:
 	void clearState();
 
 	void startNewAction(bool shouldRebuildSystem = true);
+    
+    void loadPdPatch(String pdPatch);
         
     virtual void setUndoState(bool setUndo, bool canUndo, bool setRedo, bool canRedo) = 0;
 	virtual void updateUndoState() = 0;
@@ -111,21 +110,24 @@ public:
 		return dynamic_cast<CanvasComponent*>(componentToBeCast);
 	}
     
-    class FileListener : public gin::FileSystemWatcher::Listener
+    class FileListener : public gin::FileSystemWatcher::Listener, public Timer
        {
        public:
            FileListener() {};
            // Since all other calls to the library class are made from the message thread,
            // this should secure it from data races
            void folderChanged (const File folder) override {
-               MessageManager::callAsync([](){
-               ComponentDictionary::refresh();
-               });
+               startTimer(1000);
            }
            void fileChanged (const File file, gin::FileSystemWatcher::FileSystemEvent fsEvent) override {
-               MessageManager::callAsync([](){
+               startTimer(1000);
+           }
+           
+           // Use timer to group quick changes together
+           void timerCallback() override
+           {
                ComponentDictionary::refresh();
-               });
+               stopTimer();
            }
        };
 

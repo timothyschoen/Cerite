@@ -26,15 +26,17 @@
 #include "Interface/Canvas/Box.h"
 #include "Utility/FSManager.h"
 
+#include <boost/interprocess/ipc/message_queue.hpp>
+
 /*
     This component lives inside our window, and this is where you should put all
     your controls and content.
 */
 
+using namespace boost::interprocess;
 
 
-
-class MainComponent final : public Component, public FileDragAndDropTarget, public ChildProcessMaster, public Timer
+class MainComponent final : public Component, public FileDragAndDropTarget, public Timer
 {
 public:
     
@@ -45,8 +47,13 @@ public:
     
     Array<SafePointer<GUIContainer>> guiComponents;
     
+    std::unique_ptr<message_queue> sendQueue = nullptr;
+    std::unique_ptr<message_queue> receiveQueue = nullptr;
+    
     int oversample = 0;
     int osfactor = pow(2, oversample);
+    
+    ChildProcess worker;
     
     Canvas canvas;
     AppCommands appcmds;
@@ -63,6 +70,8 @@ public:
     StatusBar statusbar;
 
 	Box* selection;
+    
+    bool pingReceived = true;
 
 
 	int totalNodes = 0;
@@ -73,27 +82,6 @@ public:
     bool bypass = true;
 	int fadecounter = 0;
 
-	//MNASystem* getMNASystem();
-
-	//==============================================================================
-    /*
-	void prepareToPlay (int samplesPerBlockExpected, double sampleRate) override
-	{
-        samplesPerBlock = samplesPerBlockExpected;
-        oversampler.reset(new dsp::Oversampling<float>(2, oversample, dsp::Oversampling<float>::filterHalfBandPolyphaseIIR));
-        
-        oversampler->initProcessing(samplesPerBlockExpected);
-		//deviceManager.addMidiInputDeviceCallback("from Max 1", this);
-		audioLock = &deviceManager.getAudioCallbackLock();
-        midiCollector.reset(sampleRate * osfactor);
-        //pd->setCallbackLock(audioLock);
-        //pd->prepareToPlay(sampleRate, samplesPerBlockExpected, oversample);
-		stopAudio();
-	};
-	void getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill) override;
-
-	void releaseResources() override;
-     */
 	//==============================================================================
 	void paint (Graphics& g) override;
 	void resized() override;
@@ -120,13 +108,8 @@ public:
 
 	void loadLibrary(std::string path);
 
-    void handleMessageFromSlave (const MemoryBlock &) override;
-
-    void handleConnectionLost () override;
+    void handleMessage(const MemoryBlock & m);
     
-    void timerCallback() override;
-    
-
     void setUndoState(bool setUndo, bool canUndo, bool setRedo, bool canRedo)
     {
         toolbar.setUndoState(setUndo, canUndo, setRedo, canRedo);
@@ -138,6 +121,59 @@ public:
 		commandManager.commandStatusChanged();
 		topmenu.menuItemsChanged();
 	}
+    
+    const size_t msg_size = 1 << 10;
+    
+    void sendMessage(MemoryBlock m, unsigned int priority = 0) {
+        
+        if(!sendQueue) return;
+        
+        if(m.getSize() > msg_size)
+        {
+            std::cout << "message too big!" << std::endl;
+        }
+       
+        m.ensureSize(msg_size);
+        // Use try to prevent blocking the audio thread
+        sendQueue->send(m.getData(), msg_size, priority);
+    }
+    
+    int updateCount = 0;
+    void timerCallback() override {
+        
+          MemoryBlock memblock;
+          while(receiveMessage(memblock)) {
+              handleMessage(memblock);
+              memblock.reset();
+          }
+        
+        if(updateCount > 350) {
+            if(!pingReceived) {
+                //std::cout << "NO RESPONSE!" << std::endl;
+            }
+            pingReceived = false;
+            updateCount = 0;
+        }
+        updateCount++;
+        
+    }
+    
+    bool receiveMessage(MemoryBlock& m)
+    {
+        if(!receiveQueue) return false;
+        
+        message_queue::size_type recvd_size;
+        
+        unsigned int priority;
+        
+        if(receiveQueue->try_receive(receivedData, msg_size, recvd_size, priority))
+        {
+            m.replaceWith(receivedData, msg_size);
+            return true;
+        }
+        
+        return false;
+    }
 
 	bool askToSave();
     
@@ -145,6 +181,8 @@ public:
 
 private:
 
+    void* receivedData;
+    
 	bool somethingIsBeingDraggedOver = false;
 
 	bool isInterestedInFileDrag (const StringArray & files) override

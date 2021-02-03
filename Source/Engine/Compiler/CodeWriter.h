@@ -16,6 +16,8 @@ struct CodeWriter
     
     static std::string exportCode(Object doc);
     
+    static void handleVariableInput(Object& doc);
+    
 private:
     
     static std::string writeC(Object& doc);
@@ -27,6 +29,7 @@ private:
     static void addUpdateFunc(Object& doc);
     
     static void linearizeConstants(Object& obj, std::vector<Variable>& variables);
+
 
 };
 }

@@ -90,6 +90,18 @@ struct TokenString
         tokens.erase(tokens.begin() + start, tokens.begin() + end);
     }
     
+    void erase(size_t pos) {
+        tokens.erase(tokens.begin() + pos);
+    }
+    
+    void erase_space() {
+        for(int i = 0; i < tokens.size(); i++) {
+            if(tokens[i].type == tSpacing || tokens[i].symbol == " " || tokens[i].symbol.empty()) {
+                erase(i);
+            }
+        }
+    }
+    
     // Function for finding matching pairs of characters (like {}, () or [])
     static int matchNests(const std::string& str, std::pair<std::string, std::string> selectors) {
         int end = 0;

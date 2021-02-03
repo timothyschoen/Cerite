@@ -85,6 +85,8 @@ std::string CodeWriter::writeC(Object& doc) {
     
     std::string result; 
     
+    //handleVariableInput(doc);
+    
     addUpdateFunc(doc);
     
     result += writeVariables(doc) + "\n\n";
@@ -94,6 +96,55 @@ std::string CodeWriter::writeC(Object& doc) {
     std::string code = result;
     
     return code;
+}
+
+
+void CodeWriter::handleVariableInput(Object& doc)
+{
+    for(auto& [key, import] : doc.imports) {
+        for(auto& vec : import.vectors) {
+            if(vec.isFuncptr()){
+                for(int c = 0; c < vec.definition.size(); c++) {
+                    auto cell = vec.definition[c];
+                    cell.erase_space();
+                    if(cell.tokens.size() && cell.tokens.front().symbol == "[" && cell.tokens.back().symbol == "]") {
+                        
+                        
+                        std::string func_name = cell.tokens[1].symbol;
+                        std::string size_string = cell.tokens[3].symbol;
+                        
+                        int size = doc.parseExpression(size_string);
+                        
+                        std::vector<Function> unpacked_functions;
+                        std::vector<TokenString> unpacked_cells;
+                        
+                        unpacked_functions.reserve(size);
+                        unpacked_cells.reserve(size);
+                        for(int i = 0; i < size; i++)
+                        {
+                            std::string i_str = std::to_string(i);
+                            
+                            Function newfunc(func_name + "(f_arg0, " + i_str + ");");
+                            newfunc.name = func_name + i_str;
+                            newfunc.args = "Data";
+                            
+                            //unpacked_functions.push_back(newfunc);
+                            doc.functions.push_back(newfunc);
+                            
+                            unpacked_cells.push_back(TokenString(func_name + i_str));
+                        }
+                        
+                        vec.definition.erase(vec.definition.begin() + c);
+                        vec.definition.insert(vec.definition.begin() + c, unpacked_cells.begin(), unpacked_cells.end());
+                        
+                        vec.size = vec.definition.size();
+                        
+                        std::cout << "unpacked!" << std::endl;
+                    }
+                }
+            };
+        }
+    }
 }
 
 // Writes C variable definitions for all our variables
@@ -145,11 +196,17 @@ std::string CodeWriter::writeFunctions(Object& doc) {
     
     for(auto& vec : doc.vectors) {
         if(vec.isFuncptr()) continue;
+
         result.push_back(vec.ctype + "* " + vec.name + "_ptr() {\n return " + vec.name + "; }\n");
     }
     
     for(auto& func : doc.functions) {
         bool atEnd = func.name.substr(4) == "prepare" || func.name.substr(4) == "calc";
+        
+        if(func.args == "Data")
+        {
+            func.body.append(TokenString("freeData(f_arg0);\n").tokens);
+        }
         result.insert(result.end(), func.toString(doc));
     }
     

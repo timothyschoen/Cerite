@@ -102,11 +102,19 @@ std::string Compiler::addStdLibrary(TCCState* state) {
     //externs +=  includeFunction<double, double  double*>(state, "modf", (void*)(double(*)(double, double*))&modf);
     externs +=  includeFunction<double, double, double> (state, "fmod", (void*)(double(*)(double, double))&fmod);
 
+    externs +=  includeFunction<int, END> (state, "rand", (void*)(int(*)())&rand);
+    
+    
     externs +=  includeFunction<double, double, double>         (state, "fmin",  (void*)(double(*)(double, double))&std::fmin);
     externs +=  includeFunction<double, double, double>         (state, "fmax",  (void*)(double(*)(double, double))&std::fmax);
     
-    externs += Cerite::Compiler::includeFunction<void, double*, double*, double*>(state, "solve",  (void*)(void(*)(double*, double*, double*))&Cerite::Solver::callSolve);
+
+    externs +=  includeFunction<int, const char*, const char*> (state, "strcmp", (void*)(int(*)(const char*, const char*))&strcmp);
     
+    //externs +=  includeFunction<int, const char*, const char*> (state, "strlen", (void*)(int(*)(const char*))&strlen);
+    
+    
+    externs += Cerite::Compiler::includeFunction<void, double*, double*, double*>(state, "solve",  (void*)(void(*)(double*, double*, double*))&Cerite::Solver::callSolve);
     
     externs += includeVariable<double>(state, "M_LOG2E", M_LOG2E);
     externs += includeVariable<double>(state, "M_LOG10E", M_LOG10E);
