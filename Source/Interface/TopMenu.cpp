@@ -54,6 +54,7 @@ PopupMenu TopMenu::getMenuForIndex (int menuIndex, const String& /*menuName*/)
 		menu.addCommandItem(commands, AppCommands::keyCmd::New);
 		menu.addCommandItem(commands, AppCommands::keyCmd::Open);
 		PopupMenu subMenu;
+        
 		XmlElement* recent = FSManager::meta->getChildByName("recentlyOpened");
 
 		for (int s = 0; s < recent->getNumChildElements(); s++)

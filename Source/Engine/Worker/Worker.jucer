@@ -60,13 +60,97 @@
       <FILE id="zdjpjH" name="Solver.h" compile="0" resource="0" file="../Utility/Solver.h"/>
       <FILE id="cM0FOH" name="Tester.h" compile="0" resource="0" file="../Utility/Tester.h"/>
     </GROUP>
+    <GROUP id="{3FA42213-24DA-CFD5-2E88-93F963EC8D18}" name="Libraries">
+      <GROUP id="{A8A3E36D-6A77-9420-2BEB-473F3A26DB87}" name="KLU">
+        <GROUP id="{F93A5DC5-4E53-9923-EE97-DCD2BD261CD6}" name="Source">
+          <GROUP id="{BA206D84-640F-B98A-0122-12E90D485162}" name="AMD">
+            <FILE id="GJPaF0" name="amd.f" compile="0" resource="1" file="../../../Libraries/KLU/Source/AMD/amd.f"/>
+            <FILE id="FZ9bFc" name="amd.h" compile="0" resource="0" file="../../../Libraries/KLU/Source/AMD/amd.h"/>
+            <FILE id="rJI7s4" name="amd_1.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/AMD/amd_1.c"/>
+            <FILE id="S3FCkg" name="amd_2.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/AMD/amd_2.c"/>
+            <FILE id="jMnYOd" name="amd_aat.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/AMD/amd_aat.c"/>
+            <FILE id="o4ZNek" name="amd_control.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/AMD/amd_control.c"/>
+            <FILE id="y4FWVQ" name="amd_defaults.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/AMD/amd_defaults.c"/>
+            <FILE id="kzz3wQ" name="amd_dump.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/AMD/amd_dump.c"/>
+            <FILE id="EFbftt" name="amd_global.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/AMD/amd_global.c"/>
+            <FILE id="NbAA6I" name="amd_info.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/AMD/amd_info.c"/>
+            <FILE id="gkW7J9" name="amd_internal.h" compile="0" resource="0" file="../../../Libraries/KLU/Source/AMD/amd_internal.h"/>
+            <FILE id="jOM5J1" name="amd_order.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/AMD/amd_order.c"/>
+            <FILE id="vCSLmh" name="amd_post_tree.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/AMD/amd_post_tree.c"/>
+            <FILE id="aT6EL1" name="amd_postorder.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/AMD/amd_postorder.c"/>
+            <FILE id="NCz7Fj" name="amd_preprocess.c" compile="1" resource="0"
+                  file="../../../Libraries/KLU/Source/AMD/amd_preprocess.c"/>
+            <FILE id="aF8jJX" name="amd_valid.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/AMD/amd_valid.c"/>
+            <FILE id="osWmdc" name="amdbar.f" compile="0" resource="1" file="../../../Libraries/KLU/Source/AMD/amdbar.f"/>
+            <FILE id="vuauE3" name="btf.h" compile="0" resource="0" file="../../../Libraries/KLU/Source/AMD/btf.h"/>
+            <FILE id="hJz5eM" name="btf_internal.h" compile="0" resource="0" file="../../../Libraries/KLU/Source/AMD/btf_internal.h"/>
+            <FILE id="exnKqU" name="camd.h" compile="0" resource="0" file="../../../Libraries/KLU/Source/AMD/camd.h"/>
+            <FILE id="EkTW8x" name="ccolamd.h" compile="0" resource="0" file="../../../Libraries/KLU/Source/AMD/ccolamd.h"/>
+            <FILE id="Lv9XXZ" name="colamd.h" compile="0" resource="0" file="../../../Libraries/KLU/Source/AMD/colamd.h"/>
+            <FILE id="VTlXdt" name="metis.h" compile="0" resource="0" file="../../../Libraries/KLU/Source/AMD/metis.h"/>
+            <FILE id="aEpIXj" name="SuiteSparse_config.h" compile="0" resource="0"
+                  file="../../../Libraries/KLU/Source/AMD/SuiteSparse_config.h"/>
+          </GROUP>
+          <GROUP id="{D42CD873-5F4D-3557-D5D3-A85E182B2ED2}" name="BTF">
+            <FILE id="uooi5T" name="btf.h" compile="0" resource="0" file="../../../Libraries/KLU/Source/BTF/btf.h"/>
+            <FILE id="JEcKUd" name="btf_internal.h" compile="0" resource="0" file="../../../Libraries/KLU/Source/BTF/btf_internal.h"/>
+            <FILE id="J6m9AB" name="btf_maxtrans.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/BTF/btf_maxtrans.c"/>
+            <FILE id="SFVDIY" name="btf_order.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/BTF/btf_order.c"/>
+            <FILE id="ApR587" name="btf_strongcomp.c" compile="1" resource="0"
+                  file="../../../Libraries/KLU/Source/BTF/btf_strongcomp.c"/>
+          </GROUP>
+          <GROUP id="{C30C7446-9266-3C2B-7BA4-5B7C23B74142}" name="COLAMD">
+            <FILE id="MFghoX" name="camd.h" compile="0" resource="0" file="../../../Libraries/KLU/Source/COLAMD/camd.h"/>
+            <FILE id="AQXt42" name="ccolamd.h" compile="0" resource="0" file="../../../Libraries/KLU/Source/COLAMD/ccolamd.h"/>
+            <FILE id="tITv8x" name="colamd.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/COLAMD/colamd.c"/>
+            <FILE id="xLfZNi" name="colamd.h" compile="0" resource="0" file="../../../Libraries/KLU/Source/COLAMD/colamd.h"/>
+          </GROUP>
+          <GROUP id="{0E51D6EC-504A-1D36-9A4F-82DC28C06920}" name="KLU">
+            <FILE id="sCGUvN" name="klu.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/KLU/klu.c"/>
+            <FILE id="MV95cu" name="klu.h" compile="0" resource="0" file="../../../Libraries/KLU/Source/KLU/klu.h"/>
+            <FILE id="SIpE1b" name="klu_analyze.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/KLU/klu_analyze.c"/>
+            <FILE id="lTa7cS" name="klu_analyze_given.c" compile="1" resource="0"
+                  file="../../../Libraries/KLU/Source/KLU/klu_analyze_given.c"/>
+            <FILE id="nN3J2i" name="klu_defaults.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/KLU/klu_defaults.c"/>
+            <FILE id="iKFflz" name="klu_diagnostics.c" compile="1" resource="0"
+                  file="../../../Libraries/KLU/Source/KLU/klu_diagnostics.c"/>
+            <FILE id="kAR9yI" name="klu_dump.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/KLU/klu_dump.c"/>
+            <FILE id="xYFGRz" name="klu_extract.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/KLU/klu_extract.c"/>
+            <FILE id="XdTgAK" name="klu_factor.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/KLU/klu_factor.c"/>
+            <FILE id="LSMfGz" name="klu_free_numeric.c" compile="1" resource="0"
+                  file="../../../Libraries/KLU/Source/KLU/klu_free_numeric.c"/>
+            <FILE id="cFOKkh" name="klu_free_symbolic.c" compile="1" resource="0"
+                  file="../../../Libraries/KLU/Source/KLU/klu_free_symbolic.c"/>
+            <FILE id="H3VFPQ" name="klu_internal.h" compile="0" resource="0" file="../../../Libraries/KLU/Source/KLU/klu_internal.h"/>
+            <FILE id="IoXcpT" name="klu_kernel.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/KLU/klu_kernel.c"/>
+            <FILE id="sqcE1l" name="klu_memory.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/KLU/klu_memory.c"/>
+            <FILE id="y6qVdl" name="klu_refactor.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/KLU/klu_refactor.c"/>
+            <FILE id="p6JubP" name="klu_scale.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/KLU/klu_scale.c"/>
+            <FILE id="pTznGT" name="klu_solve.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/KLU/klu_solve.c"/>
+            <FILE id="Y4Ptyo" name="klu_sort.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/KLU/klu_sort.c"/>
+            <FILE id="Sf8yAU" name="klu_tsolve.c" compile="1" resource="0" file="../../../Libraries/KLU/Source/KLU/klu_tsolve.c"/>
+            <FILE id="v04SQq" name="klu_version.h" compile="0" resource="0" file="../../../Libraries/KLU/Source/KLU/klu_version.h"/>
+          </GROUP>
+          <GROUP id="{99C77490-8964-2CC5-97C6-5A721E4BAF86}" name="SuiteSparse_config">
+            <FILE id="Dn9JRD" name="SuiteSparse_config.c" compile="1" resource="0"
+                  file="../../../Libraries/KLU/Source/SuiteSparse_config/SuiteSparse_config.c"/>
+            <FILE id="sokYqk" name="SuiteSparse_config.h" compile="0" resource="0"
+                  file="../../../Libraries/KLU/Source/SuiteSparse_config/SuiteSparse_config.h"/>
+            <FILE id="hTcjRN" name="SuiteSparse_config.mk" compile="0" resource="1"
+                  file="../../../Libraries/KLU/Source/SuiteSparse_config/SuiteSparse_config.mk"/>
+          </GROUP>
+        </GROUP>
+      </GROUP>
+    </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX" microphonePermissionNeeded="1">
+    <XCODE_MAC targetFolder="Builds/MacOSX" microphonePermissionNeeded="1" extraLinkerFlags="-ltcc">
       <CONFIGURATIONS>
-        <CONFIGURATION isDebug="1" name="Debug" targetName="Worker"/>
-        <CONFIGURATION isDebug="0" name="Release" targetName="Worker"/>
+        <CONFIGURATION isDebug="1" name="Debug" targetName="Worker" headerPath="/usr/local/include/"
+                       osxCompatibility="10.15 SDK" libraryPath="/usr/local/lib/"/>
+        <CONFIGURATION isDebug="0" name="Release" targetName="Worker" headerPath="/usr/local/include/"
+                       osxCompatibility="10.15 SDK" libraryPath="/usr/local/lib/"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_audio_basics" path="../../../../JUCE/modules"/>

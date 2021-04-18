@@ -30,7 +30,7 @@ struct ComponentDictionary
     
 	static juce::Component* cnv;
     
-    inline static Library library = Library("/Users/timothy/Documents/Cerite/Objects");
+    inline static Library library = Library("/Users/timschoen/Documents/Cerite/Objects");
 
     
     

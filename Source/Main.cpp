@@ -44,7 +44,8 @@ public:
 		MainComponent* mainPtr = static_cast<MainComponent*>(mainWindow->getChildComponent(0));
 		XmlElement* recent = FSManager::meta->getChildByName("recentlyOpened");
 		XmlElement* file = recent->getChildElement(0);
-		File lastproj = File(file->getStringAttribute("Path"));
+		/*
+        File lastproj = File(file->getStringAttribute("Path"));
         
         loadPresets();
         
@@ -67,7 +68,7 @@ public:
          
 		{
 			mainPtr->appcmds.invokeDirectly(AppCommands::keyCmd::New, true);
-		}
+		} */
          
         /*
         PresetManager::presetDictionary = ValueTree::fromXml(presetDir.getChildFile("library.xml").loadFileAsString());

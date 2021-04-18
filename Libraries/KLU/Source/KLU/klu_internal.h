@@ -8,7 +8,7 @@
 #define _KLU_INTERNAL_H
 
 #include "klu.h"
-#include "btf.h"
+#include "../BTF/btf.h"
 #include "klu_version.h"
 
 /* ========================================================================== */
