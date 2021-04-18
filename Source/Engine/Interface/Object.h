@@ -1,4 +1,5 @@
 #pragma once
+#include <map>
 #include "../Types/Function.h"
 #include "../Types/Variable.h"
 #include "../Compiler/Compiler.h"

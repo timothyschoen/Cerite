@@ -4,185 +4,309 @@
               addUsingNamespaceToJuceHeader="1" displaySplashScreen="1" jucerFormatVersion="1"
               cppLanguageStandard="17">
   <MAINGROUP id="Pow0dW" name="NADL">
-    <GROUP id="{22C2B8CD-7530-6E1A-50BD-BCF42184568F}" name="Source">
-      <GROUP id="{92168094-A644-5311-2D19-B1928189B14D}" name="Engine">
-        <GROUP id="{704E044E-94E4-B4A2-6279-5DB8431E43C4}" name="NADL">
-          <GROUP id="{6CA0B282-C77B-64DD-938E-270ACF64B652}" name="src">
-            <GROUP id="{8A7E0FA1-13A7-B8BE-2E3B-7BABFF0869A3}" name="Compiler">
-              <FILE id="S0qdY7" name="Compiler.cpp" compile="1" resource="0" file="Source/Engine/NADL/src/Compiler/Compiler.cpp"/>
-              <FILE id="qEz24a" name="Compiler.h" compile="0" resource="0" file="Source/Engine/NADL/src/Compiler/Compiler.h"/>
-              <FILE id="lmeZMq" name="Preprocessor.cpp" compile="1" resource="0"
-                    file="Source/Engine/NADL/src/Compiler/Preprocessor.cpp"/>
-              <FILE id="vSQhRm" name="Preprocessor.h" compile="0" resource="0" file="Source/Engine/NADL/src/Compiler/Preprocessor.h"/>
-            </GROUP>
-            <GROUP id="{B6DED105-56D8-1A7A-1EE0-E69B4D0E0CAC}" name="Interface">
-              <FILE id="rixVCN" name="Circuit.cpp" compile="1" resource="0" file="Source/Engine/NADL/src/Interface/Circuit.cpp"/>
-              <FILE id="hsCC9H" name="Circuit.h" compile="0" resource="0" file="Source/Engine/NADL/src/Interface/Circuit.h"/>
-              <FILE id="d8Kv2N" name="Document.cpp" compile="1" resource="0" file="Source/Engine/NADL/src/Interface/Document.cpp"/>
-              <FILE id="WoyxwK" name="Document.h" compile="0" resource="0" file="Source/Engine/NADL/src/Interface/Document.h"/>
-              <FILE id="q6pamV" name="Library.cpp" compile="1" resource="0" file="Source/Engine/NADL/src/Interface/Library.cpp"/>
-              <FILE id="gZPxne" name="Library.h" compile="0" resource="0" file="Source/Engine/NADL/src/Interface/Library.h"/>
-              <FILE id="YqikWa" name="Object.cpp" compile="1" resource="0" file="Source/Engine/NADL/src/Interface/Object.cpp"/>
-              <FILE id="o040UO" name="Object.h" compile="0" resource="0" file="Source/Engine/NADL/src/Interface/Object.h"/>
-            </GROUP>
-            <GROUP id="{0CCD5C09-CFA6-676E-BF49-88F5693E76E6}" name="IO">
-              <FILE id="SHldov" name="Exporter.h" compile="0" resource="0" file="Source/Engine/NADL/src/IO/Exporter.h"/>
-              <FILE id="PxXDM4" name="Parser.h" compile="0" resource="0" file="Source/Engine/NADL/src/IO/Parser.h"/>
-              <FILE id="sPAx4J" name="Reader.cpp" compile="1" resource="0" file="Source/Engine/NADL/src/IO/Reader.cpp"/>
-              <FILE id="hXAMmk" name="Reader.h" compile="0" resource="0" file="Source/Engine/NADL/src/IO/Reader.h"/>
-              <FILE id="A8ygZ8" name="Token.cpp" compile="1" resource="0" file="Source/Engine/NADL/src/IO/Token.cpp"/>
-              <FILE id="IOKTtt" name="Token.h" compile="0" resource="0" file="Source/Engine/NADL/src/IO/Token.h"/>
-              <FILE id="lIh3RC" name="VarTable.h" compile="0" resource="0" file="Source/Engine/NADL/src/IO/VarTable.h"/>
-              <FILE id="lhkT58" name="Writer.cpp" compile="1" resource="0" file="Source/Engine/NADL/src/IO/Writer.cpp"/>
-              <FILE id="zazlZw" name="Writer.h" compile="0" resource="0" file="Source/Engine/NADL/src/IO/Writer.h"/>
-            </GROUP>
-            <GROUP id="{4D303B9C-B551-C157-8C72-9ECBF056C809}" name="testutils">
-              <FILE id="q6uhpd" name="AudioClass.h" compile="0" resource="0" file="Source/Engine/NADL/src/testutils/AudioClass.h"/>
-              <FILE id="xIOsn5" name="AudioFile.h" compile="0" resource="0" file="Source/Engine/NADL/src/testutils/AudioFile.h"/>
-              <FILE id="tYtlZm" name="RtAudio.cpp" compile="0" resource="0" file="Source/Engine/NADL/src/testutils/RtAudio.cpp"/>
-              <FILE id="xWn1sC" name="RtAudio.h" compile="0" resource="0" file="Source/Engine/NADL/src/testutils/RtAudio.h"/>
-              <FILE id="XB7VMb" name="Solver.cpp" compile="0" resource="0" file="Source/Engine/NADL/src/testutils/Solver.cpp"/>
-              <FILE id="hdXeiY" name="Solver.h" compile="0" resource="0" file="Source/Engine/NADL/src/testutils/Solver.h"/>
-              <FILE id="FLpFkQ" name="Tester.h" compile="0" resource="0" file="Source/Engine/NADL/src/testutils/Tester.h"/>
-            </GROUP>
-            <GROUP id="{9C77A6DF-0EC8-9933-4F19-DBB8F829F267}" name="Types">
-              <FILE id="lzU8Zz" name="Function.cpp" compile="1" resource="0" file="Source/Engine/NADL/src/Types/Function.cpp"/>
-              <FILE id="JU3oPU" name="Function.h" compile="0" resource="0" file="Source/Engine/NADL/src/Types/Function.h"/>
-              <FILE id="eZzp04" name="Variable.h" compile="0" resource="0" file="Source/Engine/NADL/src/Types/Variable.h"/>
-              <FILE id="yZa4Lf" name="Vector.cpp" compile="1" resource="0" file="Source/Engine/NADL/src/Types/Vector.cpp"/>
-              <FILE id="Tfj7QP" name="Vector.h" compile="0" resource="0" file="Source/Engine/NADL/src/Types/Vector.h"/>
+    <GROUP id="{9B917A6A-22F3-DE4D-5FE4-36ADB315AECC}" name="Assets">
+      <FILE id="SQyPUO" name="Cerite.zip" compile="0" resource="1" file="Assets/Cerite.zip"/>
+      <FILE id="uqqNTA" name="CLFont.ttf" compile="0" resource="1" file="Assets/CLFont.ttf"/>
+    </GROUP>
+    <GROUP id="{60490FCE-50D0-B163-D63C-6F048C397F6A}" name="Source">
+      <GROUP id="{7DBA25C7-C6F4-2C65-F2EA-32363327DF1C}" name="Engine">
+        <GROUP id="{F9667543-FCB9-DD4E-967D-FE986C4F380D}" name="Compiler">
+          <FILE id="uw5omB" name="CodeWriter.cpp" compile="1" resource="0" file="Source/Engine/Compiler/CodeWriter.cpp"/>
+          <FILE id="p8Mso3" name="CodeWriter.h" compile="0" resource="0" file="Source/Engine/Compiler/CodeWriter.h"/>
+          <FILE id="yv6vGU" name="Combiner.cpp" compile="1" resource="0" file="Source/Engine/Compiler/Combiner.cpp"/>
+          <FILE id="XDmlZz" name="Combiner.h" compile="0" resource="0" file="Source/Engine/Compiler/Combiner.h"/>
+          <FILE id="ExG2rB" name="Compiler.cpp" compile="1" resource="0" file="Source/Engine/Compiler/Compiler.cpp"/>
+          <FILE id="ZSmKl8" name="Compiler.h" compile="0" resource="0" file="Source/Engine/Compiler/Compiler.h"/>
+        </GROUP>
+        <GROUP id="{E2DE4C27-8649-533E-5DC5-4B33EB83CF50}" name="Interface">
+          <FILE id="DapGrr" name="Context.cpp" compile="1" resource="0" file="Source/Engine/Interface/Context.cpp"/>
+          <FILE id="qZR8hF" name="Context.h" compile="0" resource="0" file="Source/Engine/Interface/Context.h"/>
+          <FILE id="oFXp5C" name="Document.cpp" compile="1" resource="0" file="Source/Engine/Interface/Document.cpp"/>
+          <FILE id="nbh61B" name="Document.h" compile="0" resource="0" file="Source/Engine/Interface/Document.h"/>
+          <FILE id="vxKEdB" name="Library.cpp" compile="1" resource="0" file="Source/Engine/Interface/Library.cpp"/>
+          <FILE id="F8OB7K" name="Library.h" compile="0" resource="0" file="Source/Engine/Interface/Library.h"/>
+          <FILE id="hyH0Ez" name="Object.cpp" compile="1" resource="0" file="Source/Engine/Interface/Object.cpp"/>
+          <FILE id="e1XK8j" name="Object.h" compile="0" resource="0" file="Source/Engine/Interface/Object.h"/>
+        </GROUP>
+        <GROUP id="{40EEAAD4-F72A-8283-E6CB-C9049E27D0D7}" name="IO">
+          <FILE id="HAS9O3" name="Exporter.h~" compile="0" resource="1" file="Source/Engine/IO/Exporter.h~"/>
+          <FILE id="kZnPoP" name="Reader.cpp" compile="1" resource="0" file="Source/Engine/IO/Reader.cpp"/>
+          <FILE id="oMA1XM" name="Reader.h" compile="0" resource="0" file="Source/Engine/IO/Reader.h"/>
+          <FILE id="VnKBOr" name="Token.cpp" compile="1" resource="0" file="Source/Engine/IO/Token.cpp"/>
+          <FILE id="jXjW9n" name="Token.h" compile="0" resource="0" file="Source/Engine/IO/Token.h"/>
+          <FILE id="DYwbar" name="VarTable.h" compile="0" resource="0" file="Source/Engine/IO/VarTable.h"/>
+          <FILE id="tdhViT" name="Writer.cpp" compile="1" resource="0" file="Source/Engine/IO/Writer.cpp"/>
+          <FILE id="Pc3IVE" name="Writer.h" compile="0" resource="0" file="Source/Engine/IO/Writer.h"/>
+        </GROUP>
+        <GROUP id="{45B718C8-D1B7-72F3-B1EF-5792E0C647F9}" name="Types">
+          <FILE id="nBEL8x" name="Data.h" compile="0" resource="0" file="Source/Engine/Types/Data.h"/>
+          <FILE id="lAKYZW" name="Function.cpp" compile="1" resource="0" file="Source/Engine/Types/Function.cpp"/>
+          <FILE id="y7k4o2" name="Function.h" compile="0" resource="0" file="Source/Engine/Types/Function.h"/>
+          <FILE id="a6ykB9" name="Variable.h" compile="0" resource="0" file="Source/Engine/Types/Variable.h"/>
+          <FILE id="RSfCuG" name="Vector.cpp" compile="1" resource="0" file="Source/Engine/Types/Vector.cpp"/>
+          <FILE id="ZeDw4H" name="Vector.h" compile="0" resource="0" file="Source/Engine/Types/Vector.h"/>
+        </GROUP>
+        <GROUP id="{456BC826-E354-7AE2-7093-2D9834D8E8DF}" name="Utility">
+          <FILE id="AdRADV" name="Solver.cpp" compile="1" resource="0" file="Source/Engine/Utility/Solver.cpp"/>
+          <FILE id="NcIcbS" name="Solver.h" compile="0" resource="0" file="Source/Engine/Utility/Solver.h"/>
+          <FILE id="z54CQ9" name="Tester.h" compile="0" resource="0" file="Source/Engine/Utility/Tester.h"/>
+        </GROUP>
+        <GROUP id="{CA784358-5FAE-66A7-939F-68BA656355B8}" name="Worker">
+          <GROUP id="{38461C35-F109-A465-2432-EF2E1C45983E}" name="Builds">
+            <GROUP id="{0BFDB3B2-F2CA-383A-E7DA-303DA88CBDBF}" name="MacOSX">
+              <GROUP id="{68A1C83F-2BF5-8850-8D4E-B241205C7A12}" name="build">
+                <GROUP id="{BECE3D48-F7FF-6FF7-AE1A-E1549926A748}" name="Debug">
+                  <GROUP id="{239E68D3-05C8-CEA6-D42A-77C3094797A8}" name="Worker.app">
+                    <GROUP id="{E25DE649-B045-E108-1B2C-8DE8C7BAE546}" name="Contents">
+                      <GROUP id="{FADBBF35-2FCE-F818-1201-930ADC2EB575}" name="MacOS">
+                        <FILE id="QGAQSZ" name="Worker" compile="0" resource="1" file="Source/Engine/Worker/Builds/MacOSX/build/Debug/Worker.app/Contents/MacOS/Worker"/>
+                      </GROUP>
+                      <GROUP id="{524D9B84-8A72-BCDC-8B78-2A07BB8E499F}" name="Resources">
+                        <FILE id="dOyJfP" name="RecentFilesMenuTemplate.nib" compile="0" resource="1"
+                              file="Source/Engine/Worker/Builds/MacOSX/build/Debug/Worker.app/Contents/Resources/RecentFilesMenuTemplate.nib"/>
+                      </GROUP>
+                      <FILE id="rNmNQt" name="Info.plist" compile="0" resource="1" file="Source/Engine/Worker/Builds/MacOSX/build/Debug/Worker.app/Contents/Info.plist"/>
+                      <FILE id="eetuwh" name="PkgInfo" compile="0" resource="1" file="Source/Engine/Worker/Builds/MacOSX/build/Debug/Worker.app/Contents/PkgInfo"/>
+                    </GROUP>
+                  </GROUP>
+                  <FILE id="rtjjWP" name="Worker" compile="0" resource="1" file="Source/Engine/Worker/Builds/MacOSX/build/Debug/Worker"/>
+                </GROUP>
+              </GROUP>
+              <GROUP id="{DCD0D730-14BC-2449-C694-CF9707C1BC61}" name="CWorker">
+                <FILE id="IsLg7s" name="main.swift" compile="1" resource="0" file="Source/Engine/Worker/Builds/MacOSX/CWorker/main.swift"/>
+              </GROUP>
+              <GROUP id="{D2125DF0-3510-CC3A-18E1-9C91F8628BE2}" name="Worker.xcodeproj">
+                <GROUP id="{DD873831-9A9A-6836-1E8B-FC3F9D38FBB9}" name="project.xcworkspace">
+                  <GROUP id="{05BE4A1B-753E-EDCF-9AA2-7CF904C7890D}" name="xcshareddata">
+                    <FILE id="bSYaCA" name="IDEWorkspaceChecks.plist" compile="0" resource="1"
+                          file="Source/Engine/Worker/Builds/MacOSX/Worker.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist"/>
+                    <FILE id="jAUN3e" name="WorkspaceSettings.xcsettings" compile="0" resource="1"
+                          file="Source/Engine/Worker/Builds/MacOSX/Worker.xcodeproj/project.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings"/>
+                  </GROUP>
+                  <GROUP id="{CF53CBD9-57CA-5534-2C5A-B17C8DF1ECC1}" name="xcuserdata">
+                    <GROUP id="{AEA88C11-67CC-E35C-F439-97500B71B7D3}" name="timothy.xcuserdatad">
+                      <FILE id="dvwtgk" name="IDEFindNavigatorScopes.plist" compile="0" resource="1"
+                            file="Source/Engine/Worker/Builds/MacOSX/Worker.xcodeproj/project.xcworkspace/xcuserdata/timothy.xcuserdatad/IDEFindNavigatorScopes.plist"/>
+                      <FILE id="KWCQvp" name="UserInterfaceState.xcuserstate" compile="0"
+                            resource="1" file="Source/Engine/Worker/Builds/MacOSX/Worker.xcodeproj/project.xcworkspace/xcuserdata/timothy.xcuserdatad/UserInterfaceState.xcuserstate"/>
+                    </GROUP>
+                  </GROUP>
+                </GROUP>
+                <GROUP id="{5E4F8A72-75E4-2D33-356B-31E94280C150}" name="xcshareddata">
+                  <GROUP id="{4F1E6C53-6F49-F3F1-455D-193F70BCDFDE}" name="xcschemes">
+                    <FILE id="IFrEaL" name="Worker - App.xcscheme" compile="0" resource="1"
+                          file="Source/Engine/Worker/Builds/MacOSX/Worker.xcodeproj/xcshareddata/xcschemes/Worker - App.xcscheme"/>
+                  </GROUP>
+                </GROUP>
+                <GROUP id="{A520A94E-0F8C-53A4-F6B0-8499438FA040}" name="xcuserdata">
+                  <GROUP id="{7C808FA3-72D3-431C-67E0-503B9EEC9F91}" name="timothy.xcuserdatad">
+                    <GROUP id="{8CF843FF-1E9B-8070-F810-BDC5B33A81F3}" name="xcdebugger">
+                      <FILE id="d1lhBa" name="Breakpoints_v2.xcbkptlist" compile="0" resource="1"
+                            file="Source/Engine/Worker/Builds/MacOSX/Worker.xcodeproj/xcuserdata/timothy.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist"/>
+                    </GROUP>
+                    <GROUP id="{C5F72693-A899-4A7D-5221-4D18BB8EE14C}" name="xcschemes">
+                      <FILE id="BbvluM" name="xcschememanagement.plist" compile="0" resource="1"
+                            file="Source/Engine/Worker/Builds/MacOSX/Worker.xcodeproj/xcuserdata/timothy.xcuserdatad/xcschemes/xcschememanagement.plist"/>
+                    </GROUP>
+                  </GROUP>
+                </GROUP>
+                <FILE id="xH4hCm" name="project.pbxproj" compile="0" resource="1" file="Source/Engine/Worker/Builds/MacOSX/Worker.xcodeproj/project.pbxproj"/>
+              </GROUP>
+              <FILE id="qTwcNy" name="Info-App.plist" compile="0" resource="1" file="Source/Engine/Worker/Builds/MacOSX/Info-App.plist"/>
+              <FILE id="EGl5e6" name="RecentFilesMenuTemplate.nib" compile="0" resource="1"
+                    file="Source/Engine/Worker/Builds/MacOSX/RecentFilesMenuTemplate.nib"/>
             </GROUP>
           </GROUP>
+          <GROUP id="{AD08C7B6-261C-AA40-69A5-7EF1DB410FD0}" name="JuceLibraryCode">
+            <FILE id="FIxVbC" name="include_juce_audio_basics.cpp" compile="1"
+                  resource="0" file="Source/Engine/Worker/JuceLibraryCode/include_juce_audio_basics.cpp"/>
+            <FILE id="roGlKU" name="include_juce_audio_basics.mm" compile="1" resource="0"
+                  file="Source/Engine/Worker/JuceLibraryCode/include_juce_audio_basics.mm"/>
+            <FILE id="tuSelc" name="include_juce_audio_devices.cpp" compile="1"
+                  resource="0" file="Source/Engine/Worker/JuceLibraryCode/include_juce_audio_devices.cpp"/>
+            <FILE id="hxrnOP" name="include_juce_audio_devices.mm" compile="1"
+                  resource="0" file="Source/Engine/Worker/JuceLibraryCode/include_juce_audio_devices.mm"/>
+            <FILE id="liCKHC" name="include_juce_audio_formats.cpp" compile="1"
+                  resource="0" file="Source/Engine/Worker/JuceLibraryCode/include_juce_audio_formats.cpp"/>
+            <FILE id="n57GYM" name="include_juce_audio_formats.mm" compile="1"
+                  resource="0" file="Source/Engine/Worker/JuceLibraryCode/include_juce_audio_formats.mm"/>
+            <FILE id="mlxQX2" name="include_juce_audio_processors.cpp" compile="1"
+                  resource="0" file="Source/Engine/Worker/JuceLibraryCode/include_juce_audio_processors.cpp"/>
+            <FILE id="kjEX0P" name="include_juce_audio_processors.mm" compile="1"
+                  resource="0" file="Source/Engine/Worker/JuceLibraryCode/include_juce_audio_processors.mm"/>
+            <FILE id="BpbW8j" name="include_juce_audio_utils.cpp" compile="1" resource="0"
+                  file="Source/Engine/Worker/JuceLibraryCode/include_juce_audio_utils.cpp"/>
+            <FILE id="TO9cx7" name="include_juce_audio_utils.mm" compile="1" resource="0"
+                  file="Source/Engine/Worker/JuceLibraryCode/include_juce_audio_utils.mm"/>
+            <FILE id="pACP0v" name="include_juce_core.cpp" compile="1" resource="0"
+                  file="Source/Engine/Worker/JuceLibraryCode/include_juce_core.cpp"/>
+            <FILE id="xIxZEH" name="include_juce_core.mm" compile="1" resource="0"
+                  file="Source/Engine/Worker/JuceLibraryCode/include_juce_core.mm"/>
+            <FILE id="EjRixC" name="include_juce_data_structures.cpp" compile="1"
+                  resource="0" file="Source/Engine/Worker/JuceLibraryCode/include_juce_data_structures.cpp"/>
+            <FILE id="njntUG" name="include_juce_data_structures.mm" compile="1"
+                  resource="0" file="Source/Engine/Worker/JuceLibraryCode/include_juce_data_structures.mm"/>
+            <FILE id="ZtOQ95" name="include_juce_events.cpp" compile="1" resource="0"
+                  file="Source/Engine/Worker/JuceLibraryCode/include_juce_events.cpp"/>
+            <FILE id="KQwaLl" name="include_juce_events.mm" compile="1" resource="0"
+                  file="Source/Engine/Worker/JuceLibraryCode/include_juce_events.mm"/>
+            <FILE id="JqBOSl" name="include_juce_graphics.cpp" compile="1" resource="0"
+                  file="Source/Engine/Worker/JuceLibraryCode/include_juce_graphics.cpp"/>
+            <FILE id="vDK9VN" name="include_juce_graphics.mm" compile="1" resource="0"
+                  file="Source/Engine/Worker/JuceLibraryCode/include_juce_graphics.mm"/>
+            <FILE id="bZQtE2" name="include_juce_gui_basics.cpp" compile="1" resource="0"
+                  file="Source/Engine/Worker/JuceLibraryCode/include_juce_gui_basics.cpp"/>
+            <FILE id="w9QAcm" name="include_juce_gui_basics.mm" compile="1" resource="0"
+                  file="Source/Engine/Worker/JuceLibraryCode/include_juce_gui_basics.mm"/>
+            <FILE id="JMBNEV" name="include_juce_gui_extra.cpp" compile="1" resource="0"
+                  file="Source/Engine/Worker/JuceLibraryCode/include_juce_gui_extra.cpp"/>
+            <FILE id="JFfH9I" name="include_juce_gui_extra.mm" compile="1" resource="0"
+                  file="Source/Engine/Worker/JuceLibraryCode/include_juce_gui_extra.mm"/>
+            <FILE id="yFgpeK" name="JuceHeader.h" compile="0" resource="0" file="Source/Engine/Worker/JuceLibraryCode/JuceHeader.h"/>
+            <FILE id="iMBEQJ" name="ReadMe.txt" compile="0" resource="1" file="Source/Engine/Worker/JuceLibraryCode/ReadMe.txt"/>
+          </GROUP>
+          <GROUP id="{F6A62C18-40DF-6F7E-098F-4C434BB2E5FB}" name="Source">
+            <FILE id="Rx9E3j" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/Engine/Worker/Source/AudioPlayer.cpp"/>
+            <FILE id="itu3Ud" name="AudioPlayer.h" compile="0" resource="0" file="Source/Engine/Worker/Source/AudioPlayer.h"/>
+            <FILE id="MFMZLj" name="concurrentqueue.h" compile="0" resource="0"
+                  file="Source/Engine/Worker/Source/concurrentqueue.h"/>
+            <FILE id="fkPbuF" name="ExternalProcessor.h" compile="0" resource="0"
+                  file="Source/Engine/Worker/Source/ExternalProcessor.h"/>
+            <FILE id="DjOCzk" name="Main.cpp" compile="1" resource="0" file="Source/Engine/Worker/Source/Main.cpp"/>
+            <FILE id="OIhLhW" name="MainComponent.cpp" compile="1" resource="0"
+                  file="Source/Engine/Worker/Source/MainComponent.cpp"/>
+            <FILE id="lcllFD" name="MainComponent.h" compile="0" resource="0" file="Source/Engine/Worker/Source/MainComponent.h"/>
+            <FILE id="aVz08W" name="Message.h" compile="0" resource="0" file="Source/Engine/Worker/Source/Message.h"/>
+            <FILE id="Yuo9e8" name="Processor.cpp" compile="1" resource="0" file="Source/Engine/Worker/Source/Processor.cpp"/>
+            <FILE id="pdgGgv" name="Processor.h" compile="0" resource="0" file="Source/Engine/Worker/Source/Processor.h"/>
+          </GROUP>
+          <FILE id="RAxAoZ" name="Worker.jucer" compile="0" resource="1" file="Source/Engine/Worker/Worker.jucer"/>
         </GROUP>
       </GROUP>
-      <GROUP id="{44728E2A-2681-DE3A-B6EC-BC36E19A10F2}" name="Interface">
-        <GROUP id="{553D2C81-0987-ED88-04A2-4C8D92C0AECC}" name="Canvas">
-          <FILE id="egPJvt" name="AnalogConnection.cpp" compile="1" resource="0"
-                file="Source/Interface/Canvas/AnalogConnection.cpp"/>
-          <FILE id="uSLqRt" name="AnalogConnection.h" compile="0" resource="0"
-                file="Source/Interface/Canvas/AnalogConnection.h"/>
-          <FILE id="Nr26ZG" name="AnalogEdge.cpp" compile="1" resource="0" file="Source/Interface/Canvas/AnalogEdge.cpp"/>
-          <FILE id="ZcvpvL" name="AnalogEdge.h" compile="0" resource="0" file="Source/Interface/Canvas/AnalogEdge.h"/>
-          <FILE id="ac6i05" name="Box.cpp" compile="1" resource="0" file="Source/Interface/Canvas/Box.cpp"/>
-          <FILE id="A3ox6z" name="Box.h" compile="0" resource="0" file="Source/Interface/Canvas/Box.h"/>
-          <FILE id="JxpSU6" name="BoxEdgeManager.h" compile="0" resource="0"
+      <GROUP id="{D5D2BAB9-05C3-F9D9-D338-D4595979B6A1}" name="Interface">
+        <GROUP id="{26B6292F-C75F-57C3-0551-5F831160AFDE}" name="Canvas">
+          <FILE id="anPq85" name="Box.cpp" compile="1" resource="0" file="Source/Interface/Canvas/Box.cpp"/>
+          <FILE id="lax9WA" name="Box.h" compile="0" resource="0" file="Source/Interface/Canvas/Box.h"/>
+          <FILE id="oEovfH" name="BoxEdgeManager.h" compile="0" resource="0"
                 file="Source/Interface/Canvas/BoxEdgeManager.h"/>
-          <FILE id="Mai1To" name="BoxManager.h" compile="0" resource="0" file="Source/Interface/Canvas/BoxManager.h"/>
-          <FILE id="AR7LXo" name="Canvas.cpp" compile="1" resource="0" file="Source/Interface/Canvas/Canvas.cpp"/>
-          <FILE id="NWp9fz" name="Canvas.h" compile="0" resource="0" file="Source/Interface/Canvas/Canvas.h"/>
-          <FILE id="XYzOTh" name="CanvasComponent.h" compile="0" resource="0"
+          <FILE id="S0BirR" name="BoxManager.h" compile="0" resource="0" file="Source/Interface/Canvas/BoxManager.h"/>
+          <FILE id="gHT7qJ" name="Canvas.cpp" compile="1" resource="0" file="Source/Interface/Canvas/Canvas.cpp"/>
+          <FILE id="hT98Zl" name="Canvas.h" compile="0" resource="0" file="Source/Interface/Canvas/Canvas.h"/>
+          <FILE id="In6BuB" name="CanvasComponent.h" compile="0" resource="0"
                 file="Source/Interface/Canvas/CanvasComponent.h"/>
-          <FILE id="usluJ9" name="CodeEditor.cpp" compile="1" resource="0" file="Source/Interface/Canvas/CodeEditor.cpp"/>
-          <FILE id="sZBHDN" name="CodeEditor.h" compile="0" resource="0" file="Source/Interface/Canvas/CodeEditor.h"/>
-          <FILE id="mjmv7N" name="Connection.cpp" compile="1" resource="0" file="Source/Interface/Canvas/Connection.cpp"/>
-          <FILE id="Hah9K2" name="Connection.h" compile="0" resource="0" file="Source/Interface/Canvas/Connection.h"/>
-          <FILE id="mJtCc1" name="ConnectionManager.h" compile="0" resource="0"
+          <FILE id="aL8qbh" name="CodeEditor.cpp" compile="1" resource="0" file="Source/Interface/Canvas/CodeEditor.cpp"/>
+          <FILE id="SVKcPs" name="CodeEditor.h" compile="0" resource="0" file="Source/Interface/Canvas/CodeEditor.h"/>
+          <FILE id="mFHiJq" name="Connection.cpp" compile="1" resource="0" file="Source/Interface/Canvas/Connection.cpp"/>
+          <FILE id="sgA1Yu" name="Connection.h" compile="0" resource="0" file="Source/Interface/Canvas/Connection.h"/>
+          <FILE id="GNDTDT" name="ConnectionManager.h" compile="0" resource="0"
                 file="Source/Interface/Canvas/ConnectionManager.h"/>
-          <FILE id="E548vz" name="EdgeBase.cpp" compile="1" resource="0" file="Source/Interface/Canvas/EdgeBase.cpp"/>
-          <FILE id="H0m4Wc" name="EdgeBase.h" compile="0" resource="0" file="Source/Interface/Canvas/EdgeBase.h"/>
-          <FILE id="SNpPeR" name="EdgeManager.h" compile="0" resource="0" file="Source/Interface/Canvas/EdgeManager.h"/>
-          <FILE id="RHljJ0" name="LooseEdge.cpp" compile="1" resource="0" file="Source/Interface/Canvas/LooseEdge.cpp"/>
-          <FILE id="FPT03S" name="LooseEdge.h" compile="0" resource="0" file="Source/Interface/Canvas/LooseEdge.h"/>
-          <FILE id="Mg1URb" name="MultiDragger.cpp" compile="1" resource="0"
+          <FILE id="TX0sOj" name="Edge.cpp" compile="1" resource="0" file="Source/Interface/Canvas/Edge.cpp"/>
+          <FILE id="EXIUSN" name="Edge.h" compile="0" resource="0" file="Source/Interface/Canvas/Edge.h"/>
+          <FILE id="kiYDNH" name="EdgeManager.h" compile="0" resource="0" file="Source/Interface/Canvas/EdgeManager.h"/>
+          <FILE id="f7myhN" name="LooseEdge.cpp" compile="1" resource="0" file="Source/Interface/Canvas/LooseEdge.cpp"/>
+          <FILE id="Oyenrd" name="LooseEdge.h" compile="0" resource="0" file="Source/Interface/Canvas/LooseEdge.h"/>
+          <FILE id="JEAAze" name="MultiDragger.cpp" compile="1" resource="0"
                 file="Source/Interface/Canvas/MultiDragger.cpp"/>
-          <FILE id="SmiLXZ" name="MultiDragger.h" compile="0" resource="0" file="Source/Interface/Canvas/MultiDragger.h"/>
-          <FILE id="ALj0yY" name="NameSuggestions.cpp" compile="1" resource="0"
+          <FILE id="UtJqdm" name="MultiDragger.h" compile="0" resource="0" file="Source/Interface/Canvas/MultiDragger.h"/>
+          <FILE id="YJTba4" name="NameSuggestions.cpp" compile="1" resource="0"
                 file="Source/Interface/Canvas/NameSuggestions.cpp"/>
-          <FILE id="pVIbs9" name="NameSuggestions.h" compile="0" resource="0"
+          <FILE id="sqPDcT" name="NameSuggestions.h" compile="0" resource="0"
                 file="Source/Interface/Canvas/NameSuggestions.h"/>
-          <FILE id="FQmQvg" name="ProgramState.cpp" compile="1" resource="0"
+          <FILE id="S1iXlp" name="ProgramState.cpp" compile="1" resource="0"
                 file="Source/Interface/Canvas/ProgramState.cpp"/>
-          <FILE id="zrnk6p" name="ProgramState.h" compile="0" resource="0" file="Source/Interface/Canvas/ProgramState.h"/>
-          <FILE id="xF4kHd" name="SignalConnection.cpp" compile="1" resource="0"
-                file="Source/Interface/Canvas/SignalConnection.cpp"/>
-          <FILE id="TPFtau" name="SignalConnection.h" compile="0" resource="0"
-                file="Source/Interface/Canvas/SignalConnection.h"/>
-          <FILE id="lAYr11" name="SignalEdge.cpp" compile="1" resource="0" file="Source/Interface/Canvas/SignalEdge.cpp"/>
-          <FILE id="a8FNQo" name="SignalEdge.h" compile="0" resource="0" file="Source/Interface/Canvas/SignalEdge.h"/>
+          <FILE id="hstE3S" name="ProgramState.h" compile="0" resource="0" file="Source/Interface/Canvas/ProgramState.h"/>
+          <FILE id="GytCYd" name="StateConverter.cpp" compile="1" resource="0"
+                file="Source/Interface/Canvas/StateConverter.cpp"/>
+          <FILE id="w3zqy5" name="StateConverter.h" compile="0" resource="0"
+                file="Source/Interface/Canvas/StateConverter.h"/>
         </GROUP>
-        <GROUP id="{9AADE6BF-F989-2579-9B54-897A9FA9F7E6}" name="Components">
-          <FILE id="ImlZ2g" name="AudioPlayerContainer.cpp" compile="1" resource="0"
+        <GROUP id="{CB671A26-C9A1-4B61-E911-3AF539472A2A}" name="CodeEditor">
+          <FILE id="T0RNWf" name="TextEditor.cpp" compile="1" resource="0" file="Source/Interface/CodeEditor/TextEditor.cpp"/>
+          <FILE id="kcI1Zr" name="TextEditor.hpp" compile="0" resource="0" file="Source/Interface/CodeEditor/TextEditor.hpp"/>
+        </GROUP>
+        <GROUP id="{56ED439F-8E78-E093-D401-398874B6CA89}" name="Components">
+          <FILE id="X4rRPT" name="AudioPlayerContainer.cpp" compile="1" resource="0"
                 file="Source/Interface/Components/AudioPlayerContainer.cpp"/>
-          <FILE id="ZUWVPV" name="AudioPlayerContainer.h" compile="0" resource="0"
+          <FILE id="dkMQtA" name="AudioPlayerContainer.h" compile="0" resource="0"
                 file="Source/Interface/Components/AudioPlayerContainer.h"/>
-          <FILE id="ZkVweH" name="GUIContainer.cpp" compile="1" resource="0"
+          <FILE id="On5NKp" name="DataGUI.cpp" compile="1" resource="0" file="Source/Interface/Components/DataGUI.cpp"/>
+          <FILE id="rP160d" name="DataGUI.h" compile="0" resource="0" file="Source/Interface/Components/DataGUI.h"/>
+          <FILE id="zhLQwB" name="GUIContainer.cpp" compile="1" resource="0"
                 file="Source/Interface/Components/GUIContainer.cpp"/>
-          <FILE id="G4r550" name="GUIContainer.h" compile="0" resource="0" file="Source/Interface/Components/GUIContainer.h"/>
-          <FILE id="rtuNCI" name="LEDContainer.cpp" compile="1" resource="0"
+          <FILE id="QEiu69" name="GUIContainer.h" compile="0" resource="0" file="Source/Interface/Components/GUIContainer.h"/>
+          <FILE id="oCnfqn" name="LEDContainer.cpp" compile="1" resource="0"
                 file="Source/Interface/Components/LEDContainer.cpp"/>
-          <FILE id="GGziIJ" name="LEDContainer.h" compile="0" resource="0" file="Source/Interface/Components/LEDContainer.h"/>
+          <FILE id="z42Kr4" name="LEDContainer.h" compile="0" resource="0" file="Source/Interface/Components/LEDContainer.h"/>
         </GROUP>
-        <GROUP id="{A9B50EFA-710B-CAF5-5535-E8E0FAFF929B}" name="Sidebar">
-          <GROUP id="{66CC9923-B3AB-3C55-B224-47B8EE0D455D}" name="Inspector">
-            <FILE id="El0HOL" name="Inspector.cpp" compile="1" resource="0" file="Source/Interface/Sidebar/Inspector/Inspector.cpp"/>
-            <FILE id="tCV3DO" name="Inspector.h" compile="0" resource="0" file="Source/Interface/Sidebar/Inspector/Inspector.h"/>
-            <FILE id="lw3KUw" name="ParameterComponent.cpp" compile="1" resource="0"
+        <GROUP id="{6E6C9905-DA47-B24C-B4D3-4CA15D05EEEA}" name="Sidebar">
+          <GROUP id="{6DF5FF4E-8186-B92A-2F87-0DE4D29FFB05}" name="Inspector">
+            <FILE id="bAElvg" name="Inspector.cpp" compile="1" resource="0" file="Source/Interface/Sidebar/Inspector/Inspector.cpp"/>
+            <FILE id="b9Eb21" name="Inspector.h" compile="0" resource="0" file="Source/Interface/Sidebar/Inspector/Inspector.h"/>
+            <FILE id="hWv6Em" name="ParameterComponent.cpp" compile="1" resource="0"
                   file="Source/Interface/Sidebar/Inspector/ParameterComponent.cpp"/>
-            <FILE id="q9fY63" name="ParameterComponent.h" compile="0" resource="0"
+            <FILE id="TQr9QN" name="ParameterComponent.h" compile="0" resource="0"
                   file="Source/Interface/Sidebar/Inspector/ParameterComponent.h"/>
-            <FILE id="BB4OXU" name="PresetComponent.cpp" compile="1" resource="0"
+            <FILE id="YEdOFn" name="PresetComponent.cpp" compile="1" resource="0"
                   file="Source/Interface/Sidebar/Inspector/PresetComponent.cpp"/>
-            <FILE id="JSKIBk" name="PresetComponent.h" compile="0" resource="0"
+            <FILE id="I3q6mQ" name="PresetComponent.h" compile="0" resource="0"
                   file="Source/Interface/Sidebar/Inspector/PresetComponent.h"/>
           </GROUP>
-          <FILE id="pfcGYM" name="AudioSettings.cpp" compile="1" resource="0"
+          <FILE id="o8wY9i" name="AudioSettings.cpp" compile="1" resource="0"
                 file="Source/Interface/Sidebar/AudioSettings.cpp"/>
-          <FILE id="IIRDCg" name="AudioSettings.h" compile="0" resource="0" file="Source/Interface/Sidebar/AudioSettings.h"/>
-          <FILE id="PP2mM4" name="Console.cpp" compile="1" resource="0" file="Source/Interface/Sidebar/Console.cpp"/>
-          <FILE id="VPLMNy" name="Console.h" compile="0" resource="0" file="Source/Interface/Sidebar/Console.h"/>
-          <FILE id="FnSHb5" name="EngineSettings.cpp" compile="1" resource="0"
+          <FILE id="Ajt30D" name="AudioSettings.h" compile="0" resource="0" file="Source/Interface/Sidebar/AudioSettings.h"/>
+          <FILE id="cKOwvo" name="Console.cpp" compile="1" resource="0" file="Source/Interface/Sidebar/Console.cpp"/>
+          <FILE id="f0EgH5" name="Console.h" compile="0" resource="0" file="Source/Interface/Sidebar/Console.h"/>
+          <FILE id="PBL2HY" name="EngineSettings.cpp" compile="1" resource="0"
                 file="Source/Interface/Sidebar/EngineSettings.cpp"/>
-          <FILE id="dhwzp0" name="EngineSettings.h" compile="0" resource="0"
+          <FILE id="lnvAnb" name="EngineSettings.h" compile="0" resource="0"
                 file="Source/Interface/Sidebar/EngineSettings.h"/>
-          <FILE id="Yth8aB" name="Sidebar.cpp" compile="1" resource="0" file="Source/Interface/Sidebar/Sidebar.cpp"/>
-          <FILE id="Sk3grO" name="Sidebar.h" compile="0" resource="0" file="Source/Interface/Sidebar/Sidebar.h"/>
-          <FILE id="LM1eKL" name="SidebarDialog.cpp" compile="1" resource="0"
+          <FILE id="VNG8cA" name="Sidebar.cpp" compile="1" resource="0" file="Source/Interface/Sidebar/Sidebar.cpp"/>
+          <FILE id="j1TWio" name="Sidebar.h" compile="0" resource="0" file="Source/Interface/Sidebar/Sidebar.h"/>
+          <FILE id="hMpo8S" name="SidebarDialog.cpp" compile="1" resource="0"
                 file="Source/Interface/Sidebar/SidebarDialog.cpp"/>
-          <FILE id="B3OJv7" name="SidebarDialog.h" compile="0" resource="0" file="Source/Interface/Sidebar/SidebarDialog.h"/>
+          <FILE id="TakOII" name="SidebarDialog.h" compile="0" resource="0" file="Source/Interface/Sidebar/SidebarDialog.h"/>
         </GROUP>
-        <FILE id="cBzm7S" name="AppCommands.cpp" compile="1" resource="0" file="Source/Interface/AppCommands.cpp"/>
-        <FILE id="tjDnI1" name="AppCommands.h" compile="0" resource="0" file="Source/Interface/AppCommands.h"/>
-        <FILE id="RkX0sv" name="ComponentDictionary.cpp" compile="1" resource="0"
+        <FILE id="jwyt9q" name="AppCommands.cpp" compile="1" resource="0" file="Source/Interface/AppCommands.cpp"/>
+        <FILE id="vgK6sO" name="AppCommands.h" compile="0" resource="0" file="Source/Interface/AppCommands.h"/>
+        <FILE id="XmWpFd" name="ComponentDictionary.cpp" compile="1" resource="0"
               file="Source/Interface/ComponentDictionary.cpp"/>
-        <FILE id="kYUMyj" name="ComponentDictionary.h" compile="0" resource="0"
+        <FILE id="nnhurC" name="ComponentDictionary.h" compile="0" resource="0"
               file="Source/Interface/ComponentDictionary.h"/>
-        <FILE id="SdvAsy" name="componentInformation.h" compile="0" resource="0"
+        <FILE id="j4kkNI" name="componentInformation.h" compile="0" resource="0"
               file="Source/Interface/componentInformation.h"/>
-        <FILE id="fT5L1d" name="edgeInformation.h" compile="0" resource="0"
+        <FILE id="FV195K" name="DomainInformation.h" compile="0" resource="0"
+              file="Source/Interface/DomainInformation.h"/>
+        <FILE id="Lst5Ai" name="edgeInformation.h" compile="0" resource="0"
               file="Source/Interface/edgeInformation.h"/>
-        <FILE id="F3zQd7" name="ExportDialog.cpp" compile="1" resource="0"
+        <FILE id="E26Glp" name="ExportDialog.cpp" compile="1" resource="0"
               file="Source/Interface/ExportDialog.cpp"/>
-        <FILE id="k14V3W" name="ExportDialog.h" compile="0" resource="0" file="Source/Interface/ExportDialog.h"/>
-        <FILE id="exEkF4" name="LevelMeter.h" compile="0" resource="0" file="Source/Interface/LevelMeter.h"/>
-        <FILE id="KKh6Ha" name="Looks.cpp" compile="1" resource="0" file="Source/Interface/Looks.cpp"/>
-        <FILE id="fNPyFp" name="Looks.h" compile="0" resource="0" file="Source/Interface/Looks.h"/>
-        <FILE id="URRRqX" name="SaveDialog.cpp" compile="1" resource="0" file="Source/Interface/SaveDialog.cpp"/>
-        <FILE id="ccltn0" name="SaveDialog.h" compile="0" resource="0" file="Source/Interface/SaveDialog.h"/>
-        <FILE id="K2xOmy" name="ScopeComponent.h" compile="0" resource="0"
+        <FILE id="rvUljY" name="ExportDialog.h" compile="0" resource="0" file="Source/Interface/ExportDialog.h"/>
+        <FILE id="hq8rvm" name="LevelMeter.h" compile="0" resource="0" file="Source/Interface/LevelMeter.h"/>
+        <FILE id="J0fs3S" name="Looks.cpp" compile="1" resource="0" file="Source/Interface/Looks.cpp"/>
+        <FILE id="Lm8apF" name="Looks.h" compile="0" resource="0" file="Source/Interface/Looks.h"/>
+        <FILE id="VjXyrB" name="SaveDialog.cpp" compile="1" resource="0" file="Source/Interface/SaveDialog.cpp"/>
+        <FILE id="fNnD50" name="SaveDialog.h" compile="0" resource="0" file="Source/Interface/SaveDialog.h"/>
+        <FILE id="ADSYJW" name="ScopeComponent.h" compile="0" resource="0"
               file="Source/Interface/ScopeComponent.h"/>
-        <FILE id="j5983U" name="StatusBar.cpp" compile="1" resource="0" file="Source/Interface/StatusBar.cpp"/>
-        <FILE id="bpnMQA" name="StatusBar.h" compile="0" resource="0" file="Source/Interface/StatusBar.h"/>
-        <FILE id="rXtG8Z" name="ToolbarWrapper.cpp" compile="1" resource="0"
+        <FILE id="hWTZZI" name="StatusBar.cpp" compile="1" resource="0" file="Source/Interface/StatusBar.cpp"/>
+        <FILE id="L34IFf" name="StatusBar.h" compile="0" resource="0" file="Source/Interface/StatusBar.h"/>
+        <FILE id="ZYwpsH" name="ToolbarWrapper.cpp" compile="1" resource="0"
               file="Source/Interface/ToolbarWrapper.cpp"/>
-        <FILE id="KtyFsi" name="ToolbarWrapper.h" compile="0" resource="0"
+        <FILE id="dIvdgF" name="ToolbarWrapper.h" compile="0" resource="0"
               file="Source/Interface/ToolbarWrapper.h"/>
-        <FILE id="TTKUpW" name="TopMenu.cpp" compile="1" resource="0" file="Source/Interface/TopMenu.cpp"/>
-        <FILE id="mk4GzU" name="TopMenu.h" compile="0" resource="0" file="Source/Interface/TopMenu.h"/>
+        <FILE id="xOq0Bv" name="TopMenu.cpp" compile="1" resource="0" file="Source/Interface/TopMenu.cpp"/>
+        <FILE id="VIpzra" name="TopMenu.h" compile="0" resource="0" file="Source/Interface/TopMenu.h"/>
       </GROUP>
-      <FILE id="DuyPE0" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
-      <FILE id="TtaAZB" name="MainComponent.cpp" compile="1" resource="0"
-            file="Source/MainComponent.cpp"/>
-      <FILE id="JG5tCB" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
-      <GROUP id="{CFEE7086-B547-FB54-6D47-55E48F43D651}" name="Utility">
-        <FILE id="r24MKw" name="FSManager.cpp" compile="1" resource="0" file="Source/Utility/FSManager.cpp"/>
-        <FILE id="afbGJu" name="FSManager.h" compile="0" resource="0" file="Source/Utility/FSManager.h"/>
-        <FILE id="ab4DAU" name="ValueTreeObjectList.h" compile="0" resource="0"
+      <GROUP id="{6B0E693C-F85B-640D-69A7-9E293F24282F}" name="Utility">
+        <FILE id="pys9gw" name="FSManager.cpp" compile="1" resource="0" file="Source/Utility/FSManager.cpp"/>
+        <FILE id="sWrGm9" name="FSManager.h" compile="0" resource="0" file="Source/Utility/FSManager.h"/>
+        <FILE id="ekVY2L" name="ValueTreeObjectList.h" compile="0" resource="0"
               file="Source/Utility/ValueTreeObjectList.h"/>
       </GROUP>
-    </GROUP>
-    <GROUP id="{9B917A6A-22F3-DE4D-5FE4-36ADB315AECC}" name="Assets">
-      <FILE id="qvpFVB" name="CircuitLab.zip" compile="0" resource="1" file="Assets/CircuitLab.zip"/>
-      <FILE id="DUVzYl" name="CLFont.ttf" compile="0" resource="1" file="Assets/CLFont.ttf"/>
+      <FILE id="hO1Hyz" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="B3LaQc" name="MainComponent.cpp" compile="1" resource="0"
+            file="Source/MainComponent.cpp"/>
+      <FILE id="CG38PR" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_LIBPD_UTILS="1" JUCE_LIBPD_MULTI="1"
@@ -209,7 +333,6 @@
         <MODULEPATH id="juce_gui_basics" path="../../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../JUCE/modules"/>
         <MODULEPATH id="juce_dsp" path="../JUCE/modules"/>
-        <MODULEPATH id="gin" path="../Gin/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
     <LINUX_MAKE targetFolder="Builds/LinuxMakefile" enableGNUExtensions="1" extraLinkerFlags="-ltcc -lstdc++fs">
@@ -231,12 +354,10 @@
         <MODULEPATH id="juce_audio_devices" path="../../juce"/>
         <MODULEPATH id="juce_audio_basics" path="../../juce"/>
         <MODULEPATH id="juce_analytics" path="../../juce"/>
-        <MODULEPATH id="gin" path="../Gin/modules"/>
       </MODULEPATHS>
     </LINUX_MAKE>
   </EXPORTFORMATS>
   <MODULES>
-    <MODULE id="gin" showAllCode="1" useLocalCopy="1" useGlobalPath="0"/>
     <MODULE id="juce_analytics" showAllCode="1" useLocalCopy="1" useGlobalPath="0"/>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="1" useGlobalPath="0"/>
     <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="1" useGlobalPath="0"/>

@@ -1,6 +1,7 @@
 #pragma once
 #include <boost/algorithm/string.hpp>
 #include <libtcc.h>
+#include <map>
 
 namespace Cerite {
 
