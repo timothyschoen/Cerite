@@ -1,13 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="w0fqHD" name="Worker" projectType="guiapp" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="1" displaySplashScreen="1" jucerFormatVersion="1">
+              addUsingNamespaceToJuceHeader="1" displaySplashScreen="1" jucerFormatVersion="1"
+              cppLanguageStandard="17">
   <MAINGROUP id="MJ5hzE" name="Worker">
     <GROUP id="{582894DC-D219-EBD0-4B55-2302CF5835AC}" name="Source">
-      <FILE id="YtdCWg" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
-      <FILE id="AcEhdm" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
-      <FILE id="SefB30" name="MainComponent.cpp" compile="1" resource="0"
+      <FILE id="mTcWoL" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/AudioPlayer.cpp"/>
+      <FILE id="VWQXxe" name="AudioPlayer.h" compile="0" resource="0" file="Source/AudioPlayer.h"/>
+      <FILE id="D9oOc5" name="concurrentqueue.h" compile="0" resource="0"
+            file="Source/concurrentqueue.h"/>
+      <FILE id="gqEZTB" name="ExternalProcessor.h" compile="0" resource="0"
+            file="Source/ExternalProcessor.h"/>
+      <FILE id="x1BAfp" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="HwW6hO" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
+      <FILE id="aMIvqy" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="UmaJbX" name="Message.h" compile="0" resource="0" file="Source/Message.h"/>
+      <FILE id="nCuKQt" name="Processor.cpp" compile="1" resource="0" file="Source/Processor.cpp"/>
+      <FILE id="kpDVtc" name="Processor.h" compile="0" resource="0" file="Source/Processor.h"/>
+    </GROUP>
+    <GROUP id="{3A2162E2-0F54-AE7E-5B70-D07264EC945F}" name="Compiler">
+      <FILE id="zTuRk4" name="CodeWriter.cpp" compile="1" resource="0" file="../Compiler/CodeWriter.cpp"/>
+      <FILE id="s5W6vK" name="CodeWriter.h" compile="0" resource="0" file="../Compiler/CodeWriter.h"/>
+      <FILE id="b4giXg" name="Combiner.cpp" compile="1" resource="0" file="../Compiler/Combiner.cpp"/>
+      <FILE id="MZlHlj" name="Combiner.h" compile="0" resource="0" file="../Compiler/Combiner.h"/>
+      <FILE id="iXxOTz" name="Compiler.cpp" compile="1" resource="0" file="../Compiler/Compiler.cpp"/>
+      <FILE id="NH95Pg" name="Compiler.h" compile="0" resource="0" file="../Compiler/Compiler.h"/>
+    </GROUP>
+    <GROUP id="{FA29D856-FD00-641C-97CA-76544B31AD83}" name="Interface">
+      <FILE id="bqJTJG" name="Context.cpp" compile="1" resource="0" file="../Interface/Context.cpp"/>
+      <FILE id="Fv9k4o" name="Context.h" compile="0" resource="0" file="../Interface/Context.h"/>
+      <FILE id="MO0ZXJ" name="Document.cpp" compile="1" resource="0" file="../Interface/Document.cpp"/>
+      <FILE id="ibFLGn" name="Document.h" compile="0" resource="0" file="../Interface/Document.h"/>
+      <FILE id="ikPNoQ" name="Library.cpp" compile="1" resource="0" file="../Interface/Library.cpp"/>
+      <FILE id="MEBKeK" name="Library.h" compile="0" resource="0" file="../Interface/Library.h"/>
+      <FILE id="Fn1o4D" name="Object.cpp" compile="1" resource="0" file="../Interface/Object.cpp"/>
+      <FILE id="APsLh4" name="Object.h" compile="0" resource="0" file="../Interface/Object.h"/>
+    </GROUP>
+    <GROUP id="{618B3422-9B84-B693-AF6F-12905A9902AB}" name="IO">
+      <FILE id="fBMmDg" name="Exporter.h~" compile="0" resource="1" file="../IO/Exporter.h~"/>
+      <FILE id="Tpr9sK" name="Reader.cpp" compile="1" resource="0" file="../IO/Reader.cpp"/>
+      <FILE id="H1KosH" name="Reader.h" compile="0" resource="0" file="../IO/Reader.h"/>
+      <FILE id="q7alEa" name="Token.cpp" compile="1" resource="0" file="../IO/Token.cpp"/>
+      <FILE id="ly9X7f" name="Token.h" compile="0" resource="0" file="../IO/Token.h"/>
+      <FILE id="aRbkij" name="VarTable.h" compile="0" resource="0" file="../IO/VarTable.h"/>
+      <FILE id="vEcJcG" name="Writer.cpp" compile="1" resource="0" file="../IO/Writer.cpp"/>
+      <FILE id="jKmObr" name="Writer.h" compile="0" resource="0" file="../IO/Writer.h"/>
+    </GROUP>
+    <GROUP id="{3262AACC-5F09-54A4-9F48-B9C55A689460}" name="Types">
+      <FILE id="xoOF04" name="Data.h" compile="0" resource="0" file="../Types/Data.h"/>
+      <FILE id="R0dH9Q" name="Function.cpp" compile="1" resource="0" file="../Types/Function.cpp"/>
+      <FILE id="XCD5j2" name="Function.h" compile="0" resource="0" file="../Types/Function.h"/>
+      <FILE id="qONDEp" name="Variable.h" compile="0" resource="0" file="../Types/Variable.h"/>
+      <FILE id="xCb9Ql" name="Vector.cpp" compile="1" resource="0" file="../Types/Vector.cpp"/>
+      <FILE id="EhLOPB" name="Vector.h" compile="0" resource="0" file="../Types/Vector.h"/>
+    </GROUP>
+    <GROUP id="{9E26B399-0409-40CA-5207-3C8FD1A5B07B}" name="Utility">
+      <FILE id="rqmJo5" name="Solver.cpp" compile="1" resource="0" file="../Utility/Solver.cpp"/>
+      <FILE id="zdjpjH" name="Solver.h" compile="0" resource="0" file="../Utility/Solver.h"/>
+      <FILE id="cM0FOH" name="Tester.h" compile="0" resource="0" file="../Utility/Tester.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
@@ -31,6 +82,25 @@
         <MODULEPATH id="juce_graphics" path="../../../../JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
+    <LINUX_MAKE targetFolder="Builds/LinuxMakefile" extraLinkerFlags="-ltcc">
+      <CONFIGURATIONS>
+        <CONFIGURATION isDebug="1" name="Debug"/>
+        <CONFIGURATION isDebug="0" name="Release"/>
+      </CONFIGURATIONS>
+      <MODULEPATHS>
+        <MODULEPATH id="juce_gui_extra" path="../../juce"/>
+        <MODULEPATH id="juce_gui_basics" path="../../juce"/>
+        <MODULEPATH id="juce_graphics" path="../../juce"/>
+        <MODULEPATH id="juce_events" path="../../juce"/>
+        <MODULEPATH id="juce_data_structures" path="../../juce"/>
+        <MODULEPATH id="juce_core" path="../../juce"/>
+        <MODULEPATH id="juce_audio_utils" path="../../juce"/>
+        <MODULEPATH id="juce_audio_processors" path="../../juce"/>
+        <MODULEPATH id="juce_audio_formats" path="../../juce"/>
+        <MODULEPATH id="juce_audio_devices" path="../../juce"/>
+        <MODULEPATH id="juce_audio_basics" path="../../juce"/>
+      </MODULEPATHS>
+    </LINUX_MAKE>
   </EXPORTFORMATS>
   <MODULES>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
@@ -47,5 +117,6 @@
   </MODULES>
   <LIVE_SETTINGS>
     <OSX/>
+    <LINUX/>
   </LIVE_SETTINGS>
 </JUCERPROJECT>

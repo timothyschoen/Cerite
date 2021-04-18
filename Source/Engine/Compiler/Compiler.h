@@ -1,5 +1,6 @@
 #pragma once
 
+#include <sstream>
 #include <boost/algorithm/string.hpp>
 #include <libtcc.h>
 

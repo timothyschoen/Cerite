@@ -12,9 +12,9 @@
 extern "C" {
 #endif
 
-#include "amd.h"
-#include "colamd.h"
-#include "btf.h"
+#include "../AMD/amd.h"
+#include "../COLAMD/colamd.h"
+#include "../BTF/btf.h"
 
 /* -------------------------------------------------------------------------- */
 /* Symbolic object - contains the pre-ordering computed by klu_analyze */

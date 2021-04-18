@@ -1,4 +1,6 @@
 #pragma once
+
+#include <cstring>
 #include <vector>
 #include <numeric>
 #include "../../../Libraries/KLU/Source/KLU/klu.h" // ... damn
