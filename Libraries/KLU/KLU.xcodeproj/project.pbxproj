@@ -1,0 +1,552 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1C274C762590022600126F74 /* klu_memory.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C622590022500126F74 /* klu_memory.c */; };
+		1C274C772590022600126F74 /* klu_tsolve.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C632590022500126F74 /* klu_tsolve.c */; };
+		1C274C782590022600126F74 /* klu_version.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C274C642590022500126F74 /* klu_version.h */; };
+		1C274C792590022600126F74 /* klu_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C274C652590022500126F74 /* klu_internal.h */; };
+		1C274C7A2590022600126F74 /* klu.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C274C662590022600126F74 /* klu.h */; };
+		1C274C7B2590022600126F74 /* klu_solve.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C672590022600126F74 /* klu_solve.c */; };
+		1C274C7C2590022600126F74 /* klu_dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C682590022600126F74 /* klu_dump.c */; };
+		1C274C7D2590022600126F74 /* klu_factor.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C692590022600126F74 /* klu_factor.c */; };
+		1C274C7E2590022600126F74 /* klu_sort.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C6A2590022600126F74 /* klu_sort.c */; };
+		1C274C7F2590022600126F74 /* klu_analyze_given.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C6B2590022600126F74 /* klu_analyze_given.c */; };
+		1C274C802590022600126F74 /* klu_analyze.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C6C2590022600126F74 /* klu_analyze.c */; };
+		1C274C812590022600126F74 /* klu.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C6D2590022600126F74 /* klu.c */; };
+		1C274C822590022600126F74 /* klu_diagnostics.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C6E2590022600126F74 /* klu_diagnostics.c */; };
+		1C274C832590022600126F74 /* klu_kernel.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C6F2590022600126F74 /* klu_kernel.c */; };
+		1C274C842590022600126F74 /* klu_refactor.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C702590022600126F74 /* klu_refactor.c */; };
+		1C274C852590022600126F74 /* klu_free_symbolic.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C712590022600126F74 /* klu_free_symbolic.c */; };
+		1C274C862590022600126F74 /* klu_scale.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C722590022600126F74 /* klu_scale.c */; };
+		1C274C872590022600126F74 /* klu_extract.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C732590022600126F74 /* klu_extract.c */; };
+		1C274C882590022600126F74 /* klu_defaults.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C742590022600126F74 /* klu_defaults.c */; };
+		1C274C892590022600126F74 /* klu_free_numeric.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C752590022600126F74 /* klu_free_numeric.c */; };
+		1C274CA32590023000126F74 /* amd.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C274C8B2590022F00126F74 /* amd.h */; };
+		1C274CA42590023000126F74 /* colamd.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C274C8C2590022F00126F74 /* colamd.h */; };
+		1C274CA52590023000126F74 /* btf_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C274C8D2590022F00126F74 /* btf_internal.h */; };
+		1C274CA62590023000126F74 /* amd_global.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C8E2590022F00126F74 /* amd_global.c */; };
+		1C274CA72590023000126F74 /* amd_control.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C8F2590022F00126F74 /* amd_control.c */; };
+		1C274CA82590023000126F74 /* SuiteSparse_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C274C902590022F00126F74 /* SuiteSparse_config.h */; };
+		1C274CA92590023000126F74 /* amd_post_tree.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C912590022F00126F74 /* amd_post_tree.c */; };
+		1C274CAA2590023000126F74 /* amd.f in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C922590022F00126F74 /* amd.f */; };
+		1C274CAB2590023000126F74 /* amd_1.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C932590022F00126F74 /* amd_1.c */; };
+		1C274CAC2590023000126F74 /* amdbar.f in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C942590022F00126F74 /* amdbar.f */; };
+		1C274CAD2590023000126F74 /* amd_defaults.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C952590022F00126F74 /* amd_defaults.c */; };
+		1C274CAE2590023000126F74 /* camd.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C274C962590023000126F74 /* camd.h */; };
+		1C274CAF2590023000126F74 /* btf.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C274C972590023000126F74 /* btf.h */; };
+		1C274CB02590023000126F74 /* metis.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C274C982590023000126F74 /* metis.h */; };
+		1C274CB12590023000126F74 /* amd_2.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C992590023000126F74 /* amd_2.c */; };
+		1C274CB22590023000126F74 /* amd_aat.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C9A2590023000126F74 /* amd_aat.c */; };
+		1C274CB32590023000126F74 /* amd_preprocess.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C9B2590023000126F74 /* amd_preprocess.c */; };
+		1C274CB42590023000126F74 /* amd_dump.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C9C2590023000126F74 /* amd_dump.c */; };
+		1C274CB52590023000126F74 /* amd_postorder.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C9D2590023000126F74 /* amd_postorder.c */; };
+		1C274CB62590023000126F74 /* ccolamd.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C274C9E2590023000126F74 /* ccolamd.h */; };
+		1C274CB72590023000126F74 /* amd_valid.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274C9F2590023000126F74 /* amd_valid.c */; };
+		1C274CB82590023000126F74 /* amd_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C274CA02590023000126F74 /* amd_internal.h */; };
+		1C274CB92590023000126F74 /* amd_order.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274CA12590023000126F74 /* amd_order.c */; };
+		1C274CBA2590023000126F74 /* amd_info.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274CA22590023000126F74 /* amd_info.c */; };
+		1C274CCC2590027100126F74 /* SuiteSparse_config.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274CC92590027100126F74 /* SuiteSparse_config.c */; };
+		1C274CCD2590027100126F74 /* SuiteSparse_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C274CCA2590027100126F74 /* SuiteSparse_config.h */; };
+		1C274CD6259002FE00126F74 /* SuiteSparse_config.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274CD4259002FD00126F74 /* SuiteSparse_config.c */; };
+		1C274CD7259002FE00126F74 /* SuiteSparse_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C274CD5259002FE00126F74 /* SuiteSparse_config.h */; };
+		1C274CDD2590030500126F74 /* colamd.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C274CD92590030400126F74 /* colamd.h */; };
+		1C274CDE2590030500126F74 /* camd.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C274CDA2590030400126F74 /* camd.h */; };
+		1C274CDF2590030500126F74 /* ccolamd.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C274CDB2590030500126F74 /* ccolamd.h */; };
+		1C274CE02590030500126F74 /* colamd.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274CDC2590030500126F74 /* colamd.c */; };
+		1C274CE72590030C00126F74 /* btf_maxtrans.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274CE22590030C00126F74 /* btf_maxtrans.c */; };
+		1C274CE82590030C00126F74 /* btf_internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C274CE32590030C00126F74 /* btf_internal.h */; };
+		1C274CE92590030C00126F74 /* btf_order.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274CE42590030C00126F74 /* btf_order.c */; };
+		1C274CEA2590030C00126F74 /* btf_strongcomp.c in Sources */ = {isa = PBXBuildFile; fileRef = 1C274CE52590030C00126F74 /* btf_strongcomp.c */; };
+		1C274CEB2590030C00126F74 /* btf.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C274CE62590030C00126F74 /* btf.h */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1C274C45259000CB00126F74 /* libKLU.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libKLU.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		1C274C622590022500126F74 /* klu_memory.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = klu_memory.c; path = KLU/klu_memory.c; sourceTree = "<group>"; };
+		1C274C632590022500126F74 /* klu_tsolve.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = klu_tsolve.c; path = KLU/klu_tsolve.c; sourceTree = "<group>"; };
+		1C274C642590022500126F74 /* klu_version.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = klu_version.h; path = KLU/klu_version.h; sourceTree = "<group>"; };
+		1C274C652590022500126F74 /* klu_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = klu_internal.h; path = KLU/klu_internal.h; sourceTree = "<group>"; };
+		1C274C662590022600126F74 /* klu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = klu.h; path = KLU/klu.h; sourceTree = "<group>"; };
+		1C274C672590022600126F74 /* klu_solve.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = klu_solve.c; path = KLU/klu_solve.c; sourceTree = "<group>"; };
+		1C274C682590022600126F74 /* klu_dump.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = klu_dump.c; path = KLU/klu_dump.c; sourceTree = "<group>"; };
+		1C274C692590022600126F74 /* klu_factor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = klu_factor.c; path = KLU/klu_factor.c; sourceTree = "<group>"; };
+		1C274C6A2590022600126F74 /* klu_sort.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = klu_sort.c; path = KLU/klu_sort.c; sourceTree = "<group>"; };
+		1C274C6B2590022600126F74 /* klu_analyze_given.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = klu_analyze_given.c; path = KLU/klu_analyze_given.c; sourceTree = "<group>"; };
+		1C274C6C2590022600126F74 /* klu_analyze.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = klu_analyze.c; path = KLU/klu_analyze.c; sourceTree = "<group>"; };
+		1C274C6D2590022600126F74 /* klu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = klu.c; path = KLU/klu.c; sourceTree = "<group>"; };
+		1C274C6E2590022600126F74 /* klu_diagnostics.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = klu_diagnostics.c; path = KLU/klu_diagnostics.c; sourceTree = "<group>"; };
+		1C274C6F2590022600126F74 /* klu_kernel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = klu_kernel.c; path = KLU/klu_kernel.c; sourceTree = "<group>"; };
+		1C274C702590022600126F74 /* klu_refactor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = klu_refactor.c; path = KLU/klu_refactor.c; sourceTree = "<group>"; };
+		1C274C712590022600126F74 /* klu_free_symbolic.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = klu_free_symbolic.c; path = KLU/klu_free_symbolic.c; sourceTree = "<group>"; };
+		1C274C722590022600126F74 /* klu_scale.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = klu_scale.c; path = KLU/klu_scale.c; sourceTree = "<group>"; };
+		1C274C732590022600126F74 /* klu_extract.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = klu_extract.c; path = KLU/klu_extract.c; sourceTree = "<group>"; };
+		1C274C742590022600126F74 /* klu_defaults.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = klu_defaults.c; path = KLU/klu_defaults.c; sourceTree = "<group>"; };
+		1C274C752590022600126F74 /* klu_free_numeric.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = klu_free_numeric.c; path = KLU/klu_free_numeric.c; sourceTree = "<group>"; };
+		1C274C8B2590022F00126F74 /* amd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = amd.h; path = AMD/amd.h; sourceTree = "<group>"; };
+		1C274C8C2590022F00126F74 /* colamd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = colamd.h; path = AMD/colamd.h; sourceTree = "<group>"; };
+		1C274C8D2590022F00126F74 /* btf_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = btf_internal.h; path = AMD/btf_internal.h; sourceTree = "<group>"; };
+		1C274C8E2590022F00126F74 /* amd_global.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = amd_global.c; path = AMD/amd_global.c; sourceTree = "<group>"; };
+		1C274C8F2590022F00126F74 /* amd_control.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = amd_control.c; path = AMD/amd_control.c; sourceTree = "<group>"; };
+		1C274C902590022F00126F74 /* SuiteSparse_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SuiteSparse_config.h; path = AMD/SuiteSparse_config.h; sourceTree = "<group>"; };
+		1C274C912590022F00126F74 /* amd_post_tree.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = amd_post_tree.c; path = AMD/amd_post_tree.c; sourceTree = "<group>"; };
+		1C274C922590022F00126F74 /* amd.f */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.fortran; name = amd.f; path = AMD/amd.f; sourceTree = "<group>"; };
+		1C274C932590022F00126F74 /* amd_1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = amd_1.c; path = AMD/amd_1.c; sourceTree = "<group>"; };
+		1C274C942590022F00126F74 /* amdbar.f */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.fortran; name = amdbar.f; path = AMD/amdbar.f; sourceTree = "<group>"; };
+		1C274C952590022F00126F74 /* amd_defaults.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = amd_defaults.c; path = AMD/amd_defaults.c; sourceTree = "<group>"; };
+		1C274C962590023000126F74 /* camd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = camd.h; path = AMD/camd.h; sourceTree = "<group>"; };
+		1C274C972590023000126F74 /* btf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = btf.h; path = AMD/btf.h; sourceTree = "<group>"; };
+		1C274C982590023000126F74 /* metis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = metis.h; path = AMD/metis.h; sourceTree = "<group>"; };
+		1C274C992590023000126F74 /* amd_2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = amd_2.c; path = AMD/amd_2.c; sourceTree = "<group>"; };
+		1C274C9A2590023000126F74 /* amd_aat.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = amd_aat.c; path = AMD/amd_aat.c; sourceTree = "<group>"; };
+		1C274C9B2590023000126F74 /* amd_preprocess.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = amd_preprocess.c; path = AMD/amd_preprocess.c; sourceTree = "<group>"; };
+		1C274C9C2590023000126F74 /* amd_dump.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = amd_dump.c; path = AMD/amd_dump.c; sourceTree = "<group>"; };
+		1C274C9D2590023000126F74 /* amd_postorder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = amd_postorder.c; path = AMD/amd_postorder.c; sourceTree = "<group>"; };
+		1C274C9E2590023000126F74 /* ccolamd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ccolamd.h; path = AMD/ccolamd.h; sourceTree = "<group>"; };
+		1C274C9F2590023000126F74 /* amd_valid.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = amd_valid.c; path = AMD/amd_valid.c; sourceTree = "<group>"; };
+		1C274CA02590023000126F74 /* amd_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = amd_internal.h; path = AMD/amd_internal.h; sourceTree = "<group>"; };
+		1C274CA12590023000126F74 /* amd_order.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = amd_order.c; path = AMD/amd_order.c; sourceTree = "<group>"; };
+		1C274CA22590023000126F74 /* amd_info.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = amd_info.c; path = AMD/amd_info.c; sourceTree = "<group>"; };
+		1C274CC92590027100126F74 /* SuiteSparse_config.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SuiteSparse_config.c; path = Source/SuiteSparse_config/SuiteSparse_config.c; sourceTree = SOURCE_ROOT; };
+		1C274CCA2590027100126F74 /* SuiteSparse_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SuiteSparse_config.h; path = Source/SuiteSparse_config/SuiteSparse_config.h; sourceTree = SOURCE_ROOT; };
+		1C274CCB2590027100126F74 /* SuiteSparse_config.mk */ = {isa = PBXFileReference; lastKnownFileType = file; name = SuiteSparse_config.mk; path = Source/SuiteSparse_config/SuiteSparse_config.mk; sourceTree = SOURCE_ROOT; };
+		1C274CD4259002FD00126F74 /* SuiteSparse_config.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = SuiteSparse_config.c; path = Source/SuiteSparse_config/SuiteSparse_config.c; sourceTree = SOURCE_ROOT; };
+		1C274CD5259002FE00126F74 /* SuiteSparse_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SuiteSparse_config.h; path = Source/SuiteSparse_config/SuiteSparse_config.h; sourceTree = SOURCE_ROOT; };
+		1C274CD92590030400126F74 /* colamd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = colamd.h; path = Source/COLAMD/colamd.h; sourceTree = SOURCE_ROOT; };
+		1C274CDA2590030400126F74 /* camd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = camd.h; path = Source/COLAMD/camd.h; sourceTree = SOURCE_ROOT; };
+		1C274CDB2590030500126F74 /* ccolamd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ccolamd.h; path = Source/COLAMD/ccolamd.h; sourceTree = SOURCE_ROOT; };
+		1C274CDC2590030500126F74 /* colamd.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = colamd.c; path = Source/COLAMD/colamd.c; sourceTree = SOURCE_ROOT; };
+		1C274CE22590030C00126F74 /* btf_maxtrans.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = btf_maxtrans.c; path = BTF/btf_maxtrans.c; sourceTree = "<group>"; };
+		1C274CE32590030C00126F74 /* btf_internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = btf_internal.h; path = BTF/btf_internal.h; sourceTree = "<group>"; };
+		1C274CE42590030C00126F74 /* btf_order.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = btf_order.c; path = BTF/btf_order.c; sourceTree = "<group>"; };
+		1C274CE52590030C00126F74 /* btf_strongcomp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = btf_strongcomp.c; path = BTF/btf_strongcomp.c; sourceTree = "<group>"; };
+		1C274CE62590030C00126F74 /* btf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = btf.h; path = BTF/btf.h; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1C274C43259000CB00126F74 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1C274C3C259000CB00126F74 = {
+			isa = PBXGroup;
+			children = (
+				1C274C4D259000DD00126F74 /* Source */,
+				1C274C46259000CB00126F74 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1C274C46259000CB00126F74 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1C274C45259000CB00126F74 /* libKLU.dylib */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1C274C4D259000DD00126F74 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				1C274CD3259002C500126F74 /* COLAMD */,
+				1C274CD0259002AF00126F74 /* BTF */,
+				1C274CC82590026000126F74 /* SuiteSparse */,
+				1C274C5F259001F900126F74 /* AMD */,
+				1C274C5D259001F200126F74 /* KLU */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		1C274C5D259001F200126F74 /* KLU */ = {
+			isa = PBXGroup;
+			children = (
+				1C274C6B2590022600126F74 /* klu_analyze_given.c */,
+				1C274C6C2590022600126F74 /* klu_analyze.c */,
+				1C274C742590022600126F74 /* klu_defaults.c */,
+				1C274C6E2590022600126F74 /* klu_diagnostics.c */,
+				1C274C682590022600126F74 /* klu_dump.c */,
+				1C274C732590022600126F74 /* klu_extract.c */,
+				1C274C692590022600126F74 /* klu_factor.c */,
+				1C274C752590022600126F74 /* klu_free_numeric.c */,
+				1C274C712590022600126F74 /* klu_free_symbolic.c */,
+				1C274C652590022500126F74 /* klu_internal.h */,
+				1C274C6F2590022600126F74 /* klu_kernel.c */,
+				1C274C622590022500126F74 /* klu_memory.c */,
+				1C274C702590022600126F74 /* klu_refactor.c */,
+				1C274C722590022600126F74 /* klu_scale.c */,
+				1C274C672590022600126F74 /* klu_solve.c */,
+				1C274C6A2590022600126F74 /* klu_sort.c */,
+				1C274C632590022500126F74 /* klu_tsolve.c */,
+				1C274C642590022500126F74 /* klu_version.h */,
+				1C274C6D2590022600126F74 /* klu.c */,
+				1C274C662590022600126F74 /* klu.h */,
+			);
+			name = KLU;
+			sourceTree = "<group>";
+		};
+		1C274C5F259001F900126F74 /* AMD */ = {
+			isa = PBXGroup;
+			children = (
+				1C274C932590022F00126F74 /* amd_1.c */,
+				1C274C992590023000126F74 /* amd_2.c */,
+				1C274C9A2590023000126F74 /* amd_aat.c */,
+				1C274C8F2590022F00126F74 /* amd_control.c */,
+				1C274C952590022F00126F74 /* amd_defaults.c */,
+				1C274C9C2590023000126F74 /* amd_dump.c */,
+				1C274C8E2590022F00126F74 /* amd_global.c */,
+				1C274CA22590023000126F74 /* amd_info.c */,
+				1C274CA02590023000126F74 /* amd_internal.h */,
+				1C274CA12590023000126F74 /* amd_order.c */,
+				1C274C912590022F00126F74 /* amd_post_tree.c */,
+				1C274C9D2590023000126F74 /* amd_postorder.c */,
+				1C274C9B2590023000126F74 /* amd_preprocess.c */,
+				1C274C9F2590023000126F74 /* amd_valid.c */,
+				1C274C922590022F00126F74 /* amd.f */,
+				1C274C8B2590022F00126F74 /* amd.h */,
+				1C274C942590022F00126F74 /* amdbar.f */,
+				1C274C8D2590022F00126F74 /* btf_internal.h */,
+				1C274C972590023000126F74 /* btf.h */,
+				1C274C962590023000126F74 /* camd.h */,
+				1C274C9E2590023000126F74 /* ccolamd.h */,
+				1C274C8C2590022F00126F74 /* colamd.h */,
+				1C274C982590023000126F74 /* metis.h */,
+				1C274C902590022F00126F74 /* SuiteSparse_config.h */,
+			);
+			name = AMD;
+			sourceTree = "<group>";
+		};
+		1C274CC82590026000126F74 /* SuiteSparse */ = {
+			isa = PBXGroup;
+			children = (
+				1C274CC92590027100126F74 /* SuiteSparse_config.c */,
+				1C274CCA2590027100126F74 /* SuiteSparse_config.h */,
+				1C274CD4259002FD00126F74 /* SuiteSparse_config.c */,
+				1C274CD5259002FE00126F74 /* SuiteSparse_config.h */,
+				1C274CCB2590027100126F74 /* SuiteSparse_config.mk */,
+			);
+			path = SuiteSparse;
+			sourceTree = "<group>";
+		};
+		1C274CD0259002AF00126F74 /* BTF */ = {
+			isa = PBXGroup;
+			children = (
+				1C274CE32590030C00126F74 /* btf_internal.h */,
+				1C274CE22590030C00126F74 /* btf_maxtrans.c */,
+				1C274CE42590030C00126F74 /* btf_order.c */,
+				1C274CE52590030C00126F74 /* btf_strongcomp.c */,
+				1C274CE62590030C00126F74 /* btf.h */,
+			);
+			name = BTF;
+			sourceTree = "<group>";
+		};
+		1C274CD3259002C500126F74 /* COLAMD */ = {
+			isa = PBXGroup;
+			children = (
+				1C274CDA2590030400126F74 /* camd.h */,
+				1C274CDB2590030500126F74 /* ccolamd.h */,
+				1C274CDC2590030500126F74 /* colamd.c */,
+				1C274CD92590030400126F74 /* colamd.h */,
+			);
+			name = COLAMD;
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		1C274C41259000CB00126F74 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C274CDF2590030500126F74 /* ccolamd.h in Headers */,
+				1C274CCD2590027100126F74 /* SuiteSparse_config.h in Headers */,
+				1C274CDE2590030500126F74 /* camd.h in Headers */,
+				1C274C7A2590022600126F74 /* klu.h in Headers */,
+				1C274CAE2590023000126F74 /* camd.h in Headers */,
+				1C274CA32590023000126F74 /* amd.h in Headers */,
+				1C274CEB2590030C00126F74 /* btf.h in Headers */,
+				1C274C792590022600126F74 /* klu_internal.h in Headers */,
+				1C274CD7259002FE00126F74 /* SuiteSparse_config.h in Headers */,
+				1C274C782590022600126F74 /* klu_version.h in Headers */,
+				1C274CB02590023000126F74 /* metis.h in Headers */,
+				1C274CB82590023000126F74 /* amd_internal.h in Headers */,
+				1C274CDD2590030500126F74 /* colamd.h in Headers */,
+				1C274CB62590023000126F74 /* ccolamd.h in Headers */,
+				1C274CA52590023000126F74 /* btf_internal.h in Headers */,
+				1C274CAF2590023000126F74 /* btf.h in Headers */,
+				1C274CA82590023000126F74 /* SuiteSparse_config.h in Headers */,
+				1C274CE82590030C00126F74 /* btf_internal.h in Headers */,
+				1C274CA42590023000126F74 /* colamd.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		1C274C44259000CB00126F74 /* KLU */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1C274C49259000CB00126F74 /* Build configuration list for PBXNativeTarget "KLU" */;
+			buildPhases = (
+				1C274C41259000CB00126F74 /* Headers */,
+				1C274C42259000CB00126F74 /* Sources */,
+				1C274C43259000CB00126F74 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = KLU;
+			productName = KLU;
+			productReference = 1C274C45259000CB00126F74 /* libKLU.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1C274C3D259000CB00126F74 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1230;
+				TargetAttributes = {
+					1C274C44259000CB00126F74 = {
+						CreatedOnToolsVersion = 12.3;
+					};
+				};
+			};
+			buildConfigurationList = 1C274C40259000CB00126F74 /* Build configuration list for PBXProject "KLU" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1C274C3C259000CB00126F74;
+			productRefGroup = 1C274C46259000CB00126F74 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1C274C44259000CB00126F74 /* KLU */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1C274C42259000CB00126F74 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1C274C892590022600126F74 /* klu_free_numeric.c in Sources */,
+				1C274CA62590023000126F74 /* amd_global.c in Sources */,
+				1C274CB52590023000126F74 /* amd_postorder.c in Sources */,
+				1C274C7E2590022600126F74 /* klu_sort.c in Sources */,
+				1C274CE92590030C00126F74 /* btf_order.c in Sources */,
+				1C274C7C2590022600126F74 /* klu_dump.c in Sources */,
+				1C274C882590022600126F74 /* klu_defaults.c in Sources */,
+				1C274C7D2590022600126F74 /* klu_factor.c in Sources */,
+				1C274CAA2590023000126F74 /* amd.f in Sources */,
+				1C274C822590022600126F74 /* klu_diagnostics.c in Sources */,
+				1C274CE02590030500126F74 /* colamd.c in Sources */,
+				1C274CB92590023000126F74 /* amd_order.c in Sources */,
+				1C274CB12590023000126F74 /* amd_2.c in Sources */,
+				1C274CAD2590023000126F74 /* amd_defaults.c in Sources */,
+				1C274C842590022600126F74 /* klu_refactor.c in Sources */,
+				1C274C762590022600126F74 /* klu_memory.c in Sources */,
+				1C274CCC2590027100126F74 /* SuiteSparse_config.c in Sources */,
+				1C274CE72590030C00126F74 /* btf_maxtrans.c in Sources */,
+				1C274CB32590023000126F74 /* amd_preprocess.c in Sources */,
+				1C274CD6259002FE00126F74 /* SuiteSparse_config.c in Sources */,
+				1C274C7B2590022600126F74 /* klu_solve.c in Sources */,
+				1C274CA72590023000126F74 /* amd_control.c in Sources */,
+				1C274C852590022600126F74 /* klu_free_symbolic.c in Sources */,
+				1C274CB22590023000126F74 /* amd_aat.c in Sources */,
+				1C274C802590022600126F74 /* klu_analyze.c in Sources */,
+				1C274C812590022600126F74 /* klu.c in Sources */,
+				1C274CA92590023000126F74 /* amd_post_tree.c in Sources */,
+				1C274CAC2590023000126F74 /* amdbar.f in Sources */,
+				1C274C772590022600126F74 /* klu_tsolve.c in Sources */,
+				1C274CBA2590023000126F74 /* amd_info.c in Sources */,
+				1C274C862590022600126F74 /* klu_scale.c in Sources */,
+				1C274CAB2590023000126F74 /* amd_1.c in Sources */,
+				1C274C872590022600126F74 /* klu_extract.c in Sources */,
+				1C274C832590022600126F74 /* klu_kernel.c in Sources */,
+				1C274CEA2590030C00126F74 /* btf_strongcomp.c in Sources */,
+				1C274CB42590023000126F74 /* amd_dump.c in Sources */,
+				1C274C7F2590022600126F74 /* klu_analyze_given.c in Sources */,
+				1C274CB72590023000126F74 /* amd_valid.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1C274C47259000CB00126F74 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1C274C48259000CB00126F74 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1C274C4A259000CB00126F74 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		1C274C4B259000CB00126F74 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				EXECUTABLE_PREFIX = lib;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1C274C40259000CB00126F74 /* Build configuration list for PBXProject "KLU" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C274C47259000CB00126F74 /* Debug */,
+				1C274C48259000CB00126F74 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1C274C49259000CB00126F74 /* Build configuration list for PBXNativeTarget "KLU" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1C274C4A259000CB00126F74 /* Debug */,
+				1C274C4B259000CB00126F74 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1C274C3D259000CB00126F74 /* Project object */;
+}
