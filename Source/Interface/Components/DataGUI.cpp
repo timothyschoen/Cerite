@@ -62,6 +62,7 @@ void HSliderContainer::receive(Data d) {
         value = d.number;
         startTimer(0);
     }
+    freeData(d);
 }
 
 void HSliderContainer::resized()
@@ -150,6 +151,7 @@ void VSliderContainer::receive(Data d) {
         value = d.number;
         startTimer(0);
     }
+    freeData(d);
 }
 
 void BangButton::mouseDown (const MouseEvent &)  {
@@ -211,6 +213,7 @@ Point<int> BangContainer::getBestSize()
 
 void BangContainer::receive(Data d) {
     startTimer(0);
+    freeData(d);
 }
 
 void TglButton::mouseDown (const MouseEvent &)  {
@@ -260,6 +263,7 @@ void ToggleContainer::receive(Data d) {
     else if(d.type == tBang) {
         togglebutton.setToggleState(!togglebutton.getToggleState(), dontSendNotification);
     }
+    freeData(d);
 }
 
 
@@ -358,6 +362,7 @@ void NumboxContainer::receive(Data d) {
         value = d.number;
         startTimer(0);
     }
+    freeData(d);
 }
 
 MessageContainer::~MessageContainer()
@@ -377,9 +382,50 @@ MessageContainer::MessageContainer(ValueTree tree, Box* box) : boxTree(tree)
     input.setLookAndFeel(&clook);
     bangbutton.setLookAndFeel(&clook);
     
+    input.onTextChange = [this]()
+    {
+        String new_text = input.getText();
+        
+        if(new_text == "bang") {
+            send({tBang});
+        }
+        else if(new_text.containsOnly("0123456789.-e")) {
+            send({tNumber, new_text.getDoubleValue()});
+        }
+
+        else if(new_text.contains(" ")) {
+            // list
+            StringArray tokens;
+            tokens.addTokens(new_text, " ", "\"\'");
+            auto data = new Data[tokens.size()];
+            for(int i = 0; i < tokens.size(); i++) {
+                if(tokens[i].containsOnly("0123456789.-e")) {
+                    data[i] = {tNumber, tokens[i].getDoubleValue()};
+                }
+                else if(tokens[i] == "bang") {
+                    data[i] = {tBang, 0};
+                }
+                else {
+                    auto cstr = new char[tokens[i].length() + 1];
+                    strcpy(cstr, tokens[i].toRawUTF8());
+                    data[i] = {tString, 0, cstr};
+                }
+            }
+            send({tList, 0, "", data, (uint32_t)tokens.size()});
+            
+        }
+        else {
+            auto cstr = new char[new_text.length() + 1];
+            strcpy(cstr, new_text.toRawUTF8());
+            send({tString, 0, cstr});
+        }
+    };
+    
     //bangbutton.setSliderStyle(SliderStyle::Vertical)
     bangbutton.onMouseDown = [this]()
     {
+        input.onTextChange();
+        send({tBang});
         //startEdition();
         //gui.setSymbol(input.getText().toStdString());
         //stopEdition();
@@ -413,8 +459,45 @@ void MessageContainer::updateValue()
     } */
 }
 
-void MessageContainer::receive(Data d) {
+String MessageContainer::parseData(Data d) {
+    if(d.type == tNumber)
+    {
+        return String(d.number);
+        
+    }
+    else if(d.type == tString)
+    {
+        
+        return String(d.string);
+    }
+    else if(d.type == tBang)
+    {
+        return "bang";
+    }
+    else if(d.type == tList)
+    {
+        String new_text;
+        
+        for(int i = 0; i < d.listlen; i++)
+        {
+            new_text += parseData(d.list[i]);
+            if(i != d.listlen - 1) new_text += " ";
+        }
+        return new_text;
+    }
+    else {
+        return "";
+    }
     
+    
+}
+
+void MessageContainer::receive(Data d) {
+    String new_text = parseData(d);
+    new_text.removeCharacters("\n\r");
+    input.setText(new_text);
+    
+    freeData(d);
 }
 
 
@@ -460,7 +543,7 @@ Point<int> HRadioGroup::getBestSize()
 }
 
 void HRadioGroup::receive(Data d) {
-    
+    freeData(d);
 }
 
 VRadioGroup::~VRadioGroup()
@@ -502,5 +585,5 @@ Point<int> VRadioGroup::getBestSize()
 }
 
 void VRadioGroup::receive(Data d) {
-    
+    freeData(d);
 }

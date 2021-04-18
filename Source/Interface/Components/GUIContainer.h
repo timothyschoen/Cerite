@@ -50,6 +50,7 @@ public:
     
     virtual void receive(Data d) {};
     virtual void send(Data d);
+    static void freeData(Data& d);
     
 };
 

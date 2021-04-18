@@ -194,15 +194,7 @@ std::string CodeWriter::writeFunctions(Object& doc) {
     
     std::vector<std::string> result;
     
-    for(auto& vec : doc.vectors) {
-        if(vec.isFuncptr()) continue;
-
-        result.push_back(vec.ctype + "* " + vec.name + "_ptr() {\n return " + vec.name + "; }\n");
-    }
-    
     for(auto& func : doc.functions) {
-        bool atEnd = func.name.substr(4) == "prepare" || func.name.substr(4) == "calc";
-        
         if(func.args == "Data")
         {
             func.body.append(TokenString("freeData(f_arg0);\n").tokens);
@@ -212,15 +204,9 @@ std::string CodeWriter::writeFunctions(Object& doc) {
     
     for(auto& [key, import] : doc.imports) {
         
-        
-        
         for(int i = 0; i < import.functions.size(); i++) {
-            
-            bool atEnd = import.functions[i].name.substr(4) == "prepare" || import.functions[i].name.substr(4) == "calc";
-            
-            
             import.functions[i].body.append(import.defaultFunctions[i].body.tokens);
-            result.insert(atEnd ? result.end() : result.begin(), import.functions[i].toString(doc));
+            result.push_back(import.functions[i].toString(doc));
         }
     }
     

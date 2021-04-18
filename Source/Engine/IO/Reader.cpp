@@ -404,6 +404,8 @@ std::string Reader::encode(const std::string &input) {
         else if(chr == '&') result += "and";
         else if(chr == '=') result += "eq";
         else if(chr == '~') result += "sig";
+        else if(chr == '<') result += "less";
+        else if(chr == '>') result += "more";
         else result += chr;
     }
     return result;

@@ -24,13 +24,15 @@ struct DataStream {
 static inline MemoryBlock writeToStream(const Data& data, MemoryOutputStream& stream) {
     stream.writeInt(data.type);
     stream.writeDouble(data.number);
+    
     stream.writeString(data.string);
+    stream.writeInt(data.listlen);
     
-    /*
-    for(int i = 0; i < data.listlen; i++)
-        stream.writeDouble(data.list[i]);
+    for(int i = 0; i < data.listlen; i++) {
+        writeToStream(data.list[i], stream);
+    }
     
-    stream.writeInt(data.listlen); */
+    
     
     return stream.getMemoryBlock();
 }
@@ -39,8 +41,20 @@ static inline Data readFromStream(MemoryInputStream& stream) {
     Data data;
     data.type = (Type)stream.readInt();
     data.number = stream.readDouble();
-    data.string = stream.readString().toRawUTF8();
-
+    
+    String data_str = stream.readString();
+    if(data.type == tString) {
+        data.string = (const char*)malloc(data_str.length() + 1);
+        strcpy(const_cast<char*>(data.string), data_str.toRawUTF8());
+    }
+    
+    data.listlen = stream.readInt();
+    
+    data.list = new Data[data.listlen];
+    for(int i = 0; i < data.listlen; i++) {
+        data.list[i] = readFromStream(stream);
+    }
+    
     return data;
     /*
     int startpos = stream.getPosition();

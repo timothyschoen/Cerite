@@ -37,6 +37,7 @@ TCCState* Compiler::perform(std::string code, Compiler& compiler) {
     tcc_set_error_func(state, nullptr, compiler.errfunc);
     tcc_set_output_type(state, TCC_OUTPUT_MEMORY);
     
+    tcc_add_include_path(state, path.c_str());
     // Check if context creation succeeded
     if(!state) {
         compiler.print("Can’t create a TCC context\n");
@@ -46,13 +47,14 @@ TCCState* Compiler::perform(std::string code, Compiler& compiler) {
     // Will link some C standard library functions from the current runtime
     // This improves portability because we're not dependent of TCC finding the libraries
     
-    // Register the custom print function
-    tcc_add_symbol(state, "print", (void*)compiler.print);
     
-    // Add std library functions and write extern statements
-    std::string externs = "extern void print(const char*);\n" + addStdLibrary(state);
+    addStdLibrary(state);
 
-    std::string ccode = externs + code;
+    // Add data processing library and tcc includes
+    std::string includes =  "#define CERITE_GUI\n"
+                            "#include \"libcerite.h\"\n";
+    
+    std::string ccode = includes + code;
     
     File output = File::getSpecialLocation(File::userHomeDirectory).getChildFile("Cerite_latest.c");
     output.create();
@@ -75,9 +77,9 @@ TCCState* Compiler::perform(std::string code, Compiler& compiler) {
 
 // Function for linking parts of the c-standard library from our c++ runtime
 // This way we can prevent linker errors and reduce compile time
-std::string Compiler::addStdLibrary(TCCState* state) {
+void Compiler::addStdLibrary(TCCState* state) {
     std::string externs;
-
+    
     // math.h definitions
     externs +=  includeFunction<double, double>         (state, "sin",  (void*)(double(*)(double))&sin);
     externs +=  includeFunction<double, double>         (state, "cos",  (void*)(double(*)(double))&cos);
@@ -111,6 +113,8 @@ std::string Compiler::addStdLibrary(TCCState* state) {
 
     externs +=  includeFunction<int, const char*, const char*> (state, "strcmp", (void*)(int(*)(const char*, const char*))&strcmp);
     
+    externs +=  includeFunction<void, const char*> (state, "print", (void*)Compiler::print);
+    
     //externs +=  includeFunction<int, const char*, const char*> (state, "strlen", (void*)(int(*)(const char*))&strlen);
     
     
@@ -128,14 +132,10 @@ std::string Compiler::addStdLibrary(TCCState* state) {
     externs += includeVariable<double>(state, "M_2_SQRTPI", M_2_SQRTPI);
     externs += includeVariable<double>(state, "M_SQRT2", M_SQRT2);
     externs += includeVariable<double>(state, "M_SQRT1_2", M_SQRT1_2);
-    
 
-    externs +=  "#include <tcclib.h>\n";
-    
-    // Add data processing library
-    externs += datatype;
-    
-    return externs;
+    File output = File(String(path)).getChildFile("externs.h");
+    output.create();
+    output.replaceWithText(String(externs));
     
 }
 

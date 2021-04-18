@@ -1,15 +1,12 @@
 #pragma once
 
 #include <JuceHeader.h>
+
+#define BOOST_INTERPROCESS_MSG_QUEUE_CIRCULAR_INDEX
 #include <boost/interprocess/ipc/message_queue.hpp>
+
 #include "Processor.h"
 #include "concurrentqueue.h"
-
-//==============================================================================
-/*
-    This component lives inside our window, and this is where you should put all
-    your controls and content.
-*/
 
 using namespace boost::interprocess;
 

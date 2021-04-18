@@ -209,6 +209,7 @@ public:
     
     Point<int> getBestSize() override;
     
+    String parseData(Data d);
     
     void updateValue();
     

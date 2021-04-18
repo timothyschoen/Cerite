@@ -26,6 +26,7 @@
 #include "Interface/Canvas/Box.h"
 #include "Utility/FSManager.h"
 
+#define BOOST_INTERPROCESS_MSG_QUEUE_CIRCULAR_INDEX
 #include <boost/interprocess/ipc/message_queue.hpp>
 
 /*

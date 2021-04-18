@@ -51,8 +51,8 @@ public:
     DomainInformation type;
 	bool moved = true;
 
-	void addToCanvas();
-	void removeFromCanvas();
+	void addToCanvas() override;
+	void removeFromCanvas() override;
 
 	bool hitTest(int x, int y) override;
 

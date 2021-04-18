@@ -287,6 +287,7 @@ bool AppCommands::perform (const InvocationInfo& info)
         
         saveChooser.launchAsync(FileBrowserComponent::saveMode | FileBrowserComponent::warnAboutOverwriting, [this](const FileChooser &f) {
             File result = f.getResult();
+            if(!result.existsAsFile()) return;
             cnv->projectFile = result;
             main->setTitle(cnv->projectFile.getFileName().toStdString() + " | Cerite");
             cnv->changedSinceSave = false;
