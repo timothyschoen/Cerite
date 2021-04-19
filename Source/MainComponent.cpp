@@ -46,7 +46,7 @@ MainComponent::MainComponent() : canvas(this), sidebar(this), topmenu(&canvas, t
     Thread::launch([this]() {
         while(true) {
             Time::waitForMillisecondCounter(Time::getMillisecondCounter() + 1500);
-            worker.start(FSManager::exec.getChildFile("CeriteWorker").getFullPathName().toRawUTF8());
+            worker.start(FSManager::exec.getChildFile("Worker").getFullPathName().toRawUTF8());
             worker.waitForProcessToFinish(-1);
             MessageManager::callAsync([this]() {
                 statusbar.powerButton.setToggleState(false, sendNotification);
