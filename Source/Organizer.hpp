@@ -86,8 +86,11 @@ struct Organizer
                 std::vector<std::vector<int>> split_nodes;
                 split_nodes.resize(nodes[i].size());
                 
-                // this won't work without arguments!!
+               
                 ObjectSpec split = {splitsig_object, {{String("dsp"), split_nodes}}, x, y};
+                
+                Engine::set_arguments(std::get<0>(split), String(nodes[i].size()));
+                
                 list.push_back(split);
                 
                 num_nodes++;

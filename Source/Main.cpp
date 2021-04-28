@@ -31,6 +31,10 @@ int main (int argc, char* argv[]) {
     objects.add(Engine::parse_object(object_dir.getChildFile("Glue/metro.obj").loadFileAsString(), "metro", contexts));
     objects.add(Engine::parse_object(object_dir.getChildFile("Glue/print.obj").loadFileAsString(), "print_o", contexts));
     
+    
+    Engine::set_arguments(objects.getReference(0), "300");
+   
+    
     nodes.add(Array<int>({0, 0, 1}));
     nodes.add(Array<int>({1}));
     

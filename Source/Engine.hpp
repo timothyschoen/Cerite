@@ -10,7 +10,7 @@
 
 using Variable = std::tuple<String, // Name
                             String, // Type
-                            double  // Default value
+                            String  // Default value
 >;
 
 using Function = std::tuple<String,      // Name
@@ -58,8 +58,6 @@ struct Engine
     static Object parse_object(const String& file, const StringRef name, ContextMap& contexts);
 
     static void set_arguments(Object& target, const String& arguments);
-    
-    static void set_variable(Object& target, const String& name, const String& value);
     
     static String combine_objects(ObjectList& objects, ContextMap contexts, Array<Array<int>>& nodes);
 

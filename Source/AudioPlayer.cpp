@@ -40,6 +40,11 @@ void AudioPlayer::compile(String code) {
     compiler.start(compile_command);
     compiler.waitForProcessToFinish(-1);
     
+    char compiler_error[2048];
+    compiler.readProcessOutput(compiler_error, 2048);
+    
+    int compiler_exit = compiler.getExitCode();
+    
 #if JUCE_MAC
     String dll = " -fPIC -dynamiclib -o ";
     String location = path.getFullPathName() + "/patch.dylib";
@@ -56,7 +61,19 @@ void AudioPlayer::compile(String code) {
     compiler.start(link_command);
     compiler.waitForProcessToFinish(-1);
     
-    dynlib.open(location);
+    char linker_error[2048];
+    compiler.readProcessOutput((void*)linker_error, 2048);
+    
+    int linker_exit = compiler.getExitCode();
+    
+    bool success = dynlib.open(location);
+    
+    
+    if(!success || compiler_exit || linker_exit) {
+        std::cout << "Error compiling patch:" << std::endl;
+        std::cout << compiler_error << "\n\n\n" << linker_error << std::endl;
+        throw;
+    }
     
     reset = (void(*)())dynlib.getFunction("reset");
     process = (void(*)())dynlib.getFunction("calc");

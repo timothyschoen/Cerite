@@ -44,9 +44,13 @@ String Engine::empty_brackets(String str) {
 String Engine::find_section(String text, String identifier, bool remove_spaces)
 {
     
-    int start = text.indexOf(identifier + ":") + identifier.length() + 1;
+    int start = text.indexOf(identifier + ":");
+    if(start == -1) return String();
+    
+    start += identifier.length() + 1;
     int end = empty_brackets(text).indexOf(start, ":");
     
+   
     if(end == -1) end = text.length();
     
     String result = text.substring(start, end).upToLastOccurrenceOf("\n", false, false);
@@ -115,6 +119,14 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
         if(contexts.count(import)) {
             imports.add(import);
         }
+        
+        String port_initialiser = find_section(file, import + ".ports", true);
+        auto port_defs = StringArray::fromTokens(port_initialiser, "|", "");
+        
+        while(port_defs.size() < 2) {
+            port_defs.add("0");
+        }
+        ports[import] = {port_defs[0], port_defs[1]};
     }
     
     // Add arguments before variables
@@ -129,11 +141,11 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
         
         arg = arg.removeCharacters(" ");
         
-        double default_value = 0;
+        String default_value = "0";
         // Allow setting a default value
         if(arg.contains("=")) {
             int eq_pos = arg.indexOf("=");
-            default_value = arg.substring(eq_pos + 1).getDoubleValue();
+            default_value = arg.substring(eq_pos + 1);
             arg = arg.substring(0, eq_pos);
         }
         variables.add({arg, type, default_value});
@@ -143,7 +155,7 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
     
     for(auto& variable : variable_defs) {
         String type = "double";
-        double default_value = 0.0;
+        String default_value = "0.0";
         
         variable = variable.removeCharacters("\\");
         // Handle vectors
@@ -188,7 +200,7 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
         // Allow setting a default value
         if(variable.contains("=")) {
             int eq_pos = variable.indexOf("=");
-            default_value = variable.substring(eq_pos + 1).getDoubleValue();
+            default_value = variable.substring(eq_pos + 1);
             variable = variable.substring(0, eq_pos);
         }
         
@@ -256,18 +268,20 @@ void Engine::set_arguments(Object& target, const String& arguments) {
     }
     
     for(int i = 0; i < std::min(num_args, tokens.size()); i++) {
-        auto [v_name, v_type, v_default] = variables[i];
-        set_variable(target, v_name, tokens[i]);
+        auto& [v_name, v_type, v_default] = variables.getReference(i);
+        v_default = tokens[i];
+        
+        // Replace any arguments used to decide the number of in-out ports
+        for(auto& [ctx, io] : ports) {
+            io.first = io.first.replace(v_name, tokens[i]);
+            io.second = io.second.replace(v_name, tokens[i]);
+        }
+        
     }
     
 }
 
-void Engine::set_variable(Object& target, const String& name, const String& value) {
 
-    
-    
-    
-}
 
 String Engine::combine_objects(Array<Object>& objects, std::map<String, Object> contexts, Array<Array<int>>& nodes)
 {
@@ -305,7 +319,6 @@ String Engine::combine_objects(Array<Object>& objects, std::map<String, Object> 
     
     for(int i = 0; i < objects.size(); i++) {
         auto& [name, imports, variables, vectors, functions, ports, num_args] = objects.getReference(i);
-        
         
         for(auto& import : imports) {
             // Check which contexts are used
