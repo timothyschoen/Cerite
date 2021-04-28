@@ -99,13 +99,13 @@ void Engine::make_local(String& target, const String& to_find) {
 // One-time action: parse the object to intermediate representation in a simple tuple
 // Any work we can already do here is fantastic because that will limit the amount of stuff
 // we need to do when we construct out patch
-Object Engine::parse_object(const String& file, const StringRef name, std::map<String, Object>& contexts) {
+Object Engine::parse_object(const String& file, const StringRef name, std::map<String, Object>& contexts, bool is_context) {
     Object object;
     auto& [obj_name, imports, variables, vectors, functions, ports, num_args] = object;
     
     obj_name = name;
     num_args = 0;
-    
+        
     String arg_initialiser = find_section(file, "args", true);
     String variable_initialiser = find_section(file, "var", true);
     String import_initialiser = find_section(file, "import", true);
@@ -126,7 +126,9 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
         while(port_defs.size() < 2) {
             port_defs.add("0");
         }
-        ports[import] = {port_defs[0], port_defs[1]};
+        
+        
+        ports[import] = {port_defs[0].removeCharacters(" "), port_defs[1].removeCharacters(" ")};
     }
     
     // Add arguments before variables
@@ -171,10 +173,10 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
             
             int size = -1;
             if(brack_start < brack_end - 1) {
-                size = variable.substring(brack_start, brack_end).getIntValue();
+                size = variable.substring(brack_start + 1, brack_end).getIntValue();
             }
             
-            vectors.add({variable.substring(0, brack_end-1).removeCharacters(" "), type, size, {}});
+            vectors.add({variable.substring(0, brack_start).removeCharacters(" "), type, size, {}});
             continue;
         }
         
@@ -221,8 +223,10 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
         
         body = find_section(file, func_name);
         
-        for(auto& [v_name, v_type, v_init] : variables) make_local(body, v_name);
-        for(auto& [v_name, v_type, v_size, v_def] : vectors) make_local(body, v_name);
+        if(!is_context) {
+            for(auto& [v_name, v_type, v_init] : variables) make_local(body, v_name);
+            for(auto& [v_name, v_type, v_size, v_def] : vectors) make_local(body, v_name);
+        }
         
         for(auto& import : imports) {
             auto& [ctx_name, ctx_imp, variables, vectors, functions, ports, num_args] = contexts[import];
@@ -233,7 +237,7 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
                 int idx = 0;
                 while(true) {
                     int pos = body.substring(idx).indexOfWholeWord(ctx_name + "." + v_name);
-                    if(pos == -1) break;
+                    if(pos == -1 || v_size > 0) break;
                     pos += idx;
                     
                     auto [brack_start, brack_end] = match_bracket(body.substring(pos), {'[', ']'});
@@ -254,6 +258,15 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
         }
     }
     
+    if(!is_context) {
+        for(int i = functions.size()-1; i >= 0; i--) {
+            auto [func_name, args, body] = functions[i];
+            if(body.isEmpty()) {
+                functions.remove(i);
+            }
+        }
+    }
+
     return object;
     
 }
@@ -283,7 +296,7 @@ void Engine::set_arguments(Object& target, const String& arguments) {
 
 
 
-String Engine::combine_objects(Array<Object>& objects, std::map<String, Object> contexts, Array<Array<int>>& nodes)
+String Engine::combine_objects(SimplifiedNodes& node_list, std::map<String, Object> contexts)
 {
     String object_code;
     String context_functions;
@@ -302,23 +315,33 @@ String Engine::combine_objects(Array<Object>& objects, std::map<String, Object> 
         auto& [ctx_name, ctx] = *ctx_iter;
         
         Array<int> used_nodes;
-        for(int i = 0; i < nodes.size(); i++) {
-            if(!std::get<1>(objects[i]).contains(ctx_name)) continue;
+        for(int i = 0; i < node_list.size(); i++) {
+            auto&[obj, nodes] = node_list[i];
             
-            for(int j = 0; j < nodes.size(); j++) {
-                used_nodes.addIfNotAlreadyThere(nodes[i][j]);
+            if(!std::get<1>(obj).contains(ctx_name)) continue;
+            
+            for(int j = 0; j < nodes[ctx_name].size(); j++) {
+                used_nodes.addIfNotAlreadyThere(nodes[ctx_name][j]);
             }
         }
+       
         
-        num_nodes[ctx_name] = used_nodes.size();
+        if(used_nodes.size()) {
+            num_nodes[ctx_name] = *std::max_element(used_nodes.begin(),  used_nodes.end()) + 1;
+        }
+        else {
+            num_nodes[ctx_name] = 0;
+        }
         
         for(auto& [v_name, v_type, v_size, v_def] : std::get<3>(ctx)) {
-            v_size = used_nodes.size();
+            if(v_size < 1) v_size = num_nodes[ctx_name];
         }
     }
     
-    for(int i = 0; i < objects.size(); i++) {
-        auto& [name, imports, variables, vectors, functions, ports, num_args] = objects.getReference(i);
+    for(int i = 0; i < node_list.size(); i++) {
+        auto&[obj, nodes] = node_list[i];
+        
+        auto& [name, imports, variables, vectors, functions, ports, num_args] = obj;
         
         for(auto& import : imports) {
             // Check which contexts are used
@@ -326,7 +349,7 @@ String Engine::combine_objects(Array<Object>& objects, std::map<String, Object> 
             
             // Add node vector for each context to object
             Array<String> stringified;
-            for(auto& num : nodes[i]) {
+            for(auto& num : nodes[import]) {
                 stringified.add(String(num));
             }
             vectors.add({import + "_nodes", "int", stringified.size(), stringified});
@@ -364,7 +387,7 @@ String Engine::combine_objects(Array<Object>& objects, std::map<String, Object> 
             }
         }
         
-        auto [struct_code, function_code] = write_code(objects.getReference(i), unique_name, (WriteType)((idx != 1)+1));
+        auto [struct_code, function_code] = write_code(obj, unique_name, (WriteType)((idx != 1)+1));
         object_code += struct_code + function_code;
         
         reset_code += unique_name + "_reset();\n";
@@ -377,7 +400,11 @@ String Engine::combine_objects(Array<Object>& objects, std::map<String, Object> 
     for(auto& context : used_contexts) {
         std::get<0>(contexts[context]) += "_obj";
         
-        std::tie(context_structs, context_functions) = write_code(contexts[context], context, Context);
+        String ctx_struct, ctx_func;
+        std::tie(ctx_struct, ctx_func) = write_code(contexts[context], context, Context);
+        
+        context_functions += ctx_func;
+        context_structs += ctx_struct;
         
         reset_code += context + "_reset();\n";
         
@@ -389,7 +416,17 @@ String Engine::combine_objects(Array<Object>& objects, std::map<String, Object> 
     calc_code += "}\n\n";
     prepare_code += "}\n\n";
     
-    return context_structs + object_code + context_functions + reset_code + calc_code + prepare_code;
+    
+    String audio_func;
+    
+    
+    if(used_contexts.contains("dsp")) {
+        audio_func += "double* get_audio_output() { "
+                      "  return dsp.audio_output;   "
+                      "}                            ";
+    }
+    
+    return context_structs + object_code + context_functions + reset_code + calc_code + prepare_code + audio_func;
 }
 
 std::pair<String, String> Engine::write_code(Object& object, const String& unique_name, WriteType write_type)
@@ -466,6 +503,7 @@ std::pair<String, String> Engine::write_code(Object& object, const String& uniqu
         // Write function
         function_code += "void " + name + "_" + func_name + arg_code + "{\n" + body + "\n}\n\n";
     }
+    
     
     return {struct_code, function_code};
 }

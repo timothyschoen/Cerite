@@ -78,6 +78,12 @@ void AudioPlayer::compile(String code) {
     reset = (void(*)())dynlib.getFunction("reset");
     process = (void(*)())dynlib.getFunction("calc");
     prepare = (void(*)())dynlib.getFunction("prepare");
+    
+    get_output = (double*(*)())dynlib.getFunction("get_audio_output");
+    
+    
+    if(!get_output) get_output = [](){ return &audio_zero[0]; };
+    
 }
 
 void AudioPlayer::setAudioChannels (int numInputChannels, int numOutputChannels)
@@ -101,8 +107,15 @@ void AudioPlayer::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
 }
 
 void AudioPlayer::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill) {
+    
     for(int i = 0; i < bufferToFill.numSamples; i++) {
         process();
+        
+        double* output = get_output();
+        
+        for(int ch = 0; ch < bufferToFill.buffer->getNumChannels(); ch++) {
+            bufferToFill.buffer->setSample(ch, i, output[ch]);
+        }
     }
 }
 void AudioPlayer::releaseResources() {

@@ -21,6 +21,12 @@ struct AudioPlayer : public AudioSource
     void(*prepare)();
     void(*process)();
     
+    double*(*get_output)();
+    
+    std::array<double, 2> audio_output;
+    
+    inline static std::array<double, 2> audio_zero = {0, 0};
+    
     AudioPlayer(String code);
     
     void compile(String code);

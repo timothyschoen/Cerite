@@ -45,6 +45,9 @@ using Object = std::tuple<String,           // Name
 using ContextMap = std::map<String, Object>;
 using ObjectList = Array<Object>;
 
+using SimplifiedObject = std::pair<Object, std::map<String, std::vector<int>>>;
+using SimplifiedNodes = std::vector<SimplifiedObject>;
+
 struct Engine
 {
     static String empty_brackets(String str);
@@ -55,11 +58,11 @@ struct Engine
 
     static void make_local(String& target, const String& to_find);
 
-    static Object parse_object(const String& file, const StringRef name, ContextMap& contexts);
+    static Object parse_object(const String& file, const StringRef name, ContextMap& contexts, bool is_context = false);
 
     static void set_arguments(Object& target, const String& arguments);
     
-    static String combine_objects(ObjectList& objects, ContextMap contexts, Array<Array<int>>& nodes);
+    static String combine_objects(SimplifiedNodes& node_list, ContextMap contexts);
 
     static std::pair<String, String> write_code(Object& object, const String& unique_name, WriteType write_type);
 };
