@@ -2,67 +2,71 @@
 #include "Engine.hpp"
 #include "AudioPlayer.hpp"
 #include "NodeConverter.hpp"
+#include "Library.hpp"
+
+
 //==============================================================================
 int main (int argc, char* argv[]) {
     
     auto object_dir = File::getSpecialLocation(juce::File::userDocumentsDirectory).getChildFile("Cerite/Objects");
     
-    auto context_dir = object_dir.getChildFile("Contexts");
+   
+    Library::initialise(object_dir);
+    NodeConverter::initialise(object_dir, Library::contexts);
     
-    auto context_files = context_dir.findChildFiles(File::findFiles, false);
-    
-    ContextMap contexts;
-    for(auto& file : context_files) {
-        String name = file.getFileName().upToFirstOccurrenceOf(".", false, false);
-        contexts[name] = Engine::parse_object(file.loadFileAsString(), name, contexts, true);
-    }
-    
-    
-    NodeConverter::initialise(object_dir, contexts);
+    auto& contexts = Library::contexts;
+    auto& objects = Library::objects;
+
     
 
-    // TODO: automate this!
-    auto sine = Engine::parse_object(object_dir.getChildFile("Signal/sine~.obj").loadFileAsString(), "sine", contexts);
-    auto mul  = Engine::parse_object(object_dir.getChildFile("Signal/*~.obj").loadFileAsString(), "mulsig", contexts);
-    auto add  = Engine::parse_object(object_dir.getChildFile("Signal/+~.obj").loadFileAsString(), "addsig", contexts);
-    auto out  = Engine::parse_object(object_dir.getChildFile("Signal/output~.obj").loadFileAsString(), "output", contexts);
-    
-    
-    auto metro = Engine::parse_object(object_dir.getChildFile("Glue/metro.obj").loadFileAsString(), "metro", contexts);
-    
-    auto print = Engine::parse_object(object_dir.getChildFile("Glue/print.obj").loadFileAsString(), "print_o", contexts);
-    auto print_2 = Engine::parse_object(object_dir.getChildFile("Glue/print_2.obj").loadFileAsString(), "print_o2", contexts);
-    
-    auto snapshot = Engine::parse_object(object_dir.getChildFile("Signal/snapshot~.obj").loadFileAsString(), "snapshotsig", contexts);
-    
     /*
-    NodeList n_list = {{sine, {{"dsp", {{0}, {1}}}}, 10, 10},
-                       {mul,  {{"dsp", {{1}, {0}, {2, 3}}}}, 10, 10},
-                       {add,  {{"dsp", {{3}, {1}, {0}}}}, 10, 10},
-                       {out,  {{"dsp", {{2}}}}, 10, 10}
+    NodeList n_list = {{objects["sine~"], {{"dsp", {{0}, {1}}}}, 10, 10},
+                       {objects["mul~"],  {{"dsp", {{1}, {0}, {2, 3}}}}, 10, 10},
+                       {objects["add~"],  {{"dsp", {{3}, {1}, {0}}}}, 10, 10},
+                       {objects["out~"],  {{"dsp", {{2}}}}, 10, 10}
     }; */
     
     /*
-    NodeList n_list = { {metro, {{"data", {{0}, {0}, {1, 2}}}}, 60, 10},
-                        //{metro, {{"data", {{0}, {0}, {2}}}}, 10, 10},
-                        {print,  {{"data", {{1}}}}, 10, 10},
-                        {print_2,  {{"data", {{2}}}}, 15, 10}
+    NodeList n_list = { {objects["metro"], {{"data", {{0}, {0}, {1, 2}}}}, 60, 10},
+                        {objects["print"],  {{"data", {{1}}}}, 10, 10},
+                        {objects["print"],  {{"data", {{2}}}}, 15, 10}
     }; */
     
-    NodeList n_list = {{sine, {
-        {"dsp", {{0}, {1}}}}, 10, 10},
-        {mul,  {{"dsp", {{1}, {0}, {2, 3}}}}, 10, 10},
-        {out,  {{"dsp", {{2}}}}, 10, 10},
-        {snapshot, {{"dsp", {{3}}}, {"data", {{1}}}}, 10, 10},
-        {print,  {{"data", {{1}}}}, 10, 10}
+    /*
+    NodeList n_list = {
+        {objects["sine~"], {{"dsp", {{0}, {1}}}}, 10, 10},
+        {objects["mul~"],  {{"dsp", {{1}, {0}, {2, 3}}}}, 10, 10},
+        {objects["output~"],  {{"dsp", {{2}}}}, 10, 10},
+        {objects["snapshot~"], {{"dsp", {{3}}}, {"data", {{1}}}}, 10, 10},
+        {objects["print"],  {{"data", {{1}}}}, 10, 10}
+    };*/
+    
+    /*
+    NodeList n_list = {
+        {objects["metro"],     {{"data", {{0}, {0}, {1}}}}, 10, 10},
+        {objects["pack"],      {{"data", {{1}, {0}, {2}}}}, 60, 10},
+        {objects["unpack"],    {{"data", {{2}, {3}, {0}}}}, 10, 10},
+        {objects["print"],     {{"data", {{3}}}}, 15, 10}
+     
+     Engine::set_arguments(std::get<0>(n_list[1]), "b i");
+     Engine::set_arguments(std::get<0>(n_list[2]), "b i");
+    }; */
+    
+    NodeList n_list = {
+        {objects["metro"],     {{"data", {{0}, {0}, {1}}}}, 10, 10},
+        {objects["select"],       {{"data", {{1}, {2}}}}, 60, 10},
+        {objects["trigger"],   {{"data", {{2}, {3}, {4}}}}, 60, 10},
+        {objects["print"],     {{"data", {{3}}}}, 15, 10},
+        {objects["delay"],     {{"data", {{4}, {5}}}}, 15, 10},
+        {objects["print"],   {{"data", {{5}}}}, 15, 10}
     };
-
+        
+    Engine::set_arguments(std::get<0>(n_list[1]), "bang");
+    Engine::set_arguments(std::get<0>(n_list[2]), "b b");
+        
     auto formatted = NodeConverter::format_nodes(n_list, contexts);
     
-    
     String code = "#include \"libcerite.h\" \n\n";
-    
-    //Engine::set_arguments(objects.getReference(0), "300");
    
     code += Engine::combine_objects(formatted, contexts);
     

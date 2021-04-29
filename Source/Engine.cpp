@@ -103,6 +103,13 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
     Object object;
     auto& [obj_name, imports, variables, vectors, functions, ports, num_args] = object;
     
+    
+    if(!is_context) {
+        vectors.add({"argv", "Data", 0, {}});
+        variables.add({"argc", "int", "0"});
+    }
+
+    
     obj_name = name;
     num_args = 0;
         
@@ -157,7 +164,7 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
     
     for(auto& variable : variable_defs) {
         String type = "double";
-        String default_value = "0.0";
+        String default_value = "0";
         
         variable = variable.removeCharacters("\\");
         // Handle vectors
@@ -276,10 +283,6 @@ void Engine::set_arguments(Object& target, const String& arguments) {
 
     auto& [name, imports, variables, vectors, functions, ports, num_args] = target;
     
-    if(tokens.size() > num_args) {
-        std::cout << "Warning: Too many arguments for object " + name + ", additional arguments will be ignored. \n";
-    }
-    
     for(int i = 0; i < std::min(num_args, tokens.size()); i++) {
         auto& [v_name, v_type, v_default] = variables.getReference(i);
         v_default = tokens[i];
@@ -290,6 +293,32 @@ void Engine::set_arguments(Object& target, const String& arguments) {
             io.second = io.second.replace(v_name, tokens[i]);
         }
         
+    }
+    
+    if(num_args < tokens.size()) {
+        StringArray definition;
+        
+        for(int i = num_args; i < tokens.size(); i++) {
+            if(tokens[i].containsOnly("0123456789.,e-")) {
+                definition.add("(Data){tNumber, " + tokens[i] + ", \"\", 0, 0}");
+            }
+            else {
+                definition.add("(Data){tString, 0, \""+ tokens[i] +"\", 0, 0}");
+            }
+        }
+        int argc = tokens.size() - num_args;
+        
+        auto& [vec_name, vec_type, vec_size, vec_def] = find_by_name<Vector>(vectors, "argv");
+        auto& [var_name, var_type, var_def] = find_by_name<Variable>(variables, "argc");
+        
+        var_def = String(argc);
+        vec_size = argc;
+        vec_def = definition;
+        
+        for(auto& [ctx, io] : ports) {
+            io.first = io.first.replace("argc", String(argc));
+            io.second = io.second.replace("argc", String(argc));
+        }
     }
     
 }
@@ -309,6 +338,7 @@ String Engine::combine_objects(SimplifiedNodes& node_list, std::map<String, Obje
     
     std::map<String, int> num_nodes;
     
+    // Count the size of each context, defined by the number of inputs and output that are within that context
     auto ctx_iter = contexts.begin();
     for(int c = 0; c < contexts.size(); c++, ctx_iter++) {
         
@@ -367,7 +397,9 @@ String Engine::combine_objects(SimplifiedNodes& node_list, std::map<String, Obje
         
         names.add(unique_name);
         
+        
         for(auto& [f_name, f_args, f_body] : functions) {
+            // Check for context member functions that this object wants to contribute to
             if(f_name.contains(".")) {
                 
                 auto ctx_name = f_name.substring(0, f_name.indexOf("."));

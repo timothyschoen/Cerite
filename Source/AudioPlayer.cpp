@@ -81,9 +81,7 @@ void AudioPlayer::compile(String code) {
     
     get_output = (double*(*)())dynlib.getFunction("get_audio_output");
     
-    
     if(!get_output) get_output = [](){ return &audio_zero[0]; };
-    
 }
 
 void AudioPlayer::setAudioChannels (int numInputChannels, int numOutputChannels)

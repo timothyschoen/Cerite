@@ -42,7 +42,7 @@ using Object = std::tuple<String,           // Name
                           int               // Number of arguments
 >;
 
-using ContextMap = std::map<String, Object>;
+using ObjectMap = std::map<String, Object>;
 using ObjectList = Array<Object>;
 
 using SimplifiedObject = std::pair<Object, std::map<String, std::vector<int>>>;
@@ -50,6 +50,17 @@ using SimplifiedNodes = std::vector<SimplifiedObject>;
 
 struct Engine
 {
+    template <typename T>
+    static T& find_by_name(Array<T>& list, String name) {
+        for(int i = 0; i < list.size(); i++) {
+            if(std::get<0>(list[i]) == name) {
+                return list.getReference(i);
+            }
+        }
+        
+        assert(false);
+    }
+    
     static String empty_brackets(String str);
 
     static String find_section(String text, String identifier, bool remove_spaces = false);
@@ -58,11 +69,11 @@ struct Engine
 
     static void make_local(String& target, const String& to_find);
 
-    static Object parse_object(const String& file, const StringRef name, ContextMap& contexts, bool is_context = false);
+    static Object parse_object(const String& file, const StringRef name, ObjectMap& contexts, bool is_context = false);
 
     static void set_arguments(Object& target, const String& arguments);
     
-    static String combine_objects(SimplifiedNodes& node_list, ContextMap contexts);
+    static String combine_objects(SimplifiedNodes& node_list, ObjectMap contexts);
 
     static std::pair<String, String> write_code(Object& object, const String& unique_name, WriteType write_type);
 };
