@@ -26,26 +26,36 @@ struct Library
         contexts.clear();
         objects.clear();
         
-        auto context_files = context_location.findChildFiles(File::findFiles, false);
-        for(auto& file : context_files) {
-            if(file.getFileExtension() != ".ctx") continue;
+        search_folder(context_location);
+        search_folder(object_location);
+    }
+    
+    // Recursive folder search
+    static void search_folder(File location) {
+        
+        auto object_files = location.findChildFiles(File::findFiles, false);
+        for(auto& file : object_files) {
+            String extension = file.getFileExtension();
+            bool is_ctx = extension == ".ctx";
+            
+            auto& destination = is_ctx ? contexts : objects;
+            
+            if(extension != ".obj" && !is_ctx) continue;
             
             String name = file.getFileName().upToFirstOccurrenceOf(".", false, false);
-            contexts[name] = Engine::parse_object(file.loadFileAsString(), name, contexts, true);
+            destination[name] = Engine::parse_object(file.loadFileAsString(), encode(name) + (is_ctx ? "" : "_obj"), contexts, is_ctx);
+            
+            auto aliases = StringArray::fromTokens(Engine::find_section(file.loadFileAsString(), "alias"), ", ", "");
+            
+            for(auto& alias : aliases) {
+                destination[alias] = destination[name];
+            }
         }
         
-        auto object_dirs = object_location.findChildFiles(File::findDirectories, false);
-        
+        auto object_dirs = location.findChildFiles(File::findDirectories, false);
+
         for(auto & dir : object_dirs) {
-            auto object_files = dir.findChildFiles(File::findFiles, false);
-            
-            for(auto& file : object_files) {
-                if(file.getFileExtension() != ".obj") continue;
-                
-                String name = file.getFileName().upToFirstOccurrenceOf(".", false, false);
-                objects[name] = Engine::parse_object(file.loadFileAsString(), encode(name) + "_obj", contexts);
-            }
-            
+            search_folder(dir);
         }
     }
     

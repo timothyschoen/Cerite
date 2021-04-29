@@ -21,6 +21,7 @@ using Function = std::tuple<String,      // Name
 using Vector = std::tuple<String,       // Name
                           String,       // Element Type
                           int,          // Size
+                          int,          // Dimensions (always squared!)
                           StringArray   // Default values
 >;
 
@@ -57,7 +58,6 @@ struct Engine
                 return list.getReference(i);
             }
         }
-        
         assert(false);
     }
     

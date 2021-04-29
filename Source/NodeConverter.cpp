@@ -111,6 +111,7 @@ void NodeConverter::apply_splits(NodeList& list, int& num_nodes, int current_idx
             }
             
             // Checks if the split will call the objects in right-to-left order
+            for (int x = 0; x < target_indices.size(); x++)
             for(int j = 0; j < target_indices.size(); j++) {
                 auto& [object_j, node_map_j, x_j, y_j] = list[target_indices[j]];
                 
@@ -163,8 +164,6 @@ void NodeConverter::format_dsp(SimplifiedNodes& list) {
     // Sorts based on whether the input of an earlier component is dependent on the output of a later component
     // This will place the dsp objects in correct signal graph order
     // Currently the order will be random in case of feedback: I think this is not an issue, there will be a single sample of delay either way
-    
-    // Can we reduce the number of iterations for x?
     for (int x = 0; x < list.size(); x++)
     for (int i = 0; i < list.size(); i++) {
         
@@ -202,6 +201,7 @@ bool NodeConverter::checkOrder(std::vector<int> lnodes, std::vector<int> rnodes,
 
 
 void NodeConverter::format_data(NodeList& list) {
+    for (int x = 0; x < list.size(); x++)
     for(int i = 0; i < list.size(); i++) {
         auto& [object_i, node_map_i, x_i, y_i] = list[i];
         
