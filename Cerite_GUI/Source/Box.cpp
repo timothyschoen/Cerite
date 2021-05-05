@@ -4,6 +4,72 @@
 #include "../../Source/Library.hpp"
 
 
+void ClickLabel::mouseDown(const MouseEvent & e)
+{
+    is_down = true;
+    dragger.handleMouseDown(box, e);
+}
+
+void ClickLabel::mouseUp(const MouseEvent & e)
+{
+    is_down = false;
+    dragger.handleMouseUp(box, e);
+    
+    Viewport* viewport = findParentComponentOfClass<Viewport>();
+    Canvas* canvas = findParentComponentOfClass<Canvas>();
+    
+    if(canvas) {
+        
+        auto pos = e.getEventRelativeTo(canvas).getPosition() - e.getPosition();
+        auto bounds = Rectangle<int>(pos, pos + Point<int>(getWidth(), getHeight()));
+        if(!canvas->getLocalBounds().contains(bounds)) {
+            if(bounds.getRight() > canvas->getWidth())
+                canvas->setSize(bounds.getRight() + 10, canvas->getHeight());
+
+            if(bounds.getBottom() > canvas->getHeight())
+                canvas->setSize(canvas->getWidth(), bounds.getBottom() + 10);
+            
+            
+            if(bounds.getX() < 0.0f) {
+                for(auto& box : canvas->findChildrenOfClass<Box>()) {
+                    if(&box->text_label != this)
+                        box->setTopLeftPosition(box->getX() - bounds.getX(), box->getY());
+                    else
+                        box->setTopLeftPosition(0, box->getY());
+                }
+                
+            }
+            if(bounds.getY() < 0) {
+                for(auto& box : canvas->findChildrenOfClass<Box>()) {
+                    if(&box->text_label != this)
+                        box->setTopLeftPosition(box->getX(), box->getY() - bounds.getY());
+                    else
+                        box->setTopLeftPosition(box->getX(), 0);
+                }
+            }
+
+
+        }
+    }
+    
+    if(auto* box = dynamic_cast<Box*>(getParentComponent())) {
+        auto box_state = box->getState();
+        box_state.setPropertyExcludingListener(box, Identifiers::box_x, box->getX(), nullptr);
+        box_state.setPropertyExcludingListener(box,Identifiers::box_y, box->getY(), nullptr);
+    }
+    
+    
+    
+    
+    
+}
+
+void ClickLabel::mouseDrag(const MouseEvent & e)
+{
+    dragger.handleMouseDrag(e);
+}
+
+
 //==============================================================================
 Box::Box(ValueTree tree, MultiComponentDragger<Box>& multi_dragger) : ValueTreeObject(tree), dragger(multi_dragger), text_label(this, multi_dragger)
 {
@@ -15,27 +81,46 @@ Box::Box(ValueTree tree, MultiComponentDragger<Box>& multi_dragger) : ValueTreeO
     
     text_label.onTextChange = [this]() {
         String new_text = text_label.getText();
-        
-        int new_size = text_label.getFont().getStringWidth(new_text) + (text_label.getHeight() * 1.35f);
-        setSize(std::max(50, new_size), getHeight());
-        set_type(new_text);
+        getState().setProperty(Identifiers::box_name, new_text, nullptr);
     };
-    
-    factory = [this](const Identifier& id, const juce::ValueTree& tree) {
-        if(id == Identifier("Edge")) {
-            auto* new_edge = new Edge(tree);
-            addAndMakeVisible(new_edge);
-            return static_cast<ValueTreeObject*>(new_edge);
-        }
-    };
-    
-    
     
     setSize (110, 32);
+    
+    rebuildObjects();
+    
+    if(!getState().hasProperty("ID")) {
+        Uuid id;
+        getState().setProperty("ID", id.toString(), nullptr);
+    }
+    
+    
+    auto edges = findChildrenOfClass<Edge>();
+    int total = edges.size();
+    int num_in = 0;
+    for(auto& edge : edges) {
+        auto edge_tree = edge->ValueTreeObject::getState();
+        num_in += (int)edge_tree.getProperty("Input");
+    }
+    total_in = num_in;
+    total_out = total - num_in;
+        
+    getState().sendPropertyChangeMessage(Identifiers::box_name);
+    getState().sendPropertyChangeMessage(Identifiers::box_x);
+    
+    resized();
 }
 
 Box::~Box()
 {
+}
+
+ValueTreeObject* Box::factory (const juce::Identifier& id, const juce::ValueTree& tree)
+{
+    if(id == Identifiers::edge) {
+        auto* new_edge = new Edge(tree);
+        addAndMakeVisible(new_edge);
+        return static_cast<ValueTreeObject*>(new_edge);
+    }
 }
 
 void Box::mouseMove(const MouseEvent& e) {
@@ -50,8 +135,22 @@ void Box::set_type (String new_type)
     String type = tokens[0];
     tokens.remove(1);
     
-    int old_total_in = total_in;
-    int old_total_out = total_out;
+    graphics.reset(GUIComponent::create_gui(type, this));
+    
+    if(graphics) {
+        addAndMakeVisible(graphics.get());
+        auto [w, h] = graphics->get_best_size();
+        setSize(std::max(getWidth(), w + 8), h + 28);
+    };
+    
+    
+    
+    int old_total_in = 0;
+    int old_total_out = 0;
+    
+    for(auto& edge : findChildrenOfClass<Edge>()) {
+        (bool)edge->ValueTreeObject::getState().getProperty("Input") ? old_total_in++ : old_total_out++;
+    }
     
     total_in = 0;
     total_out = 0;
@@ -73,6 +172,7 @@ void Box::set_type (String new_type)
     auto obj_ports = std::get<5>(object);
 
     for(auto& [ctx_name, port] : obj_ports) {
+        
         int num_in = port.first.getIntValue();
         int num_out = port.second.getIntValue();
         
@@ -88,9 +188,9 @@ void Box::set_type (String new_type)
     }
     while(total_in > old_total_in) {
         Uuid id;
-        ValueTree edge = ValueTree("Edge");
-        edge.setProperty("Input", true, nullptr);
-        edge.setProperty("ID", id.toString(), nullptr);
+        ValueTree edge = ValueTree(Identifiers::edge);
+        edge.setProperty(Identifiers::edge_in, true, nullptr);
+        edge.setProperty(Identifiers::edge_id, id.toString(), nullptr);
         
         getState().addChild(edge, old_total_in, nullptr);
         old_total_in++;
@@ -103,30 +203,35 @@ void Box::set_type (String new_type)
     }
     while(total_out > old_total_out) {
         Uuid id;
-        ValueTree edge = ValueTree("Edge");
-        edge.setProperty("Input", false, nullptr);
-        edge.setProperty("ID", id.toString(), nullptr);
+        ValueTree edge = ValueTree(Identifiers::edge);
+        edge.setProperty(Identifiers::edge_in, false, nullptr);
+        edge.setProperty(Identifiers::edge_id, id.toString(), nullptr);
         
         getState().addChild(edge, total_in + old_total_out, nullptr);
         old_total_out++;
     }
 
+    hidden_in = 0;
+    hidden_out = 0;
+    
     for(int i = 0; i < total_in + total_out; i++) {
         auto edge = getState().getChild(i);
-        edge.setProperty("Position", i , nullptr);
-        
-        bool input = edge.getProperty("Input");
+        bool input = edge.getProperty(Identifiers::edge_in);
         
         int ctx_ports = input ? 0 : total_in;
         for(auto& [ctx, ports] : ports) {
             ctx_ports += input ? ports.first : ports.second;
-            if(ctx_ports >= i) {
-                String old_ctx = edge.getProperty("Context");
+            if(ctx_ports > i) {
+                if(ctx == "gui") {
+                    input ? hidden_in++ : hidden_out++;
+                    findChildOfClass<Edge>(i)->setVisible(false);
+                }
+                String old_ctx = edge.getProperty(Identifiers::edge_ctx);
                 if(ctx != old_ctx && old_ctx.isNotEmpty()) {
                     getState().removeChild(edge, nullptr);
                     getState().addChild(edge, i, nullptr);
                 }
-                edge.setProperty("Context", ctx, nullptr);
+                edge.setProperty(Identifiers::edge_ctx, ctx, nullptr);
                 break;
             }
         }
@@ -154,6 +259,7 @@ void Box::paint (Graphics& g)
     
     g.setColour(findColour(ComboBox::outlineColourId));
     g.drawRect(rect);
+
 }
 
 void Box::moved()
@@ -165,28 +271,30 @@ void Box::moved()
 
 void Box::resized()
 {
-    auto rect = getLocalBounds().reduced(4);
-    text_label.setBounds(rect);
+    text_label.setBounds(4, 4, getWidth() - 8, 24);
+    
+    if(graphics) {
+        graphics->setBounds(4, 28, getWidth() - 8, getHeight() - 32);
+    }
+    
     
     int index = 0;
     for(auto& edge : findChildrenOfClass<Edge>()) {
         
         auto& state = edge->ValueTreeObject::getState();
-        bool is_input = state.getProperty("Input");
-        
-        
-        int position = state.getProperty("Position");
-        position = position < total_in ? position : position - total_in;
+        bool is_input = state.getProperty(Identifiers::edge_in);
+
+        int position = index < total_in ? index : index - total_in;
         
         bool sideways = false;
         
-        int total = is_input ? total_in : total_out;
+        int total = is_input ? total_in - hidden_in : total_out - hidden_out;
         
         float newX, newY;
         if(sideways)
         {
-            newY = (is_input ? index : index - total_in) * (getHeight() - 24 / (total - 1 + (total == 1))) + 12;
-            newX = is_input ? getLocalBounds().getTopLeft().x : getLocalBounds().getRight();
+            //newY = (is_input ? index : index - total_in) * (getHeight() - 24 / (total - 1 + (total == 1))) + 12;
+            //newX = is_input ? getLocalBounds().getTopLeft().x : getLocalBounds().getRight();
         }
         else
         {
@@ -199,5 +307,19 @@ void Box::resized()
         edge->setSize(8, 8);
         
         index++;
+    }
+}
+
+void Box::valueTreePropertyChanged (ValueTree &treeWhosePropertyHasChanged, const Identifier &property)
+{
+    if(property == Identifiers::box_x || property == Identifiers::box_y) {
+        setTopLeftPosition(getState().getProperty(Identifiers::box_x), getState().getProperty(Identifiers::box_y));
+    }
+    if(property == Identifiers::box_name) {
+        String new_name = treeWhosePropertyHasChanged.getProperty(Identifiers::box_name);
+        int new_size = text_label.getFont().getStringWidth(new_name) + (text_label.getHeight() * 1.35f);
+        setSize(std::max(50, new_size), getHeight());
+        text_label.setText(new_name, NotificationType::dontSendNotification);
+        set_type(new_name);
     }
 }

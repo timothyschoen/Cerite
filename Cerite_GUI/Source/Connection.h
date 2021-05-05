@@ -2,12 +2,13 @@
 
 #include <JuceHeader.h>
 #include "Edge.h"
+#include "Utility/gin_valuetreeobject.h"
 //==============================================================================
 /*
     This component lives inside our window, and this is where you should put all
     your controls and content.
 */
-class Connection  : public Component, public gin::ValueTreeObject, public ComponentListener
+class Connection  : public Component, public ValueTreeObject, public ComponentListener
 {
 public:
     

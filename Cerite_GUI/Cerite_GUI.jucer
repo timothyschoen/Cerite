@@ -15,19 +15,31 @@
       <FILE id="V8GU4a" name="NodeConverter.hpp" compile="0" resource="0"
             file="../Source/NodeConverter.hpp"/>
     </GROUP>
-    <GROUP id="{1D1169C7-4CCC-BC67-085F-143F3C4297D5}" name="Source">
-      <FILE id="niwU3v" name="Box.cpp" compile="1" resource="0" file="Source/Box.cpp"/>
-      <FILE id="j01aLt" name="Box.h" compile="0" resource="0" file="Source/Box.h"/>
-      <FILE id="zUC47f" name="Canvas.cpp" compile="1" resource="0" file="Source/Canvas.cpp"/>
-      <FILE id="M5LVun" name="Canvas.h" compile="0" resource="0" file="Source/Canvas.h"/>
-      <FILE id="uuuXdt" name="Connection.cpp" compile="1" resource="0" file="Source/Connection.cpp"/>
-      <FILE id="ZRmQQD" name="Connection.h" compile="0" resource="0" file="Source/Connection.h"/>
-      <FILE id="eiR8Bh" name="Edge.cpp" compile="1" resource="0" file="Source/Edge.cpp"/>
-      <FILE id="LhPg6A" name="Edge.h" compile="0" resource="0" file="Source/Edge.h"/>
-      <FILE id="SKm3XE" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
-      <FILE id="ammk1c" name="MainComponent.cpp" compile="1" resource="0"
+    <GROUP id="{1B34725B-C848-F8F7-BF6E-97166AC35315}" name="Assets">
+      <FILE id="SzwX4j" name="cerite_font.ttf" compile="0" resource="1" file="Assets/cerite_font.ttf"/>
+    </GROUP>
+    <GROUP id="{56B2EE73-0DF4-3121-ACF1-18F2E3A7F3FF}" name="Source">
+      <GROUP id="{49ECC3EB-786B-61CA-80C3-21C388DC7C72}" name="Utility">
+        <FILE id="VdbkkN" name="MultiComponentDragger.h" compile="0" resource="0"
+              file="Source/Utility/MultiComponentDragger.h"/>
+        <FILE id="k41mBD" name="ValueTreeObjectList.h" compile="0" resource="0"
+              file="Source/Utility/ValueTreeObjectList.h"/>
+      </GROUP>
+      <FILE id="X43yZL" name="Box.cpp" compile="1" resource="0" file="Source/Box.cpp"/>
+      <FILE id="IPmh41" name="Box.h" compile="0" resource="0" file="Source/Box.h"/>
+      <FILE id="YV4Cjd" name="Canvas.cpp" compile="1" resource="0" file="Source/Canvas.cpp"/>
+      <FILE id="a8L71d" name="Canvas.h" compile="0" resource="0" file="Source/Canvas.h"/>
+      <FILE id="BxP5ux" name="Connection.cpp" compile="1" resource="0" file="Source/Connection.cpp"/>
+      <FILE id="QPhZXt" name="Connection.h" compile="0" resource="0" file="Source/Connection.h"/>
+      <FILE id="c9w4tF" name="Edge.cpp" compile="1" resource="0" file="Source/Edge.cpp"/>
+      <FILE id="AiG20C" name="Edge.h" compile="0" resource="0" file="Source/Edge.h"/>
+      <FILE id="KqnLfJ" name="LookAndFeel.h" compile="0" resource="0" file="Source/LookAndFeel.h"/>
+      <FILE id="lsxhas" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="BjcA0Y" name="MainComponent.cpp" compile="1" resource="0"
             file="Source/MainComponent.cpp"/>
-      <FILE id="HpviQn" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="h9bwcr" name="MainComponent.h" compile="0" resource="0" file="Source/MainComponent.h"/>
+      <FILE id="AKpDnD" name="SettingsDialog.h" compile="0" resource="0"
+            file="Source/SettingsDialog.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>

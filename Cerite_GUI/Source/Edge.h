@@ -1,6 +1,7 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include "Utility/gin_valuetreeobject.h"
 
 //==============================================================================
 /*
@@ -9,7 +10,7 @@
 */
 
 
-class Edge  : public TextButton, public gin::ValueTreeObject
+class Edge  : public TextButton, public ValueTreeObject
 {
     
 public:
@@ -23,9 +24,6 @@ public:
     void mouseMove(const MouseEvent& e) override;
     
     Rectangle<int> get_canvas_bounds();
-
-    inline static Array<Colour> ctx_colours = {Colour (0xff42a2c8), Colour (0xfff6c82e), Colour(0xff735d9b)};
-    
     
     static inline SafePointer<Edge> connecting_edge = nullptr;
     static inline std::map<String, Edge*> all_edges;

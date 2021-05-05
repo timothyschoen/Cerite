@@ -6,6 +6,7 @@
 //==============================================================================
 Connection::Connection(ValueTree tree) : ValueTreeObject(tree)
 {
+    rebuildObjects();
     
     start = Edge::all_edges[tree.getProperty("StartID")];
     end = Edge::all_edges[tree.getProperty("EndID")];
@@ -15,10 +16,13 @@ Connection::Connection(ValueTree tree) : ValueTreeObject(tree)
 
     setInterceptsMouseClicks(false, false);
     
-    end->addComponentListener(this);
     setSize (600, 400);
     
     componentMovedOrResized(*start, true, true);
+    componentMovedOrResized(*end, true, true);
+    
+    resized();
+    repaint();
 }
 
 Connection::~Connection()
@@ -43,9 +47,7 @@ void Connection::paint (Graphics& g)
     auto base_colour = Colours::white;
 
     if(is_selected) {
-        auto ctx_iter = Library::contexts.find((String)start->ValueTreeObject::getState().getProperty("Context"));
-        int ctx_idx = std::distance(Library::contexts.begin(), ctx_iter);
-        base_colour = Edge::ctx_colours[ctx_idx];
+        base_colour = Library::colours[(String)start->ValueTreeObject::getState().getProperty("Context")];
     }
     
     g.setColour(base_colour);

@@ -7,13 +7,8 @@ Edge::Edge(ValueTree tree) : ValueTreeObject(tree)
 {
     setSize (8, 8);
     
-    
     all_edges[tree.getProperty("ID")] = this;
-    
-    factory = [this](const Identifier& id, const juce::ValueTree& tree) {
-            return static_cast<ValueTreeObject*>(nullptr);
-    };
-    
+
     onClick = [this](){
         
         bool connection_allowed = Edge::connecting_edge && Edge::connecting_edge->ValueTreeObject::getState().getProperty("Context") == ValueTreeObject::getState().getProperty("Context") && Edge::connecting_edge->ValueTreeObject::getState().getProperty("Input") != ValueTreeObject::getState().getProperty("Input");
@@ -25,7 +20,7 @@ Edge::Edge(ValueTree tree) : ValueTreeObject(tree)
             Edge::connecting_edge = nullptr;
         }
         else if(connection_allowed) {
-            ValueTree new_connection = ValueTree("Connection");
+            ValueTree new_connection = ValueTree(Identifiers::connection);
             new_connection.setProperty("StartID", Edge::connecting_edge->ValueTreeObject::getState().getProperty("ID"), nullptr);
             new_connection.setProperty("EndID", ValueTreeObject::getState().getProperty("ID"), nullptr);
             
@@ -58,11 +53,7 @@ void Edge::paint (Graphics& g)
 {
     auto bounds = getLocalBounds().toFloat();
     
-    
-    auto ctx_iter = Library::contexts.find((String)ValueTreeObject::getState().getProperty("Context"));
-    int ctx_idx = std::distance(Library::contexts.begin(), ctx_iter);
-    
-    auto background_colour = ctx_colours[ctx_idx];
+    auto background_colour = Library::colours[(String)ValueTreeObject::getState().getProperty("Context")];
 
     auto base_colour = background_colour.withMultipliedSaturation (hasKeyboardFocus (true) ? 1.3f : 0.9f)
                                       .withMultipliedAlpha (isEnabled() ? 1.0f : 0.5f);

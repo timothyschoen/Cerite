@@ -13,6 +13,7 @@
 
 
 #include <JuceHeader.h>
+#include "gin_valuetreeobject.h"
 
 class Canvas;
 /**
@@ -280,7 +281,7 @@ private:
     
     void findLassoItemsInArea (Array<T*> & itemsFound, const Rectangle<int>& area)
     {
-        for(auto element : static_cast<gin::ValueTreeObject*>(canvas)->findChildrenOfClass<T>())
+        for(auto element : static_cast<ValueTreeObject*>(canvas)->findChildrenOfClass<T>())
         {
             if (area.intersects(element->getBounds()))
             {
@@ -303,7 +304,7 @@ private:
 
     const int minimumMovementToStartDrag = 10;
 
-    bool constrainToParent {true};
+    bool constrainToParent {false};
     bool shiftConstrainsDirection {false};
 
     bool didJustSelect {false};

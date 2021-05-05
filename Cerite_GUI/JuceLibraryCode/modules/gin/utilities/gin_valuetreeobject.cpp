@@ -9,18 +9,7 @@
 ValueTreeObject::ValueTreeObject (const juce::ValueTree& state_)
   : state (state_)
 {
-    for (auto c : state)
-    {
-        if (auto* newObj = factory (c.getType(), c))
-        {
-            newObj->parent = this;
-            children.add (newObj);
-        }
-        else
-        {
-            jassertfalse; // type missing in factory
-        }
-    }
+
 
     state.addListener (this);
 }

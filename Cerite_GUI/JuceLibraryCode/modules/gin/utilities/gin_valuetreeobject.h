@@ -10,14 +10,16 @@
 //==============================================================================
 /** Mirrors a ValueTree in Objects
  */
-class ValueTreeObject : private juce::ValueTree::Listener
+class ValueTreeObject : public juce::ValueTree::Listener
 {
 public:
     ValueTreeObject (const juce::ValueTree& state);
 
     juce::ValueTree& getState() { return state; }
-
-    std::function<ValueTreeObject* (const juce::Identifier&, const juce::ValueTree&)> factory;
+        
+    virtual ~ValueTreeObject() {};
+    
+    virtual ValueTreeObject* factory(const juce::Identifier&, const juce::ValueTree&) {};
 
 public:
     const juce::OwnedArray<ValueTreeObject>& getChildren() const    { return children; }
@@ -78,6 +80,21 @@ public:
         }
 
         return nullptr;
+    }
+    
+    void rebuildObjects() {
+        for (auto c : state)
+        {
+            if (auto* newObj = factory (c.getType(), c))
+            {
+                newObj->parent = this;
+                children.add (newObj);
+            }
+            else
+            {
+                jassertfalse; // type missing in factory
+            }
+        }
     }
 
 private:

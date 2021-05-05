@@ -8,22 +8,6 @@ Canvas::Canvas(ValueTree tree) : ValueTreeObject(tree)
 {
     setSize (600, 400);
     
-    factory = [this](const Identifier& id, const juce::ValueTree& tree) {
-        if(id == Identifier("Box")){
-            auto* box = new Box(tree, dragger);
-            addAndMakeVisible(box);
-            box->addMouseListener(this, true);
-            return static_cast<ValueTreeObject*>(box);
-        }
-        if(id == Identifier("Connection")){
-            auto* connection = new Connection(tree);
-            addAndMakeVisible(connection);
-            connection->addMouseListener(this, true);
-            return static_cast<ValueTreeObject*>(connection);
-        }
-        return static_cast<ValueTreeObject*>(nullptr);
-    };
-    
     addAndMakeVisible(&lasso);
     lasso.setAlwaysOnTop(true);
     lasso.setColour(LassoComponent<Box>::lassoFillColourId, findColour(ScrollBar::ColourIds::thumbColourId).withAlpha((float)0.3));
@@ -31,17 +15,37 @@ Canvas::Canvas(ValueTree tree) : ValueTreeObject(tree)
     addKeyListener(this);
     
     setWantsKeyboardFocus(true);
+    
+    rebuildObjects();
 }
 
 Canvas::~Canvas()
 {
+    removeAllChildren();
+    removeKeyListener(this);
     ValueTreeObject::getState().removeAllChildren(nullptr);
+}
+ValueTreeObject* Canvas::factory(const juce::Identifier & id, const juce::ValueTree & tree)
+{
+    if(id == Identifier(Identifiers::box)){
+        auto* box = new Box(tree, dragger);
+        addAndMakeVisible(box);
+        box->addMouseListener(this, true);
+        return static_cast<ValueTreeObject*>(box);
+    }
+    if(id == Identifier(Identifiers::connection)){
+        auto* connection = new Connection(tree);
+        addAndMakeVisible(connection);
+        connection->addMouseListener(this, true);
+        return static_cast<ValueTreeObject*>(connection);
+    }
+    return static_cast<ValueTreeObject*>(nullptr);
 }
 
 void Canvas::mouseDown(const MouseEvent& e)
 {
     auto* source = e.originalComponent;
-
+    
     if(dynamic_cast<Connection*>(source)) {
         lasso.beginLasso(e.getEventRelativeTo(this), &dragger);
     }
@@ -94,7 +98,7 @@ void Canvas::paintOverChildren (Graphics& g)
         g.setColour(Colours::grey);
         g.strokePath(path, PathStrokeType(3.0f));
     }
-
+    
 }
 
 void Canvas::mouseMove(const MouseEvent& e) {
@@ -102,46 +106,163 @@ void Canvas::mouseMove(const MouseEvent& e) {
 }
 void Canvas::resized()
 {
-
+    
 }
 bool Canvas::keyPressed(const KeyPress &key, Component *originatingComponent) {
-
+    
     if(key.getTextCharacter() == 'n') {
-        auto box = ValueTree("Box");
+        auto box = ValueTree(Identifiers::box);
         getState().appendChild(box, nullptr);
         return true;
     }
     
     if(key.getKeyCode() == KeyPress::backspaceKey) {
-        for(auto& sel : dragger.getLassoSelection()) {
-             removeMouseListener(sel);
-            getState().removeChild(dynamic_cast<ValueTreeObject*>(sel)->getState(), nullptr);
-        }
+        remove_selection();
+        return true;
+    }
+    // cmd-c
+    if(key.getModifiers().isCommandDown() && key.isKeyCode(67)) {
         
-        for(auto& con : findChildrenOfClass<Connection>()) {
-            if(con->is_selected) {
-                removeMouseListener(con);
-                getState().removeChild(con->getState(), nullptr);
-            }
-        }
+        SystemClipboard::copyTextToClipboard(copy_selection());
         
-        dragger.deselectAll();
+        return true;
+    }
+    // cmd-v
+    if(key.getModifiers().isCommandDown() && key.isKeyCode(86)) {
+        paste_selection(SystemClipboard::getTextFromClipboard());
+        return true;
+    }
+    // cmd-x
+    if(key.getModifiers().isCommandDown() && key.isKeyCode(88)) {
+        
+        SystemClipboard::copyTextToClipboard(copy_selection());
+        remove_selection();
+        
+        return true;
+    }
+    // cmd-d
+    if(key.getModifiers().isCommandDown() && key.isKeyCode(68)) {
+        
+        String copied = copy_selection();
+        paste_selection(copied);
+        
         return true;
     }
     
     return false;
 }
 
+String Canvas::copy_selection() {
+    ValueTree copy_tree = ValueTree("Copy");
+    
+    
+    Array<std::pair<Connection*, ValueTree>> found_connections;
+
+    for(auto& con : findChildrenOfClass<Connection>()) {
+        int num_points_found = 0;
+        for(auto& box : findChildrenOfClass<Box>()) {
+            for(auto& edge : box->findChildrenOfClass<Edge>()) {
+                if(con->start == edge || con->end == edge) {
+                    num_points_found++;
+                }
+                
+            }
+        }
+        
+        if(num_points_found > 1) {
+            ValueTree connection_tree("Connection");
+            connection_tree.copyPropertiesFrom(con->getState(), nullptr);
+            found_connections.add({con, connection_tree});
+        }
+    }
+        
+        
+    Array<std::pair<Box*, ValueTree&>> found_boxes;
+    for(auto& box : findChildrenOfClass<Box>()) {
+        if(dragger.isSelected(box)) {
+            ValueTree box_tree(Identifiers::box);
+            box_tree.copyPropertiesFrom(box->getState(), nullptr);
+            
+            
+            found_boxes.add({box, box_tree});
+            
+            
+            for(auto& edge : box->findChildrenOfClass<Edge>()) {
+                
+                Uuid new_id;
+                auto edge_copy = edge->ValueTreeObject::getState().createCopy();
+
+                for(auto& [con, con_tree] : found_connections) {
+
+                    if(con_tree.getProperty(Identifiers::start_id) == edge_copy.getProperty(Identifiers::edge_id) || con_tree.getProperty(Identifiers::end_id) == edge_copy.getProperty(Identifiers::edge_id))
+                    {
+                        
+                        bool start_id = con_tree.getProperty(Identifiers::start_id) == edge_copy.getProperty(Identifiers::edge_id);
+                        con_tree.setProperty(start_id ? Identifiers::start_id : Identifiers::end_id , new_id.toString(), nullptr);
+                    }
+                }
+                
+                edge_copy.setProperty(Identifiers::edge_id, new_id.toString(), nullptr);
+                box_tree.appendChild(edge_copy, nullptr);
+                
+            }
+            
+            copy_tree.appendChild(box_tree, nullptr);
+        }
+    }
+    
+    for(auto& [con, con_tree] : found_connections) {
+        copy_tree.appendChild(con_tree, nullptr);
+    }
+    
+    // Count which connections have both start and end point within the selection
+
+    
+    
+    return copy_tree.toXmlString();
+}
+
+void Canvas::remove_selection() {
+    for(auto& sel : dragger.getLassoSelection()) {
+        removeMouseListener(sel);
+        getState().removeChild(dynamic_cast<ValueTreeObject*>(sel)->getState(), nullptr);
+    }
+    
+    for(auto& con : findChildrenOfClass<Connection>()) {
+        if(con->is_selected) {
+            removeMouseListener(con);
+            getState().removeChild(con->getState(), nullptr);
+        }
+    }
+    
+    dragger.deselectAll();
+}
+
+void Canvas::paste_selection(String to_paste) {
+    String text = to_paste;
+    
+    auto tree = ValueTree::fromXml(text);
+    for(auto child : tree) {
+        if(child.hasProperty(Identifiers::box_x)) {
+            int old_x = child.getProperty(Identifiers::box_x);
+            int old_y = child.getProperty(Identifiers::box_y);
+            child.setProperty(Identifiers::box_x, old_x + 30, nullptr);
+            child.setProperty(Identifiers::box_y, old_y + 30, nullptr);
+        }
+        
+        getState().appendChild(child.createCopy(), nullptr);
+    }
+}
+
 
 Patch Canvas::create_patch() {
-  
+    
     std::map<Edge*, Array<Connection*>> edge_connections;
     std::map<Edge*, std::map<String, std::vector<int>>> edge_nodes;
     
     std::map<String, int> ctx_sizes;
     
-    Patch result;
-    
+    Patch patch;
     
     auto contexts = Library::contexts;
     
@@ -170,13 +291,14 @@ Patch Canvas::create_patch() {
                 
                 edge_nodes[output_edge][ctx].push_back(ctx_sizes[ctx]);
             }
-            
         }
     }
+    
     
     for(auto& box : findChildrenOfClass<Box>()) {
         std::map<String, std::vector<std::vector<int>>> box_nodes;
         
+        std::vector<int> gui_nodes;
         
         for(auto& [name, ctx] : contexts) {
             int num_edges = box->ports[name].first + box->ports[name].second ;
@@ -184,22 +306,34 @@ Patch Canvas::create_patch() {
             box_nodes[name].resize(num_edges);
         }
         
+        std::map<String, int> num_edges;
+        
         for(auto& edge : box->findChildrenOfClass<Edge>()) {
             String ctx = edge->ValueTreeObject::getState().getProperty("Context");
- 
-            int pos = edge->ValueTreeObject::getState().getProperty("Position");
-            std::vector<int> node = edge_nodes.count(edge) ? edge_nodes[edge][ctx] : std::vector<int>{0};
+            if(!num_edges.count(ctx)) num_edges[ctx] = 0;
             
             
-            box_nodes[ctx][pos] = node;
             
+            std::vector<int> node = edge_nodes.count(edge) ? edge_nodes[edge][ctx] : std::vector<int>(1, 0);
+            
+            if(ctx == "gui") {
+                ctx_sizes[ctx]++;
+                node = std::vector<int>(1, ctx_sizes[ctx]);
+                gui_nodes.push_back(ctx_sizes[ctx]);
+            }
+            
+            box_nodes[ctx][num_edges[ctx]] = node;
+            num_edges[ctx]++;
         }
         
-        result.push_back({box->text_label.getText(), box->getX(), box->getY(), box_nodes});
+        if(box_nodes.count("gui")) {
+            box->gui_nodes = gui_nodes;
+        }
+        
+        String id = box->getState().getProperty("ID");
+        patch.push_back({box->text_label.getText(), id, box->getX(), box->getY(), box_nodes});
         
     }
     
-    return result;
-    
-    
+    return patch;
 };

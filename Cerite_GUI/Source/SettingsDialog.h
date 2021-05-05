@@ -1,50 +1,46 @@
 #pragma once
 
+#include "../../Source/AudioPlayer.hpp"
 #include "LookAndFeel.h"
 #include <JuceHeader.h>
 
 
 struct SettingsComponent : public Component
 {
+        
+    Component code_panel;
+    
+    ToggleButton use_sandbox;
+    Label sandbox_label = Label("sandbox_label", "Enable code sandbox:");
+    Label compiler_label = Label("compiler_label", "Choose C compiler:");
+    Label optimization_label = Label("optimization_label", "Compiler Optimization");
+    
+    ComboBox compiler_selector, optimization_selector;
+    
+    bool manager_allocated = false;
+    AudioDeviceManager* device_manager = nullptr;
+    
+    std::unique_ptr<AudioDeviceSelectorComponent> audioSetupComp;
     
     int toolbar_height = 50;
     
-    ToolbarLook look_and_feel;
+    ToolbarLook look_and_feel = ToolbarLook(false);
     
     OwnedArray<TextButton> toolbar_buttons = {new TextButton("Audio"), new TextButton("Code")};
     
-    SettingsComponent() {
-        for(auto& button : toolbar_buttons) {
-            button->setClickingTogglesState(true);
-            button->setRadioGroupId(0110);
-            button->setLookAndFeel(&look_and_feel);
-            button->setConnectedEdges(12);
-            addAndMakeVisible(button);
-            
-        }
+    SettingsComponent();
+    
+    ~SettingsComponent(){
+        if(manager_allocated) delete device_manager;
     }
     
-    void paint(Graphics& g) {
-        auto base_colour = Colour(41, 41, 41);
-        auto highlight_colour = Colour (0xff42a2c8).darker(0.3);
+    ValueTree get_settings();
+
+    void paint(Graphics& g);
         
-        // Toolbar background
-        g.setColour(base_colour);
-        g.fillRect(0, 0, getWidth(), toolbar_height);
-        
-        g.setColour(highlight_colour);
-        g.fillRect(0, 42, getWidth(), 4);
-    }
-        
-    void resized() {
-        int toolbar_position = 0;
-        for(auto& button : toolbar_buttons) {
-            button->setBounds(toolbar_position, 0, 70, toolbar_height);
-            toolbar_position += 70;
-        }
-        
-        
-    }
+    void resized();
+    
+    void update_device_manager(bool state);
     
 };
 
@@ -53,7 +49,7 @@ struct SettingsDialog : public DocumentWindow
 {
     
   
-    
+    MainLook main_look;
     SettingsComponent settings_component;
    
     
@@ -64,7 +60,7 @@ struct SettingsDialog : public DocumentWindow
         setUsingNativeTitleBar (true);
         
         setCentrePosition(400, 400);
-        setSize(500, 300);
+        setSize(600, 400);
         
         setVisible (false);
         
@@ -72,11 +68,20 @@ struct SettingsDialog : public DocumentWindow
         
         setContentOwned (&settings_component, false);
 
-        
+        setLookAndFeel(&main_look);
+    }
+    
+    ~SettingsDialog() {
+        setLookAndFeel(nullptr);
     }
     
     void resized() {
         settings_component.setBounds(getLocalBounds());
+    
+    }
+    
+    ValueTree get_settings() {
+        return settings_component.get_settings();
     }
     
     void closeButtonPressed()

@@ -5,13 +5,16 @@
               cppLanguageStandard="17">
   <MAINGROUP id="xhYvMJ" name="Cerite_Light">
     <GROUP id="{C3C9BE3A-59DE-8FAF-345F-AA75ACE7EA6D}" name="Source">
-      <FILE id="i0UHDy" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/AudioPlayer.cpp"/>
-      <FILE id="PQLqD8" name="AudioPlayer.hpp" compile="0" resource="0" file="Source/AudioPlayer.hpp"/>
-      <FILE id="SjbCUL" name="Engine.cpp" compile="1" resource="0" file="Source/Engine.cpp"/>
-      <FILE id="VsDlJs" name="Engine.hpp" compile="0" resource="0" file="Source/Engine.hpp"/>
-      <FILE id="d2goMt" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
-      <FILE id="ivdtyF" name="Organizer.cpp" compile="1" resource="0" file="Source/Organizer.cpp"/>
-      <FILE id="UKxXfO" name="Organizer.hpp" compile="0" resource="0" file="Source/Organizer.hpp"/>
+      <FILE id="klN3lQ" name="AudioPlayer.cpp" compile="1" resource="0" file="Source/AudioPlayer.cpp"/>
+      <FILE id="sM9IDn" name="AudioPlayer.hpp" compile="0" resource="0" file="Source/AudioPlayer.hpp"/>
+      <FILE id="EZF7rk" name="Engine.cpp" compile="1" resource="0" file="Source/Engine.cpp"/>
+      <FILE id="B1niy7" name="Engine.hpp" compile="0" resource="0" file="Source/Engine.hpp"/>
+      <FILE id="Qrwfjw" name="Library.hpp" compile="0" resource="0" file="Source/Library.hpp"/>
+      <FILE id="ICwevb" name="Main.cpp" compile="1" resource="0" file="Source/Main.cpp"/>
+      <FILE id="H7ZthY" name="NodeConverter.cpp" compile="1" resource="0"
+            file="Source/NodeConverter.cpp"/>
+      <FILE id="u8Fw2v" name="NodeConverter.hpp" compile="0" resource="0"
+            file="Source/NodeConverter.hpp"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1"/>
@@ -33,10 +36,12 @@
         <MODULEPATH id="juce_gui_basics" path="../JUCE/modules"/>
         <MODULEPATH id="juce_graphics" path="../JUCE/modules"/>
         <MODULEPATH id="juce_audio_formats" path="../JUCE/modules"/>
+        <MODULEPATH id="gin" path="JuceLibraryCode/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
   <MODULES>
+    <MODULE id="gin" showAllCode="1" useLocalCopy="1" useGlobalPath="0"/>
     <MODULE id="juce_audio_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_devices" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_audio_formats" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
