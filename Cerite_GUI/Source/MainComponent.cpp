@@ -202,7 +202,7 @@ void MainComponent::paint (Graphics& g)
     g.setColour(base_colour);
     g.fillRect(0, getHeight() - statusbar_height, getWidth(), statusbar_height);
     
-    int s_width = sidebar_hidden ? dragbar_width : sidebar_width;
+    int s_width = sidebar_hidden ? dragbar_width : std::max(dragbar_width, sidebar_width);
     
     // Sidebar
     g.setColour(base_colour.darker(0.1));
@@ -216,7 +216,7 @@ void MainComponent::paint (Graphics& g)
 
 void MainComponent::resized()
 {
-    int s_width = sidebar_hidden ? dragbar_width : sidebar_width;
+    int s_width = sidebar_hidden ? dragbar_width : std::max(dragbar_width, sidebar_width);
     
     int s_content_width = s_width - dragbar_width;
     

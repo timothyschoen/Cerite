@@ -105,6 +105,9 @@ void Canvas::mouseDown(const MouseEvent& e)
 
             save_chooser.launchAsync(FileBrowserComponent::saveMode | FileBrowserComponent::warnAboutOverwriting, [this, formatted](const FileChooser &f) mutable {
                 auto file = f.getResult();
+
+                if(!file.getParentDirectory().exists()) return;
+                
                 Uuid id;
                 String name = file.getFileNameWithoutExtension() + id.toString().substring(0, 6);
                 auto test_obj = Engine::create_subpatcher(name, formatted, Library::contexts);
