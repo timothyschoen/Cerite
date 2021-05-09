@@ -8,6 +8,7 @@
     This component lives inside our window, and this is where you should put all
     your controls and content.
 */
+class Canvas;
 class Connection  : public Component, public ValueTreeObject, public ComponentListener
 {
 public:
@@ -15,10 +16,12 @@ public:
     SafePointer<Edge> start, end;
     Path path;
     
+    Canvas* cnv;
+    
     bool is_selected = false;
     
     //==============================================================================
-    Connection(ValueTree tree);
+    Connection(Canvas* parent, ValueTree tree);
     ~Connection() override;
 
     //==============================================================================
@@ -26,14 +29,12 @@ public:
     void resized() override;
     
     void mouseDown(const MouseEvent& e) override;
-    void mouseDrag(const MouseEvent& e) override;
     
     void delete_listeners();
     
     void componentMovedOrResized (Component &component, bool wasMoved, bool wasResized) override;
     
-    virtual void componentBeingDeleted(Component& component);
-
+    virtual void componentBeingDeleted(Component& component) override;
 
 private:
     //==============================================================================

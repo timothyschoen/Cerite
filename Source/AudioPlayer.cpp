@@ -19,6 +19,8 @@ void AudioPlayer::apply_settings(ValueTree settings)
     last_settings = settings;
     audio_settings = settings.getChildWithName("Audio").getChild(0).createXml();
     
+    //device_manager.closeAudioDevice();
+    
     if (RuntimePermissions::isRequired (RuntimePermissions::recordAudio)
         && ! RuntimePermissions::isGranted (RuntimePermissions::recordAudio))
     {
@@ -33,17 +35,18 @@ void AudioPlayer::apply_settings(ValueTree settings)
 }
 
 
-void AudioPlayer::compile(Patch patch) {
+bool AudioPlayer::compile(Patch patch) {
     
-    
+    stopTimer();
     receive_callbacks.clear();
     
-    auto tree = tree_from_patch(patch);
-    auto patch_2 = patch_from_tree(tree);
+    //auto tree = tree_from_patch(patch);
+    //auto patch_2 = patch_from_tree(tree);
+    
    // auto path = File("/Users/timschoen/Cerite_Light/Builds/MacOSX/build/Debug"); //File::getSpecialLocation (File::SpecialLocationType::currentExecutableFile).getParentDirectory();
     
     // Generate code for patch
-    auto objects = NodeConverter::create_objects(patch_2);
+    auto objects = NodeConverter::create_objects(patch);
     
     auto formatted = NodeConverter::format_nodes(objects, Library::contexts);
     
@@ -52,7 +55,6 @@ void AudioPlayer::compile(Patch patch) {
     String code = "#include \"" + header.getFullPathName() + "\" \n\n";
    
     code += Engine::combine_objects(formatted, Library::contexts);
-    
     
     auto code_tree = last_settings.getChildWithName("Code");
     String compiler_name = code_tree.getProperty("Compiler");
@@ -64,15 +66,11 @@ void AudioPlayer::compile(Patch patch) {
     patch_c.replaceWithText(code);
     
     Uuid id;
-    
    
-    String compile_command = compiler_name + " " + optimization + " -c " +  patch_c.getFullPathName() + " -o " + patch_o.getFullPathName();
+    String compile_command = compiler_name + " -Wno-incompatible-pointer-types " + optimization + " -c " +  patch_c.getFullPathName() + " -o " + patch_o.getFullPathName();
     compiler.start(compile_command);
-    compiler.waitForProcessToFinish(-1);
     
-    char compiler_error[2048];
-    compiler.readProcessOutput(compiler_error, 2048);
-    
+    String compiler_error = compiler.readAllProcessOutput();
     int compiler_exit = compiler.getExitCode();
     
 #if JUCE_MAC
@@ -89,12 +87,11 @@ void AudioPlayer::compile(Patch patch) {
    
     String link_command = compiler_name + dll + dll_file.getFullPathName() + " " + patch_o.getFullPathName();
     compiler.start(link_command);
-    compiler.waitForProcessToFinish(-1);
     
-    char linker_error[2048];
-    compiler.readProcessOutput((void*)linker_error, 2048);
-    
+    String linker_error = compiler.readAllProcessOutput();
     int linker_exit = compiler.getExitCode();
+    
+    device_manager.getAudioCallbackLock().enter();
     
     bool success = dynlib.open(dll_file.getFullPathName());
     
@@ -108,14 +105,19 @@ void AudioPlayer::compile(Patch patch) {
     if(!success || compiler_exit || linker_exit) {
         std::cout << "Error compiling patch:" << std::endl;
         std::cout << compiler_error << "\n\n\n" << linker_error << std::endl;
-        throw;
+        return false;
     }
     
-    device_manager.getAudioCallbackLock().enter();
     
-    reset = (void(*)())dynlib.getFunction("reset");
-    process = (void(*)())dynlib.getFunction("calc");
+    
     prepare = (void(*)())dynlib.getFunction("prepare");
+    reset = (void(*)())dynlib.getFunction("reset");
+    
+    process_audio = (void(*)())dynlib.getFunction("thread_0_calc");
+    process_data  = (void(*)())dynlib.getFunction("thread_1_calc");
+    
+    if(!process_audio) process_audio = [](){};
+    if(!process_data) process_data =  [](){};
     
     get_output = (double*(*)())dynlib.getFunction("get_audio_output");
     
@@ -130,7 +132,11 @@ void AudioPlayer::compile(Patch patch) {
     reset();
     prepare();
     
+    startTimer(2);
+    
     device_manager.getAudioCallbackLock().exit();
+    
+    return true;
 }
 
 void AudioPlayer::setAudioChannels (int numInputChannels, int numOutputChannels, XmlElement* state)
@@ -154,19 +160,15 @@ void AudioPlayer::prepareToPlay (int samplesPerBlockExpected, double sampleRate)
 
 void AudioPlayer::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill) {
     
-    
-    std::function<void()> update;
-    if(queue.try_dequeue(update)) {
-        update();
-    }
-    
     if(!enabled)  {
         bufferToFill.clearActiveBufferRegion();
         return;
     }
     
     for(int i = 0; i < bufferToFill.numSamples; i++) {
-        process();
+        
+        if(!enabled) return;
+        process_audio();
         
         double* output = get_output();
         
@@ -179,18 +181,31 @@ void AudioPlayer::releaseResources() {
     
 }
 
+void AudioPlayer::hiResTimerCallback() {
+    
+    if(!enabled)  {
+        return;
+    }
+    
+    std::function<void()> update;
+    if(queue.try_dequeue(update)) {
+        update();
+    }
+    
+    process_data();
+}
+
 // std::vector<std::tuple<String, int, int, std::map<String, std::vector<std::vector<int>>>>>;
 Patch AudioPlayer::patch_from_tree(ValueTree tree) {
     Patch result;
     
     for(auto obj : tree) {
         
-        std::tuple<String, String, int, int, std::map<String, std::vector<std::vector<int>>>> patch_object;
+        std::tuple<String, int, int, std::map<String, std::vector<std::vector<int>>>> patch_object;
         
-        auto& [name, id, x, y, nodes] = patch_object;
+        auto& [name, x, y, nodes] = patch_object;
         
         name = obj.getProperty("Name");
-        id = obj.getProperty("ID");
         x = obj.getProperty("X");
         y = obj.getProperty("Y");
         
@@ -220,11 +235,10 @@ Patch AudioPlayer::patch_from_tree(ValueTree tree) {
 ValueTree AudioPlayer::tree_from_patch(Patch patch) {
     ValueTree result("Patch");
     
-    for(auto& [name, id, x, y, nodes] : patch) {
+    for(auto& [name, x, y, nodes] : patch) {
         ValueTree obj_tree("Object");
         
         obj_tree.setProperty("Name", name, nullptr);
-        obj_tree.setProperty("ID", id, nullptr);
         obj_tree.setProperty("X", x, nullptr);
         obj_tree.setProperty("Y", y, nullptr);
         

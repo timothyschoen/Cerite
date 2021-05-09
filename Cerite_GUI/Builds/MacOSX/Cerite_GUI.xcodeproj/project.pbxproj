@@ -94,7 +94,6 @@
 		991CAC84D80791CCE30D3492 /* include_juce_audio_utils.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = include_juce_audio_utils.mm; path = ../../JuceLibraryCode/include_juce_audio_utils.mm; sourceTree = SOURCE_ROOT; };
 		9DBC1A4A45967D1528B0D094 /* NodeConverter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = NodeConverter.hpp; path = ../../../Source/NodeConverter.hpp; sourceTree = SOURCE_ROOT; };
 		A14924529DAD0B1E6B9D4DA5 /* juce_gui_basics */ = {isa = PBXFileReference; lastKnownFileType = folder; name = juce_gui_basics; path = "~/JUCE/modules/juce_gui_basics"; sourceTree = "<absolute>"; };
-		A8D4C9F63EA76BDC50E01E75 /* ValueTreeObjectList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ValueTreeObjectList.h; path = ../../Source/Utility/ValueTreeObjectList.h; sourceTree = SOURCE_ROOT; };
 		A9449F086DB268781EF89BDE /* Canvas.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Canvas.h; path = ../../Source/Canvas.h; sourceTree = SOURCE_ROOT; };
 		A9F4A75C8ADEBF2FD49EBA73 /* MainComponent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MainComponent.h; path = ../../Source/MainComponent.h; sourceTree = SOURCE_ROOT; };
 		AA150DE1DC52661C2E40A3A1 /* BinaryData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BinaryData.h; path = ../../JuceLibraryCode/BinaryData.h; sourceTree = SOURCE_ROOT; };
@@ -286,7 +285,6 @@
 				ABB6B782263EFAE90060FB15 /* gin_valuetreeobject.cpp */,
 				ABB6B781263EFAE90060FB15 /* gin_valuetreeobject.h */,
 				78F63EF175C38F95B9E8D0D1 /* MultiComponentDragger.h */,
-				A8D4C9F63EA76BDC50E01E75 /* ValueTreeObjectList.h */,
 			);
 			name = Utility;
 			sourceTree = "<group>";

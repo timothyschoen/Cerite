@@ -15,7 +15,7 @@
 #include "NodeConverter.hpp"
 #include "concurrentqueue.h"
 
-struct AudioPlayer : public AudioSource
+struct AudioPlayer : public AudioSource, public HighResolutionTimer
 {
     moodycamel::ConcurrentQueue<std::function<void()>> queue;
     
@@ -31,7 +31,8 @@ struct AudioPlayer : public AudioSource
     
     void(*reset)();
     void(*prepare)();
-    void(*process)();
+    void(*process_audio)();
+    void(*process_data)();
     
     void(*register_gui)(int port, void(*)(void*, libcerite::Data, int));
     void(*send_gui)(int port, libcerite::Data);
@@ -51,13 +52,15 @@ struct AudioPlayer : public AudioSource
     }
     
     void apply_settings(ValueTree settings);
-    void compile(Patch patch);
+    bool compile(Patch patch);
     
     void setAudioChannels (int numInputChannels, int numOutputChannels, XmlElement* state);
     
     void prepareToPlay (int samplesPerBlockExpected, double sampleRate) override;
     void getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill) override;
     void releaseResources() override;
+    
+    void hiResTimerCallback () override;
     
     
     static inline std::vector<std::function<void(libcerite::Data)>> receive_callbacks;
@@ -67,6 +70,7 @@ struct AudioPlayer : public AudioSource
     
     static Patch patch_from_tree(ValueTree tree);
     static ValueTree tree_from_patch(Patch patch);
+    
     
     
     inline static AudioPlayer* current_player = nullptr;

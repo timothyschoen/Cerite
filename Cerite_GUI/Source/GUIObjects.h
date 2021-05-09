@@ -18,9 +18,11 @@ struct GUIComponent : public Component
     Box* box;
     std::vector<int>& nodes;
     
+    Array<int> num_registered;
+    
     GUIComponent(Box* parent);
     
-    virtual ~GUIComponent() {};
+    virtual ~GUIComponent();
     
     virtual std::pair<int, int> get_best_size() = 0;
     

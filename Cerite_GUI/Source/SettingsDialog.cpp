@@ -94,7 +94,7 @@ ValueTree SettingsComponent::get_settings() {
 
 void SettingsComponent::paint(Graphics& g) {
     auto base_colour = Colour(41, 41, 41);
-    auto highlight_colour = Colour (0xff42a2c8).darker(0.3);
+    auto highlight_colour = Colour (0xff42a2c8).darker(0.2);
     
     // Toolbar background
     g.setColour(base_colour);

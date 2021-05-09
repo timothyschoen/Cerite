@@ -223,7 +223,7 @@ void Console::paint(Graphics &g)
     g.setColour(Colours::grey);
     g.drawLine(0, getHeight()-35, getWidth(), getHeight()-35);
     
-    g.setColour(findColour(Toolbar::backgroundColourId));
+    g.setColour(Colour(41, 41, 41));
     g.fillRect(0, getHeight()-35, getWidth(), 35);
 }
 

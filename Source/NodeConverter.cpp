@@ -18,38 +18,57 @@ void NodeConverter::deallocate() {
     splitsig_object = Object();
 }
 
-std::map<String, int> NodeConverter::count_nodes(NodeList& nodes, ObjectMap ctx_map) {
+std::map<String, int> NodeConverter::count_nodes(NodeList& nodes) {
     
     std::map<String, int> num_nodes;
+    std::map<String, Array<int>> num_nodes_2;
     
-    auto ctx_iter = ctx_map.begin();
-    for(int c = 0; c < ctx_map.size(); c++, ctx_iter++) {
-        Array<int> used_nodes;
-        auto& [ctx_name, ctx] = *ctx_iter;
+    
+    for(int i = 0; i < nodes.size(); i++) {
+        auto& [object, node_list, x, y] = nodes[i];
         
-        for(int i = 0; i < nodes.size(); i++) {
-            auto& [object, node_list, x, y] = nodes[i];
-            
+        for(auto& [ctx_name, n_list] : node_list) {
+            Array<int> used_nodes;
             if(node_list.count(ctx_name)) {
                 for(int j = 0; j < node_list[ctx_name].size(); j++) {
                     for(int k = 0; k < node_list[ctx_name][j].size(); k++) {
-                        used_nodes.addIfNotAlreadyThere(node_list[ctx_name][j][k]);
+                        num_nodes_2[ctx_name].addIfNotAlreadyThere(node_list[ctx_name][j][k]);
                     }
                 }
             }
         }
-        num_nodes[ctx_name] = used_nodes.size();
+        
     }
+    for(auto& [ctx_name, n_list] : num_nodes_2) {
+        num_nodes[ctx_name] = n_list.size();
+    }
+    
     return num_nodes;
 }
 
 SimplifiedNodes NodeConverter::format_nodes(NodeList& nodes, ObjectMap ctx_map) {
     
-    auto num_nodes = count_nodes(nodes, ctx_map);
+    auto num_nodes = count_nodes(nodes);
     
     bool has_dsp = false;
     bool has_data = false;
     
+    // First work out conversions
+    for(int i = 0; i < nodes.size(); i++) {
+        auto& [object, node_list, x, y] = nodes[i];
+        
+        for(auto& [key, value] : node_list) {
+            if(key.contains("->")) {
+                int type_divide = key.indexOf("->");
+                String out_type = key.substring(0, type_divide);
+                String in_type = key.substring(type_divide + 2);
+                auto obj = Library::objects[Library::conversions[{out_type, in_type}]];
+                
+            }
+        }
+    }
+    
+    // Then splits
     for(int i = 0; i < nodes.size(); i++) {
         auto& [object, node_list, x, y] = nodes[i];
         
@@ -67,6 +86,7 @@ SimplifiedNodes NodeConverter::format_nodes(NodeList& nodes, ObjectMap ctx_map) 
         }
     }
     
+    // Then apply ordering
     if(has_data) {
         format_data(nodes);
     }
@@ -88,14 +108,14 @@ void NodeConverter::apply_splits(NodeList& list, int& num_nodes, int current_idx
     auto& nodes = node_map[type];
     
     Ports ports = std::get<5>(object);
-    int num_in = ports[type].first.getIntValue();
+    int num_in = std::get<0>(ports[type]).getIntValue();
     
     for(int i = num_in; i < nodes.size(); i++) {
         if(nodes[i].size() > 1) {
             std::vector<std::vector<int>> split_nodes;
             split_nodes.resize(nodes[i].size() + 1);
             
-            split_nodes[0] = {num_nodes};
+            split_nodes[0] = {++num_nodes};
             
             for(int n = 0; n < nodes[i].size(); n++) {
                 split_nodes[n + 1] = {nodes[i][n]};
@@ -134,7 +154,7 @@ void NodeConverter::apply_splits(NodeList& list, int& num_nodes, int current_idx
             
             Engine::set_arguments(std::get<0>(split), String(nodes[i].size()));
             
-            nodes[i] = {num_nodes++};
+            nodes[i] = {num_nodes};
             
             list.push_back(split);
         }
@@ -183,8 +203,8 @@ void NodeConverter::format_dsp(SimplifiedNodes& list) {
             
             if(node_map_j.count("dsp") == 0) continue;
             
-            int istart = std::get<5>(object_i)["dsp"].first.getIntValue();
-            int jstart = std::get<5>(object_j)["dsp"].first.getIntValue();
+            int istart = std::get<0>(std::get<5>(object_i)["dsp"]).getIntValue();
+            int jstart = std::get<0>(std::get<5>(object_j)["dsp"]).getIntValue();
             
             if(checkOrder(node_map_i["dsp"], node_map_j["dsp"], istart, jstart)) {
                 std::swap(list[j], list[i]);
@@ -228,7 +248,7 @@ void NodeConverter::format_data(NodeList& list) {
 NodeList NodeConverter::create_objects(Patch& list) {
     NodeList result;
     
-    for(auto& [name, id, x, y, nodes] : list) {
+    for(auto& [name, x, y, nodes] : list) {
         
         auto tokens = StringArray::fromTokens(name, " ", "");
         auto object = Library::objects[tokens[0]];

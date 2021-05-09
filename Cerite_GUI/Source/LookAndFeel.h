@@ -5,6 +5,7 @@
 struct MainLook : public LookAndFeel_V4
 {
     MainLook() {
+        setColour(PopupMenu::backgroundColourId, Colour(25, 25, 25));
         setColour (ResizableWindow::backgroundColourId, Colour(50, 50, 50));
         setColour (TextButton::buttonColourId, Colour(41, 41, 41));
         setColour (TextButton::buttonOnColourId, Colour(25, 25, 25));
@@ -20,6 +21,8 @@ struct MainLook : public LookAndFeel_V4
         setColour(TooltipWindow::backgroundColourId, Colour(25, 25, 25).withAlpha(float(0.8)));
         setColour (PopupMenu::backgroundColourId, Colour(50, 50, 50));
         setColour (PopupMenu::highlightedBackgroundColourId, Colour(41, 41, 41));
+        
+        setColour(CodeEditorComponent::lineNumberBackgroundId, Colour(41, 41, 41));
     }
 };
 

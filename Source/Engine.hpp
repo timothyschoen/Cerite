@@ -25,7 +25,7 @@ using Vector = std::tuple<String,       // Name
                           StringArray   // Default values
 >;
 
-using Ports = std::map<String, std::pair<String, String>>;
+using Ports = std::map<String, std::tuple<String, String, String>>;
 
 
 enum WriteType {
@@ -52,13 +52,13 @@ using SimplifiedNodes = std::vector<SimplifiedObject>;
 struct Engine
 {
     template <typename T>
-    static T& find_by_name(Array<T>& list, String name) {
+    static T* find_by_name(Array<T>& list, String name) {
         for(int i = 0; i < list.size(); i++) {
             if(std::get<0>(list[i]) == name) {
-                return list.getReference(i);
+                return list.getRawDataPointer() + i;
             }
         }
-        assert(false);
+        return nullptr;
     }
     
     static String empty_brackets(String str);
@@ -69,8 +69,6 @@ struct Engine
 
     static std::pair<int, int> match_bracket(const String& str, std::pair<char, char> selectors);
 
-    static void make_local(String& target, const String& to_find);
-
     static Object parse_object(const String& file, const StringRef name, ObjectMap& contexts, bool is_context = false);
 
     static void set_arguments(Object& target, const String& arguments);
@@ -78,4 +76,14 @@ struct Engine
     static String combine_objects(SimplifiedNodes& node_list, ObjectMap contexts);
 
     static std::pair<String, String> write_code(Object& object, const String& unique_name, WriteType write_type);
+    
+    static Object create_subpatcher(String new_name, SimplifiedNodes node_list, ObjectMap contexts);
+    
+    static String reconstruct_object(Object to_reconstruct, ObjectMap contexts);
+    
+    static void prefix_whole_word(String& to_process, String& to_find, String replacement, bool replace = false);
+    
+    static int indexOfWholeWord (StringRef string_to_search, StringRef word) noexcept;
+    
+    static StringArray c_preprocess(StringArray sections);
 };

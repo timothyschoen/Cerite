@@ -37,13 +37,16 @@ struct ClickLabel : Label
     MultiComponentDragger<Box>& dragger;
 };
 
+class Canavs;
 class Box  : public Component, public ValueTreeObject
 {
     
 public:
     //==============================================================================
-    Box(ValueTree tree, MultiComponentDragger<Box>& multi_dragger);
+    Box(Canvas* parent, ValueTree tree, MultiComponentDragger<Box>& multi_dragger);
     ~Box() override;
+    
+    Canvas* cnv;
     
     std::map<String, std::pair<int, int>> ports;
     
@@ -58,6 +61,9 @@ public:
     
     void resized() override;
     void moved() override;
+    
+    void update_position();
+    
     
     void set_type (String new_type);
     

@@ -155,6 +155,10 @@ public:
         didJustSelect = false;
         
         component->repaint();
+        for(auto& component : selectedComponents) {
+            component->update_position();
+        }
+        
     }
 
     /**

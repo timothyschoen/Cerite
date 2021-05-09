@@ -12,7 +12,7 @@
 using ObjectSpec = std::tuple<Object, std::map<String, std::vector<std::vector<int>>>, int, int>;
 using NodeList = std::vector<ObjectSpec>;
 
-using Patch = std::vector<std::tuple<String, String, int, int, std::map<String, std::vector<std::vector<int>>>>>;
+using Patch = std::vector<std::tuple<String, int, int, std::map<String, std::vector<std::vector<int>>>>>;
 
 
 struct NodeConverter
@@ -26,7 +26,7 @@ struct NodeConverter
     
     static void deallocate();
     
-    static std::map<String, int> count_nodes(NodeList& nodes, ObjectMap ctx_map);
+    static std::map<String, int> count_nodes(NodeList& nodes);
     
     static SimplifiedNodes format_nodes(NodeList& nodes, ObjectMap ctx_map);
     

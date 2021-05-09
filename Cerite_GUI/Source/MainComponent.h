@@ -45,8 +45,12 @@ public:
     void send_data(int port, libcerite::Data data);
     void receive_data(int port, std::function<void(libcerite::Data)>);
     
+    
+    void triggerChange();
+    
     ValueTreeObject* factory (const Identifier&, const ValueTree&) override;
     
+
 private:
     
     FileChooser save_chooser =  FileChooser("Select a save file", File::getSpecialLocation(File::SpecialLocationType::userDocumentsDirectory).getChildFile("Cerite").getChildFile("Saves"), "*.crpat");
@@ -63,12 +67,10 @@ private:
     int dragbar_width = 35;
     
     bool sidebar_hidden = false;
-    
-    bool autocompile = false;
 
-    
-    OwnedArray<TextButton> toolbar_buttons = {new TextButton(CharPointer_UTF8("C")), new TextButton("D"), new TextButton("P"), new TextButton("F")};
-    OwnedArray<TextButton> sidebar_buttons = {new TextButton("B"), new TextButton("A")};
+
+    std::array<TextButton, 6> toolbar_buttons = {TextButton("C"), TextButton("D"), TextButton("P"), TextButton("G"), TextButton("H"), TextButton("F")};
+    std::array<TextButton, 2> sidebar_buttons = {TextButton("B"), TextButton("A")};
     
     TextButton compile_button = TextButton("N");
     TextButton autocompile_button = TextButton("E");
@@ -84,6 +86,7 @@ private:
     
     Console console;
     mcl::TextEditor code_editor;
+    
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };

@@ -3,14 +3,21 @@
 #include "Box.h"
 #include "Canvas.h"
 #include "../../Source/Library.hpp"
+
 //==============================================================================
-Connection::Connection(ValueTree tree) : ValueTreeObject(tree)
+Connection::Connection(Canvas* parent, ValueTree tree) : ValueTreeObject(tree)
 {
+    cnv = parent;
     rebuildObjects();
     
     start = Edge::all_edges[tree.getProperty("StartID")];
     end = Edge::all_edges[tree.getProperty("EndID")];
     
+    if(!start || !end) {
+        parent->getState().removeChild(tree, &cnv->undo_manager);
+        return;
+    }
+
     start->addComponentListener(this);
     end->addComponentListener(this);
 
@@ -61,37 +68,6 @@ void Connection::mouseDown(const MouseEvent& e)  {
     }
 }
 
-void Connection::mouseDrag(const MouseEvent& e)  {
-    Point<int> down_pos = e.getMouseDownPosition();
-    Point<int> current_pos = e.getPosition();
-    
-    
-    
-    Point<int> pstart = start->getBounds().getCentre();
-    Point<int> pend = end->getBounds().getCentre();
-    
-    pstart = getLocalPoint(start, pstart);
-    pend = getLocalPoint(end, pend);
-    
-    Rectangle<int> r(down_pos, current_pos);
-    
-    Line<int> line = {pstart, pend};
-    
-    bool intersects = line.intersects(Line<int>({r.getX(), r.getY()}, {r.getX() + r.getWidth(), r.getY()})) ||
-    line.intersects(Line<int>({r.getX() + r.getWidth(), r.getY()}, {r.getX() + r.getWidth(), r.getY() + r.getHeight()})) ||
-    line.intersects(Line<int>({r.getX() + r.getWidth(), r.getY() + r.getHeight()}, {r.getX(), r.getY() + r.getHeight()})) ||
-    line.intersects(Line<int>({r.getX(), r.getY() + r.getHeight()}, {r.getX(), r.getY()})) || (r.contains(pstart) && r.contains(pend));
-    
-    if(!is_selected && intersects) {
-        is_selected = true;
-        repaint();
-    }
-    else if(is_selected && !intersects) {
-        is_selected = false;
-        repaint();
-    }
-}
-
 
 void Connection::componentMovedOrResized (Component &component, bool wasMoved, bool wasResized) {
     int left = std::min(start->get_canvas_bounds().getCentreX(), end->get_canvas_bounds().getCentreX()) - 10;
@@ -126,5 +102,6 @@ void Connection::resized()
 
 void Connection::componentBeingDeleted(Component& component) {
     delete_listeners();
-    getState().getParent().removeChild(getState(), nullptr);
+    if(!cnv->undo_manager.isPerformingUndoRedo())
+        getState().getParent().removeChild(getState(), &cnv->undo_manager);
 }

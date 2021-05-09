@@ -10,6 +10,13 @@ GUIComponent::GUIComponent(Box* parent)  : box(parent), nodes(parent->gui_nodes)
     
 }
 
+GUIComponent::~GUIComponent()
+{
+    // Clear receive callbacks when the object is deleted!
+    for(auto& port : num_registered) {
+        MainComponent::current_main->receive_data(port, [](libcerite::Data){});
+    }
+}
 
 GUIComponent* GUIComponent::create_gui(String name, Box* parent)
 {
@@ -44,6 +51,8 @@ GUIComponent* GUIComponent::create_gui(String name, Box* parent)
 void GUIComponent::register_receive(int port, std::function<void(libcerite::Data)> receive_callback) {
     if(port < nodes.size()) {
         MainComponent::current_main->receive_data(nodes[port], receive_callback);
+        
+        num_registered.addIfNotAlreadyThere(nodes[port]);
     }
 }
 
@@ -138,15 +147,17 @@ MessageComponent::MessageComponent(Box* parent) : GUIComponent(parent)
 void MessageComponent::register_object()  {
     
     bang_button.onClick = [this](){
-        send_data(0, {libcerite::tBang});
+        send_data(0, {libcerite::tBang, 0, "", nullptr, 0});
     };
     
-    input.onTextChange = [this](){
+    input.onFocusLost = [this](){
         String new_text = input.getText();
         if(new_text.containsOnly("0123456789.-e")) {
-            send_data(0, {libcerite::tNumber, new_text.getDoubleValue()});
+            send_data(0, {libcerite::tNumber, new_text.getDoubleValue(), strdup(""), nullptr, 0});
         }
 
+        
+        
         else if(new_text.contains(" ")) {
             // list
             StringArray tokens;
@@ -154,24 +165,22 @@ void MessageComponent::register_object()  {
             auto data = new libcerite::Data[tokens.size()];
             for(int i = 0; i < tokens.size(); i++) {
                 if(tokens[i].containsOnly("0123456789.-e")) {
-                    data[i] = {libcerite::tNumber, tokens[i].getDoubleValue()};
+                    data[i] = libcerite::Data({libcerite::tNumber, tokens[i].getDoubleValue(), strdup(""), nullptr, 0});
                 }
                 else if(tokens[i] == "bang") {
-                    data[i] = {libcerite::tBang, 0};
+                    data[i] = libcerite::Data({libcerite::tBang, 0, strdup(""), nullptr, 0});
                 }
                 else {
-                    auto cstr = new char[tokens[i].length() + 1];
-                    strcpy(cstr, tokens[i].toRawUTF8());
-                    data[i] = {libcerite::tString, 0, cstr};
+                    data[i] = libcerite::Data({libcerite::tString, 0, strdup(tokens[i].toRawUTF8()), nullptr, 0});
                 }
             }
-            send_data(0, {libcerite::tList, 0, "", data, (uint32_t)tokens.size()});
+            send_data(0, {libcerite::tList, 0, strdup(""), data, (uint32_t)tokens.size()});
             
         }
         else {
             auto cstr = new char[new_text.length() + 1];
             strcpy(cstr, new_text.toRawUTF8());
-            send_data(0, {libcerite::tString, 0, cstr});
+            send_data(0, {libcerite::tString, 0, cstr, nullptr, 0});
         }
     };
 

@@ -108,6 +108,8 @@ private:
     void valueTreeChildOrderChanged (juce::ValueTree& parentTreeWhoseChildrenHaveMoved, int oldIndex, int newIndex) override;
     void valueTreeParentChanged (juce::ValueTree& treeWhoseParentHasChanged) override;
     void valueTreeRedirected (juce::ValueTree& treeWhichHasBeenChanged) override;
+    
+    virtual void valueTreeChanged() {};
 
 private:
     juce::ValueTree state;

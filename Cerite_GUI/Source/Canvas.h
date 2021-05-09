@@ -9,7 +9,7 @@
     your controls and content.
 */
 
-using Patch = std::vector<std::tuple<String, String, int, int, std::map<String, std::vector<std::vector<int>>>>>;
+using Patch = std::vector<std::tuple<String, int, int, std::map<String, std::vector<std::vector<int>>>>>;
 
 struct Identifiers
 {
@@ -38,7 +38,7 @@ struct Identifiers
     
 };
 
-class Canvas  : public Component, public ValueTreeObject, public KeyListener
+class Canvas  : public Component, public ValueTreeObject, public KeyListener, public Timer
 {
 public:
     //==============================================================================
@@ -63,8 +63,22 @@ public:
     String copy_selection();
     void remove_selection();
     void paste_selection(String to_paste);
+    
+    void undo() {
+        undo_manager.undo();
+    }
+    void redo() {
+        undo_manager.redo();
+    }
+    
+    void timerCallback();
+    
+    void valueTreeChanged() override {
+        startTimer(250);
+    }
 
-
+    UndoManager undo_manager;
+    
 private:
     //==============================================================================
     // Your private member variables go here...
@@ -72,6 +86,13 @@ private:
     MultiComponentDragger<Box> dragger = MultiComponentDragger<Box>(this);
 
     LassoComponent<Box*> lasso;
+    
+    Point<int> drag_start_position;
+    
+    PopupMenu popupmenu;
+    
+    FileChooser save_chooser =  FileChooser("Save subpatch", File::getSpecialLocation(File::SpecialLocationType::userDocumentsDirectory).getChildFile("Cerite").getChildFile("Objects"), "*.obj");
+    
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Canvas)
 };

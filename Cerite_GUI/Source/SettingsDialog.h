@@ -32,6 +32,9 @@ struct SettingsComponent : public Component
     
     ~SettingsComponent(){
         if(manager_allocated) delete device_manager;
+        
+        for(auto& button : toolbar_buttons)
+            button->setLookAndFeel(nullptr);
     }
     
     ValueTree get_settings();
@@ -73,6 +76,7 @@ struct SettingsDialog : public DocumentWindow
     
     ~SettingsDialog() {
         setLookAndFeel(nullptr);
+
     }
     
     void resized() {

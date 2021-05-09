@@ -17,6 +17,7 @@ ValueTreeObject::ValueTreeObject (const juce::ValueTree& state_)
 void ValueTreeObject::valueTreePropertyChanged (juce::ValueTree& p, const juce::Identifier& i)
 {
     ignoreUnused (p, i);
+    valueTreeChanged();
 }
 
 void ValueTreeObject::valueTreeChildAdded (juce::ValueTree& p, juce::ValueTree& c)
@@ -33,6 +34,7 @@ void ValueTreeObject::valueTreeChildAdded (juce::ValueTree& p, juce::ValueTree& 
             jassertfalse; // type missing in factory
         }
     }
+    valueTreeChanged();
 }
 
 void ValueTreeObject::valueTreeChildRemoved (juce::ValueTree& p, juce::ValueTree& c, int i)
@@ -41,18 +43,24 @@ void ValueTreeObject::valueTreeChildRemoved (juce::ValueTree& p, juce::ValueTree
 
     if (p == state)
         children.remove (i);
+    
+    valueTreeChanged();
 }
 
 void ValueTreeObject::valueTreeChildOrderChanged (juce::ValueTree& p, int oldIndex, int newIndex)
 {
     if (p == state)
         children.move (oldIndex, newIndex);
+    
+    valueTreeChanged();
 }
 
 void ValueTreeObject::valueTreeParentChanged (juce::ValueTree&)
 {
+    valueTreeChanged();
 }
 
 void ValueTreeObject::valueTreeRedirected (juce::ValueTree&)
 {
+    valueTreeChanged();
 }

@@ -15,6 +15,8 @@ MainComponent::MainComponent() : ValueTreeObject(ValueTree("Main")), console(tru
     player.reset(nullptr);
     set_remote(false);
     
+    settings_dialog.reset(new SettingsDialog);
+    
     setLookAndFeel(&main_look);
     
     compile_button.setClickingTogglesState(true);
@@ -32,7 +34,6 @@ MainComponent::MainComponent() : ValueTreeObject(ValueTree("Main")), console(tru
         bool state = autocompile_button.getToggleState();
         compile_button.setEnabled(!state);
         compile_button.setToggleState(false, sendNotification);
-        autocompile = state;
     };
     
     
@@ -41,7 +42,6 @@ MainComponent::MainComponent() : ValueTreeObject(ValueTree("Main")), console(tru
     
     addAndMakeVisible(&console);
     addChildComponent(&code_editor);
-    
     
     
     compile_button.onClick = [this]() {
@@ -54,25 +54,25 @@ MainComponent::MainComponent() : ValueTreeObject(ValueTree("Main")), console(tru
         
         player->enabled = false;
         player->apply_settings(settings_dialog->get_settings());
-        player->compile(patch);
+        bool result = player->compile(patch);
         
         for(auto& box : canvas->findChildrenOfClass<Box>()) {
-            if(box->graphics) {
+            if(box->graphics && result) {
                 box->graphics->register_object();
             }
         }
         
-        player->enabled = true;
+        player->enabled = result;
     };
     
     for(auto& button : toolbar_buttons) {
-        button->setLookAndFeel(&toolbar_look);
-        button->setConnectedEdges(12);
+        button.setLookAndFeel(&toolbar_look);
+        button.setConnectedEdges(12);
         addAndMakeVisible(button);
     }
     
     // New button
-    toolbar_buttons[0]->onClick = [this]() {
+    toolbar_buttons[0].onClick = [this]() {
         auto cnv_state = getState().getChildWithName("Canvas");
         if(cnv_state.isValid())  {
             getState().removeChild(cnv_state, nullptr);
@@ -83,38 +83,47 @@ MainComponent::MainComponent() : ValueTreeObject(ValueTree("Main")), console(tru
     };
     
     // Open button
-    toolbar_buttons[1]->onClick = [this]() {
+    toolbar_buttons[1].onClick = [this]() {
         open_project();
     };
     
     // Save button
-    toolbar_buttons[2]->onClick = [this]() {
+    toolbar_buttons[2].onClick = [this]() {
         save_project();
     };
     
-    sidebar_buttons[0]->onClick = [this]() {
+    toolbar_buttons[3].onClick = [this]() {
+        canvas->undo();
+    };
+    
+    toolbar_buttons[4].onClick = [this]() {
+        canvas->redo();
+    };
+    
+    toolbar_buttons[5].onClick = [this]() {
+        settings_dialog->setVisible(true);
+        settings_dialog->toFront(true);
+    };
+    
+    sidebar_buttons[0].onClick = [this]() {
         code_editor.setVisible(true);
         console.setVisible(false);
     };
     
-    sidebar_buttons[1]->onClick = [this]() {
+    sidebar_buttons[1].onClick = [this]() {
         code_editor.setVisible(false);
         console.setVisible(true);
     };
     
-    sidebar_buttons[1]->setToggleState(true, dontSendNotification);
+    sidebar_buttons[1].setToggleState(true, dontSendNotification);
     
-    // Settings dialog
-    settings_dialog.reset(new SettingsDialog);
-    toolbar_buttons[3]->onClick = [this]() {
-        settings_dialog->setVisible(true);
-    };
+
 
     for(auto& button : sidebar_buttons) {
-        button->setLookAndFeel(&sidebar_look);
-        button->setClickingTogglesState(true);
-        button->setRadioGroupId(1001);
-        button->setConnectedEdges(12);
+        button.setLookAndFeel(&sidebar_look);
+        button.setClickingTogglesState(true);
+        button.setRadioGroupId(1001);
+        button.setConnectedEdges(12);
         addAndMakeVisible(button);
     }
     hide_button.setLookAndFeel(&sidebar_look);
@@ -145,12 +154,23 @@ MainComponent::~MainComponent()
 {
     current_main = nullptr;
     setLookAndFeel(nullptr);
+    compile_button.setLookAndFeel(nullptr);
+    autocompile_button.setLookAndFeel(nullptr);
+    hide_button.setLookAndFeel(nullptr);
+    
+    for(auto& button : toolbar_buttons) {
+        button.setLookAndFeel(nullptr);
+    }
+    
+    for(auto& button : sidebar_buttons) {
+        button.setLookAndFeel(nullptr);
+    }
 }
 
 
 ValueTreeObject* MainComponent::factory(const Identifier& id, const ValueTree& tree)
 {
-    if(id == Identifier("Canvas")) {
+    if(id == Identifiers::canvas) {
         canvas_port.setViewedComponent(nullptr, false);
 
         canvas = new Canvas(tree);
@@ -169,7 +189,7 @@ void MainComponent::paint (Graphics& g)
     g.fillAll (getLookAndFeel().findColour (ResizableWindow::backgroundColourId));
     
     auto base_colour = Colour(41, 41, 41);
-    auto highlight_colour = Colour (0xff42a2c8).darker(0.3);
+    auto highlight_colour = Colour (0xff42a2c8).darker(0.2);
     
     // Toolbar background
     g.setColour(base_colour);
@@ -208,17 +228,22 @@ void MainComponent::resized()
     compile_button.setBounds(getWidth() - s_width - 40, getHeight() - 32, 30, 30);
     autocompile_button.setBounds(getWidth() - s_width - 80, getHeight() - 32, 30, 30);
     
+    
+    int jump_positions[2] = {3, 5};
+    int idx = 0;
     int toolbar_position = 0;
     for(auto& button : toolbar_buttons) {
-        button->setBounds(toolbar_position, 0, 70, toolbar_height);
+        int spacing = (25 * (idx >= jump_positions[0])) +  (25 * (idx >= jump_positions[1]));
+        button.setBounds(toolbar_position + spacing, 0, 70, toolbar_height);
         toolbar_position += 70;
+        idx++;
     }
     
     int button_height = 40;
     int sidebar_position = ((getHeight() - toolbar_height) / 2.0f) - (button_height * (sidebar_buttons.size() / 2)) + (toolbar_height / 2.0f);
     
     for(auto& button : sidebar_buttons) {
-        button->setBounds(getWidth() - s_width, sidebar_position, dragbar_width, button_height);
+        button.setBounds(getWidth() - s_width, sidebar_position, dragbar_width, button_height);
         sidebar_position += button_height;
     }
     
@@ -318,5 +343,29 @@ void MainComponent::receive_data(int port, std::function<void(libcerite::Data)> 
     }
     else {
         
+    }
+}
+
+void MainComponent::triggerChange() {
+    toolbar_buttons[3].setEnabled(canvas->undo_manager.canUndo());
+    toolbar_buttons[4].setEnabled(canvas->undo_manager.canRedo());
+    
+    if(autocompile_button.getToggleState()) {
+        
+        auto patch = canvas->create_patch();
+        Thread::launch([this, patch]() mutable {
+        
+            player->enabled = false;
+            player->apply_settings(settings_dialog->get_settings());
+            bool result = player->compile(patch);
+            
+            for(auto& box : canvas->findChildrenOfClass<Box>()) {
+                if(box->graphics && result) {
+                    box->graphics->register_object();
+                }
+            }
+            
+            player->enabled = result;
+        });
     }
 }

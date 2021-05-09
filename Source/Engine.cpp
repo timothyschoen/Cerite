@@ -6,130 +6,8 @@
 //
 
 #include "Engine.hpp"
+#include "Library.hpp"
 
-// Function to clear out any code in brackets
-// By replacing anything within brackets, parentheses or quotes with spaces,
-// We effectively escape all that content without changing the position of everything else
-// Anything inbetween parentheses or quotes is definitely not meant to be interpreted by our parser in most cases
-String Engine::empty_brackets(String str) {
-    
-    std::vector<std::pair<char, char>> selectors = {{'[', ']'}, {'(', ')'}, {'{', '}'}};
-    
-    
-    std::string input = str.toStdString();
-    std::string output = input;
-    for(auto& selector : selectors) {
-        int nest_in = 0;
-        int nest_out = 0;
-        
-        for(int end = 1; end < input.length() - 1; end++) {
-            if(input[end] == selector.first)
-                nest_in++;
-            if(input[end + 1] == selector.second)
-                nest_out++;
-            
-  
-            if(nest_in > nest_out)
-                output[end + 1] = ' ';
-        }
-    }
-    
-    return String(output);
-}
-
-
-StringArray Engine::parse_tokens (StringRef target, StringRef breakCharacters)
-{
-    int num = 0;
-    
-    StringArray strings;
-    
-
-    if (target.isNotEmpty())
-    {
-        StringRef blanked = Engine::empty_brackets(target);
-        
-        for (auto t = blanked.text;;)
-        {
-            auto tokenEnd = CharacterFunctions::findEndOfToken (t,
-                                                                breakCharacters.text,
-                                                                StringRef("\'\"\\").text);
-            
-            long offset = (t - blanked.text);
-            long length = (tokenEnd - t);
-            
-            
-            
-            strings.add (String (target.text.getAddress() + offset, length));
-            ++num;
-
-            if (tokenEnd.isEmpty())
-                break;
-
-            t = ++tokenEnd;
-        }
-    }
-
-    return strings;
-}
-
-
-// Find section of code by identifier
-String Engine::find_section(String text, String identifier, bool remove_spaces)
-{
-    int start = text.indexOf(identifier + ":");
-    if(start == -1) return String();
-    
-    start += identifier.length() + 1;
-    int end = empty_brackets(text).indexOf(start, ":");
-    
-   
-    if(end == -1)  {
-        return remove_spaces ? text.substring(start).removeCharacters("\n\r") : text.substring(start);
-    }
-    
-    String result = text.substring(start, end).upToLastOccurrenceOf("\n", false, false);
-    return remove_spaces ? result.removeCharacters("\n\r") : result;
-}
-
-// Find outer matching pairs of brackets in a string
-std::pair<int, int> Engine::match_bracket(const String& str, std::pair<char, char> selectors) {
-    int start = str.indexOfChar(selectors.first);
-    int end = start + 1;
-    int nest = 0;
-    
-    while(true) {
-        if(end >= str.length()) {
-            std::cerr << "Error: non-matching brackets!" << std::endl;
-            break;
-        }
-        
-        if(str[end] == selectors.second)     nest--;
-        else if(str[end] == selectors.first) nest++;
-        
-        if(nest == -1) break;
-        else           end++;
-        
-    }
-    return {start, end};
-}
-
-// Make sure that all the passed variables and vectors will be prefixed by the struct that they are stored in
-// All functions get a pointer named obj as argument which points to the object that the call belongs to
-void Engine::make_local(String& target, const String& to_find) {
-    int idx = 0;
-    while(true) {
-        int pos = idx;
-        idx = target.substring(idx).indexOfWholeWord(to_find);
-        if(idx == -1) break;
-        idx += pos;
-        
-        target = target.replaceSection(idx, 0, "obj->");
-        
-        idx += 6;
-        if(idx >= target.length()) break;
-    }
-}
 
 // One-time action: parse the object to intermediate representation in a simple tuple
 // Any work we can already do here is fantastic because that will limit the amount of stuff
@@ -138,20 +16,17 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
     Object object;
     auto& [obj_name, imports, variables, vectors, functions, ports, num_args] = object;
     
-    
-
-
-    
     obj_name = name;
     num_args = 0;
-        
-    String arg_initialiser = find_section(file, "args", true);
-    String variable_initialiser = find_section(file, "var", true);
-    String import_initialiser = find_section(file, "import", true);
     
-    auto arg_defs = parse_tokens(arg_initialiser, ",");
-    auto variable_defs = parse_tokens(variable_initialiser, ",");
-    auto import_defs = parse_tokens(import_initialiser, ",");
+    auto arg_defs = parse_tokens(find_section(file, "args", true), ",");
+    auto variable_defs = parse_tokens(find_section(file, "var", true), ",");
+    auto import_defs = parse_tokens(find_section(file, "import", true), ",");
+    
+    
+    if(is_context) {
+        num_args = find_section(file, "thread", true).removeCharacters(" ").getIntValue();
+    }
     
     for(auto& import : import_defs) {
         import = import.removeCharacters(" ");
@@ -162,12 +37,10 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
         String port_initialiser = find_section(file, import + ".ports", true);
         auto port_defs = StringArray::fromTokens(port_initialiser, "|", "");
         
-        while(port_defs.size() < 2) {
+        while(port_defs.size() < 3) {
             port_defs.add("0");
         }
-        
-        
-        ports[import] = {port_defs[0].removeCharacters(" "), port_defs[1].removeCharacters(" ")};
+        ports[import] = {port_defs[0].removeCharacters(" "), port_defs[1].removeCharacters(" "), port_defs[2].removeCharacters(" ")};
     }
     
     // Add arguments before variables
@@ -216,6 +89,8 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
         String type = "double";
         String default_value = "0";
         
+        StringArray definition;
+        
         variable = variable.removeCharacters("\\");
         // Handle vectors
         if(variable.contains("[")) {
@@ -225,7 +100,12 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
                 type = variable.substring(paren_start + 1, paren_end);
                 variable = variable.substring(paren_end + 1);
             }
-            
+            // Parse inline definitions
+            if(variable.contains("{")) {
+                auto [brack_start, brack_end] = match_bracket(variable, {'{', '}'});
+                definition = parse_tokens(variable.substring(brack_start + 1, brack_end), ",");
+                for(auto& item : definition) item.removeCharacters(" ");
+            }
             auto [brack_start, brack_end] = match_bracket(variable, {'[', ']'});
             
             int size = -1;
@@ -236,7 +116,7 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
             // Only 2d for now, might support more dimensions later
             int dims = variable.contains("][") + 1;
             
-            vectors.add({variable.substring(0, brack_start).removeCharacters(" "), type, size, dims, {}});
+            vectors.add({variable.substring(0, brack_start).removeCharacters(" "), type, size, dims, definition});
             continue;
         }
         
@@ -251,7 +131,7 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
             }
             // Case function
             else {
-                auto args = StringArray::fromTokens(variable.substring(paren_start + 1, paren_end), ",", "");
+                auto args = parse_tokens(variable.substring(paren_start + 1, paren_end), ",");
                 functions.add({variable.substring(0, paren_start).removeCharacters(" "), args, ""});
                 continue;
             }
@@ -284,14 +164,16 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
         body = find_section(file, func_name);
         
         if(!is_context) {
-            for(auto& [v_name, v_type, v_init] : variables) make_local(body, v_name);
-            for(auto& [v_name, v_type, v_size, v_dims, v_def] : vectors) make_local(body, v_name);
+            
+            for(auto& [v_name, v_type, v_init] : variables) prefix_whole_word(body, v_name, "obj->");
+            for(auto& [v_name, v_type, v_size, v_dims, v_def] : vectors) prefix_whole_word(body, v_name, "obj->");
         }
         
         for(auto& import : imports) {
             auto& [ctx_name, ctx_imp, variables, vectors, functions, ports, num_args] = contexts[import];
             
             // Make sure all vector indexes of vectors taken from imports point to the relative position
+            /*
             for(auto& [v_name, v_type, v_size, v_dims, v_def] : vectors) {
                 
                 int idx = 0;
@@ -314,7 +196,7 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
                     idx = brack_start + replacement.length() + 2;
                     if(idx >= body.length()) break;
                 }
-            }
+            } */
         }
     }
     
@@ -342,8 +224,9 @@ void Engine::set_arguments(Object& target, const String& arguments) {
         
         // Replace any arguments used to decide the number of in-out ports
         for(auto& [ctx, io] : ports) {
-            io.first = io.first.replace(v_name, tokens[i]);
-            io.second = io.second.replace(v_name, tokens[i]);
+            std::get<0>(io) = std::get<0>(io).replace(v_name, tokens[i]);
+            std::get<1>(io) = std::get<1>(io).replace(v_name, tokens[i]);
+            std::get<2>(io) = std::get<2>(io).replace(v_name, tokens[i]);
         }
         
     }
@@ -356,51 +239,57 @@ void Engine::set_arguments(Object& target, const String& arguments) {
                 definition.add("(Data){tNumber, " + tokens[i] + ", \"\", 0, 0}");
             }
             else {
-                definition.add("(Data){tString, 0, \""+ tokens[i] +"\", 0, 0}");
+                definition.add("(Data){tString, 0, strdup(\""+ tokens[i] +"\"), 0, 0}");
             }
         }
         int argc = tokens.size() - num_args;
+    
         
-        auto& [vec_name, vec_type, vec_size, vec_dims, vec_def] = find_by_name<Vector>(vectors, "argv");
-        auto& [var_name, var_type, var_def] = find_by_name<Variable>(variables, "argc");
-        
-        var_def = String(argc);
-        vec_size = argc;
-        vec_def = definition;
+        if(auto* found = find_by_name(vectors, "argv")) {
+            auto& [vec_name, vec_type, vec_size, vec_dims, vec_def] = *found;
+            vec_size = argc;
+            vec_def = definition;
+        }
+           
+       if(auto* found = find_by_name(variables, "argc")) {
+           auto& [var_name, var_type, var_def] = *found;
+           var_def = String(argc);
+       }
         
         for(auto& [ctx, io] : ports) {
-            io.first = io.first.replace("argc", String(argc));
-            io.second = io.second.replace("argc", String(argc));
+            std::get<0>(io) = std::get<0>(io).replace("argc", String(argc));
+            std::get<1>(io)= std::get<1>(io).replace("argc", String(argc));
+            std::get<2>(io)= std::get<2>(io).replace("argc", String(argc));
         }
     }
     // Parse math expressions in ports
     for(auto& [ctx, io] : ports) {
-        bool parse_first = !io.first.containsOnly("0123456789");
-        bool parse_second = !io.second.containsOnly("0123456789");
+        bool parse_first = !std::get<0>(io).containsOnly("0123456789");
+        bool parse_second = !std::get<1>(io).containsOnly("0123456789");
+        //bool parse_third = !std::get<2>(io).containsOnly("0123456789");
         
         String parse_error_1, parse_error_2;
         
         if(parse_first)   {
-            Expression expr(io.first, parse_error_1);
-            io.first = String((int)expr.evaluate());
+            Expression expr(std::get<0>(io), parse_error_1);
+            std::get<0>(io) = String((int)expr.evaluate());
             
             if(parse_error_1.isNotEmpty()) std::cout << parse_error_1 << std::endl;
         }
         if(parse_second)   {
-            Expression expr(io.second, parse_error_2);
-            io.second = String((int)expr.evaluate());
+            Expression expr(std::get<1>(io), parse_error_2);
+            std::get<1>(io) = String((int)expr.evaluate());
             
             if(parse_error_2.isNotEmpty()) std::cout << parse_error_2 << std::endl;
         }
     }
-    
-    
 }
 
 
 
 String Engine::combine_objects(SimplifiedNodes& node_list, std::map<String, Object> contexts)
 {
+    
     String object_code;
     String context_functions;
     String context_structs;
@@ -412,10 +301,13 @@ String Engine::combine_objects(SimplifiedNodes& node_list, std::map<String, Obje
     
     std::map<String, int> num_nodes;
     
+    
+
+    
     // Count the size of each context, defined by the number of inputs and output that are within that context
     auto ctx_iter = contexts.begin();
     for(int c = 0; c < contexts.size(); c++, ctx_iter++) {
-        
+        int internal_nodes = 0;
         auto& [ctx_name, ctx] = *ctx_iter;
         
         Array<int> used_nodes;
@@ -423,18 +315,19 @@ String Engine::combine_objects(SimplifiedNodes& node_list, std::map<String, Obje
             auto&[obj, nodes] = node_list[i];
             
             if(!std::get<1>(obj).contains(ctx_name)) continue;
+
+            internal_nodes += std::get<2>(std::get<5>(obj)[ctx_name]).getIntValue();
             
             for(int j = 0; j < nodes[ctx_name].size(); j++) {
                 used_nodes.addIfNotAlreadyThere(nodes[ctx_name][j]);
             }
         }
-       
         
         if(used_nodes.size()) {
-            num_nodes[ctx_name] = *std::max_element(used_nodes.begin(),  used_nodes.end()) + 1;
+            num_nodes[ctx_name] = *std::max_element(used_nodes.begin(),  used_nodes.end()) + internal_nodes + 1;
         }
         else {
-            num_nodes[ctx_name] = 0;
+            num_nodes[ctx_name] = internal_nodes + 1;
         }
         
         for(auto& [v_name, v_type, v_size, v_dims, v_def] : std::get<3>(ctx)) {
@@ -500,7 +393,26 @@ String Engine::combine_objects(SimplifiedNodes& node_list, std::map<String, Obje
         
     }
 
-    String calc_code = "void calc() {\n";
+    
+    int max_threads = 0;
+    for(auto& ctx : used_contexts) {
+        max_threads = std::max(std::get<6>(contexts[ctx]), max_threads);
+    }
+    max_threads++;
+    
+    
+    String calc_code;
+    for(int t = 0; t < max_threads; t++) {
+        calc_code += "void thread_" + String(t) + "_calc() {\n";
+        
+        for(auto& ctx : used_contexts) {
+            if(std::get<6>(contexts[ctx]) == t) {
+                calc_code += ctx + "_obj_calc();\n";
+            }
+        }
+        calc_code += "}\n\n";
+    }
+    
     String prepare_code = "void prepare() {\n";
     
     for(auto& context : used_contexts) {
@@ -514,12 +426,11 @@ String Engine::combine_objects(SimplifiedNodes& node_list, std::map<String, Obje
         
         reset_code += context + "_reset();\n";
         
-        calc_code += context + "_obj_calc();\n";
         prepare_code += context + "_obj_prepare();\n";
     }
     
     reset_code += "}\n\n";
-    calc_code += "}\n\n";
+
     prepare_code += "}\n\n";
     
     
@@ -554,14 +465,13 @@ std::pair<String, String> Engine::write_code(Object& object, const String& uniqu
     auto& [name, imports, variables, vectors, functions, ports, num_args] = object;
     
     // Fix function call names
-    if(write_type != Context)
+    if(write_type != Context) {
         for(auto& [f1_name, f1_args, f1_body] : functions) {
             for(auto& [f2_name, f2_args, f2_body] : functions) {
-                int idx = f1_body.indexOfWholeWord(f2_name);
-                if(idx < 0) continue;
-                f1_body = f1_body.replaceSection(idx, 0, name + "_");
+                prefix_whole_word(f1_body, f2_name, name + "_");
             }
         }
+    }
     
     // Create struct and function to initialize structs to default value
     struct_code += "\n\ntypedef struct {\n";
@@ -628,4 +538,441 @@ std::pair<String, String> Engine::write_code(Object& object, const String& uniqu
     
     
     return {struct_code, function_code};
+}
+
+
+// Attempt to allow subpatches
+Object Engine::create_subpatcher(String new_name, SimplifiedNodes node_list, ObjectMap contexts)
+{
+    
+    
+    StringArray used_contexts;
+    StringArray used_names;
+    Object new_object;
+    
+    std::map<std::pair<String, StringArray>, String> function_map;
+    
+    auto& [name, imports, variables, vectors, functions, ports, num_args] = new_object;
+    
+    name = new_name;
+    
+    std::map<String, int> num_nodes;
+    // Count the size of each context, defined by the number of inputs and output that are within that context
+    auto ctx_iter = contexts.begin();
+    for(int c = 0; c < contexts.size(); c++, ctx_iter++) {
+        int internal_nodes = 0;
+        auto& [ctx_name, ctx] = *ctx_iter;
+        
+        Array<int> used_nodes;
+        for(int i = 0; i < node_list.size(); i++) {
+            auto&[obj, nodes] = node_list[i];
+            
+            if(!std::get<1>(obj).contains(ctx_name)) continue;
+
+            internal_nodes += std::get<2>(std::get<5>(obj)[ctx_name]).getIntValue();
+            
+            for(int j = 0; j < nodes[ctx_name].size(); j++) {
+                used_nodes.addIfNotAlreadyThere(nodes[ctx_name][j]);
+            }
+        }
+        
+        int external_nodes = used_nodes.isEmpty() ? 0 : *std::max_element(used_nodes.begin(),  used_nodes.end());
+        num_nodes[ctx_name] = external_nodes + internal_nodes;
+        if(num_nodes[ctx_name] == 0) num_nodes.erase(ctx_name);
+    }
+    
+    for(auto& [ctx, size] : num_nodes) {
+        ports[ctx] = {"0", "0", String(size)};
+    }
+    
+    
+    // Run preprocessor to expand macros
+    {
+        StringArray all_functions;
+        for(int i = 0; i < node_list.size(); i++) {
+            auto&[obj, nodes] = node_list[i];
+            auto& [obj_name, obj_imports, obj_variables, obj_vectors, obj_functions, obj_ports, obj_num_args] = obj;
+            for(auto& [f_name, f_args, f_body] : obj_functions) {
+                
+                all_functions.add(f_body);
+            }
+        }
+        
+        all_functions = c_preprocess(all_functions);
+        
+        int num_funcs = 0;
+        for(int i = 0; i < node_list.size(); i++) {
+            auto&[obj, nodes] = node_list[i];
+            auto& [obj_name, obj_imports, obj_variables, obj_vectors, obj_functions, obj_ports, obj_num_args] = obj;
+            for(auto& [f_name, f_args, f_body] : obj_functions) {
+                f_body = all_functions[num_funcs];
+                num_funcs++;
+            }
+        }
+    }
+    
+    for(int i = 0; i < node_list.size(); i++) {
+        auto&[obj, nodes] = node_list[i];
+        
+        auto& [obj_name, obj_imports, obj_variables, obj_vectors, obj_functions, obj_ports, obj_num_args] = obj;
+        
+        String obj_type = obj_name.upToFirstOccurrenceOf("_", false, false);
+        
+        if(Library::subpatchers_connections[obj_imports[0]].contains(obj_type)) {
+            std::get<0>(ports[obj_imports[0]]) = String(std::get<0>(ports[obj_imports[0]]).getIntValue() + (Library::subpatchers_connections[obj_imports[0]][0] == obj_type));
+            std::get<1>(ports[obj_imports[0]]) = String(std::get<1>(ports[obj_imports[0]]).getIntValue() + (Library::subpatchers_connections[obj_imports[0]][1] == obj_type));
+        }
+        
+        // Give unique names to objects
+        int suffix = 1;
+        while(used_names.contains(obj_name + String(suffix))) {
+            suffix++;
+        }
+              
+        obj_name += String(suffix);
+        used_names.add(obj_name);
+        
+        for(auto& import : obj_imports) {
+            // Check which contexts are used
+            imports.addIfNotAlreadyThere(import);
+            
+            // Add node vector for each context to object
+            Array<String> stringified;
+            for(auto& num : nodes[import]) {
+                stringified.add(String(num));
+            }
+            obj_vectors.add({import + "_nodes", "int", stringified.size(), 1, stringified});
+        }
+        
+        
+        for(auto& variable : obj_variables) {
+            auto& [var_name, var_type, var_default] = variable;
+        
+            
+            for(auto& [f_name, f_args, f_body] : obj_functions) {
+                prefix_whole_word(f_body, var_name, new_name + "_" + obj_name + "_");
+            }
+            
+            var_name = new_name + "_" + obj_name  + "_" + var_name;
+            variables.add(variable);
+        }
+    
+        
+        for(auto& vector : obj_vectors) {
+            auto&[vec_name, vec_type, vec_size, vec_dims, vec_def] = vector;
+            
+            for(auto& [f_name, f_args, f_body] : obj_functions) {
+                prefix_whole_word(f_body, vec_name, new_name + "_" + obj_name + "_");
+            }
+            
+            vec_name = new_name + "_" + obj_name + "_" +  vec_name;
+            vectors.add(vector);
+        }
+        
+        for(auto& function : obj_functions) {
+            auto& [f_name, f_args, f_body] = function;
+            for(auto& import : obj_imports) {
+                String to_find = import + ".";
+                prefix_whole_word(f_body, import, new_name + "_");
+            }
+            
+            for(auto& [f2_name, f2_args, f2_body] : obj_functions) {
+                prefix_whole_word(f2_body, f_name,  new_name + "_" + obj_name + "_");
+            }
+            
+            if(f_name.contains(".")) {
+                function_map[{f_name, f_args}] += f_body;
+            }
+            else {
+                f_name = new_name + "_" + obj_name + "_" + f_name;
+                functions.add(function);
+            }
+        }
+    }
+    
+    for(auto& import : imports) {
+        variables.add({new_name + "_" + import, import + "_obj", ""});
+    }
+    
+    for(auto& [f_key, f_body] : function_map) {
+        auto& [f_name, f_args] = f_key;
+       
+        if(f_name.contains("prepare")) {
+            String ctx = f_name.upToFirstOccurrenceOf(".", false, false);
+            for(auto& [v_name, v_type, v_value] : std::get<2>(contexts[ctx])) {
+                if(v_type == "int" || v_type == "double" || v_type == "float")
+                f_body += new_name + "_" + ctx + "." + v_name + " = " + String(v_value) + ";\n";
+            }
+        }
+        
+        functions.add({f_name, f_args, f_body});
+    }
+    
+
+    
+    for(auto& [var_name, var_type, var_default] : variables) {
+        if(var_name.startsWith(new_name + "_out_obj") && var_name.endsWith("num_in")) {
+            var_default = std::get<0>(ports["data"]);
+        }
+    }
+    return new_object;
+    
+}
+
+// Recreate object format from parsed object
+String Engine::reconstruct_object(Object to_reconstruct, ObjectMap contexts)
+{
+    String include_initializers = "import: ";
+    String variable_initialize = "var: ";
+    
+    String function_bodies;
+    
+    String ports_initializers;
+    
+    auto& [name, imports, variables, vectors, functions, ports, num_args] = to_reconstruct;
+    
+    for(auto& import : imports) {
+        include_initializers += import + ", ";
+    }
+    
+    for(auto& [ctx, port] : ports) {
+        ports_initializers += ctx + ".ports: ";
+        ports_initializers += std::get<0>(port) + " | ";
+        ports_initializers += std::get<1>(port) + " | ";
+        ports_initializers += std::get<2>(port) + "\n\n";
+    }
+    
+    for(auto& [var_name, var_type, var_default] : variables) {
+        String type = var_type == "double" ? "" : "(" + var_type + ")";
+        String definition = var_default.isEmpty() ? "" : " = " + var_default;
+        variable_initialize += type + var_name + definition + ", ";
+    }
+    
+    for(auto& [vec_name, vec_type, vec_size, vec_dims, vec_def] : vectors) {
+        
+        if(vec_size == 0) continue;
+        // does this work for funcptr vectors???
+        String type = vec_type == "double" ? "" : "(" + vec_type + ")";
+        String size = "[" + String(vec_size) +"]";
+        
+        String definition = vec_def.size() == 0 ? "" : " = {";
+        definition += vec_def.joinIntoString(", ");
+        definition += vec_def.size() == 0 ? "" : "}";
+        
+        variable_initialize += type + vec_name + size + definition + ", ";
+    }
+    
+    for(auto& [func_name, func_args, func_body] : functions) {
+        
+        func_body = func_body.replace("obj->", "");
+        if(!func_name.contains(".")) {
+            variable_initialize += func_name + "(" + func_args.joinIntoString(", ") + "), ";
+        }
+        
+        if(func_body.isNotEmpty()) {
+            function_bodies += func_name + ":\n\t" + func_body + "\n";
+        }
+    }
+    
+    include_initializers = include_initializers.upToLastOccurrenceOf(",", false, false) + "\n\n";
+    variable_initialize = variable_initialize.upToLastOccurrenceOf(",", false, false) + "\n\n";
+
+    String final_format = include_initializers + variable_initialize + ports_initializers + function_bodies;
+    
+    File("/Users/timschoen/Documents/obj_export_test.obj").replaceWithText(final_format);
+    
+    return final_format;
+}
+
+
+
+
+// String utility functions
+
+// Copy of the indexOfWholeWord method of juce::String, but with "_" recognized as part of the word.
+int Engine::indexOfWholeWord (StringRef string_to_search, StringRef word) noexcept
+{
+    std::function<bool(char)> is_letter = [](char in){
+        return String("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_\0").containsChar(in);
+    };
+    
+    if (word.isNotEmpty())
+    {
+        auto t = string_to_search.text;
+        auto wordLen = word.length();
+        auto end = (int) t.length() - wordLen;
+
+        for (int i = 0; i <= end; ++i)
+        {
+            if (t.compareUpTo (word.text, wordLen) == 0
+                  && (i == 0 || !is_letter(*(t - 1)))
+                && (!is_letter(*(t + wordLen))))
+                return i;
+
+            ++t;
+        }
+    }
+
+    return -1;
+}
+
+void Engine::prefix_whole_word(String& to_process, String& to_find, String replacement, bool replace)
+{
+    int i = 0;
+    int offset = 0;
+    while ((i = indexOfWholeWord(to_process.substring(offset), to_find)) >= 0)
+    {
+        i += offset;
+        if(i >= to_process.length()) break;
+        to_process = to_process.replaceSection (i, replace ? replacement.length() : 0, replacement);
+        offset = i + replacement.length() + to_find.length();
+    }
+}
+
+// Function to clear out any code in brackets
+// By replacing anything within brackets, parentheses or quotes with spaces,
+// We effectively escape all that content without changing the position of everything else
+// Anything inbetween parentheses or quotes is definitely not meant to be interpreted by our parser in most cases
+String Engine::empty_brackets(String str) {
+    
+    std::vector<std::pair<char, char>> selectors = {{'[', ']'}, {'(', ')'}, {'{', '}'}};
+    
+    std::string input = str.toStdString();
+    std::string output = input;
+    for(auto& selector : selectors) {
+        int nest_in = 0;
+        int nest_out = 0;
+        
+        for(int end = 1; end < input.length() - 1; end++) {
+            if(input[end] == selector.first)
+                nest_in++;
+            if(input[end + 1] == selector.second)
+                nest_out++;
+            
+  
+            if(nest_in > nest_out)
+                output[end + 1] = ' ';
+        }
+    }
+    
+    return String(output);
+}
+
+
+StringArray Engine::parse_tokens (StringRef target, StringRef breakCharacters)
+{
+    
+    String test = "_data_nodes[";
+    
+    int idx = indexOfWholeWord(test, "data_nodes");
+    
+    int num = 0;
+    
+    StringArray strings;
+    
+
+    if (target.isNotEmpty())
+    {
+        String blanked_string = Engine::empty_brackets(target);
+        StringRef blanked(blanked_string);
+        
+        for (auto t = blanked.text;;)
+        {
+            auto tokenEnd = CharacterFunctions::findEndOfToken (t,
+                                                                breakCharacters.text,
+                                                                StringRef("\'\"").text);
+            
+            long offset = (t - blanked.text);
+            long length = (tokenEnd - t);
+            
+            strings.add (String (target.text.getAddress() + offset, length));
+            ++num;
+
+            if (tokenEnd.isEmpty())
+                break;
+
+            t = ++tokenEnd;
+        }
+    }
+
+    return strings;
+}
+
+
+// Find section of code by identifier
+String Engine::find_section(String text, String identifier, bool remove_spaces)
+{
+    int start = text.indexOf(identifier + ":");
+    if(start == -1) return String();
+    
+    start += identifier.length() + 1;
+    int end = empty_brackets(text).indexOf(start, ":");
+    
+   
+    if(end == -1)  {
+        return remove_spaces ? text.substring(start).removeCharacters("\n\r") : text.substring(start);
+    }
+    
+    String result = text.substring(start, end).upToLastOccurrenceOf("\n", false, false);
+    return remove_spaces ? result.removeCharacters("\n\r") : result;
+}
+
+// Find outer matching pairs of brackets in a string
+std::pair<int, int> Engine::match_bracket(const String& str, std::pair<char, char> selectors) {
+    int start = str.indexOfChar(selectors.first);
+    int end = start + 1;
+    int nest = 0;
+    
+    while(true) {
+        if(end >= str.length()) {
+            std::cerr << "Error: non-matching brackets!" << std::endl;
+            break;
+        }
+        
+        if(str[end] == selectors.second)     nest--;
+        else if(str[end] == selectors.first) nest++;
+        
+        if(nest == -1) break;
+        else           end++;
+        
+    }
+    return {start, end};
+}
+
+StringArray Engine::c_preprocess(StringArray sections) {
+    
+    String libcerite = "/Users/timschoen/Documents/Cerite/.exec/libcerite.h";
+    
+    ChildProcess preprocessor;
+    
+    // Add include
+    sections.insert(0, "#define SUBPATCHER \n #include \"" + libcerite + "\"\n");
+    
+    auto input = sections.joinIntoString("\n@\n");
+    
+    auto c_file = File::createTempFile(".c");
+    c_file.replaceWithText(input);
+    preprocessor.start("gcc -E " + c_file.getFullPathName());
+    
+    String preprocessed = preprocessor.readAllProcessOutput();
+    auto output = preprocessed.fromFirstOccurrenceOf("@", false, false);
+    
+    auto lines = StringArray::fromLines(output);
+    
+    for(int i = lines.size() - 1; i >= 0; i--) {
+        if(lines[i].trimStart().startsWithChar('#'))
+            lines.remove(i);
+    }
+    
+    
+    
+    String in = lines.joinIntoString("\n");
+    String to_find = "obj->";
+    prefix_whole_word(in, to_find, "", true);
+   
+    auto result = parse_tokens(in, "@");
+    
+
+    
+    return result;
 }
