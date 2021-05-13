@@ -38,6 +38,7 @@ struct Identifiers
     
 };
 
+class Edge;
 class Canvas  : public Component, public ValueTreeObject, public KeyListener, public Timer
 {
 public:
@@ -71,27 +72,38 @@ public:
         undo_manager.redo();
     }
     
-    void timerCallback();
+    void encapsulate(std::function<String(ValueTree)> encapsulate_func);
+
+    
+    void timerCallback() override;
     
     void valueTreeChanged() override {
         startTimer(250);
     }
+    
+    Edge* find_edge_by_id(String ID);
+    
+    Array<Edge*> get_all_edges();
 
     UndoManager undo_manager;
     
+    Viewport viewport;
+    
+    bool connecting_with_drag = false;
+    
 private:
-    //==============================================================================
-    // Your private member variables go here...
 
     MultiComponentDragger<Box> dragger = MultiComponentDragger<Box>(this);
 
     LassoComponent<Box*> lasso;
     
     Point<int> drag_start_position;
-    
+   
     PopupMenu popupmenu;
     
-    FileChooser save_chooser =  FileChooser("Save subpatch", File::getSpecialLocation(File::SpecialLocationType::userDocumentsDirectory).getChildFile("Cerite").getChildFile("Objects"), "*.obj");
+    FileChooser obj_save_chooser =  FileChooser("Save subpatch", File::getSpecialLocation(File::SpecialLocationType::userDocumentsDirectory).getChildFile("Cerite").getChildFile("Objects"), "*.obj");
+    
+    FileChooser patch_save_chooser =  FileChooser("Save subpatch", File::getSpecialLocation(File::SpecialLocationType::userDocumentsDirectory).getChildFile("Cerite").getChildFile("Saves"), "*.crpat");
     
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Canvas)

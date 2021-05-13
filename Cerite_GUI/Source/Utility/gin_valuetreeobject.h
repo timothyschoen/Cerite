@@ -100,6 +100,16 @@ public:
             }
         }
     }
+    
+    template <class TargetClass>
+    TargetClass* findObjectForTree(ValueTree object) {
+        for(auto& child : children) {
+            if(child->getState() == object) {
+                return dynamic_cast<TargetClass*>(child);
+            }
+        }
+        return nullptr;
+    }
 
 private:
     void valueTreePropertyChanged (juce::ValueTree& treeWhosePropertyHasChanged, const juce::Identifier& property) override;

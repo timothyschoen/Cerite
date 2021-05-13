@@ -6,6 +6,8 @@
 #include "Utility/MultiComponentDragger.h"
 #include "Utility/gin_valuetreeobject.h"
 
+#include "../../Source/Engine.hpp"
+
 #include "GUIObjects.h"
 
 #include <JuceHeader.h>
@@ -37,7 +39,7 @@ struct ClickLabel : Label
     MultiComponentDragger<Box>& dragger;
 };
 
-class Canavs;
+class Canvas;
 class Box  : public Component, public ValueTreeObject
 {
     
@@ -64,8 +66,12 @@ public:
     
     void update_position();
     
+    Ports update_subpatch(ValueTree tree);
+    void update_ports(Ports ports);
     
     void set_type (String new_type);
+    
+    Ports load_subpatch (String title);
     
     void mouseMove(const MouseEvent& e) override;
     
@@ -79,11 +85,10 @@ public:
     int hidden_out = 0;
     
     ClickLabel text_label;
+    bool is_edge = false;
     
 private:
-    //==============================================================================
-    // Your private member variables go here...
-    
+
     MultiComponentDragger<Box>& dragger;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Box)

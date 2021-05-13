@@ -7,42 +7,13 @@ Edge::Edge(ValueTree tree) : ValueTreeObject(tree)
 {
     setSize (8, 8);
     
-    all_edges[tree.getProperty("ID")] = this;
-
     onClick = [this](){
-        if(Edge::connecting_edge) {
-            
-            bool is_input = ValueTreeObject::getState().getProperty("Input");
-            String ctx1 = is_input ? Edge::connecting_edge->ValueTreeObject::getState().getProperty("Context") : ValueTreeObject::getState().getProperty("Context");
-            String ctx2 = !is_input ? Edge::connecting_edge->ValueTreeObject::getState().getProperty("Context") : ValueTreeObject::getState().getProperty("Context");
-            
-            
-            bool connection_allowed = (ctx1 == ctx2 || Library::can_convert(ctx1, ctx2)) && (bool)Edge::connecting_edge->ValueTreeObject::getState().getProperty("Input") != is_input && connecting_edge->getParentComponent() != getParentComponent();
-        
-            if(Edge::connecting_edge == this) {
-                Edge::connecting_edge = nullptr;
-            }
-            else if(!connection_allowed) {
-                Edge::connecting_edge = nullptr;
-            }
-            else if(connection_allowed) {
-                ValueTree new_connection = ValueTree(Identifiers::connection);
-                new_connection.setProperty("StartID", Edge::connecting_edge->ValueTreeObject::getState().getProperty("ID"), nullptr);
-                new_connection.setProperty("EndID", ValueTreeObject::getState().getProperty("ID"), nullptr);
-                Canvas* cnv = findParentComponentOfClass<Canvas>();
-                cnv->getState().appendChild(new_connection, &cnv->undo_manager);
-                Edge::connecting_edge = nullptr;
-            }
-        }
-        else {
-            Edge::connecting_edge = this;
-        }
+        create_connection();
     };
 }
 
 Edge::~Edge()
 {
-    all_edges.erase(ValueTreeObject::getState().getProperty("ID"));
 }
 
 Rectangle<int> Edge::get_canvas_bounds()
@@ -86,6 +57,49 @@ void Edge::resized()
     // update their positions.
 }
 
+
+void Edge::mouseDrag(const MouseEvent& e) {
+    
+    TextButton::mouseDrag(e);
+    if(!Edge::connecting_edge && e.getLengthOfMousePress() > 300) {
+        Edge::connecting_edge = this;
+        auto* cnv = findParentComponentOfClass<Canvas>();
+        cnv->connecting_with_drag = true;
+    }
+}
+
 void Edge::mouseMove(const MouseEvent& e) {
     findParentComponentOfClass<Canvas>()->repaint();
+}
+
+void Edge::create_connection()
+{
+    if(Edge::connecting_edge) {
+        
+        bool is_input = ValueTreeObject::getState().getProperty("Input");
+        String ctx1 = is_input ? Edge::connecting_edge->ValueTreeObject::getState().getProperty("Context") : ValueTreeObject::getState().getProperty("Context");
+        String ctx2 = !is_input ? Edge::connecting_edge->ValueTreeObject::getState().getProperty("Context") : ValueTreeObject::getState().getProperty("Context");
+        
+        
+        bool connection_allowed = (ctx1 == ctx2 || Library::can_convert(ctx1, ctx2)) && ((bool)Edge::connecting_edge->ValueTreeObject::getState().getProperty("Input") != is_input || ctx1 == "mna") && connecting_edge->getParentComponent() != getParentComponent();
+    
+        if(Edge::connecting_edge == this) {
+            Edge::connecting_edge = nullptr;
+        }
+        else if(!connection_allowed) {
+            Edge::connecting_edge = nullptr;
+        }
+        else if(connection_allowed) {
+            ValueTree new_connection = ValueTree(Identifiers::connection);
+            
+            new_connection.setProperty(Identifiers::start_id, Edge::connecting_edge->ValueTreeObject::getState().getProperty(Identifiers::edge_id), nullptr);
+            new_connection.setProperty(Identifiers::end_id, ValueTreeObject::getState().getProperty(Identifiers::edge_id), nullptr);
+            Canvas* cnv = findParentComponentOfClass<Canvas>();
+            cnv->getState().appendChild(new_connection, &cnv->undo_manager);
+            Edge::connecting_edge = nullptr;
+        }
+    }
+    else {
+        Edge::connecting_edge = this;
+    }
 }

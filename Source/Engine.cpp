@@ -83,6 +83,9 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
     if(!is_context) {
         vectors.add({"argv", "Data", 0, 1, {}});
         variables.add({"argc", "int", "0"});
+        for(auto& [port_ctx, port_list] : ports) {
+            variables.add({port_ctx + "_inputs", "int", std::get<0>(port_list)});
+        }
     }
     
     for(auto& variable : variable_defs) {
@@ -164,39 +167,8 @@ Object Engine::parse_object(const String& file, const StringRef name, std::map<S
         body = find_section(file, func_name);
         
         if(!is_context) {
-            
             for(auto& [v_name, v_type, v_init] : variables) prefix_whole_word(body, v_name, "obj->");
             for(auto& [v_name, v_type, v_size, v_dims, v_def] : vectors) prefix_whole_word(body, v_name, "obj->");
-        }
-        
-        for(auto& import : imports) {
-            auto& [ctx_name, ctx_imp, variables, vectors, functions, ports, num_args] = contexts[import];
-            
-            // Make sure all vector indexes of vectors taken from imports point to the relative position
-            /*
-            for(auto& [v_name, v_type, v_size, v_dims, v_def] : vectors) {
-                
-                int idx = 0;
-                while(true) {
-                    int pos = body.substring(idx).indexOfWholeWord(ctx_name + "." + v_name);
-                    if(pos == -1 || v_size > 0) break;
-                    pos += idx;
-                    
-                    auto [brack_start, brack_end] = match_bracket(body.substring(pos), {'[', ']'});
-                    brack_start += pos + 1;
-                    brack_end += pos;
-                    
-                    String sub = body.substring(brack_start, brack_end);
-                    int vector_idx = sub.getIntValue();
-                    
-                    String replacement = "obj->" + import + "_nodes[" + String(vector_idx) + "]";
-                    
-                    body = body.replaceSection(brack_start, sub.length(), replacement);
-                    
-                    idx = brack_start + replacement.length() + 2;
-                    if(idx >= body.length()) break;
-                }
-            } */
         }
     }
     
@@ -300,10 +272,7 @@ String Engine::combine_objects(SimplifiedNodes& node_list, std::map<String, Obje
     StringArray used_contexts;
     
     std::map<String, int> num_nodes;
-    
-    
-
-    
+   
     // Count the size of each context, defined by the number of inputs and output that are within that context
     auto ctx_iter = contexts.begin();
     for(int c = 0; c < contexts.size(); c++, ctx_iter++) {
@@ -314,9 +283,11 @@ String Engine::combine_objects(SimplifiedNodes& node_list, std::map<String, Obje
         for(int i = 0; i < node_list.size(); i++) {
             auto&[obj, nodes] = node_list[i];
             
-            if(!std::get<1>(obj).contains(ctx_name)) continue;
+            int num_internal = std::get<2>(std::get<5>(obj)[ctx_name]).getIntValue();
+            internal_nodes += num_internal;
+            
 
-            internal_nodes += std::get<2>(std::get<5>(obj)[ctx_name]).getIntValue();
+            if(!std::get<1>(obj).contains(ctx_name)) continue;
             
             for(int j = 0; j < nodes[ctx_name].size(); j++) {
                 used_nodes.addIfNotAlreadyThere(nodes[ctx_name][j]);
@@ -324,14 +295,14 @@ String Engine::combine_objects(SimplifiedNodes& node_list, std::map<String, Obje
         }
         
         if(used_nodes.size()) {
-            num_nodes[ctx_name] = *std::max_element(used_nodes.begin(),  used_nodes.end()) + internal_nodes + 1;
+            num_nodes[ctx_name] = *std::max_element(used_nodes.begin(),  used_nodes.end());
         }
         else {
-            num_nodes[ctx_name] = internal_nodes + 1;
+            num_nodes[ctx_name] = 0;
         }
         
         for(auto& [v_name, v_type, v_size, v_dims, v_def] : std::get<3>(ctx)) {
-            if(v_size < 1) v_size = num_nodes[ctx_name];
+            if(v_size < 1) v_size = num_nodes[ctx_name] + internal_nodes + 1;
         }
     }
     
@@ -344,11 +315,18 @@ String Engine::combine_objects(SimplifiedNodes& node_list, std::map<String, Obje
             // Check which contexts are used
             used_contexts.addIfNotAlreadyThere(import);
             
+            int num_internal = std::get<2>(ports[import]).getIntValue();
+
             // Add node vector for each context to object
             Array<String> stringified;
             for(auto& num : nodes[import]) {
                 stringified.add(String(num));
             }
+            // Add node numbers for internal nodes
+            for(int n = 0; n < num_internal; n++) {
+                stringified.add(String(++num_nodes[import]));
+            }
+            
             vectors.add({import + "_nodes", "int", stringified.size(), 1, stringified});
         }
         
@@ -414,9 +392,11 @@ String Engine::combine_objects(SimplifiedNodes& node_list, std::map<String, Obje
     }
     
     String prepare_code = "void prepare() {\n";
-    
+    String free_code = "void free() {\n";
     for(auto& context : used_contexts) {
-        std::get<0>(contexts[context]) += "_obj";
+        auto& [ctx_name, ctx_imports, ctx_variables, ctx_vectors, ctx_functions, ctx_ports, ctx_num_args] = contexts[context];
+        
+        ctx_name += "_obj";
         
         String ctx_struct, ctx_func;
         std::tie(ctx_struct, ctx_func) = write_code(contexts[context], context, Context);
@@ -424,11 +404,17 @@ String Engine::combine_objects(SimplifiedNodes& node_list, std::map<String, Obje
         context_functions += ctx_func;
         context_structs += ctx_struct;
         
+
         reset_code += context + "_reset();\n";
         
-        prepare_code += context + "_obj_prepare();\n";
+        if(find_by_name(ctx_functions, "free")) {
+            free_code += context + "_obj_free();\n";
+        }
+        if(find_by_name(ctx_functions, "prepare")) {
+            prepare_code += context + "_obj_prepare();\n";
+        }
     }
-    
+    free_code += "}\n\n";
     reset_code += "}\n\n";
 
     prepare_code += "}\n\n";
@@ -453,7 +439,7 @@ String Engine::combine_objects(SimplifiedNodes& node_list, std::map<String, Obje
                         "}\n";
     }
     
-    return context_structs + object_code + context_functions + reset_code + calc_code + prepare_code + audio_func + gui_funcs;
+    return context_structs + object_code + context_functions + reset_code + calc_code + prepare_code + free_code + audio_func + gui_funcs;
 }
 
 
@@ -463,14 +449,14 @@ std::pair<String, String> Engine::write_code(Object& object, const String& uniqu
     String function_code;
     
     auto& [name, imports, variables, vectors, functions, ports, num_args] = object;
+        
+    prefix_names_in_functions(functions, functions, name + "_");
     
-    // Fix function call names
-    if(write_type != Context) {
-        for(auto& [f1_name, f1_args, f1_body] : functions) {
-            for(auto& [f2_name, f2_args, f2_body] : functions) {
-                prefix_whole_word(f1_body, f2_name, name + "_");
-            }
-        }
+    if(write_type == Context) {
+        // Will this be okay in subpatchers?
+        String real_name = name.upToFirstOccurrenceOf("_", false, false);
+        prefix_names_in_functions(functions, variables, real_name + ".");
+        prefix_names_in_functions(functions, vectors, real_name + ".");
     }
     
     // Create struct and function to initialize structs to default value
@@ -494,11 +480,25 @@ std::pair<String, String> Engine::write_code(Object& object, const String& uniqu
             continue;
         }
         
-        struct_code += type + " " + vec_name + "[" + String(size) + "];\n";
+        struct_code += type + " " + vec_name + "[" + String(size) + "]";
+        for(int i = 1; i < vec_dims; i++) struct_code += "[" + String(size) + "]";
         
-        for(int n = 0; n < size; n++) {
-            String value = vec_def.size() < size || vec_def[n].isEmpty() ? "0" : vec_def[n];
-            set_defaults += unique_name + "." + vec_name + "[" + String(n) + "] = " + value + ";\n";
+        struct_code += ";\n";
+        
+        
+        // FIX FOR MULTI-DIM VECTORS!
+        for(int n = 0; n < pow(size, vec_dims); n++) {
+            
+            String value = vec_def.size() <= n || vec_def[n].isEmpty() ? "0" : vec_def[n];
+            
+            // Not for more than 2d for now...
+            int dim = n / size;
+            int idx = n % size;
+            
+            String subscript = vec_dims == 1 ? "[" + String(n) + "]" : "[" + String(dim) + "]" + "[" + String(idx) + "]";
+            
+            
+            set_defaults += unique_name + "." + vec_name + subscript + " = " + value + ";\n";
         }
     }
     
@@ -647,11 +647,8 @@ Object Engine::create_subpatcher(String new_name, SimplifiedNodes node_list, Obj
         
         for(auto& variable : obj_variables) {
             auto& [var_name, var_type, var_default] = variable;
-        
             
-            for(auto& [f_name, f_args, f_body] : obj_functions) {
-                prefix_whole_word(f_body, var_name, new_name + "_" + obj_name + "_");
-            }
+            prefix_name_in_functions(obj_functions, variable, new_name + "_" + obj_name + "_");
             
             var_name = new_name + "_" + obj_name  + "_" + var_name;
             variables.add(variable);
@@ -661,9 +658,7 @@ Object Engine::create_subpatcher(String new_name, SimplifiedNodes node_list, Obj
         for(auto& vector : obj_vectors) {
             auto&[vec_name, vec_type, vec_size, vec_dims, vec_def] = vector;
             
-            for(auto& [f_name, f_args, f_body] : obj_functions) {
-                prefix_whole_word(f_body, vec_name, new_name + "_" + obj_name + "_");
-            }
+            prefix_name_in_functions(obj_functions, vector, new_name + "_" + obj_name + "_");
             
             vec_name = new_name + "_" + obj_name + "_" +  vec_name;
             vectors.add(vector);
@@ -676,10 +671,8 @@ Object Engine::create_subpatcher(String new_name, SimplifiedNodes node_list, Obj
                 prefix_whole_word(f_body, import, new_name + "_");
             }
             
-            for(auto& [f2_name, f2_args, f2_body] : obj_functions) {
-                prefix_whole_word(f2_body, f_name,  new_name + "_" + obj_name + "_");
-            }
-            
+            prefix_name_in_functions(obj_functions, function, new_name + "_" + obj_name + "_");
+
             if(f_name.contains(".")) {
                 function_map[{f_name, f_args}] += f_body;
             }
@@ -707,16 +700,8 @@ Object Engine::create_subpatcher(String new_name, SimplifiedNodes node_list, Obj
         
         functions.add({f_name, f_args, f_body});
     }
-    
 
-    
-    for(auto& [var_name, var_type, var_default] : variables) {
-        if(var_name.startsWith(new_name + "_out_obj") && var_name.endsWith("num_in")) {
-            var_default = std::get<0>(ports["data"]);
-        }
-    }
     return new_object;
-    
 }
 
 // Recreate object format from parsed object
@@ -855,16 +840,36 @@ String Engine::empty_brackets(String str) {
         }
     }
     
-    return String(output);
+    String result(output);
+    
+    for(int i = 0; i < result.length(); i++) {
+        int comment_start = result.indexOf(i, "//");
+        if(comment_start == -1) break;
+        
+        int comment_end = result.indexOf(comment_start, "\n") + 1;
+        String whitespace = String::repeatedString(" ", comment_end - comment_start);
+        result.replaceSection(comment_start, comment_end, whitespace);
+        
+        i = comment_end - 1;
+    }
+    
+    for(int i = 0; i < result.length(); i++) {
+        int comment_start = result.indexOf("/*");
+        if(comment_start == -1) break;
+        
+        int comment_end = result.indexOf(comment_start, "*/") + 2;
+        String whitespace = String::repeatedString(" ", comment_end - comment_start);
+        result.replaceSection(comment_start, comment_end, whitespace);
+        
+        i = comment_end - 1;
+    }
+    
+    return result;
 }
 
 
-StringArray Engine::parse_tokens (StringRef target, StringRef breakCharacters)
+StringArray Engine::parse_tokens (StringRef target, StringRef breakWord)
 {
-    
-    String test = "_data_nodes[";
-    
-    int idx = indexOfWholeWord(test, "data_nodes");
     
     int num = 0;
     
@@ -878,9 +883,8 @@ StringArray Engine::parse_tokens (StringRef target, StringRef breakCharacters)
         
         for (auto t = blanked.text;;)
         {
-            auto tokenEnd = CharacterFunctions::findEndOfToken (t,
-                                                                breakCharacters.text,
-                                                                StringRef("\'\"").text);
+            
+            auto tokenEnd = CharacterFunctions::find(t, breakWord.text);
             
             long offset = (t - blanked.text);
             long length = (tokenEnd - t);
@@ -891,7 +895,7 @@ StringArray Engine::parse_tokens (StringRef target, StringRef breakCharacters)
             if (tokenEnd.isEmpty())
                 break;
 
-            t = ++tokenEnd;
+            t = tokenEnd.getAddress() + breakWord.length();
         }
     }
 
@@ -948,14 +952,15 @@ StringArray Engine::c_preprocess(StringArray sections) {
     // Add include
     sections.insert(0, "#define SUBPATCHER \n #include \"" + libcerite + "\"\n");
     
-    auto input = sections.joinIntoString("\n@\n");
+    auto input = sections.joinIntoString("\n@ENDOFINCLUDE@\n");
+    
     
     auto c_file = File::createTempFile(".c");
     c_file.replaceWithText(input);
     preprocessor.start("gcc -E " + c_file.getFullPathName());
     
     String preprocessed = preprocessor.readAllProcessOutput();
-    auto output = preprocessed.fromFirstOccurrenceOf("@", false, false);
+    auto output = preprocessed.fromFirstOccurrenceOf("@ENDOFINCLUDE@", false, false);
     
     auto lines = StringArray::fromLines(output);
     
@@ -970,7 +975,7 @@ StringArray Engine::c_preprocess(StringArray sections) {
     String to_find = "obj->";
     prefix_whole_word(in, to_find, "", true);
    
-    auto result = parse_tokens(in, "@");
+    auto result = parse_tokens(in, "@ENDOFINCLUDE@");
     
 
     

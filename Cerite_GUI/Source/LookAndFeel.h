@@ -2,6 +2,7 @@
 
 #include <JuceHeader.h>
 
+
 struct MainLook : public LookAndFeel_V4
 {
     MainLook() {
@@ -24,6 +25,47 @@ struct MainLook : public LookAndFeel_V4
         
         setColour(CodeEditorComponent::lineNumberBackgroundId, Colour(41, 41, 41));
     }
+    
+    int getTabButtonBestWidth(TabBarButton& button, int tabDepth) override {
+        auto& button_bar = button.getTabbedButtonBar();
+       
+        return button_bar.getWidth() / button_bar.getNumTabs();
+    }
+    
+    void drawTabButton (TabBarButton& button, Graphics& g, bool isMouseOver, bool isMouseDown) override
+    {
+        /*
+        Path tabShape;
+        createTabButtonShape (button, tabShape, isMouseOver, isMouseDown);
+
+        auto activeArea = button.getActiveArea();
+        tabShape.applyTransform (AffineTransform::translation ((float) activeArea.getX(),
+                                                               (float) activeArea.getY()));
+
+        DropShadow (Colours::black.withAlpha (0.5f), 2, Point<int> (0, 1)).drawForPath (g, tabShape);
+
+        fillTabButtonShape (button, g, tabShape, isMouseOver, isMouseDown);
+        */
+        
+        
+       
+        g.setColour(button.getToggleState() ? Colour(55, 55, 55) : Colour(41, 41, 41));
+        g.fillRect(button.getLocalBounds());
+        
+        g.setColour(Colour(120, 120, 120));
+        g.drawLine(0, button.getHeight() - 1, button.getWidth(), button.getHeight() - 1);
+        g.drawLine(button.getWidth(), 0, button.getWidth(), button.getHeight());
+        
+        drawTabButtonText (button, g, isMouseOver, isMouseDown);
+    }
+    
+    
+    Font getTabButtonFont (TabBarButton&, float height) override
+    {
+        return { height * 0.4f };
+    }
+    
+    
 };
 
 struct ToolbarLook : public MainLook
@@ -86,4 +128,7 @@ struct SidebarLook : public MainLook
         ToolbarLook::icon_font.setHeight(buttonHeight / (3.8 / scalar));
         return ToolbarLook::icon_font;
     }
+    
+    
+    
 };

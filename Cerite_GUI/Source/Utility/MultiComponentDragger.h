@@ -148,9 +148,10 @@ public:
     {
         if (didStartDragging)
             didStartDragging = false;
+        /* uncomment to deselect when clicking a selected component
         else
             if (!didJustSelect && isSelected(component))
-                setSelected(component, false);
+                setSelected(component, false); */
         
         didJustSelect = false;
         
@@ -218,8 +219,6 @@ public:
         return selectedComponents;
     }
     
-private:
-
     Rectangle<int> getAreaOfSelectedComponents()
     {
         if (selectedComponents.getNumSelected() == 0)
@@ -234,7 +233,8 @@ private:
         
         return a;
     }
-
+    
+private:
 
     void applyDirectionConstraints(const MouseEvent &e, Point<int> &delta)
     {

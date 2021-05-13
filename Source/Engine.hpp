@@ -61,6 +61,21 @@ struct Engine
         return nullptr;
     }
     
+    template <typename T>
+    static void prefix_names_in_functions(Array<Function>& functions, Array<T> variables, String prefix, bool replace = false) {
+        for(int i = 0; i < variables.size(); i++) {
+            prefix_name_in_functions(functions, variables[i], prefix, replace);
+        }
+    }
+    
+    template <typename T>
+    static void prefix_name_in_functions(Array<Function>& functions, T variable, String prefix, bool replace = false) {
+            for(auto& [f_name, f_args, f_body] : functions) {
+                prefix_whole_word(f_body, std::get<0>(variable), prefix, replace);
+            }
+    }
+    
+    
     static String empty_brackets(String str);
     
     static StringArray parse_tokens (StringRef target, StringRef breakCharacters);
@@ -85,5 +100,6 @@ struct Engine
     
     static int indexOfWholeWord (StringRef string_to_search, StringRef word) noexcept;
     
+
     static StringArray c_preprocess(StringArray sections);
 };

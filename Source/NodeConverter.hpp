@@ -43,4 +43,7 @@ struct NodeConverter
     
     static NodeList create_objects(Patch& list);
     
+    static void format_mna(NodeList& list);
+    
+    static void combine_node(NodeList& list, int old_num, int new_num, std::vector<int>& removed);
 };

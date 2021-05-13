@@ -37,6 +37,9 @@ void AudioPlayer::apply_settings(ValueTree settings)
 
 bool AudioPlayer::compile(Patch patch) {
     
+    if(free)
+        free();
+    
     stopTimer();
     receive_callbacks.clear();
     
@@ -105,11 +108,12 @@ bool AudioPlayer::compile(Patch patch) {
     if(!success || compiler_exit || linker_exit) {
         std::cout << "Error compiling patch:" << std::endl;
         std::cout << compiler_error << "\n\n\n" << linker_error << std::endl;
+        device_manager.getAudioCallbackLock().exit();
         return false;
     }
     
     
-    
+    free = (void(*)())dynlib.getFunction("free");
     prepare = (void(*)())dynlib.getFunction("prepare");
     reset = (void(*)())dynlib.getFunction("reset");
     
@@ -178,7 +182,6 @@ void AudioPlayer::getNextAudioBlock (const AudioSourceChannelInfo& bufferToFill)
     }
 }
 void AudioPlayer::releaseResources() {
-    
 }
 
 void AudioPlayer::hiResTimerCallback() {

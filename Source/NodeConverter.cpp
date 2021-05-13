@@ -52,6 +52,7 @@ SimplifiedNodes NodeConverter::format_nodes(NodeList& nodes, ObjectMap ctx_map) 
     
     bool has_dsp = false;
     bool has_data = false;
+    bool has_mna = false;
     
     // First work out conversions
     for(int i = 0; i < nodes.size(); i++) {
@@ -63,7 +64,6 @@ SimplifiedNodes NodeConverter::format_nodes(NodeList& nodes, ObjectMap ctx_map) 
                 String out_type = key.substring(0, type_divide);
                 String in_type = key.substring(type_divide + 2);
                 auto obj = Library::objects[Library::conversions[{out_type, in_type}]];
-                
             }
         }
     }
@@ -84,6 +84,14 @@ SimplifiedNodes NodeConverter::format_nodes(NodeList& nodes, ObjectMap ctx_map) 
             apply_splits(nodes, num_nodes["data"], i, "data", split_object);
             
         }
+        
+        if(node_list.count("mna")) {
+            has_mna = true;
+        }
+        
+    }
+    if(has_mna) {
+        format_mna(nodes);
     }
     
     // Then apply ordering
@@ -96,8 +104,7 @@ SimplifiedNodes NodeConverter::format_nodes(NodeList& nodes, ObjectMap ctx_map) 
     if(has_dsp) {
         format_dsp(flat_nodes);
     }
-    
-    
+
     return flat_nodes;
 }
 
@@ -197,6 +204,7 @@ void NodeConverter::format_dsp(SimplifiedNodes& list) {
         
         if(node_map_i.count("dsp") == 0) continue;
         
+        
         for (int j = i + 1; j < list.size(); j++) {
             
             auto& [object_j, node_map_j] = list[j];
@@ -233,7 +241,6 @@ void NodeConverter::format_data(NodeList& list) {
         
         if(node_map_i.count("data") == 0) continue;
         for(int j = i + 1; j < list.size(); j++) {
-            
             auto& [object_j, node_map_j, x_j, y_j] = list[j];
             
             if(node_map_j.count("data") == 0) continue;
@@ -249,18 +256,85 @@ NodeList NodeConverter::create_objects(Patch& list) {
     NodeList result;
     
     for(auto& [name, x, y, nodes] : list) {
+        auto args = name.fromFirstOccurrenceOf(" ", false, false);
+        auto type = name.upToFirstOccurrenceOf(" ", false, false);
         
-        auto tokens = StringArray::fromTokens(name, " ", "");
-        auto object = Library::objects[tokens[0]];
+        Object object;
+        Uuid id;
         
-        tokens.remove(0);
         
-        Engine::set_arguments(object, tokens.joinIntoString(" "));
         
+        if(Library::objects.count(type)) {
+            object = Library::objects[type];
+            Engine::set_arguments(object, args);
+        }
+        else {
+            File location = File(type).existsAsFile() ? File(type) : File(type).withFileExtension(".crpat");
+            if(location.existsAsFile())
+                object = Engine::parse_object(location.loadFileAsString(), args, Library::contexts);
+        }
         
         result.push_back({object, nodes, x, y});
     }
     
     return result;
+}
+
+void NodeConverter::combine_node(NodeList& list, int old_num, int new_num, std::vector<int>& removed)
+{
+    for(auto& [obj, nodes, x, y] : list) {
+        for(int i = 0; i < nodes["mna"].size(); i++) {
+            
+            if(std::any_of(nodes["mna"][i].begin(), nodes["mna"][i].end(), [old_num](const int in) mutable {
+                return in == old_num;
+            })) {
+                
+                auto old_values = nodes["mna"][i];
+                nodes["mna"][i] = {new_num};
+                
+                for(int j = 0; j < old_values.size(); j++) {
+                    if(old_values[j] != new_num) {
+                        removed.push_back(old_values[j]);
+                        combine_node(list, old_values[j], new_num, removed);
+                    }
+                }
+            }
+        }
+    }
+}
+
+void NodeConverter::format_mna(NodeList& list)
+{
+
+    std::vector<int> removed;
+    for(auto& [obj, nodes, x, y] : list) {
+        
+        auto& [name, imports, variables, vectors, functions, ports, num_args] = obj;
+        
+        if(name.upToFirstOccurrenceOf("_", false, false) == "ground") {
+            combine_node(list, nodes["mna"][0][0], 0, removed);
+            continue;
+        }
+        
+        if(nodes.count("mna") && nodes["mna"].size()) {
+            combine_node(list, nodes["mna"][0][0], nodes["mna"][0][0], removed);
+        }
+    }
     
+    std::sort(removed.begin(), removed.end());
+    removed.erase(std::unique(removed.begin(), removed.end()), removed.end());
+
+    // Make sure we leave no indices unused
+    for(auto& [obj, nodes, x, y] : list) {
+        auto& [name, imports, variables, vectors, functions, ports, num_args] = obj;
+        
+        for(int i = 0; i < nodes["mna"].size(); i++) {
+            if(nodes["mna"][i].size() > 0 && removed[0] < nodes["mna"][i][0]) {
+                float old = nodes["mna"][i][0];
+                combine_node(list, nodes["mna"][i][0], removed[0], removed);
+                removed.erase(removed.begin());
+                std::sort(removed.begin(), removed.end());
+            }
+        }
+    }
 }

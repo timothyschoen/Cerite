@@ -1,5 +1,6 @@
 #include "MainComponent.h"
 #include "Canvas.h"
+#include "Edge.h"
 #include "../../Source/NodeConverter.hpp"
 #include "../../Source/Engine.hpp"
 #include "../../Source/Library.hpp"
@@ -11,6 +12,9 @@ MainComponent::MainComponent() : ValueTreeObject(ValueTree("Main")), console(tru
 {
     setSize(1000, 700);
         
+    tabbar.setColour(TabbedButtonBar::frontOutlineColourId, Colour(41, 41, 41));
+    tabbar.setColour(TabbedButtonBar::tabOutlineColourId, Colour(41, 41, 41));
+    tabbar.setColour(TabbedComponent::outlineColourId, Colour(41, 41, 41));
     
     player.reset(nullptr);
     set_remote(false);
@@ -18,6 +22,11 @@ MainComponent::MainComponent() : ValueTreeObject(ValueTree("Main")), console(tru
     settings_dialog.reset(new SettingsDialog);
     
     setLookAndFeel(&main_look);
+    
+    tabbar.on_tab_change = [this](int idx) {
+        Edge::connecting_edge = nullptr;
+        triggerChange();
+    };
     
     compile_button.setClickingTogglesState(true);
     compile_button.setConnectedEdges(12);
@@ -36,8 +45,7 @@ MainComponent::MainComponent() : ValueTreeObject(ValueTree("Main")), console(tru
         compile_button.setToggleState(false, sendNotification);
     };
     
-    
-    addAndMakeVisible(canvas_port);
+    addAndMakeVisible(tabbar);
     rebuildObjects();
     
     addAndMakeVisible(&console);
@@ -50,13 +58,14 @@ MainComponent::MainComponent() : ValueTreeObject(ValueTree("Main")), console(tru
             player->enabled = false;
             return;
         }
-        auto patch = canvas->create_patch();
+        
+        auto patch = get_current_canvas()->create_patch();
         
         player->enabled = false;
         player->apply_settings(settings_dialog->get_settings());
         bool result = player->compile(patch);
         
-        for(auto& box : canvas->findChildrenOfClass<Box>()) {
+        for(auto& box : get_current_canvas()->findChildrenOfClass<Box>()) {
             if(box->graphics && result) {
                 box->graphics->register_object();
             }
@@ -73,12 +82,8 @@ MainComponent::MainComponent() : ValueTreeObject(ValueTree("Main")), console(tru
     
     // New button
     toolbar_buttons[0].onClick = [this]() {
-        auto cnv_state = getState().getChildWithName("Canvas");
-        if(cnv_state.isValid())  {
-            getState().removeChild(cnv_state, nullptr);
-            canvas_port.setViewedComponent(nullptr, false);
-        }
         auto new_cnv = ValueTree("Canvas");
+        new_cnv.setProperty("Title", "Untitled Patcher", nullptr);
         getState().appendChild(new_cnv, nullptr);
     };
     
@@ -93,11 +98,11 @@ MainComponent::MainComponent() : ValueTreeObject(ValueTree("Main")), console(tru
     };
     
     toolbar_buttons[3].onClick = [this]() {
-        canvas->undo();
+        get_current_canvas()->undo();
     };
     
     toolbar_buttons[4].onClick = [this]() {
-        canvas->redo();
+        get_current_canvas()->redo();
     };
     
     toolbar_buttons[5].onClick = [this]() {
@@ -143,7 +148,9 @@ MainComponent::MainComponent() : ValueTreeObject(ValueTree("Main")), console(tru
     
     
     if(!getState().hasProperty("Canvas")) {
-        getState().appendChild(ValueTree("Canvas"), nullptr);
+        ValueTree cnv_state("Canvas");
+        cnv_state.setProperty("Title", "Untitled Patcher", nullptr);
+        getState().appendChild(cnv_state, nullptr);
     }
     
     
@@ -171,17 +178,17 @@ MainComponent::~MainComponent()
 ValueTreeObject* MainComponent::factory(const Identifier& id, const ValueTree& tree)
 {
     if(id == Identifiers::canvas) {
-        canvas_port.setViewedComponent(nullptr, false);
-
         canvas = new Canvas(tree);
-        
-        canvas_port.setViewedComponent(canvas, false);
-        canvas->setVisible(true);
-        canvas->setBounds(0, 0, 1000, 700);
+        add_tab(canvas);
+
         
         return static_cast<ValueTreeObject*>(canvas);
     }
+    
+    return nullptr;
 }
+
+
 //==============================================================================
 void MainComponent::paint (Graphics& g)
 {
@@ -220,10 +227,12 @@ void MainComponent::resized()
     
     int s_content_width = s_width - dragbar_width;
     
-    console.setBounds(getWidth() - s_content_width, toolbar_height, s_content_width, getHeight() - toolbar_height);
-    code_editor.setBounds(getWidth() - s_content_width, toolbar_height, s_content_width, getHeight() - toolbar_height);
+    int sbar_y = toolbar_height - 15;
     
-    canvas_port.setBounds(0, toolbar_height, getWidth() - s_width, getHeight() - toolbar_height - statusbar_height);
+    console.setBounds(getWidth() - s_content_width, sbar_y, s_content_width, getHeight() - sbar_y);
+    code_editor.setBounds(getWidth() - s_content_width, sbar_y, s_content_width, getHeight() - sbar_y);
+    
+    tabbar.setBounds(0, toolbar_height, getWidth() - s_width, getHeight() - toolbar_height - statusbar_height);
     
     compile_button.setBounds(getWidth() - s_width - 40, getHeight() - 32, 30, 30);
     autocompile_button.setBounds(getWidth() - s_width - 80, getHeight() - 32, 30, 30);
@@ -285,14 +294,9 @@ void MainComponent::open_project() {
           if(openedfile.exists() && openedfile.getFileExtension().equalsIgnoreCase(".crpat")) {
               try
               {
-                  auto cnv_state = getState().getChildWithName("Canvas");
-                  if(cnv_state.isValid())  {
-                      getState().removeChild(cnv_state, nullptr);
-                      canvas_port.setViewedComponent(nullptr, false);
-                  }
-                  
                   auto stream = openedfile.createInputStream();
                   auto new_cnv = ValueTree::readFromStream(*stream);
+                  new_cnv.setProperty("Title", openedfile.getFileName(), nullptr);
                   getState().appendChild(new_cnv, nullptr);
               }
               catch (...)
@@ -312,7 +316,8 @@ void MainComponent::save_project() {
             File result = f.getResult();
             
             FileOutputStream ostream(result);
-            canvas->getState().writeToStream(ostream);
+            get_current_canvas()->getState().writeToStream(ostream);
+            get_current_canvas()->getState().setProperty("Title", result.getFileName(), nullptr);
         });
     }
 }
@@ -347,19 +352,25 @@ void MainComponent::receive_data(int port, std::function<void(libcerite::Data)> 
 }
 
 void MainComponent::triggerChange() {
-    toolbar_buttons[3].setEnabled(canvas->undo_manager.canUndo());
-    toolbar_buttons[4].setEnabled(canvas->undo_manager.canRedo());
+    if(!get_current_canvas())  {
+        toolbar_buttons[3].setEnabled(false);
+        toolbar_buttons[4].setEnabled(false);
+        return;
+    }
+    
+    toolbar_buttons[3].setEnabled(get_current_canvas()->undo_manager.canUndo());
+    toolbar_buttons[4].setEnabled(get_current_canvas()->undo_manager.canRedo());
     
     if(autocompile_button.getToggleState()) {
         
-        auto patch = canvas->create_patch();
+        auto patch = get_current_canvas()->create_patch();
         Thread::launch([this, patch]() mutable {
         
             player->enabled = false;
             player->apply_settings(settings_dialog->get_settings());
             bool result = player->compile(patch);
             
-            for(auto& box : canvas->findChildrenOfClass<Box>()) {
+            for(auto& box : get_current_canvas()->findChildrenOfClass<Box>()) {
                 if(box->graphics && result) {
                     box->graphics->register_object();
                 }
@@ -368,4 +379,73 @@ void MainComponent::triggerChange() {
             player->enabled = result;
         });
     }
+}
+
+Canvas* MainComponent::get_current_canvas()
+{
+    if(auto* viewport = dynamic_cast<Viewport*>(tabbar.getCurrentContentComponent())) {
+        if(auto* cnv = dynamic_cast<Canvas*>(viewport->getViewedComponent())) {
+            return cnv;
+        }
+    }
+    return nullptr;
+}
+
+void MainComponent::add_tab(Canvas* cnv)
+{
+    tabbar.addTab(cnv->getState().getProperty("Title"), Colour(50, 50, 50), &cnv->viewport, false);
+    
+    int tab_idx = tabbar.getNumTabs() - 1;
+    tabbar.setCurrentTabIndex(tab_idx);
+    
+    if(tabbar.getNumTabs() > 1) {
+        tabbar.getTabbedButtonBar().setVisible(true);
+        tabbar.setTabBarDepth(30);
+    }
+    else {
+        tabbar.getTabbedButtonBar().setVisible(false);
+        tabbar.setTabBarDepth(1);
+    }
+    
+    auto* tab_button = tabbar.getTabbedButtonBar().getTabButton(tab_idx);
+    
+    auto* close_button = new TextButton("x");
+   
+    close_button->onClick = [this, tab_button]() mutable {
+        
+        int idx = -1;
+        for(int i = 0; i < tabbar.getNumTabs(); i++) {
+            if(tabbar.getTabbedButtonBar().getTabButton(i) == tab_button) {
+                idx = i;
+                break;
+            }
+        }
+        if(idx == -1) return;
+        
+        if(tabbar.getCurrentTabIndex() == idx) {
+            tabbar.setCurrentTabIndex(idx == 1 ? idx - 1 : idx + 1);
+        }
+        tabbar.removeTab(idx);
+        
+        if(tabbar.getNumTabs() == 1) {
+            tabbar.getTabbedButtonBar().setVisible(false);
+            tabbar.setTabBarDepth(1);
+        }
+    };
+    
+    close_button->setColour(TextButton::buttonColourId, Colour());
+    close_button->setColour(TextButton::buttonOnColourId, Colour());
+    close_button->setColour(ComboBox::outlineColourId, Colour());
+    close_button->setColour(TextButton::textColourOnId, Colours::white);
+    close_button->setColour(TextButton::textColourOffId, Colours::white);
+    close_button->setConnectedEdges(12);
+    tab_button->setExtraComponent(close_button, TabBarButton::beforeText);
+    
+    close_button->setVisible(true);
+    close_button->setSize(28, 28);
+    
+    tabbar.repaint();
+    
+    canvas->setVisible(true);
+    canvas->setBounds(0, 0, 1000, 700);
 }

@@ -22,15 +22,15 @@ public:
     void resized() override;
     
     void mouseMove(const MouseEvent& e) override;
+    void mouseDrag(const MouseEvent& e) override;
+    
+    void create_connection();
     
     Rectangle<int> get_canvas_bounds();
     
     static inline SafePointer<Edge> connecting_edge = nullptr;
-    static inline std::map<String, Edge*> all_edges;
 private:
 
-    //==============================================================================
-    // Your private member variables go here...
 
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (Edge)

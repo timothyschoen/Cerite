@@ -29,13 +29,14 @@ struct AudioPlayer : public AudioSource, public HighResolutionTimer
     DynamicLibrary dynlib;
     ChildProcess compiler;
     
-    void(*reset)();
-    void(*prepare)();
-    void(*process_audio)();
-    void(*process_data)();
+    void(*free)() = [](){};
+    void(*reset)() = [](){};
+    void(*prepare)() = [](){};
+    void(*process_audio)() = [](){};
+    void(*process_data)() = [](){};
     
-    void(*register_gui)(int port, void(*)(void*, libcerite::Data, int));
-    void(*send_gui)(int port, libcerite::Data);
+    void(*register_gui)(int port, void(*)(void*, libcerite::Data, int)) = [](int port, void(*)(void*, libcerite::Data, int)){};
+    void(*send_gui)(int port, libcerite::Data) = [](int port, libcerite::Data){};
     
     double*(*get_output)();
     
@@ -48,6 +49,9 @@ struct AudioPlayer : public AudioSource, public HighResolutionTimer
     AudioPlayer();
     
     ~AudioPlayer() {
+        if(free)
+            free();
+        
         receive_callbacks.clear();
     }
     

@@ -9,9 +9,9 @@ Connection::Connection(Canvas* parent, ValueTree tree) : ValueTreeObject(tree)
 {
     cnv = parent;
     rebuildObjects();
-    
-    start = Edge::all_edges[tree.getProperty("StartID")];
-    end = Edge::all_edges[tree.getProperty("EndID")];
+   
+    start = cnv->find_edge_by_id(tree.getProperty("StartID"));
+    end = cnv->find_edge_by_id(tree.getProperty("EndID"));
     
     if(!start || !end) {
         parent->getState().removeChild(tree, &cnv->undo_manager);

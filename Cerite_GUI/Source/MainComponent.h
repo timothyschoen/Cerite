@@ -16,6 +16,24 @@
     your controls and content.
 */
 
+struct TabComponent : public TabbedComponent
+{
+    
+    std::function<void(int)> on_tab_change = [](int){};
+    
+    TabComponent() : TabbedComponent(TabbedButtonBar::TabsAtTop) {
+        
+    }
+    
+    void currentTabChanged(int newCurrentTabIndex, const String& newCurrentTabName) override
+    {
+        on_tab_change(newCurrentTabIndex);
+    }
+
+    
+};
+
+
 class AudioPlayer;
 class MainComponent : public Component, public ValueTreeObject
 {
@@ -45,12 +63,19 @@ public:
     void send_data(int port, libcerite::Data data);
     void receive_data(int port, std::function<void(libcerite::Data)>);
     
+    void add_tab(Canvas* cnv);
+    
+    Canvas* get_current_canvas();
     
     void triggerChange();
     
     ValueTreeObject* factory (const Identifier&, const ValueTree&) override;
     
-
+    TabComponent& get_tabbar()  { return tabbar; };
+    
+    static inline File home_dir = File::getSpecialLocation(File::SpecialLocationType::userDocumentsDirectory).getChildFile("Cerite");
+    static inline File app_dir = File::getSpecialLocation(File::SpecialLocationType::userApplicationDataDirectory);
+    
 private:
     
     FileChooser save_chooser =  FileChooser("Select a save file", File::getSpecialLocation(File::SpecialLocationType::userDocumentsDirectory).getChildFile("Cerite").getChildFile("Saves"), "*.crpat");
@@ -58,8 +83,6 @@ private:
     
     std::unique_ptr<AudioPlayer> player;
     std::unique_ptr<SettingsDialog> settings_dialog;
-    
-    Viewport canvas_port = Viewport("CanvasPort");
     
     int toolbar_height = 50;
     int statusbar_height = 35;
@@ -87,6 +110,7 @@ private:
     Console console;
     mcl::TextEditor code_editor;
     
+    TabComponent tabbar;
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MainComponent)
 };

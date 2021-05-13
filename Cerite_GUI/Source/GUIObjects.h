@@ -46,6 +46,8 @@ struct GUIComponent : public Component
     
     static GUIComponent* create_gui(String name, Box* parent);
     
+    virtual String get_state() = 0;
+    
 };
 
 struct BangComponent : public GUIComponent, public Timer
@@ -68,6 +70,9 @@ struct BangComponent : public GUIComponent, public Timer
     void resized() override;
     
     void register_object() override;
+    
+    String get_state() override;
+    
 };
 
 struct ToggleComponent : public GUIComponent, public Timer
@@ -90,6 +95,8 @@ struct ToggleComponent : public GUIComponent, public Timer
     void resized() override;
     
     void register_object() override;
+    
+    String get_state() override;
 };
 
 
@@ -116,6 +123,8 @@ struct MessageComponent : public GUIComponent, public Timer
     void resized() override;
     
     void register_object() override;
+    
+    String get_state() override;
 };
 
 
@@ -149,6 +158,8 @@ struct NumboxComponent : public GUIComponent, public Timer
     void resized() override;
     
     void register_object() override;
+    
+    String get_state() override;
 
 };
 
@@ -177,12 +188,16 @@ struct SliderComponent : public GUIComponent, public Timer
     void resized() override;
     
     void register_object() override;
+    
+    String get_state() override;
 
 };
 
 
 struct RadioComponent : public GUIComponent, public Timer
 {
+    
+    int last_state = 0;
     
     bool v_radio;
     RadioComponent(bool vertical, Box* parent);
@@ -207,7 +222,6 @@ struct RadioComponent : public GUIComponent, public Timer
     
     void register_object() override;
     
-    
-    
-    
+    String get_state() override;
+
 };

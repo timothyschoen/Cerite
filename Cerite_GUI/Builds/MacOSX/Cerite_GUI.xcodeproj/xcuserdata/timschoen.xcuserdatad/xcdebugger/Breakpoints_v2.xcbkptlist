@@ -46,8 +46,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "188"
-            endingLineNumber = "188"
+            startingLineNumber = "267"
+            endingLineNumber = "267"
             landmarkName = "Canvas::keyPressed(key, originatingComponent)"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "189"
-            endingLineNumber = "189"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
             landmarkName = "Canvas::keyPressed(key, originatingComponent)"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,9 +78,9 @@
             filePath = "../../Source/Edge.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
-            landmarkName = "Edge::paint(g)"
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "Edge::get_canvas_bounds()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -158,9 +158,9 @@
             filePath = "../../Source/Edge.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "Edge::resized()"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "Edge::paint(g)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -174,9 +174,9 @@
             filePath = "../../Source/Edge.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "Edge::resized()"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "Edge::get_canvas_bounds()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -190,10 +190,10 @@
             filePath = "../../Source/Edge.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "Edge::resized()"
-            landmarkType = "7">
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -238,8 +238,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
             landmarkName = "Canvas::mouseDown(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -254,8 +254,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
             landmarkName = "Canvas::mouseDown(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -270,25 +270,9 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "56"
-            endingLineNumber = "56"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "Canvas::mouseDown(e)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "47EB553F-73C2-4489-9DD5-DFFD766ED20E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Edge.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "Edge::Edge(tree)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -302,8 +286,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
             landmarkName = "Canvas::mouseDrag(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -318,8 +302,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "384"
-            endingLineNumber = "384"
+            startingLineNumber = "447"
+            endingLineNumber = "447"
             landmarkName = "Canvas::create_patch()"
             landmarkType = "7">
          </BreakpointContent>
@@ -334,8 +318,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "387"
-            endingLineNumber = "387"
+            startingLineNumber = "450"
+            endingLineNumber = "450"
             landmarkName = "Canvas::create_patch()"
             landmarkType = "7">
             <Locations>
@@ -412,8 +396,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "456"
-            endingLineNumber = "456"
+            startingLineNumber = "549"
+            endingLineNumber = "549"
             landmarkName = "Canvas::create_patch()"
             landmarkType = "7">
          </BreakpointContent>
@@ -428,8 +412,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "371"
-            endingLineNumber = "371"
+            startingLineNumber = "434"
+            endingLineNumber = "434"
             landmarkName = "Canvas::create_patch()"
             landmarkType = "7">
          </BreakpointContent>
@@ -444,24 +428,8 @@
             filePath = "../../../Source/NodeConverter.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
-            landmarkName = "NodeConverter::create_objects(list)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8668784C-49F3-4324-9C49-E90B510FFE9E"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../../Source/NodeConverter.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "258"
-            endingLineNumber = "258"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
             landmarkName = "NodeConverter::create_objects(list)"
             landmarkType = "7">
          </BreakpointContent>
@@ -476,8 +444,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
             landmarkName = "Engine::set_arguments(target, arguments)"
             landmarkType = "7">
          </BreakpointContent>
@@ -492,8 +460,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "224"
-            endingLineNumber = "224"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
             landmarkName = "Engine::set_arguments(target, arguments)"
             landmarkType = "7">
             <Locations>
@@ -540,8 +508,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "223"
-            endingLineNumber = "223"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "Engine::set_arguments(target, arguments)"
             landmarkType = "7">
          </BreakpointContent>
@@ -556,153 +524,9 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
             landmarkName = "Engine::set_arguments(target, arguments)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "3786EBAD-2DB9-4B05-92A1-319EEEE84EAB"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Box.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "222"
-            endingLineNumber = "222"
-            landmarkName = "Box::set_type(new_type)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "093A7E80-A8A9-4229-A714-B413E02C779A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Box.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "213"
-            endingLineNumber = "213"
-            landmarkName = "Box::set_type(new_type)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CB31186C-86BB-4AB3-BDDF-2EDFC95702FD"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Box.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
-            landmarkName = "Box::set_type(new_type)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "59A3EB11-A7B0-455B-8352-9BB7764A0B24"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Box.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "198"
-            endingLineNumber = "198"
-            landmarkName = "Box::set_type(new_type)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "BF4A7D0F-0B0D-4943-A9E3-484995BE5234"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Box.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
-            landmarkName = "Box::set_type(new_type)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C232F7F6-7927-4891-9999-71FCD1D3593B"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Box.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "199"
-            endingLineNumber = "199"
-            landmarkName = "Box::set_type(new_type)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F44BA74C-7477-44F2-A594-DCE69BF497CA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Box.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "212"
-            endingLineNumber = "212"
-            landmarkName = "Box::set_type(new_type)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B186CA75-E68E-4A7A-9415-197BFE6A8DC0"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Box.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
-            landmarkName = "Box::set_type(new_type)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "2AC5C13C-013C-49CC-9331-18D08F9BFA05"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Box.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "248"
-            endingLineNumber = "248"
-            landmarkName = "Box::set_type(new_type)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -716,8 +540,8 @@
             filePath = "../../Source/LookAndFeel.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "drawButtonBackground(g, button, backgroundColour, shouldDrawButtonAsHighlighted, shouldDrawButtonAsDown)"
             landmarkType = "7">
          </BreakpointContent>
@@ -732,8 +556,8 @@
             filePath = "../../Source/LookAndFeel.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "drawButtonBackground(g, button, backgroundColour, shouldDrawButtonAsHighlighted, shouldDrawButtonAsDown)"
             landmarkType = "7">
          </BreakpointContent>
@@ -748,8 +572,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
             landmarkName = "MainComponent::mouseDown(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -764,8 +588,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "259"
-            endingLineNumber = "259"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
             landmarkName = "MainComponent::mouseDown(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -780,8 +604,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
             landmarkName = "MainComponent::mouseDrag(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -796,8 +620,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "272"
-            endingLineNumber = "272"
+            startingLineNumber = "281"
+            endingLineNumber = "281"
             landmarkName = "MainComponent::mouseDrag(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -812,8 +636,8 @@
             filePath = "../../Source/Utility/MultiComponentDragger.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
+            startingLineNumber = "174"
+            endingLineNumber = "174"
             landmarkName = "handleMouseDrag(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -844,8 +668,8 @@
             filePath = "../../Source/Box.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
             landmarkName = "ClickLabel::mouseUp(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -860,8 +684,8 @@
             filePath = "../../Source/Box.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
             landmarkName = "ClickLabel::mouseUp(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -876,8 +700,8 @@
             filePath = "../../Source/Box.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
             landmarkName = "ClickLabel::mouseUp(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -892,8 +716,8 @@
             filePath = "../../Source/LookAndFeel.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
             landmarkName = "getTextButtonFont(, buttonHeight)"
             landmarkType = "7">
          </BreakpointContent>
@@ -908,8 +732,8 @@
             filePath = "../../Source/LookAndFeel.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "getTextButtonFont(, buttonHeight)"
             landmarkType = "7">
          </BreakpointContent>
@@ -924,8 +748,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "314"
-            endingLineNumber = "314"
+            startingLineNumber = "318"
+            endingLineNumber = "318"
             landmarkName = "MainComponent::save_project()"
             landmarkType = "7">
          </BreakpointContent>
@@ -940,8 +764,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "14"
-            endingLineNumber = "14"
+            startingLineNumber = "15"
+            endingLineNumber = "15"
             landmarkName = "Canvas::Canvas(tree)"
             landmarkType = "7">
          </BreakpointContent>
@@ -949,71 +773,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "97BC4E16-EA42-4606-813B-2DFE1C829F71"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/MainComponent.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "288"
-            endingLineNumber = "288"
-            landmarkName = "MainComponent::open_project()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "FBDC9849-089A-41C0-9068-E305896B2928"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/MainComponent.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "285"
-            endingLineNumber = "285"
-            landmarkName = "MainComponent::open_project()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "F4D4C417-8EC4-4C2C-853E-72220DB536BE"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/MainComponent.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "287"
-            endingLineNumber = "287"
-            landmarkName = "MainComponent::open_project()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C5F9F7DD-1F00-4E7D-91DF-19518474C552"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/MainComponent.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "286"
-            endingLineNumber = "286"
-            landmarkName = "MainComponent::open_project()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4DABF71D-33CE-4610-ACE3-4BCF4E8326EB"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
@@ -1029,15 +789,47 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E01CCC47-A8D2-446A-A9DB-956693104926"
+            uuid = "F4D4C417-8EC4-4C2C-853E-72220DB536BE"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "290"
-            endingLineNumber = "290"
+            startingLineNumber = "296"
+            endingLineNumber = "296"
+            landmarkName = "MainComponent::open_project()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C5F9F7DD-1F00-4E7D-91DF-19518474C552"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/MainComponent.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "295"
+            endingLineNumber = "295"
+            landmarkName = "MainComponent::open_project()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4DABF71D-33CE-4610-ACE3-4BCF4E8326EB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/MainComponent.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
             landmarkName = "MainComponent::open_project()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1052,8 +844,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "296"
-            endingLineNumber = "296"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
             landmarkName = "MainComponent::open_project()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1084,8 +876,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
+            startingLineNumber = "46"
+            endingLineNumber = "46"
             landmarkName = "Canvas::factory(id, tree)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1100,8 +892,8 @@
             filePath = "../../../Source/NodeConverter.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
             landmarkName = "NodeConverter::flatten_nodes(list)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1116,8 +908,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "443"
-            endingLineNumber = "443"
+            startingLineNumber = "508"
+            endingLineNumber = "508"
             landmarkName = "Canvas::create_patch()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1132,8 +924,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
             landmarkName = "MainComponent::factory(id, tree)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1148,8 +940,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
             landmarkName = "MainComponent::factory(id, tree)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1164,8 +956,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
             landmarkName = "MainComponent::factory(id, tree)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1180,8 +972,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "169"
-            endingLineNumber = "169"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -1196,10 +988,10 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
-            landmarkName = "MainComponent::~MainComponent()"
-            landmarkType = "7">
+            startingLineNumber = "175"
+            endingLineNumber = "175"
+            landmarkName = "unknown"
+            landmarkType = "0">
             <Locations>
                <Location
                   uuid = "DA54D29A-A584-49F5-BC34-D1034383272A - 9ae75e557aa36b92"
@@ -1259,8 +1051,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "170"
-            endingLineNumber = "170"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -1291,8 +1083,8 @@
             filePath = "../../../Source/AudioPlayer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
             landmarkName = "AudioPlayer::setAudioChannels(numInputChannels, numOutputChannels, state)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1323,8 +1115,8 @@
             filePath = "../../../Source/AudioPlayer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "165"
-            endingLineNumber = "165"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
             landmarkName = "AudioPlayer::getNextAudioBlock(bufferToFill)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1339,8 +1131,8 @@
             filePath = "../../../Source/AudioPlayer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
             landmarkName = "AudioPlayer::getNextAudioBlock(bufferToFill)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1355,8 +1147,8 @@
             filePath = "../../../Source/AudioPlayer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "AudioPlayer::getNextAudioBlock(bufferToFill)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1371,8 +1163,8 @@
             filePath = "../../../Source/AudioPlayer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
             landmarkName = "AudioPlayer::getNextAudioBlock(bufferToFill)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1387,8 +1179,8 @@
             filePath = "../../../Source/AudioPlayer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
             landmarkName = "AudioPlayer::compile(patch)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1403,8 +1195,8 @@
             filePath = "../../../Source/AudioPlayer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
             landmarkName = "AudioPlayer::compile(patch)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1419,8 +1211,8 @@
             filePath = "../../../Source/AudioPlayer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "98"
-            endingLineNumber = "98"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "AudioPlayer::compile(patch)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1435,8 +1227,8 @@
             filePath = "../../../Source/AudioPlayer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
             landmarkName = "AudioPlayer::compile(patch)"
             landmarkType = "7">
             <Locations>
@@ -1513,8 +1305,8 @@
             filePath = "../../../Source/AudioPlayer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "173"
-            endingLineNumber = "173"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
             landmarkName = "AudioPlayer::getNextAudioBlock(bufferToFill)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1529,8 +1321,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "124"
-            endingLineNumber = "124"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
             landmarkName = "Canvas::mouseDrag(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1561,8 +1353,8 @@
             filePath = "../../../Source/AudioPlayer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
             landmarkName = "AudioPlayer::tree_from_patch(patch)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1577,8 +1369,8 @@
             filePath = "../../../Source/AudioPlayer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
             landmarkName = "AudioPlayer::compile(patch)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1602,22 +1394,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D661E34A-C7FF-4A2E-8843-BEBE3C7A6227"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Box.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "193"
-            endingLineNumber = "193"
-            landmarkName = "Box::set_type(new_type)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "7E3A135C-2F14-4340-A581-31CE929EB319"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -1625,8 +1401,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "437"
-            endingLineNumber = "437"
+            startingLineNumber = "502"
+            endingLineNumber = "502"
             landmarkName = "Canvas::create_patch()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1641,8 +1417,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "448"
-            endingLineNumber = "448"
+            startingLineNumber = "517"
+            endingLineNumber = "517"
             landmarkName = "Canvas::create_patch()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1657,8 +1433,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "438"
-            endingLineNumber = "438"
+            startingLineNumber = "503"
+            endingLineNumber = "503"
             landmarkName = "Canvas::create_patch()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1721,8 +1497,8 @@
             filePath = "../../../Source/AudioPlayer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "280"
-            endingLineNumber = "280"
+            startingLineNumber = "283"
+            endingLineNumber = "283"
             landmarkName = "AudioPlayer::set_receive_callback(port, callback)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1737,8 +1513,8 @@
             filePath = "../../../Source/AudioPlayer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "279"
-            endingLineNumber = "279"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
             landmarkName = "AudioPlayer::set_receive_callback(port, callback)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1785,8 +1561,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "334"
-            endingLineNumber = "334"
+            startingLineNumber = "339"
+            endingLineNumber = "339"
             landmarkName = "MainComponent::send_data(port, data)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1801,8 +1577,8 @@
             filePath = "../../../Source/AudioPlayer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "289"
-            endingLineNumber = "289"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
             landmarkName = "AudioPlayer::send_data(port, data)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1819,7 +1595,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "196"
             endingLineNumber = "196"
-            landmarkName = "Number(value)"
+            landmarkName = "String(str)"
             landmarkType = "9">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1865,8 +1641,8 @@
             filePath = "../../Source/GUIObjects.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "259"
-            endingLineNumber = "259"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
             landmarkName = "NumboxComponent::register_object()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1881,8 +1657,8 @@
             filePath = "../../Source/GUIObjects.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "258"
-            endingLineNumber = "258"
+            startingLineNumber = "272"
+            endingLineNumber = "272"
             landmarkName = "NumboxComponent::register_object()"
             landmarkType = "7">
          </BreakpointContent>
@@ -1897,8 +1673,8 @@
             filePath = "../../Source/GUIObjects.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "mouseDrag(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1913,8 +1689,8 @@
             filePath = "../../Source/GUIObjects.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
             landmarkName = "mouseDrag(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -1929,8 +1705,8 @@
             filePath = "../../Source/GUIObjects.h"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "137"
-            endingLineNumber = "137"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
             landmarkName = "mouseDrag(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2009,8 +1785,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
             landmarkName = "Canvas::keyPressed(key, originatingComponent)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2025,8 +1801,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "207"
-            endingLineNumber = "207"
+            startingLineNumber = "286"
+            endingLineNumber = "286"
             landmarkName = "Canvas::keyPressed(key, originatingComponent)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2137,8 +1913,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "145"
-            endingLineNumber = "145"
+            startingLineNumber = "198"
+            endingLineNumber = "198"
             landmarkName = "Canvas::mouseDrag(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2153,8 +1929,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
             landmarkName = "Canvas::mouseDrag(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2169,8 +1945,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
             landmarkName = "Canvas::mouseDrag(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2185,8 +1961,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
             landmarkName = "Canvas::mouseDrag(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2201,8 +1977,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
+            startingLineNumber = "179"
+            endingLineNumber = "179"
             landmarkName = "Canvas::mouseDrag(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2217,8 +1993,8 @@
             filePath = "../../../Source/NodeConverter.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "115"
-            endingLineNumber = "115"
+            startingLineNumber = "122"
+            endingLineNumber = "122"
             landmarkName = "NodeConverter::apply_splits(list, num_nodes, current_idx, type, split_obj)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2233,8 +2009,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "230"
-            endingLineNumber = "230"
+            startingLineNumber = "309"
+            endingLineNumber = "309"
             landmarkName = "Canvas::keyPressed(key, originatingComponent)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2249,8 +2025,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "231"
-            endingLineNumber = "231"
+            startingLineNumber = "310"
+            endingLineNumber = "310"
             landmarkName = "Canvas::keyPressed(key, originatingComponent)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2265,8 +2041,8 @@
             filePath = "../../Source/GUIObjects.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
             landmarkName = "MessageComponent::register_object()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2281,58 +2057,10 @@
             filePath = "../../Source/GUIObjects.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "MessageComponent::register_object()"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CAA4A093-39BC-4CC0-A0D7-736FA68DEBEA"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/GUIObjects.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
-            landmarkName = "MessageComponent::register_object()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "CAA4A093-39BC-4CC0-A0D7-736FA68DEBEA - 1371df99bbbad64c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MessageComponent::register_object()::$_6::operator()() const"
-                  moduleName = "Cerite_GUI"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/GUIObjects.cpp"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "181"
-                  endingLineNumber = "181"
-                  offsetFromSymbolStart = "604">
-               </Location>
-               <Location
-                  uuid = "CAA4A093-39BC-4CC0-A0D7-736FA68DEBEA - 1371df99bbbad64c"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MessageComponent::register_object()::$_6::operator()() const"
-                  moduleName = "Cerite_GUI"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/GUIObjects.cpp"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "181"
-                  endingLineNumber = "181"
-                  offsetFromSymbolStart = "988">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -2393,8 +2121,8 @@
             filePath = "../../../Source/NodeConverter.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "65"
-            endingLineNumber = "65"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
             landmarkName = "NodeConverter::format_nodes(nodes, ctx_map)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2409,8 +2137,8 @@
             filePath = "../../../Source/NodeConverter.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "NodeConverter::format_nodes(nodes, ctx_map)"
             landmarkType = "7">
             <Locations>
@@ -2457,8 +2185,8 @@
             filePath = "../../../Source/NodeConverter.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
             landmarkName = "NodeConverter::format_nodes(nodes, ctx_map)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2473,8 +2201,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "381"
-            endingLineNumber = "381"
+            startingLineNumber = "444"
+            endingLineNumber = "444"
             landmarkName = "Canvas::create_patch()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2489,8 +2217,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "383"
-            endingLineNumber = "383"
+            startingLineNumber = "446"
+            endingLineNumber = "446"
             landmarkName = "Canvas::create_patch()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2505,8 +2233,8 @@
             filePath = "../../Source/Box.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "339"
-            endingLineNumber = "339"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
             landmarkName = "Box::valueTreePropertyChanged(treeWhosePropertyHasChanged, property)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2537,8 +2265,8 @@
             filePath = "../../Source/Box.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "282"
-            endingLineNumber = "282"
+            startingLineNumber = "235"
+            endingLineNumber = "235"
             landmarkName = "Box::moved()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2553,8 +2281,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
+            startingLineNumber = "341"
+            endingLineNumber = "341"
             landmarkName = "Canvas::copy_selection()"
             landmarkType = "7">
          </BreakpointContent>
@@ -2569,8 +2297,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "293"
-            endingLineNumber = "293"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
             landmarkName = "Engine::combine_objects(node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2939,8 +2667,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "657"
-            endingLineNumber = "657"
+            startingLineNumber = "654"
+            endingLineNumber = "654"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2955,8 +2683,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "668"
-            endingLineNumber = "668"
+            startingLineNumber = "663"
+            endingLineNumber = "663"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2971,8 +2699,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "699"
-            endingLineNumber = "699"
+            startingLineNumber = "692"
+            endingLineNumber = "692"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2987,8 +2715,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "294"
-            endingLineNumber = "294"
+            startingLineNumber = "266"
+            endingLineNumber = "266"
             landmarkName = "Engine::combine_objects(node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3003,8 +2731,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
             landmarkName = "Engine::parse_object(file, name, contexts, is_context)"
             landmarkType = "7">
             <Locations>
@@ -3083,8 +2811,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "977"
-            endingLineNumber = "977"
+            startingLineNumber = "982"
+            endingLineNumber = "982"
             landmarkName = "Engine::c_preprocess(sections)"
             landmarkType = "7">
             <Locations>
@@ -3147,8 +2875,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "810"
-            endingLineNumber = "810"
+            startingLineNumber = "795"
+            endingLineNumber = "795"
             landmarkName = "Engine::indexOfWholeWord(string_to_search, word)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3163,8 +2891,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "812"
-            endingLineNumber = "812"
+            startingLineNumber = "797"
+            endingLineNumber = "797"
             landmarkName = "Engine::indexOfWholeWord(string_to_search, word)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3179,8 +2907,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "816"
-            endingLineNumber = "816"
+            startingLineNumber = "801"
+            endingLineNumber = "801"
             landmarkName = "Engine::indexOfWholeWord(string_to_search, word)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3195,8 +2923,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "815"
-            endingLineNumber = "815"
+            startingLineNumber = "800"
+            endingLineNumber = "800"
             landmarkName = "Engine::indexOfWholeWord(string_to_search, word)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3211,8 +2939,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "827"
-            endingLineNumber = "827"
+            startingLineNumber = "812"
+            endingLineNumber = "812"
             landmarkName = "Engine::prefix_whole_word(to_process, to_find, replacement, replace)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3259,8 +2987,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "826"
-            endingLineNumber = "826"
+            startingLineNumber = "811"
+            endingLineNumber = "811"
             landmarkName = "Engine::prefix_whole_word(to_process, to_find, replacement, replace)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3275,8 +3003,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "828"
-            endingLineNumber = "828"
+            startingLineNumber = "813"
+            endingLineNumber = "813"
             landmarkName = "Engine::prefix_whole_word(to_process, to_find, replacement, replace)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3291,8 +3019,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "809"
-            endingLineNumber = "809"
+            startingLineNumber = "794"
+            endingLineNumber = "794"
             landmarkName = "Engine::indexOfWholeWord(string_to_search, word)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3403,8 +3131,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "944"
-            endingLineNumber = "944"
+            startingLineNumber = "948"
+            endingLineNumber = "948"
             landmarkName = "Engine::c_preprocess(sections)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3419,8 +3147,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "951"
-            endingLineNumber = "951"
+            startingLineNumber = "955"
+            endingLineNumber = "955"
             landmarkName = "Engine::c_preprocess(sections)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3435,8 +3163,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "960"
-            endingLineNumber = "960"
+            startingLineNumber = "965"
+            endingLineNumber = "965"
             landmarkName = "Engine::c_preprocess(sections)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3451,8 +3179,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "963"
-            endingLineNumber = "963"
+            startingLineNumber = "968"
+            endingLineNumber = "968"
             landmarkName = "Engine::c_preprocess(sections)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3467,8 +3195,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "964"
-            endingLineNumber = "964"
+            startingLineNumber = "969"
+            endingLineNumber = "969"
             landmarkName = "Engine::c_preprocess(sections)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3483,8 +3211,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "973"
-            endingLineNumber = "973"
+            startingLineNumber = "978"
+            endingLineNumber = "978"
             landmarkName = "Engine::c_preprocess(sections)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3499,9 +3227,9 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "874"
-            endingLineNumber = "874"
-            landmarkName = "Engine::parse_tokens(target, breakCharacters)"
+            startingLineNumber = "879"
+            endingLineNumber = "879"
+            landmarkName = "Engine::parse_tokens(target, breakWord)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3515,9 +3243,9 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "898"
-            endingLineNumber = "898"
-            landmarkName = "Engine::parse_tokens(target, breakCharacters)"
+            startingLineNumber = "902"
+            endingLineNumber = "902"
+            landmarkName = "Engine::parse_tokens(target, breakWord)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3531,9 +3259,9 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "888"
-            endingLineNumber = "888"
-            landmarkName = "Engine::parse_tokens(target, breakCharacters)"
+            startingLineNumber = "892"
+            endingLineNumber = "892"
+            landmarkName = "Engine::parse_tokens(target, breakWord)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3547,9 +3275,9 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "873"
-            endingLineNumber = "873"
-            landmarkName = "Engine::parse_tokens(target, breakCharacters)"
+            startingLineNumber = "878"
+            endingLineNumber = "878"
+            landmarkName = "Engine::parse_tokens(target, breakWord)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3563,9 +3291,9 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "899"
-            endingLineNumber = "899"
-            landmarkName = "Engine::parse_tokens(target, breakCharacters)"
+            startingLineNumber = "903"
+            endingLineNumber = "903"
+            landmarkName = "Engine::parse_tokens(target, breakWord)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -3626,25 +3354,9 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "858"
-            endingLineNumber = "858"
+            startingLineNumber = "867"
+            endingLineNumber = "867"
             landmarkName = "Engine::empty_brackets(str)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "B18535F9-1232-423E-89E5-17D070915BBD"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../../Source/Engine.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "869"
-            endingLineNumber = "869"
-            landmarkName = "Engine::parse_tokens(target, breakCharacters)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3658,8 +3370,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "811"
-            endingLineNumber = "811"
+            startingLineNumber = "796"
+            endingLineNumber = "796"
             landmarkName = "Engine::indexOfWholeWord(string_to_search, word)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3674,8 +3386,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "796"
-            endingLineNumber = "796"
+            startingLineNumber = "781"
+            endingLineNumber = "781"
             landmarkName = "Engine::indexOfWholeWord(string_to_search, word)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3866,8 +3578,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "315"
-            endingLineNumber = "315"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
             landmarkName = "Engine::combine_objects(node_list, contexts)"
             landmarkType = "7">
             <Locations>
@@ -3971,85 +3683,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "FF94B133-21B8-43AC-BB1B-EA1A7B93B75D"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Box.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "164"
-            endingLineNumber = "164"
-            landmarkName = "Box::set_type(new_type)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C619DEF6-E599-42C1-87E5-E6A411B6B570"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Box.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
-            landmarkName = "Box::set_type(new_type)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "C619DEF6-E599-42C1-87E5-E6A411B6B570 - fc70dea93eb78a50"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Box::set_type(juce::String)"
-                  moduleName = "Cerite_GUI"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Box.cpp"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "168"
-                  endingLineNumber = "168"
-                  offsetFromSymbolStart = "1016">
-               </Location>
-               <Location
-                  uuid = "C619DEF6-E599-42C1-87E5-E6A411B6B570 - fc70dea93eb78a50"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Box::set_type(juce::String)"
-                  moduleName = "Cerite_GUI"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Box.cpp"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "168"
-                  endingLineNumber = "168"
-                  offsetFromSymbolStart = "1080">
-               </Location>
-               <Location
-                  uuid = "C619DEF6-E599-42C1-87E5-E6A411B6B570 - fc70dea93eb78a50"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Box::set_type(juce::String)"
-                  moduleName = "Cerite_GUI"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Box.cpp"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "168"
-                  endingLineNumber = "168"
-                  offsetFromSymbolStart = "1124">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "59FE7805-36A1-4210-979D-537E0AEF07B4"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -4057,13 +3690,13 @@
             filePath = "../../Source/Box.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
             landmarkName = "Box::set_type(new_type)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "59FE7805-36A1-4210-979D-537E0AEF07B4 - fc70dea93eb78a50"
+                  uuid = "59FE7805-36A1-4210-979D-537E0AEF07B4 - fc70dea93eb7b115"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -4073,12 +3706,12 @@
                   urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Box.cpp"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "168"
-                  endingLineNumber = "168"
-                  offsetFromSymbolStart = "1016">
+                  startingLineNumber = "205"
+                  endingLineNumber = "205"
+                  offsetFromSymbolStart = "1512">
                </Location>
                <Location
-                  uuid = "59FE7805-36A1-4210-979D-537E0AEF07B4 - fc70dea93eb78a50"
+                  uuid = "59FE7805-36A1-4210-979D-537E0AEF07B4 - fc70dea93eb7b115"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -4088,12 +3721,12 @@
                   urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Box.cpp"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "168"
-                  endingLineNumber = "168"
-                  offsetFromSymbolStart = "1080">
+                  startingLineNumber = "205"
+                  endingLineNumber = "205"
+                  offsetFromSymbolStart = "1576">
                </Location>
                <Location
-                  uuid = "59FE7805-36A1-4210-979D-537E0AEF07B4 - fc70dea93eb78a50"
+                  uuid = "59FE7805-36A1-4210-979D-537E0AEF07B4 - fc70dea93eb7b115"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -4103,43 +3736,11 @@
                   urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Box.cpp"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "168"
-                  endingLineNumber = "168"
-                  offsetFromSymbolStart = "1124">
+                  startingLineNumber = "205"
+                  endingLineNumber = "205"
+                  offsetFromSymbolStart = "1620">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "56F2E632-228F-4D28-A23F-A801A07CB8C3"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Box.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "192"
-            endingLineNumber = "192"
-            landmarkName = "Box::set_type(new_type)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "4DA62114-A70B-423D-9DFB-1E7AD52639C6"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Box.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
-            landmarkName = "Box::set_type(new_type)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -4152,8 +3753,8 @@
             filePath = "../../Source/Box.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "184"
-            endingLineNumber = "184"
+            startingLineNumber = "193"
+            endingLineNumber = "193"
             landmarkName = "Box::set_type(new_type)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4168,8 +3769,8 @@
             filePath = "../../../Source/NodeConverter.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
             landmarkName = "NodeConverter::format_nodes(nodes, ctx_map)"
             landmarkType = "7">
             <Locations>
@@ -4231,8 +3832,8 @@
             filePath = "../../../Source/NodeConverter.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
+            startingLineNumber = "62"
+            endingLineNumber = "62"
             landmarkName = "NodeConverter::format_nodes(nodes, ctx_map)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4295,8 +3896,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "427"
-            endingLineNumber = "427"
+            startingLineNumber = "492"
+            endingLineNumber = "492"
             landmarkName = "Canvas::create_patch()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4311,8 +3912,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "407"
-            endingLineNumber = "407"
+            startingLineNumber = "472"
+            endingLineNumber = "472"
             landmarkName = "Canvas::create_patch()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4327,8 +3928,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "409"
-            endingLineNumber = "409"
+            startingLineNumber = "474"
+            endingLineNumber = "474"
             landmarkName = "Canvas::create_patch()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4343,8 +3944,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "410"
-            endingLineNumber = "410"
+            startingLineNumber = "475"
+            endingLineNumber = "475"
             landmarkName = "Canvas::create_patch()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4359,8 +3960,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "412"
-            endingLineNumber = "412"
+            startingLineNumber = "477"
+            endingLineNumber = "477"
             landmarkName = "Canvas::create_patch()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4375,8 +3976,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "417"
-            endingLineNumber = "417"
+            startingLineNumber = "482"
+            endingLineNumber = "482"
             landmarkName = "Canvas::create_patch()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4391,8 +3992,8 @@
             filePath = "../../../Source/NodeConverter.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "132"
+            endingLineNumber = "132"
             landmarkName = "NodeConverter::apply_splits(list, num_nodes, current_idx, type, split_obj)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4407,8 +4008,8 @@
             filePath = "../../../Source/NodeConverter.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
+            startingLineNumber = "162"
+            endingLineNumber = "162"
             landmarkName = "NodeConverter::apply_splits(list, num_nodes, current_idx, type, split_obj)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4423,8 +4024,8 @@
             filePath = "../../../Source/AudioPlayer.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
             landmarkName = "AudioPlayer::getNextAudioBlock(bufferToFill)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4439,8 +4040,8 @@
             filePath = "../../Source/Box.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "170"
-            endingLineNumber = "170"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "Box::set_type(new_type)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4471,8 +4072,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
             landmarkName = "Canvas::mouseDown(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4503,8 +4104,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
             landmarkName = "MainComponent::paint(g)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4519,9 +4120,1094 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "209"
-            endingLineNumber = "209"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
             landmarkName = "MainComponent::paint(g)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DBEEFD87-1985-4548-B30C-02DA2B0B046B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/GUIObjects.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "180"
+            endingLineNumber = "180"
+            landmarkName = "MessageComponent::register_object()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0A7A0A45-F5D1-46A1-9575-418D9F6D2551"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/GUIObjects.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
+            landmarkName = "MessageComponent::register_object()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "00D6FD84-3C25-4CD9-8966-A4E52BDD94AB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/GUIObjects.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "MessageComponent::register_object()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5F044129-2F2A-4720-81B5-4DB1213C0F75"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/GUIObjects.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "183"
+            endingLineNumber = "183"
+            landmarkName = "MessageComponent::register_object()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6F945554-7856-416C-8EEA-E8C69A4D900A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/GUIObjects.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
+            landmarkName = "MessageComponent::register_object()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2B9F09AD-47FD-4251-8127-EA5B8EE4859A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "23"
+            endingLineNumber = "23"
+            landmarkName = "Canvas::Canvas(tree)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "591EAE3A-D75C-4F6A-8C55-BF1661FBEF8D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "375"
+            endingLineNumber = "375"
+            landmarkName = "Canvas::copy_selection()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BA8DDB7C-B959-47D0-B592-14421C4E3908"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "Canvas::mouseDown(e)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5DD32010-51EF-4795-B612-483DFE2706BE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "Canvas::mouseDown(e)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BAE220D9-6D27-4272-BB78-09E4438A0E52"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Utility/MultiComponentDragger.h"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "129"
+            endingLineNumber = "129"
+            landmarkName = "handleMouseDown(component, e)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0ACB8217-E6F8-4041-A21B-5DAF639515A7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/LookAndFeel.h"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "getTabButtonBestWidth(button, tabDepth)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EB17C8F0-695B-4731-A676-EF0B09D2FC30"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Source/Engine.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "463"
+            endingLineNumber = "463"
+            landmarkName = "Engine::write_code(object, unique_name, write_type)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "EB17C8F0-695B-4731-A676-EF0B09D2FC30 - 88a97f73d3778eeb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Engine::write_code(std::__1::tuple&lt;juce::String, juce::Array&lt;juce::String, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, int, int, juce::StringArray&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::StringArray, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, std::__1::map&lt;juce::String, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt; &gt; &gt; &gt;, int&gt;&amp;, juce::String const&amp;, WriteType)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Source/Engine.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "487"
+                  endingLineNumber = "487"
+                  offsetFromSymbolStart = "652">
+               </Location>
+               <Location
+                  uuid = "EB17C8F0-695B-4731-A676-EF0B09D2FC30 - 88a97f73d3778eeb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Engine::write_code(std::__1::tuple&lt;juce::String, juce::Array&lt;juce::String, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, int, int, juce::StringArray&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::StringArray, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, std::__1::map&lt;juce::String, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt; &gt; &gt; &gt;, int&gt;&amp;, juce::String const&amp;, WriteType)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Source/Engine.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "487"
+                  endingLineNumber = "487"
+                  offsetFromSymbolStart = "700">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DD20EF88-CDD4-4C31-873E-81D5CE645910"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Source/Engine.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "459"
+            endingLineNumber = "459"
+            landmarkName = "Engine::write_code(object, unique_name, write_type)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B4FCCCC1-5496-4C6F-9E32-0EF1D3EA9548"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Source/NodeConverter.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "NodeConverter::format_nodes(nodes, ctx_map)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "160190B9-83C0-46AB-BD19-C50BB96C69A6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Source/NodeConverter.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "NodeConverter::format_nodes(nodes, ctx_map)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "54928BD5-2EDF-46D9-8878-AC8A72BD0265"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Source/Engine.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "498"
+            endingLineNumber = "498"
+            landmarkName = "Engine::write_code(object, unique_name, write_type)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7E315842-4E6D-454A-B7A9-CDAFCD469194"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Box.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
+            landmarkName = "Box::valueTreePropertyChanged(treeWhosePropertyHasChanged, property)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3BC4433E-3BFA-487A-9E7D-1C8D700CD4C2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Box.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
+            landmarkName = "Box::valueTreePropertyChanged(treeWhosePropertyHasChanged, property)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6F85892A-BDA7-4B65-924F-85FECAD3A540"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Box.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "243"
+            endingLineNumber = "243"
+            landmarkName = "Box::update_position()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "90C9DE00-EDD5-4AE1-9DBA-6E9238F21138"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/MainComponent.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
+            landmarkName = "MainComponent::resized()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C77A9A1D-4E40-480B-81DB-CF8CC357A540"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Box.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "202"
+            endingLineNumber = "202"
+            landmarkName = "Box::set_type(new_type)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2AA3642C-6C58-49DC-AC2A-F4C185FF7C2A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "Canvas::mouseDown(e)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C1749249-CC2A-415E-91C5-C71C222CA7B3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Box.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
+            landmarkName = "Box::load_subpatch(title)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "773C2FD7-5E8F-4AD7-B476-1568F78DDF1B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Box.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "312"
+            endingLineNumber = "312"
+            landmarkName = "Box::load_subpatch(title)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "05D4B914-9470-4A8C-9877-16D012C5EF3F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Box.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "326"
+            endingLineNumber = "326"
+            landmarkName = "Box::load_subpatch(title)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0DF04789-4108-4BD0-8221-28CE97A5DF66"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Box.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "130"
+            endingLineNumber = "130"
+            landmarkName = "Box::factory(id, tree)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "455B11A5-8C78-4D79-9DDB-DEC255706A2E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Box.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "134"
+            endingLineNumber = "134"
+            landmarkName = "Box::factory(id, tree)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "781E45A7-DD96-4CBF-8ECE-2DEBFD6D9135"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Source/NodeConverter.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
+            landmarkName = "NodeConverter::create_objects(list)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A2816BCB-6D99-421D-90F5-25129FCEAFAF"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Source/NodeConverter.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
+            landmarkName = "NodeConverter::create_objects(list)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "532520AE-372A-4803-AAF7-C51BE74A270C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "543"
+            endingLineNumber = "543"
+            landmarkName = "Canvas::create_patch()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1BBB1CAC-FF4F-4AA1-882A-DBBCF8FCC203"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "530"
+            endingLineNumber = "530"
+            landmarkName = "Canvas::create_patch()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "861A740D-23ED-409A-BD80-D4F6A9A810FB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "539"
+            endingLineNumber = "539"
+            landmarkName = "Canvas::create_patch()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "897F7205-EBD3-4228-A795-D570B1ACF806"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "541"
+            endingLineNumber = "541"
+            landmarkName = "Canvas::create_patch()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "66F7EBBE-390B-452E-8166-64B31BB1BBB6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Source/NodeConverter.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
+            landmarkName = "NodeConverter::create_objects(list)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "985FCC8C-2656-47E7-B3A9-EBBF668E80E9"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Source/NodeConverter.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
+            landmarkName = "NodeConverter::create_objects(list)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2CF64E6D-F725-4BD9-898E-ED73F4BB3A5B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Source/NodeConverter.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
+            landmarkName = "NodeConverter::create_objects(list)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "52B60CFB-5F09-4897-B2C4-B6CF5310D8BE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Source/Engine.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
+            landmarkName = "Engine::parse_object(file, name, contexts, is_context)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9B01A79E-247E-4DCC-992D-52FFAAB8D961"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "594"
+            endingLineNumber = "594"
+            landmarkName = "Canvas::encapsulate(encapsulate_func)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ECA8476C-A473-4930-B630-5D7109A7D574"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "664"
+            endingLineNumber = "664"
+            landmarkName = "Canvas::encapsulate(encapsulate_func)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "591A15C1-810C-4212-967A-3CEA5AE51395"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "Canvas::find_edge_by_id(ID)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AE67C34E-E6E5-46CD-8B65-7EA9A32CE1CC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "600"
+            endingLineNumber = "600"
+            landmarkName = "Canvas::encapsulate(encapsulate_func)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "263EB1FF-4D3E-4B97-B76D-BE85A569AA05"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "676"
+            endingLineNumber = "676"
+            landmarkName = "Canvas::timerCallback()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0A56C948-A284-4ADE-B458-C6EF196AE5F6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "675"
+            endingLineNumber = "675"
+            landmarkName = "Canvas::timerCallback()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0A5F5AA5-6187-4C54-85D1-AF6928EB3FFB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "674"
+            endingLineNumber = "674"
+            landmarkName = "Canvas::timerCallback()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0A5F5AA5-6187-4C54-85D1-AF6928EB3FFB - c309d9f8563dbb27"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Canvas::timerCallback()"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Canvas.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "651"
+                  endingLineNumber = "651"
+                  offsetFromSymbolStart = "144">
+               </Location>
+               <Location
+                  uuid = "0A5F5AA5-6187-4C54-85D1-AF6928EB3FFB - c309d9f8563dbb27"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Canvas::timerCallback()"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Canvas.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "651"
+                  endingLineNumber = "651"
+                  offsetFromSymbolStart = "156">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C50A8B72-E91A-4407-9BD4-4E7DF254F3DB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "672"
+            endingLineNumber = "672"
+            landmarkName = "Canvas::timerCallback()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7FB1B166-B81B-4B77-AB52-A1E543780E1E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "680"
+            endingLineNumber = "680"
+            landmarkName = "Canvas::timerCallback()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6E3C50E4-0493-416C-8445-38B8D1DEAAC2"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "679"
+            endingLineNumber = "679"
+            landmarkName = "Canvas::timerCallback()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4CFBC69F-7FF5-40F8-8FA5-A72A706C9842"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Source/Engine.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "330"
+            endingLineNumber = "330"
+            landmarkName = "Engine::combine_objects(node_list, contexts)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "34CFFAA2-3452-4A7F-9AFB-699D5F0CAB40"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Source/NodeConverter.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "324"
+            endingLineNumber = "324"
+            landmarkName = "NodeConverter::format_mna(list)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "26184DC1-BFD8-4710-AAB0-B32EBD9B985F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Source/NodeConverter.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "325"
+            endingLineNumber = "325"
+            landmarkName = "NodeConverter::format_mna(list)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2557C6D9-23AA-490E-B74A-6E6EE04F93B7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Source/NodeConverter.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "328"
+            endingLineNumber = "328"
+            landmarkName = "NodeConverter::format_mna(list)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2557C6D9-23AA-490E-B74A-6E6EE04F93B7 - eb59aa85f576a252"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NodeConverter::format_mna(std::__1::vector&lt;std::__1::tuple&lt;std::__1::tuple&lt;juce::String, juce::Array&lt;juce::String, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, int, int, juce::StringArray&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::StringArray, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, std::__1::map&lt;juce::String, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt; &gt; &gt; &gt;, int&gt;, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, int&gt;, std::__1::allocator&lt;std::__1::tuple&lt;std::__1::tuple&lt;juce::String, juce::Array&lt;juce::String, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, int, int, juce::StringArray&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::StringArray, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, std::__1::map&lt;juce::String, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt; &gt; &gt; &gt;, int&gt;, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, int&gt; &gt; &gt;&amp;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Source/NodeConverter.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "331"
+                  endingLineNumber = "331"
+                  offsetFromSymbolStart = "1252">
+               </Location>
+               <Location
+                  uuid = "2557C6D9-23AA-490E-B74A-6E6EE04F93B7 - eb59aa85f576a252"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NodeConverter::format_mna(std::__1::vector&lt;std::__1::tuple&lt;std::__1::tuple&lt;juce::String, juce::Array&lt;juce::String, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, int, int, juce::StringArray&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::StringArray, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, std::__1::map&lt;juce::String, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt; &gt; &gt; &gt;, int&gt;, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, int&gt;, std::__1::allocator&lt;std::__1::tuple&lt;std::__1::tuple&lt;juce::String, juce::Array&lt;juce::String, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, int, int, juce::StringArray&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::StringArray, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, std::__1::map&lt;juce::String, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt; &gt; &gt; &gt;, int&gt;, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, int&gt; &gt; &gt;&amp;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Source/NodeConverter.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "331"
+                  endingLineNumber = "331"
+                  offsetFromSymbolStart = "1308">
+               </Location>
+               <Location
+                  uuid = "2557C6D9-23AA-490E-B74A-6E6EE04F93B7 - eb59aa85f576a252"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NodeConverter::format_mna(std::__1::vector&lt;std::__1::tuple&lt;std::__1::tuple&lt;juce::String, juce::Array&lt;juce::String, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, int, int, juce::StringArray&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::StringArray, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, std::__1::map&lt;juce::String, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt; &gt; &gt; &gt;, int&gt;, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, int&gt;, std::__1::allocator&lt;std::__1::tuple&lt;std::__1::tuple&lt;juce::String, juce::Array&lt;juce::String, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, int, int, juce::StringArray&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::StringArray, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, std::__1::map&lt;juce::String, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt; &gt; &gt; &gt;, int&gt;, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, int&gt; &gt; &gt;&amp;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Source/NodeConverter.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "331"
+                  endingLineNumber = "331"
+                  offsetFromSymbolStart = "1364">
+               </Location>
+               <Location
+                  uuid = "2557C6D9-23AA-490E-B74A-6E6EE04F93B7 - eb59aa85f576a252"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NodeConverter::format_mna(std::__1::vector&lt;std::__1::tuple&lt;std::__1::tuple&lt;juce::String, juce::Array&lt;juce::String, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, int, int, juce::StringArray&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::StringArray, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, std::__1::map&lt;juce::String, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt; &gt; &gt; &gt;, int&gt;, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, int&gt;, std::__1::allocator&lt;std::__1::tuple&lt;std::__1::tuple&lt;juce::String, juce::Array&lt;juce::String, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, int, int, juce::StringArray&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::StringArray, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, std::__1::map&lt;juce::String, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt; &gt; &gt; &gt;, int&gt;, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, int&gt; &gt; &gt;&amp;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Source/NodeConverter.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "331"
+                  endingLineNumber = "331"
+                  offsetFromSymbolStart = "1464">
+               </Location>
+               <Location
+                  uuid = "2557C6D9-23AA-490E-B74A-6E6EE04F93B7 - eb59aa85f576a252"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "NodeConverter::format_mna(std::__1::vector&lt;std::__1::tuple&lt;std::__1::tuple&lt;juce::String, juce::Array&lt;juce::String, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, int, int, juce::StringArray&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::StringArray, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, std::__1::map&lt;juce::String, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt; &gt; &gt; &gt;, int&gt;, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, int&gt;, std::__1::allocator&lt;std::__1::tuple&lt;std::__1::tuple&lt;juce::String, juce::Array&lt;juce::String, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::String, int, int, juce::StringArray&gt;, juce::DummyCriticalSection, 0&gt;, juce::Array&lt;std::__1::tuple&lt;juce::String, juce::StringArray, juce::String&gt;, juce::DummyCriticalSection, 0&gt;, std::__1::map&lt;juce::String, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::tuple&lt;juce::String, juce::String, juce::String&gt; &gt; &gt; &gt;, int&gt;, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, int&gt; &gt; &gt;&amp;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Source/NodeConverter.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "331"
+                  endingLineNumber = "331"
+                  offsetFromSymbolStart = "1828">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "26F34931-98AC-4FB4-A9FB-DC48F9F53637"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Source/NodeConverter.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "334"
+            endingLineNumber = "334"
+            landmarkName = "NodeConverter::format_mna(list)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "357DFA98-FEBE-4A90-B622-2D97D177807E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../Source/NodeConverter.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "336"
+            endingLineNumber = "336"
+            landmarkName = "NodeConverter::format_mna(list)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BAB8FA94-A62F-4736-B785-3B2EFF63F353"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Edge.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
+            landmarkName = "Edge::paint(g)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "58160E8E-A615-453E-8839-C154EBB230E1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Edge.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "11"
+            endingLineNumber = "11"
+            landmarkName = "Edge::Edge(tree)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6F1BBBBD-4897-437D-ABEC-0E424D5185B3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Edge.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "Edge::paint(g)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "58B32824-5C56-4FB8-A0F7-1A6D5DE2E639"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
+            landmarkName = "Canvas::mouseUp(e)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "508B46E0-466F-42D8-808B-1EF739BD32B7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "224"
+            endingLineNumber = "224"
+            landmarkName = "Canvas::mouseUp(e)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EA3483F8-4E62-49F0-A740-475C1608C899"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "222"
+            endingLineNumber = "222"
+            landmarkName = "Canvas::mouseUp(e)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

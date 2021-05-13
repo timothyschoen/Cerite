@@ -92,7 +92,9 @@ void BangComponent::resized() {
     bang_button.setBounds(getWidth() / 4, getHeight() / 4, getWidth() / 2, getHeight() / 2);
 }
 
-
+String BangComponent::get_state() {
+    return String();
+}
 // ToggleComponent
 
 ToggleComponent::ToggleComponent(Box* parent) : GUIComponent(parent)
@@ -129,6 +131,9 @@ void ToggleComponent::resized() {
     toggle_button.setBounds(getWidth() / 4, getHeight() / 4, getWidth() / 2, getHeight() / 2);
 }
 
+String ToggleComponent::get_state() {
+    return String((int)toggle_button.getToggleState());
+}
 
 
 // MessageComponent
@@ -153,7 +158,7 @@ void MessageComponent::register_object()  {
     input.onFocusLost = [this](){
         String new_text = input.getText();
         if(new_text.containsOnly("0123456789.-e")) {
-            send_data(0, {libcerite::tNumber, new_text.getDoubleValue(), strdup(""), nullptr, 0});
+            send_data(0, {libcerite::tNumber, new_text.getDoubleValue(), "", nullptr, 0});
         }
 
         
@@ -165,22 +170,26 @@ void MessageComponent::register_object()  {
             auto data = new libcerite::Data[tokens.size()];
             for(int i = 0; i < tokens.size(); i++) {
                 if(tokens[i].containsOnly("0123456789.-e")) {
-                    data[i] = libcerite::Data({libcerite::tNumber, tokens[i].getDoubleValue(), strdup(""), nullptr, 0});
+                    data[i] = libcerite::Data({libcerite::tNumber, tokens[i].getDoubleValue(), "", nullptr, 0});
                 }
                 else if(tokens[i] == "bang") {
-                    data[i] = libcerite::Data({libcerite::tBang, 0, strdup(""), nullptr, 0});
+                    data[i] = libcerite::Data({libcerite::tBang, 0, "", nullptr, 0});
                 }
                 else {
+                    
                     data[i] = libcerite::Data({libcerite::tString, 0, strdup(tokens[i].toRawUTF8()), nullptr, 0});
                 }
             }
-            send_data(0, {libcerite::tList, 0, strdup(""), data, (uint32_t)tokens.size()});
+            libcerite::Data input = {libcerite::tList, 0, "", data, (uint32_t)tokens.size()};
+            send_data(0, input);
+            libcerite::freeData(input);
             
         }
         else {
             auto cstr = new char[new_text.length() + 1];
             strcpy(cstr, new_text.toRawUTF8());
             send_data(0, {libcerite::tString, 0, cstr, nullptr, 0});
+            delete [] cstr;
         }
     };
 
@@ -232,6 +241,11 @@ String MessageComponent::parseData(libcerite::Data d) {
     
 }
 
+String MessageComponent::get_state() {
+    return "\"" + input.getText() + "\"";
+}
+
+
 // NumboxComponent
 
 
@@ -269,7 +283,9 @@ void NumboxComponent::resized() {
 
 
 
-
+String NumboxComponent::get_state() {
+    return input.getText();
+}
 
 // SliderComponent
 
@@ -311,6 +327,10 @@ void SliderComponent::resized() {
     slider.setBounds(getLocalBounds().reduced(v_slider ? 0.0 : 6.0, v_slider ? 6.0 : 0.0));
 }
 
+String SliderComponent::get_state() {
+    return String(slider.getValue());
+}
+
 
 
 
@@ -321,9 +341,6 @@ RadioComponent::RadioComponent(bool is_vertical, Box* parent) : GUIComponent(par
     v_radio = is_vertical;
     
     for(int i = 0; i < 8; i++) {
-        radio_buttons[i].onClick = [this, i]() mutable {
-            //setValueOriginal(i);
-        };
         radio_buttons[i].setConnectedEdges(12);
         radio_buttons[i].setRadioGroupId(1001);
         radio_buttons[i].setClickingTogglesState(true);
@@ -336,6 +353,7 @@ void RadioComponent::register_object()  {
     
     for(int i = 0; i < radio_buttons.size(); i++) {
         radio_buttons[i].onClick = [this, i]() mutable {
+            last_state = i;
             send_data(0, libcerite::Number(i));
         };
     }
@@ -345,6 +363,7 @@ void RadioComponent::register_object()  {
             int num = std::clamp((int)libcerite::get_number(data), 0, 7);
             MessageManager::callAsync([this, num]() mutable {
                 radio_buttons[num].setToggleState(true, sendNotification);
+                last_state = num;
             });
         }
     });
@@ -358,3 +377,6 @@ void RadioComponent::resized() {
 }
 
 
+String RadioComponent::get_state() {
+    return String(last_state);
+}
