@@ -2297,8 +2297,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
             landmarkName = "Engine::combine_objects(node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2313,8 +2313,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "617"
-            endingLineNumber = "617"
+            startingLineNumber = "625"
+            endingLineNumber = "625"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
             <Locations>
@@ -2571,8 +2571,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "635"
-            endingLineNumber = "635"
+            startingLineNumber = "643"
+            endingLineNumber = "643"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
             <Locations>
@@ -2619,8 +2619,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "648"
-            endingLineNumber = "648"
+            startingLineNumber = "656"
+            endingLineNumber = "656"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
             <Locations>
@@ -2667,8 +2667,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "654"
-            endingLineNumber = "654"
+            startingLineNumber = "662"
+            endingLineNumber = "662"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2683,8 +2683,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "663"
-            endingLineNumber = "663"
+            startingLineNumber = "671"
+            endingLineNumber = "671"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2699,8 +2699,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "692"
-            endingLineNumber = "692"
+            startingLineNumber = "700"
+            endingLineNumber = "700"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2715,8 +2715,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
+            startingLineNumber = "274"
+            endingLineNumber = "274"
             landmarkName = "Engine::combine_objects(node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2779,8 +2779,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "623"
-            endingLineNumber = "623"
+            startingLineNumber = "631"
+            endingLineNumber = "631"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2795,8 +2795,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "621"
-            endingLineNumber = "621"
+            startingLineNumber = "629"
+            endingLineNumber = "629"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2811,8 +2811,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "982"
-            endingLineNumber = "982"
+            startingLineNumber = "990"
+            endingLineNumber = "990"
             landmarkName = "Engine::c_preprocess(sections)"
             landmarkType = "7">
             <Locations>
@@ -2859,8 +2859,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "608"
-            endingLineNumber = "608"
+            startingLineNumber = "616"
+            endingLineNumber = "616"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2875,8 +2875,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "795"
-            endingLineNumber = "795"
+            startingLineNumber = "803"
+            endingLineNumber = "803"
             landmarkName = "Engine::indexOfWholeWord(string_to_search, word)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2891,8 +2891,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "797"
-            endingLineNumber = "797"
+            startingLineNumber = "805"
+            endingLineNumber = "805"
             landmarkName = "Engine::indexOfWholeWord(string_to_search, word)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2907,8 +2907,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "801"
-            endingLineNumber = "801"
+            startingLineNumber = "809"
+            endingLineNumber = "809"
             landmarkName = "Engine::indexOfWholeWord(string_to_search, word)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2923,8 +2923,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "800"
-            endingLineNumber = "800"
+            startingLineNumber = "808"
+            endingLineNumber = "808"
             landmarkName = "Engine::indexOfWholeWord(string_to_search, word)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2939,8 +2939,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "812"
-            endingLineNumber = "812"
+            startingLineNumber = "820"
+            endingLineNumber = "820"
             landmarkName = "Engine::prefix_whole_word(to_process, to_find, replacement, replace)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2987,8 +2987,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "811"
-            endingLineNumber = "811"
+            startingLineNumber = "819"
+            endingLineNumber = "819"
             landmarkName = "Engine::prefix_whole_word(to_process, to_find, replacement, replace)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3003,8 +3003,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "813"
-            endingLineNumber = "813"
+            startingLineNumber = "821"
+            endingLineNumber = "821"
             landmarkName = "Engine::prefix_whole_word(to_process, to_find, replacement, replace)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3019,8 +3019,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "794"
-            endingLineNumber = "794"
+            startingLineNumber = "802"
+            endingLineNumber = "802"
             landmarkName = "Engine::indexOfWholeWord(string_to_search, word)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3035,8 +3035,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "647"
-            endingLineNumber = "647"
+            startingLineNumber = "655"
+            endingLineNumber = "655"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
             <Locations>
@@ -3083,8 +3083,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "609"
-            endingLineNumber = "609"
+            startingLineNumber = "617"
+            endingLineNumber = "617"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3099,8 +3099,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "614"
-            endingLineNumber = "614"
+            startingLineNumber = "622"
+            endingLineNumber = "622"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3115,8 +3115,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "597"
-            endingLineNumber = "597"
+            startingLineNumber = "605"
+            endingLineNumber = "605"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3131,8 +3131,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "948"
-            endingLineNumber = "948"
+            startingLineNumber = "956"
+            endingLineNumber = "956"
             landmarkName = "Engine::c_preprocess(sections)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3147,8 +3147,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "955"
-            endingLineNumber = "955"
+            startingLineNumber = "963"
+            endingLineNumber = "963"
             landmarkName = "Engine::c_preprocess(sections)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3163,8 +3163,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "965"
-            endingLineNumber = "965"
+            startingLineNumber = "973"
+            endingLineNumber = "973"
             landmarkName = "Engine::c_preprocess(sections)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3179,8 +3179,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "968"
-            endingLineNumber = "968"
+            startingLineNumber = "976"
+            endingLineNumber = "976"
             landmarkName = "Engine::c_preprocess(sections)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3195,8 +3195,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "969"
-            endingLineNumber = "969"
+            startingLineNumber = "977"
+            endingLineNumber = "977"
             landmarkName = "Engine::c_preprocess(sections)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3211,8 +3211,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "978"
-            endingLineNumber = "978"
+            startingLineNumber = "986"
+            endingLineNumber = "986"
             landmarkName = "Engine::c_preprocess(sections)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3227,8 +3227,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "879"
-            endingLineNumber = "879"
+            startingLineNumber = "887"
+            endingLineNumber = "887"
             landmarkName = "Engine::parse_tokens(target, breakWord)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3243,8 +3243,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "902"
-            endingLineNumber = "902"
+            startingLineNumber = "910"
+            endingLineNumber = "910"
             landmarkName = "Engine::parse_tokens(target, breakWord)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3259,8 +3259,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "892"
-            endingLineNumber = "892"
+            startingLineNumber = "900"
+            endingLineNumber = "900"
             landmarkName = "Engine::parse_tokens(target, breakWord)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3275,8 +3275,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "878"
-            endingLineNumber = "878"
+            startingLineNumber = "886"
+            endingLineNumber = "886"
             landmarkName = "Engine::parse_tokens(target, breakWord)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3291,8 +3291,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "903"
-            endingLineNumber = "903"
+            startingLineNumber = "911"
+            endingLineNumber = "911"
             landmarkName = "Engine::parse_tokens(target, breakWord)"
             landmarkType = "7">
             <Locations>
@@ -3354,8 +3354,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "867"
-            endingLineNumber = "867"
+            startingLineNumber = "875"
+            endingLineNumber = "875"
             landmarkName = "Engine::empty_brackets(str)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3370,8 +3370,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "796"
-            endingLineNumber = "796"
+            startingLineNumber = "804"
+            endingLineNumber = "804"
             landmarkName = "Engine::indexOfWholeWord(string_to_search, word)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3386,8 +3386,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "781"
-            endingLineNumber = "781"
+            startingLineNumber = "789"
+            endingLineNumber = "789"
             landmarkName = "Engine::indexOfWholeWord(string_to_search, word)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3578,8 +3578,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "284"
-            endingLineNumber = "284"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
             landmarkName = "Engine::combine_objects(node_list, contexts)"
             landmarkType = "7">
             <Locations>
@@ -3626,8 +3626,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "580"
-            endingLineNumber = "580"
+            startingLineNumber = "588"
+            endingLineNumber = "588"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3642,8 +3642,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "562"
-            endingLineNumber = "562"
+            startingLineNumber = "570"
+            endingLineNumber = "570"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3658,8 +3658,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "567"
-            endingLineNumber = "567"
+            startingLineNumber = "575"
+            endingLineNumber = "575"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -3674,8 +3674,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "574"
-            endingLineNumber = "574"
+            startingLineNumber = "582"
+            endingLineNumber = "582"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4056,8 +4056,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "622"
-            endingLineNumber = "622"
+            startingLineNumber = "630"
+            endingLineNumber = "630"
             landmarkName = "Engine::create_subpatcher(new_name, node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4312,8 +4312,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "463"
-            endingLineNumber = "463"
+            startingLineNumber = "471"
+            endingLineNumber = "471"
             landmarkName = "Engine::write_code(object, unique_name, write_type)"
             landmarkType = "7">
             <Locations>
@@ -4360,8 +4360,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "459"
-            endingLineNumber = "459"
+            startingLineNumber = "467"
+            endingLineNumber = "467"
             landmarkName = "Engine::write_code(object, unique_name, write_type)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4408,8 +4408,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "498"
-            endingLineNumber = "498"
+            startingLineNumber = "506"
+            endingLineNumber = "506"
             landmarkName = "Engine::write_code(object, unique_name, write_type)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4888,8 +4888,8 @@
             filePath = "../../../Source/Engine.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "330"
-            endingLineNumber = "330"
+            startingLineNumber = "338"
+            endingLineNumber = "338"
             landmarkName = "Engine::combine_objects(node_list, contexts)"
             landmarkType = "7">
          </BreakpointContent>

@@ -228,6 +228,7 @@ void Engine::set_arguments(Object& target, const String& arguments) {
            var_def = String(argc);
        }
         
+        
         for(auto& [ctx, io] : ports) {
             std::get<0>(io) = std::get<0>(io).replace("argc", String(argc));
             std::get<1>(io)= std::get<1>(io).replace("argc", String(argc));
@@ -254,7 +255,14 @@ void Engine::set_arguments(Object& target, const String& arguments) {
             
             if(parse_error_2.isNotEmpty()) std::cout << parse_error_2 << std::endl;
         }
+        
+        if(auto* found = find_by_name(variables, ctx + "_inputs")) {
+            std::get<2>(*found) =  std::get<0>(io);
+        }
     }
+    
+   
+    
 }
 
 
