@@ -80,7 +80,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "50"
             endingLineNumber = "50"
-            landmarkName = "Edge::get_canvas_bounds()"
+            landmarkName = "Edge::paint(g)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -160,7 +160,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "57"
             endingLineNumber = "57"
-            landmarkName = "Edge::paint(g)"
+            landmarkName = "Edge::resized()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -176,7 +176,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "54"
             endingLineNumber = "54"
-            landmarkName = "Edge::get_canvas_bounds()"
+            landmarkName = "Edge::resized()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -192,8 +192,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "55"
             endingLineNumber = "55"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "Edge::resized()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -302,9 +302,9 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "447"
-            endingLineNumber = "447"
-            landmarkName = "Canvas::create_patch()"
+            startingLineNumber = "449"
+            endingLineNumber = "449"
+            landmarkName = "Canvas::create_patch(gui_offset)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -318,9 +318,9 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "450"
-            endingLineNumber = "450"
-            landmarkName = "Canvas::create_patch()"
+            startingLineNumber = "452"
+            endingLineNumber = "452"
+            landmarkName = "Canvas::create_patch(gui_offset)"
             landmarkType = "7">
             <Locations>
                <Location
@@ -396,9 +396,9 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "549"
-            endingLineNumber = "549"
-            landmarkName = "Canvas::create_patch()"
+            startingLineNumber = "541"
+            endingLineNumber = "541"
+            landmarkName = "Canvas::create_patch(gui_offset)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -412,9 +412,9 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "434"
-            endingLineNumber = "434"
-            landmarkName = "Canvas::create_patch()"
+            startingLineNumber = "436"
+            endingLineNumber = "436"
+            landmarkName = "Canvas::create_patch(gui_offset)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -572,8 +572,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
             landmarkName = "MainComponent::mouseDown(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -588,8 +588,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "268"
-            endingLineNumber = "268"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
             landmarkName = "MainComponent::mouseDown(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -604,8 +604,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "280"
-            endingLineNumber = "280"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
             landmarkName = "MainComponent::mouseDrag(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -620,8 +620,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "281"
-            endingLineNumber = "281"
+            startingLineNumber = "295"
+            endingLineNumber = "295"
             landmarkName = "MainComponent::mouseDrag(e)"
             landmarkType = "7">
          </BreakpointContent>
@@ -748,8 +748,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "318"
-            endingLineNumber = "318"
+            startingLineNumber = "332"
+            endingLineNumber = "332"
             landmarkName = "MainComponent::save_project()"
             landmarkType = "7">
          </BreakpointContent>
@@ -780,8 +780,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "294"
-            endingLineNumber = "294"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
             landmarkName = "MainComponent::open_project()"
             landmarkType = "7">
          </BreakpointContent>
@@ -796,8 +796,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "296"
-            endingLineNumber = "296"
+            startingLineNumber = "310"
+            endingLineNumber = "310"
             landmarkName = "MainComponent::open_project()"
             landmarkType = "7">
          </BreakpointContent>
@@ -812,8 +812,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "295"
-            endingLineNumber = "295"
+            startingLineNumber = "309"
+            endingLineNumber = "309"
             landmarkName = "MainComponent::open_project()"
             landmarkType = "7">
          </BreakpointContent>
@@ -828,8 +828,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "297"
-            endingLineNumber = "297"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
             landmarkName = "MainComponent::open_project()"
             landmarkType = "7">
          </BreakpointContent>
@@ -844,8 +844,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
+            startingLineNumber = "314"
+            endingLineNumber = "314"
             landmarkName = "MainComponent::open_project()"
             landmarkType = "7">
          </BreakpointContent>
@@ -908,9 +908,9 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "508"
-            endingLineNumber = "508"
-            landmarkName = "Canvas::create_patch()"
+            startingLineNumber = "509"
+            endingLineNumber = "509"
+            landmarkName = "Canvas::create_patch(gui_offset)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -924,8 +924,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "181"
-            endingLineNumber = "181"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
             landmarkName = "MainComponent::factory(id, tree)"
             landmarkType = "7">
          </BreakpointContent>
@@ -940,8 +940,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "180"
-            endingLineNumber = "180"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
             landmarkName = "MainComponent::factory(id, tree)"
             landmarkType = "7">
          </BreakpointContent>
@@ -956,8 +956,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
+            startingLineNumber = "192"
+            endingLineNumber = "192"
             landmarkName = "MainComponent::factory(id, tree)"
             landmarkType = "7">
          </BreakpointContent>
@@ -972,8 +972,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
+            startingLineNumber = "190"
+            endingLineNumber = "190"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -988,8 +988,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "175"
-            endingLineNumber = "175"
+            startingLineNumber = "189"
+            endingLineNumber = "189"
             landmarkName = "unknown"
             landmarkType = "0">
             <Locations>
@@ -1051,8 +1051,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "177"
-            endingLineNumber = "177"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
             landmarkName = "unknown"
             landmarkType = "0">
          </BreakpointContent>
@@ -1401,9 +1401,9 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "502"
-            endingLineNumber = "502"
-            landmarkName = "Canvas::create_patch()"
+            startingLineNumber = "503"
+            endingLineNumber = "503"
+            landmarkName = "Canvas::create_patch(gui_offset)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1417,9 +1417,9 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "517"
-            endingLineNumber = "517"
-            landmarkName = "Canvas::create_patch()"
+            startingLineNumber = "518"
+            endingLineNumber = "518"
+            landmarkName = "Canvas::create_patch(gui_offset)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1433,9 +1433,9 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "503"
-            endingLineNumber = "503"
-            landmarkName = "Canvas::create_patch()"
+            startingLineNumber = "504"
+            endingLineNumber = "504"
+            landmarkName = "Canvas::create_patch(gui_offset)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -1561,8 +1561,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "339"
-            endingLineNumber = "339"
+            startingLineNumber = "353"
+            endingLineNumber = "353"
             landmarkName = "MainComponent::send_data(port, data)"
             landmarkType = "7">
          </BreakpointContent>
@@ -2201,9 +2201,9 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "444"
-            endingLineNumber = "444"
-            landmarkName = "Canvas::create_patch()"
+            startingLineNumber = "446"
+            endingLineNumber = "446"
+            landmarkName = "Canvas::create_patch(gui_offset)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -2217,9 +2217,9 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "446"
-            endingLineNumber = "446"
-            landmarkName = "Canvas::create_patch()"
+            startingLineNumber = "448"
+            endingLineNumber = "448"
+            landmarkName = "Canvas::create_patch(gui_offset)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3896,9 +3896,9 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "492"
-            endingLineNumber = "492"
-            landmarkName = "Canvas::create_patch()"
+            startingLineNumber = "493"
+            endingLineNumber = "493"
+            landmarkName = "Canvas::create_patch(gui_offset)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3912,9 +3912,9 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "472"
-            endingLineNumber = "472"
-            landmarkName = "Canvas::create_patch()"
+            startingLineNumber = "473"
+            endingLineNumber = "473"
+            landmarkName = "Canvas::create_patch(gui_offset)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3928,9 +3928,9 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "474"
-            endingLineNumber = "474"
-            landmarkName = "Canvas::create_patch()"
+            startingLineNumber = "475"
+            endingLineNumber = "475"
+            landmarkName = "Canvas::create_patch(gui_offset)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3944,9 +3944,9 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "475"
-            endingLineNumber = "475"
-            landmarkName = "Canvas::create_patch()"
+            startingLineNumber = "476"
+            endingLineNumber = "476"
+            landmarkName = "Canvas::create_patch(gui_offset)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3960,9 +3960,9 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "477"
-            endingLineNumber = "477"
-            landmarkName = "Canvas::create_patch()"
+            startingLineNumber = "478"
+            endingLineNumber = "478"
+            landmarkName = "Canvas::create_patch(gui_offset)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -3976,9 +3976,9 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "482"
-            endingLineNumber = "482"
-            landmarkName = "Canvas::create_patch()"
+            startingLineNumber = "483"
+            endingLineNumber = "483"
+            landmarkName = "Canvas::create_patch(gui_offset)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -4104,8 +4104,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "215"
-            endingLineNumber = "215"
+            startingLineNumber = "229"
+            endingLineNumber = "229"
             landmarkName = "MainComponent::paint(g)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4120,8 +4120,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
+            startingLineNumber = "230"
+            endingLineNumber = "230"
             landmarkName = "MainComponent::paint(g)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4472,8 +4472,8 @@
             filePath = "../../Source/MainComponent.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
+            startingLineNumber = "247"
+            endingLineNumber = "247"
             landmarkName = "MainComponent::resized()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4625,70 +4625,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "532520AE-372A-4803-AAF7-C51BE74A270C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Canvas.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "543"
-            endingLineNumber = "543"
-            landmarkName = "Canvas::create_patch()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1BBB1CAC-FF4F-4AA1-882A-DBBCF8FCC203"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Canvas.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "530"
-            endingLineNumber = "530"
-            landmarkName = "Canvas::create_patch()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "861A740D-23ED-409A-BD80-D4F6A9A810FB"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Canvas.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "539"
-            endingLineNumber = "539"
-            landmarkName = "Canvas::create_patch()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "897F7205-EBD3-4228-A795-D570B1ACF806"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../../Source/Canvas.cpp"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "541"
-            endingLineNumber = "541"
-            landmarkName = "Canvas::create_patch()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "66F7EBBE-390B-452E-8166-64B31BB1BBB6"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -4760,8 +4696,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "594"
-            endingLineNumber = "594"
+            startingLineNumber = "586"
+            endingLineNumber = "586"
             landmarkName = "Canvas::encapsulate(encapsulate_func)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4776,8 +4712,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "664"
-            endingLineNumber = "664"
+            startingLineNumber = "656"
+            endingLineNumber = "656"
             landmarkName = "Canvas::encapsulate(encapsulate_func)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4786,7 +4722,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "591A15C1-810C-4212-967A-3CEA5AE51395"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../Source/Canvas.cpp"
@@ -4808,8 +4744,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "600"
-            endingLineNumber = "600"
+            startingLineNumber = "592"
+            endingLineNumber = "592"
             landmarkName = "Canvas::encapsulate(encapsulate_func)"
             landmarkType = "7">
          </BreakpointContent>
@@ -4824,8 +4760,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "676"
-            endingLineNumber = "676"
+            startingLineNumber = "668"
+            endingLineNumber = "668"
             landmarkName = "Canvas::timerCallback()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4840,8 +4776,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "675"
-            endingLineNumber = "675"
+            startingLineNumber = "667"
+            endingLineNumber = "667"
             landmarkName = "Canvas::timerCallback()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4856,8 +4792,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "674"
-            endingLineNumber = "674"
+            startingLineNumber = "666"
+            endingLineNumber = "666"
             landmarkName = "Canvas::timerCallback()"
             landmarkType = "7">
             <Locations>
@@ -4904,8 +4840,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "672"
-            endingLineNumber = "672"
+            startingLineNumber = "664"
+            endingLineNumber = "664"
             landmarkName = "Canvas::timerCallback()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4920,8 +4856,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "680"
-            endingLineNumber = "680"
+            startingLineNumber = "672"
+            endingLineNumber = "672"
             landmarkName = "Canvas::timerCallback()"
             landmarkType = "7">
          </BreakpointContent>
@@ -4936,8 +4872,8 @@
             filePath = "../../Source/Canvas.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "679"
-            endingLineNumber = "679"
+            startingLineNumber = "671"
+            endingLineNumber = "671"
             landmarkName = "Canvas::timerCallback()"
             landmarkType = "7">
          </BreakpointContent>
@@ -5127,7 +5063,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "63"
             endingLineNumber = "63"
-            landmarkName = "Edge::paint(g)"
+            landmarkName = "Edge::mouseDrag(e)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5159,7 +5095,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "65"
             endingLineNumber = "65"
-            landmarkName = "Edge::paint(g)"
+            landmarkName = "Edge::mouseDrag(e)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -5208,6 +5144,445 @@
             startingLineNumber = "222"
             endingLineNumber = "222"
             landmarkName = "Canvas::mouseUp(e)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A1A59B1C-0389-4721-A5F5-11794C62C099"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "717"
+            endingLineNumber = "717"
+            landmarkName = "Canvas::encapsulate_subpatcher(subpatcher, box_nodes, box_ports, offset)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A1A59B1C-0389-4721-A5F5-11794C62C099 - 78f47ab95f1398ef"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Canvas::encapsulate_subpatcher(Box*, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, std::__1::map&lt;juce::String, int, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, int&gt; &gt; &gt;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Canvas.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "733"
+                  endingLineNumber = "733"
+                  offsetFromSymbolStart = "1072">
+               </Location>
+               <Location
+                  uuid = "A1A59B1C-0389-4721-A5F5-11794C62C099 - 78f47ab95f1398ef"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Canvas::encapsulate_subpatcher(Box*, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, std::__1::map&lt;juce::String, int, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, int&gt; &gt; &gt;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Canvas.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "733"
+                  endingLineNumber = "733"
+                  offsetFromSymbolStart = "1124">
+               </Location>
+               <Location
+                  uuid = "A1A59B1C-0389-4721-A5F5-11794C62C099 - 78f47ab95f1398ef"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Canvas::encapsulate_subpatcher(Box*, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, std::__1::map&lt;juce::String, int, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, int&gt; &gt; &gt;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Canvas.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "733"
+                  endingLineNumber = "733"
+                  offsetFromSymbolStart = "1188">
+               </Location>
+               <Location
+                  uuid = "A1A59B1C-0389-4721-A5F5-11794C62C099 - 78f47ab95f1398ef"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Canvas::encapsulate_subpatcher(Box*, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, std::__1::map&lt;juce::String, int, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, int&gt; &gt; &gt;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Canvas.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "733"
+                  endingLineNumber = "733"
+                  offsetFromSymbolStart = "1240">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "03C707D6-7B91-4560-A34D-3DB4CF708B91"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "724"
+            endingLineNumber = "724"
+            landmarkName = "Canvas::encapsulate_subpatcher(subpatcher, box_nodes, box_ports, offset)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "882CDC5C-0088-490A-8090-239689B8DB5F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "722"
+            endingLineNumber = "722"
+            landmarkName = "Canvas::encapsulate_subpatcher(subpatcher, box_nodes, box_ports, offset)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "21F8DD65-A92A-48D2-96A4-21FBEF7AFC33"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "719"
+            endingLineNumber = "719"
+            landmarkName = "Canvas::encapsulate_subpatcher(subpatcher, box_nodes, box_ports, offset)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F04DD925-3953-4BBA-8173-22364581DCC6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "695"
+            endingLineNumber = "695"
+            landmarkName = "Canvas::encapsulate_subpatcher(subpatcher, box_nodes, box_ports, offset)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F04DD925-3953-4BBA-8173-22364581DCC6 - 78f47ab95f139b35"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Canvas::encapsulate_subpatcher(Box*, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, std::__1::map&lt;juce::String, int, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, int&gt; &gt; &gt;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Canvas.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "711"
+                  endingLineNumber = "711"
+                  offsetFromSymbolStart = "232">
+               </Location>
+               <Location
+                  uuid = "F04DD925-3953-4BBA-8173-22364581DCC6 - 78f47ab95f139b35"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Canvas::encapsulate_subpatcher(Box*, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, std::__1::map&lt;juce::String, int, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, int&gt; &gt; &gt;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Canvas.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "711"
+                  endingLineNumber = "711"
+                  offsetFromSymbolStart = "296">
+               </Location>
+               <Location
+                  uuid = "F04DD925-3953-4BBA-8173-22364581DCC6 - 78f47ab95f139b35"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Canvas::encapsulate_subpatcher(Box*, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, std::__1::map&lt;juce::String, int, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, int&gt; &gt; &gt;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Canvas.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "711"
+                  endingLineNumber = "711"
+                  offsetFromSymbolStart = "536">
+               </Location>
+               <Location
+                  uuid = "F04DD925-3953-4BBA-8173-22364581DCC6 - 78f47ab95f139b35"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Canvas::encapsulate_subpatcher(Box*, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, std::__1::map&lt;juce::String, int, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, int&gt; &gt; &gt;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Canvas.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "711"
+                  endingLineNumber = "711"
+                  offsetFromSymbolStart = "588">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0F9EAE1B-FCC7-4668-BC1F-B6080516C2F5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "707"
+            endingLineNumber = "707"
+            landmarkName = "Canvas::encapsulate_subpatcher(subpatcher, box_nodes, box_ports, offset)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "0F9EAE1B-FCC7-4668-BC1F-B6080516C2F5 - 78f47ab95f139980"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Canvas::encapsulate_subpatcher(Box*, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, std::__1::map&lt;juce::String, int, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, int&gt; &gt; &gt;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Canvas.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "722"
+                  endingLineNumber = "722"
+                  offsetFromSymbolStart = "688">
+               </Location>
+               <Location
+                  uuid = "0F9EAE1B-FCC7-4668-BC1F-B6080516C2F5 - 78f47ab95f139980"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Canvas::encapsulate_subpatcher(Box*, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, std::__1::map&lt;juce::String, int, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, int&gt; &gt; &gt;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Canvas.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "722"
+                  endingLineNumber = "722"
+                  offsetFromSymbolStart = "752">
+               </Location>
+               <Location
+                  uuid = "0F9EAE1B-FCC7-4668-BC1F-B6080516C2F5 - 78f47ab95f139980"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Canvas::encapsulate_subpatcher(Box*, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, std::__1::map&lt;juce::String, int, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, int&gt; &gt; &gt;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Canvas.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "722"
+                  endingLineNumber = "722"
+                  offsetFromSymbolStart = "1128">
+               </Location>
+               <Location
+                  uuid = "0F9EAE1B-FCC7-4668-BC1F-B6080516C2F5 - 78f47ab95f139980"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Canvas::encapsulate_subpatcher(Box*, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, std::__1::map&lt;juce::String, int, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, int&gt; &gt; &gt;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Canvas.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "722"
+                  endingLineNumber = "722"
+                  offsetFromSymbolStart = "1212">
+               </Location>
+               <Location
+                  uuid = "0F9EAE1B-FCC7-4668-BC1F-B6080516C2F5 - 78f47ab95f139980"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Canvas::encapsulate_subpatcher(Box*, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, std::__1::map&lt;juce::String, int, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, int&gt; &gt; &gt;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Canvas.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "722"
+                  endingLineNumber = "722"
+                  offsetFromSymbolStart = "1436">
+               </Location>
+               <Location
+                  uuid = "0F9EAE1B-FCC7-4668-BC1F-B6080516C2F5 - 78f47ab95f139980"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Canvas::encapsulate_subpatcher(Box*, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, std::__1::map&lt;juce::String, int, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, int&gt; &gt; &gt;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Canvas.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "722"
+                  endingLineNumber = "722"
+                  offsetFromSymbolStart = "1508">
+               </Location>
+               <Location
+                  uuid = "0F9EAE1B-FCC7-4668-BC1F-B6080516C2F5 - 78f47ab95f139980"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Canvas::encapsulate_subpatcher(Box*, std::__1::map&lt;juce::String, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt;, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, std::__1::vector&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt;, std::__1::allocator&lt;std::__1::vector&lt;int, std::__1::allocator&lt;int&gt; &gt; &gt; &gt; &gt; &gt; &gt;, int, std::__1::map&lt;juce::String, int, std::__1::less&lt;juce::String&gt;, std::__1::allocator&lt;std::__1::pair&lt;juce::String const, int&gt; &gt; &gt;)"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Canvas.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "722"
+                  endingLineNumber = "722"
+                  offsetFromSymbolStart = "1560">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F47A10DB-EBD6-4EA1-97E3-A8B5E153A0D1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "709"
+            endingLineNumber = "709"
+            landmarkName = "Canvas::encapsulate_subpatcher(subpatcher, box_nodes, box_ports, offset)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "924BBA2D-BD0B-47F4-963E-3A6A4027A1D8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "469"
+            endingLineNumber = "469"
+            landmarkName = "Canvas::create_patch(gui_offset)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "924BBA2D-BD0B-47F4-963E-3A6A4027A1D8 - 27646b34cf315ca2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Canvas::create_patch()"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Canvas.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "466"
+                  endingLineNumber = "466"
+                  offsetFromSymbolStart = "2460">
+               </Location>
+               <Location
+                  uuid = "924BBA2D-BD0B-47F4-963E-3A6A4027A1D8 - 27646b34cf315ca2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Canvas::create_patch()"
+                  moduleName = "Cerite_GUI"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/timschoen/Cerite_Light/Cerite_GUI/Source/Canvas.cpp"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "466"
+                  endingLineNumber = "466"
+                  offsetFromSymbolStart = "2580">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "30500019-032C-46F3-8818-4FED9490B049"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "507"
+            endingLineNumber = "507"
+            landmarkName = "Canvas::create_patch(gui_offset)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C4563A24-00ED-4DF8-A1D5-D0F54ACB3B7E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/GUIObjects.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
+            landmarkName = "GUIComponent::register_receive(port, receive_callback)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AE8A8E20-EF77-4718-B8F6-C0B64C821A74"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../Source/Canvas.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "737"
+            endingLineNumber = "737"
+            landmarkName = "Canvas::encapsulate_subpatcher(subpatcher, box_nodes, box_ports, offset)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

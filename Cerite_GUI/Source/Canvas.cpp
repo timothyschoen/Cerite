@@ -408,12 +408,14 @@ void Canvas::paste_selection(String to_paste) {
 }
 
 
-Patch Canvas::create_patch() {
+Patch Canvas::create_patch(int gui_offset) {
     
     std::map<SafePointer<Edge>, Array<SafePointer<Connection>>> edge_connections;
     std::map<SafePointer<Edge>, std::map<String, std::vector<int>>> edge_nodes;
     
     std::map<String, int> ctx_sizes;
+    
+    ctx_sizes["gui"] = gui_offset;
     
     Patch patch;
     
@@ -449,13 +451,12 @@ Patch Canvas::create_patch() {
         }
     }
     
+    std::map<Box*, std::map<String, std::vector<std::vector<int>>>> box_list;
     
     for(auto& box : findChildrenOfClass<Box>()) {
         std::map<String, std::vector<std::vector<int>>> box_nodes;
         
         std::vector<int> gui_nodes;
-        
-
         
         for(auto& [name, ctx] : contexts) {
             int num_edges = box->ports[name].first + box->ports[name].second ;
@@ -511,39 +512,30 @@ Patch Canvas::create_patch() {
         
         String box_type = box->text_label.getText();
         
-        // Store the communication points in the object,
+        // Store the GUI communication points in the object,
         // Add current state as argument to gui object
         if(box_nodes.count("gui") && box->graphics) {
             box->gui_nodes = gui_nodes;
             box_type = box_type.upToFirstOccurrenceOf(" ", false, false) + " " + box->graphics->get_state();
         }
-        
-        String id = box->getState().getProperty("ID");
-        
+
+        box_list[box] = box_nodes;
+        patch.push_back({box_type, box->getX(), box->getY(), box_nodes});
+    }
+    
+    
+    // Linearize subpatchers
+    for(auto& box : findChildrenOfClass<Box>()) {
         String box_name = box->getState().getProperty(Identifiers::box_name).toString().upToFirstOccurrenceOf(" ", false, false);
+        
         if(box_name == "p") {
+            auto subpatcher = encapsulate_subpatcher(box, box_list[box], box->ports, ctx_sizes);
             
-            auto* new_cnv = box->findChildrenOfClass<Canvas>()[0];
-            auto temp_file = File::createTempFile(".obj");
-            
-            
-            auto sub_patch = new_cnv->create_patch();
-            auto objects = NodeConverter::create_objects(sub_patch);
-            auto formatted = NodeConverter::format_nodes(objects, Library::contexts);
-            
-            Uuid new_id;
-            String name = box->getState().getProperty(Identifiers::box_name).toString().fromFirstOccurrenceOf(" ", false, false).upToFirstOccurrenceOf(".", false, false);
-            auto subpatcher = Engine::create_subpatcher(name, formatted, Library::contexts);
-            String to_save = Engine::reconstruct_object(subpatcher, Library::contexts);
-            
-            temp_file.replaceWithText(to_save);
-            
-            patch.push_back({temp_file.getFullPathName() + " " + name.upToFirstOccurrenceOf(".", false, false), box->getX(), box->getY(), box_nodes});
-            
+            for(auto& obj : subpatcher) {
+                patch.push_back(obj);
+            }
             continue;
         }
-        
-        patch.push_back({box_type, box->getX(), box->getY(), box_nodes});
     }
     
     return patch;
@@ -690,4 +682,58 @@ Array<Edge*> Canvas::get_all_edges() {
     };
     
     return all_edges;
+}
+
+Patch Canvas::encapsulate_subpatcher(Box* subpatcher, std::map<String, std::vector<std::vector<int>>> box_nodes, std::map<String, std::pair<int, int>> box_ports, std::map<String, int> offset)
+{
+
+    auto* sub_cnv = subpatcher->findChildOfClass<Canvas>(0);
+    auto tree = sub_cnv->getState();
+    Patch new_patch = sub_cnv->create_patch(offset["gui"]);
+    
+    // First add an offset to all the nodes
+    for(const auto& [ctx_name, ctx] : Library::contexts) {
+        if(ctx_name == "gui") continue;
+        for(auto& [obj_name, x, y, nodes] : new_patch) {
+            for(int i = 0; i < nodes[ctx_name].size(); i++) {
+                for(int j = 0; j < nodes[ctx_name][i].size(); j++) {
+                    nodes[ctx_name][i][j] += offset[ctx_name];
+                }
+            }
+        }
+    }
+
+    // Find all the in and out objects and forward their connections
+    for(const auto& [ctx_name, ctx] : Library::contexts) {
+        for(auto& [obj_name, x, y, nodes] : new_patch) {
+            String obj_type = obj_name.upToFirstOccurrenceOf(" ", false, false);
+            int idx_arg = obj_name.fromFirstOccurrenceOf(" ", false, false).upToFirstOccurrenceOf(" ", false, false).getIntValue();
+            // Fix nodes for in and out objects
+            if(Library::subpatchers_connections[ctx_name].contains(obj_type)) {
+     
+                bool input = Library::subpatchers_connections[ctx_name][0] == obj_type;
+                int final_idx = (input ? idx_arg : idx_arg + box_ports[ctx_name].first) - 1;
+                
+                for(auto& [obj_2_name, x_2, y_2, nodes_2] : new_patch) {
+                if(!nodes_2.count(ctx_name)) continue;
+                for(int i = 0; i < nodes_2[ctx_name].size(); i++) {
+                    for(int j = 0; j < nodes_2[ctx_name][i].size(); j++) {
+                        // bad, it could change it multiple times...
+                        if(nodes_2[ctx_name][i][j] == nodes[ctx_name][0][0] && obj_2_name != obj_name) {
+                            nodes_2[ctx_name][i].erase(nodes_2[ctx_name][i].begin() + j);
+                            nodes_2[ctx_name][i].insert(nodes_2[ctx_name][i].end(), box_nodes[ctx_name][final_idx].begin(), box_nodes[ctx_name][final_idx].end());
+                        }
+                    }
+                }
+                }
+            }
+
+        }
+
+    }
+    
+    
+    
+    return new_patch;
+    
 }

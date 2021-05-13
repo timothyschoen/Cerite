@@ -65,9 +65,23 @@ MainComponent::MainComponent() : ValueTreeObject(ValueTree("Main")), console(tru
         player->apply_settings(settings_dialog->get_settings());
         bool result = player->compile(patch);
         
+        std::function<void(Canvas*)> register_subpatchers = [this, &register_subpatchers](Canvas* sub_cnv) {
+            for(auto& sub_box : sub_cnv->findChildrenOfClass<Box>()) {
+                if(sub_box->graphics) {
+                    sub_box->graphics->register_object();
+                }
+                if(auto* new_sub_cnv = sub_box->findChildOfClass<Canvas>(0)) {
+                    register_subpatchers(new_sub_cnv);
+                }
+            }
+        };
+        
         for(auto& box : get_current_canvas()->findChildrenOfClass<Box>()) {
             if(box->graphics && result) {
                 box->graphics->register_object();
+            }
+            if(auto* sub_cnv = box->findChildOfClass<Canvas>(0)) {
+                register_subpatchers(sub_cnv);
             }
         }
         

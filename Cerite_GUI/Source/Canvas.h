@@ -57,7 +57,7 @@ public:
     void mouseUp(const MouseEvent& e) override;
     void mouseMove(const MouseEvent& e) override;
     
-    Patch create_patch();
+    Patch create_patch(int gui_offset = 0);
     
     bool keyPressed(const KeyPress &key, Component *originatingComponent) override;
     
@@ -73,6 +73,8 @@ public:
     }
     
     void encapsulate(std::function<String(ValueTree)> encapsulate_func);
+    
+    Patch encapsulate_subpatcher(Box* subpatcher, std::map<String, std::vector<std::vector<int>>> box_nodes, std::map<String, std::pair<int, int>> box_ports, std::map<String, int> offset);
 
     
     void timerCallback() override;
